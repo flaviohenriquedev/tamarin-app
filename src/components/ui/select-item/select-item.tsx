@@ -1,10 +1,15 @@
 'use client'
 
-import { useState } from "react";
-import { SelectItemValue } from "@/components/ui/select-item/select-item-value";
-import { IoIosArrowDown } from "react-icons/io";
+import {useState} from "react";
+import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
+import {IoIosArrowDown} from "react-icons/io";
 
-export function SelectItem() {
+type Props = {
+    values: { label: string }[]
+    onSelect: (value: string) => void
+}
+
+export function SelectItem({values, onSelect}: Props) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<string>('');
 
@@ -14,7 +19,15 @@ export function SelectItem() {
 
     function handleSelectItem(valor: string) {
         setItemSelecionado(valor);
+        onSelect(valor)
         setShowList(false);
+    }
+
+    function renderItens() {
+        return values.map(value => {
+            return <SelectItemValue key={value.label}
+                                    setItemSelecionado={handleSelectItem} valor={value.label}/>
+        })
     }
 
     return (
@@ -58,10 +71,7 @@ export function SelectItem() {
                     ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}
                 `}
             >
-                <SelectItemValue setItemSelecionado={handleSelectItem} valor={`Item 1`} />
-                <SelectItemValue setItemSelecionado={handleSelectItem} valor={`Item 2`} />
-                <SelectItemValue setItemSelecionado={handleSelectItem} valor={`Item 3`} />
-                <SelectItemValue setItemSelecionado={handleSelectItem} valor={`Item 4`} />
+                {renderItens()}
             </ul>
         </div>
     )
