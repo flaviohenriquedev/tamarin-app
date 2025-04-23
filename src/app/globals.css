@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #ffffff;
+    --foreground: black;
+    font-family: Inter, sans-serif, Arial;
+}
+
+[data-theme='dark'] {
+    --background: #2d3250;
+    --foreground: #ffffff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-image-bg-light {
+    background-image: url('/assets/img/bg-light.jpg');
+}
+
+.bg-image-bg-dark {
+    background-image: url('/assets/img/bg-dark.jpg');
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+input {
+    background: var(--background);
+    color: var(--foreground);
+    padding: 0.5rem 0.75rem;
+    border: .1rem solid var(--foreground);
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 0 0 0 transparent;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+    border-color: mediumvioletred;
+}
+
+input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
