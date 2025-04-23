@@ -6,7 +6,7 @@ export function FormularioLogin() {
         <form className={'flex flex-col gap-4'}>
 
             <div className={`flex flex-col items-center`}>
-                <Image src={"/assets/img/lion_cropped_tight.png"} alt={"logo"} width={100} height={100}/>
+                <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
                 <span className={`text-xl`}>tamar<strong>in</strong></span>
             </div>
 
