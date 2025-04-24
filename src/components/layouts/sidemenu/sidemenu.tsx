@@ -3,36 +3,37 @@
 import {RouteType} from "@/types/RouteType";
 import {useContext} from "react";
 import {SideMenuContext} from "@/context/sidemenu-context";
+import {SidemenuItem} from "@/components/layouts/sidemenu/sidemenu-item";
 
 type Props = {
     expanded?: boolean;
     rotas: RouteType[]
 }
 
-export function SideMenu({expanded = false, rotas}: Props) {
+export function Sidemenu({expanded = true, rotas}: Props) {
 
     const {cliente} = useContext(SideMenuContext);
 
     const renderRotas = () => {
         return rotas.map(rota => {
             return (
-                <li className={`text-sm p-2 transition-all duration-100 hover:border-l-4 hover:border-orange-600`}
-                    key={rota.title}>
-                    <div className={`flex items-center gap-2 cursor-default`}>
-                        {rota.icon && <rota.icon />}
-                        {rota.title}
-                    </div>
-                </li>
+                <SidemenuItem key={rota.title} rota={rota} />
             )
         })
     }
 
     return (
-        <aside className={`flex flex-col gap-10 h-screen w-[18rem] px-2 ${expanded ? 'block' : 'hidden'} border-r border-[#363636]`}>
+        <aside className={`sidemenu flex flex-col gap-10 h-screen w-[25rem] px-2 ${expanded ? 'block' : 'hidden'} border-r border-[#363636]`}>
             <div className={`flex items-center justify-center max-h-20 min-h-20 font-bold`}>
                 {cliente}
             </div>
-            <ul>
+            <ul className={`
+            scrollbar-thumb-[#363636]
+            scrollbar-track-transparent
+            scrollbar-thin
+            overflow-y-scroll 
+            h-full 
+            pb-20`}>
                 {renderRotas()}
             </ul>
         </aside>

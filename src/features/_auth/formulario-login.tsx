@@ -1,21 +1,44 @@
-import React from 'react';
+'use client'
+
+import React, {FormEvent} from 'react';
 import Image from "next/image";
-import {Input} from "@/components/ui/input/input";
 import {Button} from "@/components/ui/button/button";
+import {useRouter} from "next/navigation";
+import {Autenticacao} from "@/class/Autenticacao";
+import {signIn} from "next-auth/react";
+import {InputString} from "@/components/ui/input/input-string";
+
 
 export function FormularioLogin() {
+    const router = useRouter();
+    const autenticacao = new Autenticacao();
+
+    async function handleSubmit(event: FormEvent) {
+        event.preventDefault()
+
+        const result = await signIn('credentials', {
+            email: autenticacao.email,
+            senha: autenticacao.senha,
+            redirect: false
+        })
+        if (result?.error) {
+            return console.log('Usuário e/ou Senha incorretos.')
+        }
+        router.replace("/init")
+    }
+
     return (
-        <form className={'flex flex-col gap-4 w-80'}>
+        <form className={'flex flex-col gap-4 w-80'} onSubmit={handleSubmit}>
 
             <div className={`flex flex-col items-center`}>
                 <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
                 <span className={`text-xl`}>tamar<strong>in</strong></span>
             </div>
 
-            <Input placeholder={`Email`}/>
+            <InputString entidade={autenticacao} atributo={`email`} name={`email`} type={"email"}/>
+            <InputString entidade={autenticacao} atributo={`senha`} name={`senha`} type={`password`}/>
 
-            <Input type={`password`} placeholder="Senha"/>
-            <Button>Entrar</Button>
+            <Button type={'submit'}>Entrar</Button>
         </form>
     );
 }

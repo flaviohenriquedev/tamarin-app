@@ -1,5 +1,5 @@
-import {EndPoint} from "@/sistema/_root/types/root-types";
-import {MetodoHTTP} from "@/sistema/_root/enums/root-enum";
+import {EndPoint} from "@/types/enpoint";
+import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 export const clienteEndPoints: EndPoint = {
     listar: {

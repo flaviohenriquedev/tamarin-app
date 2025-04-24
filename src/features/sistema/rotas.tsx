@@ -16,8 +16,7 @@ export type ModuloType = {
     icone: ReactNode,
     descricao: string,
     href: string,
-    destaque: boolean,
-    rotas: RouteType[]
+    destaque: boolean
 }
 
 export const rotasSistema: ModuloType[] = [
@@ -26,24 +25,15 @@ export const rotasSistema: ModuloType[] = [
         titulo: 'Gerenciamento do Sistema',
         icone: <IoSettingsSharp size={45}/>,
         descricao: 'Acesse as Configurações gerais do sistema.',
-        href: '/app/adm',
-        destaque: true,
-        rotas: [
-            {
-                title: 'Teste',
-                icon: icones.colaboradores,
-                href: '/adm/colaborador',
-                breadcrumbRef: 'colaborador'
-            }
-        ]
+        href: '/adm',
+        destaque: true
     },
     {
         modulo: 'RECURSOS_HUMANOS',
         titulo: 'Recursos Humanos',
         icone: <HiUsers size={45}/>,
         descricao: 'Gerencie colaboradores, folhas de pagamento e mais.',
-        href: '/app/rh',
-        destaque: false,
-        rotas: rotasRecursosHumanos
+        href: '/rh',
+        destaque: false
     }
 ]

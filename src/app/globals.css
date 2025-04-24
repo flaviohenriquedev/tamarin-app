@@ -33,3 +33,17 @@ body {
     text-wrap: balance;
   }
 }
+
+.container-app {
+    display: grid;
+    grid-template-areas: "sidemenu content";
+    grid-template-columns: 20rem 1fr;
+}
+
+.sidemenu {
+    grid-area: sidemenu;
+}
+
+.content {
+    grid-area: content;
+}

@@ -1,3 +1,4 @@
+import {Avatar} from "@/components/layouts/info-usuario/avatar";
 
 const nomeUsuario = 'Flavio Henrique Moreira Rosa'
 const email = 'flavio.henrique.dev@gmail.com'
@@ -12,19 +13,7 @@ export function InfoUsuario() {
                 <span className={`text-sm`}>{nomeFormatado}</span>
                 <span className={`text-[8pt]`}>{email}</span>
             </div>
-            <div className={`
-                    flex
-                    items-center
-                    justify-center
-                    text-white
-                    text-xl
-                    font-bold
-                    w-12
-                    h-12
-                    rounded-full 
-                    border-2 border-[#B8520A]`}>
-                FH
-            </div>
+            <Avatar />
         </div>
     )
 }

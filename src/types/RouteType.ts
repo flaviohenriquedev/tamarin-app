@@ -1,8 +1,8 @@
-import {IconType} from "react-icons";
+import {ReactNode} from "react";
 
 export type RouteType = {
     title: string
-    icon?: IconType
+    icon?: ReactNode
     href?: string
     breadcrumbRef: string
     subRoute?: RouteType[]

@@ -6,7 +6,7 @@ export const rotasRecursosHumanos: RouteType[] = [
     {
         title: 'Colaborador',
         icon: icones.colaboradores,
-        href: '/adm/colaborador',
+        href: '/rh/colaborador',
         breadcrumbRef: 'colaborador'
     },
     {
@@ -16,7 +16,7 @@ export const rotasRecursosHumanos: RouteType[] = [
         subRoute: [
             {
                 title: 'Lançamentos',
-                href: '/rh/folha/lancamentos',
+                href: '/folha-pagamento',
                 breadcrumbRef: 'lancamentos_folha'
             },
             {

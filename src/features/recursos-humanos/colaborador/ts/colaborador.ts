@@ -1,4 +1,5 @@
-import {EntidadeCliente} from "@/sistema/_root/entidades/EntidadeCliente";
+import {EntidadeCliente} from "@/class/EntidadeCliente";
+
 
 export class Colaborador extends EntidadeCliente {
     nomeCompleto: string;

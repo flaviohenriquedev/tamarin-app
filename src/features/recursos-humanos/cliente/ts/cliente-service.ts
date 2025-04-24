@@ -1,6 +1,6 @@
-import {CrudService} from "@/sistema/_root/service/crud-service";
-import {Cliente} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente";
-import {clienteEndPoints} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente-end-points";
+import {CrudService} from "@/services/crud-service";
+import {Cliente} from "@/features/recursos-humanos/cliente/ts/cliente";
+import {clienteEndPoints} from "@/features/recursos-humanos/cliente/ts/cliente-end-points";
 
 export class ClienteService extends CrudService<Cliente> {
     constructor() {

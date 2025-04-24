@@ -1,17 +1,11 @@
 'use client'
 
 import {useCallback, useEffect, useState} from "react";
-import {PageContainer} from "@/componentes/layout/app/page-container/page-container";
-import {Table} from "@/componentes/ui/data-display/table/table";
-import {ColaboradorService} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador-service";
-import {Colaborador} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador";
-import {
-    ColaboradorFormularioCadastro
-} from "@/sistema/recursos-humanos/modulos/colaborador/colaborador-formulario-cadastro";
-import {
-    colaboradorConlunasListagem
-} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador-colunas-listagem";
-import {Cliente} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente";
+import {Colaborador} from "@/features/recursos-humanos/colaborador/ts/colaborador";
+import {ColaboradorService} from "@/features/recursos-humanos/colaborador/ts/colaborador-service";
+import {colaboradorConlunasListagem} from "@/features/recursos-humanos/colaborador/ts/colaborador-colunas-listagem";
+import {Table} from "@/components/ui/table/table";
+
 
 const colaboradorService = new ColaboradorService();
 
@@ -39,13 +33,8 @@ export function ColaboradorPaginaInicial() {
 
     const onSave = {funcaoSalvar, callBack}
     return (
-        <PageContainer
-            onSave={onSave}
-            onModalOpen={() => setEntidade(new Colaborador())}
-            formularioCadastro={<ColaboradorFormularioCadastro colaborador={entidade}/>}>
-            <Table colunas={colaboradorConlunasListagem}
-                   lista={listaEntidade}
-                   funcaoDeletar={handleDeletar}/>
-        </PageContainer>
+        <Table colunas={colaboradorConlunasListagem}
+               lista={listaEntidade}
+               funcaoDeletar={handleDeletar}/>
     )
 }

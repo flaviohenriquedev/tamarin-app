@@ -1,20 +1,10 @@
 'use client'
 
 import {useCallback, useEffect, useState} from "react";
-import {PageContainer} from "@/componentes/layout/app/page-container/page-container";
-import {Table} from "@/componentes/ui/data-display/table/table";
-import {ColaboradorService} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador-service";
-import {Colaborador} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador";
-import {
-    ColaboradorFormularioCadastro
-} from "@/sistema/recursos-humanos/modulos/colaborador/colaborador-formulario-cadastro";
-import {
-    colaboradorConlunasListagem
-} from "@/sistema/recursos-humanos/modulos/colaborador/ts/colaborador-colunas-listagem";
-import {Cliente} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente";
-import {ClienteService} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente-service";
-import {clienteColunasListagem} from "@/sistema/recursos-humanos/modulos/cliente/ts/cliente-colunas-listagem";
-import {ClienteFormularioCadastro} from "@/sistema/recursos-humanos/modulos/cliente/cliente-formulario-cadastro";
+import {Table} from "@/components/ui/table/table";
+import {clienteColunasListagem} from "@/features/recursos-humanos/cliente/ts/cliente-colunas-listagem";
+import {Cliente} from "@/features/recursos-humanos/cliente/ts/cliente";
+import {ClienteService} from "@/features/recursos-humanos/cliente/ts/cliente-service";
 
 const clienteService = new ClienteService();
 
@@ -42,13 +32,8 @@ export function ClientePaginaInicial() {
 
     const onSave = {funcaoSalvar, callBack}
     return (
-        <PageContainer
-            onSave={onSave}
-            onModalOpen={() => setEntidade(new Cliente())}
-            formularioCadastro={<ClienteFormularioCadastro cliente={entidade}/>}>
-            <Table colunas={clienteColunasListagem}
-                   lista={listaEntidade}
-                   funcaoDeletar={handleDeletar}/>
-        </PageContainer>
+        <Table colunas={clienteColunasListagem}
+               lista={listaEntidade}
+               funcaoDeletar={handleDeletar}/>
     )
 }

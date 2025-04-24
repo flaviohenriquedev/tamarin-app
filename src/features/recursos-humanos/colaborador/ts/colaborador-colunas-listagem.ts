@@ -1,5 +1,5 @@
-import {Coluna} from "@/sistema/_root/types/root-types";
-import {TipoDadoEnum} from "@/sistema/_root/enums/root-enum";
+import {Coluna} from "@/types/Coluna";
+import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
 export const colaboradorConlunasListagem: Coluna[] = [
     {

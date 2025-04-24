@@ -14,20 +14,20 @@ import {PiDotsThreeFill} from "react-icons/pi";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {LuFile, LuFolderInput, LuFolderTree} from "react-icons/lu";
 
-
+const tamanhoIcone = 20
 export const icones = {
-    folhaPagamento: MdAttachMoney,
-    pontoFrequencia: MdOutlineAccessTime,
-    beneficios: MdCardGiftcard,
-    treinamentos: MdSchool,
-    recrutamentoSelecao: MdHowToReg,
-    desligamentos: MdExitToApp,
-    administracao: MdOutlineAdminPanelSettings,
-    colaboradores: BsPersonPlus,
-    setaParaDireita: IoIosArrowForward,
-    tresPontos: PiDotsThreeFill,
-    tresPontosCirculado: HiOutlineDotsCircleHorizontal,
-    pasta: LuFolderInput,
-    arvoreDePastas: LuFolderTree,
-    arquivo: LuFile
+    folhaPagamento: <MdAttachMoney size={tamanhoIcone}/>,
+    pontoFrequencia: <MdOutlineAccessTime size={tamanhoIcone}/>,
+    beneficios: <MdCardGiftcard size={tamanhoIcone}/>,
+    treinamentos: <MdSchool size={tamanhoIcone}/>,
+    recrutamentoSelecao: <MdHowToReg size={tamanhoIcone}/>,
+    desligamentos: <MdExitToApp size={tamanhoIcone}/>,
+    administracao: <MdOutlineAdminPanelSettings size={tamanhoIcone}/>,
+    colaboradores: <BsPersonPlus size={tamanhoIcone}/>,
+    setaParaDireita: <IoIosArrowForward size={tamanhoIcone}/>,
+    tresPontos: <PiDotsThreeFill size={tamanhoIcone}/>,
+    tresPontosCirculado: <HiOutlineDotsCircleHorizontal size={tamanhoIcone}/>,
+    pasta: <LuFolderInput size={tamanhoIcone}/>,
+    arvoreDePastas: <LuFolderTree size={tamanhoIcone}/>,
+    arquivo: <LuFile size={tamanhoIcone}/>
 };
