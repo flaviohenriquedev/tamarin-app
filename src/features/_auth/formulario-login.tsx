@@ -28,11 +28,11 @@ export function FormularioLogin() {
     }
 
     return (
-        <form className={'flex flex-col gap-4 w-80'} onSubmit={handleSubmit}>
+        <form className={'flex flex-col gap-5 w-96'} onSubmit={handleSubmit}>
 
-            <div className={`flex flex-col items-center`}>
+            <div className={`flex flex-col items-center pb-5`}>
                 <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
-                <span className={`text-xl`}>tamar<strong>in</strong></span>
+                <span className={`text-xl mt-1`}>tamar<strong>in</strong></span>
             </div>
 
             <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`} type={"email"}/>

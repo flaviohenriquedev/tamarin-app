@@ -40,7 +40,7 @@ export default function PaginaLogin() {
             <div className="absolute inset-0" style={{ backgroundColor: '#17181A', opacity: 0.91 }} />
 
             {/* Conteúdo da página */}
-            <div className="flex items-center justify-center p-20 relative z-10">
+            <div className="flex items-center justify-center p-20 relative z-10 h-screen pb-96">
                 <FormularioLogin />
             </div>
         </div>
