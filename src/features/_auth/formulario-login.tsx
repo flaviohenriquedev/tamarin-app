@@ -35,8 +35,8 @@ export function FormularioLogin() {
                 <span className={`text-xl`}>tamar<strong>in</strong></span>
             </div>
 
-            <InputString entidade={autenticacao} atributo={`email`} name={`email`} type={"email"}/>
-            <InputString entidade={autenticacao} atributo={`senha`} name={`senha`} type={`password`}/>
+            <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`} type={"email"}/>
+            <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`} type={`password`}/>
 
             <Button type={'submit'}>Entrar</Button>
         </form>

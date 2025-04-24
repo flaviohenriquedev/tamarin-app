@@ -35,10 +35,10 @@ export function SelectItem({values, onSelect}: Props) {
             <div
                 className={`
                     border-none
-                    outline-none
+                    outline-hidden
                     bg-[#363636]
-                    py-1 px-3
-                    rounded-sm
+                    p-2
+                    rounded-md
                     text-sm
                     focus:outline-1
                     focus:outline-[#B8520A]
@@ -66,7 +66,7 @@ export function SelectItem({values, onSelect}: Props) {
                     duration-300
                     w-full
                     bg-[#363636]
-                    rounded-sm
+                    rounded-md
                     text-[9pt]
                     ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}
                 `}

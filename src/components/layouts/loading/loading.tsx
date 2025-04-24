@@ -6,7 +6,7 @@ interface Props {
 export function Loading({tamanho, tipo}: Props) {
     return (
         <div
-            className={`flex items-center justify-center w-full h-full backdrop-blur-sm bg-base-200/20`}>
+            className={`flex items-center justify-center w-full h-full backdrop-blur-xs bg-base-200/20`}>
             <span className={`
                 loading
                 ${tipo ? tipo === 'dots' ? 'loading-dots'

@@ -9,7 +9,7 @@ export function Input({
     return (
         <input className={`
             border-none
-            outline-none
+            outline-hidden
             bg-[#363636]
             py-1 px-3
             rounded-xs

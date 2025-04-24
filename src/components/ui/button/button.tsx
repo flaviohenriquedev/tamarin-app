@@ -9,7 +9,8 @@ export function Button({children, type = 'button'}: Props) {
         <button className={`
                             bg-[#B8520A]
                             text-sm
-                            px-4 py-1
+                            rounded-md
+                            p-2
                             hover:bg-[#B8520A]/90
                             `}
                 type={type}>
