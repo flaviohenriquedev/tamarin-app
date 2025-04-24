@@ -1,6 +1,5 @@
 import {EntidadeCliente} from "@/class/EntidadeCliente";
 
-
 export class Colaborador extends EntidadeCliente {
     nomeCompleto: string;
     cpf: string;

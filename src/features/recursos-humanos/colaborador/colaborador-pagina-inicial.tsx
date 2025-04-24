@@ -1,40 +1,187 @@
 'use client'
 
-import {useCallback, useEffect, useState} from "react";
-import {Colaborador} from "@/features/recursos-humanos/colaborador/ts/colaborador";
-import {ColaboradorService} from "@/features/recursos-humanos/colaborador/ts/colaborador-service";
-import {colaboradorConlunasListagem} from "@/features/recursos-humanos/colaborador/ts/colaborador-colunas-listagem";
-import {Table} from "@/components/ui/table/table";
-
-
-const colaboradorService = new ColaboradorService();
+const colaboradores = [
+    {
+        nome: "Flavio Henrique",
+    },
+    {
+        nome: "Ludmilla Fernanda",
+    },
+] as const
 
 export function ColaboradorPaginaInicial() {
-    const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());
-    const [listaEntidade, setListaEntidade] = useState<Colaborador[]>([]);
-    const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
 
-    useEffect(() => {
-        colaboradorService.listar().then(result => {
-            setListaEntidade(result)
-        });
-    }, [atualizarLista]);
-
-    // function handleEditar(entidade: Colaborador) {
-    //     setUsuario(entidade);
-    // }
-
-    function handleDeletar(entidade: Colaborador) {
-        colaboradorService.deletar(entidade.id).then();
+    function renderColaborador() {
+        return colaboradores.map((colaborador) => {
+            return (
+                <div key={colaborador.nome}>
+                    {colaborador.nome}
+                </div>
+            )
+        })
     }
 
-    const funcaoSalvar = useCallback(() => colaboradorService.salvar(entidade), [entidade])
-    const callBack = useCallback(() => setAtualizarLista(prev => !prev), [])
-
-    const onSave = {funcaoSalvar, callBack}
     return (
-        <Table colunas={colaboradorConlunasListagem}
-               lista={listaEntidade}
-               funcaoDeletar={handleDeletar}/>
+        <div>
+            {renderColaborador()}
+            <div className="overflow-x-auto">
+                <table className="table">
+                    {/* head */}
+                    <thead>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Favorite Color</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {/* row 1 */}
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <td>
+                            <div className="flex items-center gap-3">
+                                <div className="avatar">
+                                    <div className="mask mask-squircle h-12 w-12">
+                                        <img
+                                            src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                            alt="Avatar Tailwind CSS Component" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="font-bold">Hart Hagerty</div>
+                                    <div className="text-sm opacity-50">United States</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            Zemlak, Daniel and Leannon
+                            <br />
+                            <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                        </td>
+                        <td>Purple</td>
+                        <th>
+                            <button className="btn btn-ghost btn-xs">details</button>
+                        </th>
+                    </tr>
+                    {/* row 2 */}
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <td>
+                            <div className="flex items-center gap-3">
+                                <div className="avatar">
+                                    <div className="mask mask-squircle h-12 w-12">
+                                        <img
+                                            src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                                            alt="Avatar Tailwind CSS Component" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="font-bold">Brice Swyre</div>
+                                    <div className="text-sm opacity-50">China</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            Carroll Group
+                            <br />
+                            <span className="badge badge-ghost badge-sm">Tax Accountant</span>
+                        </td>
+                        <td>Red</td>
+                        <th>
+                            <button className="btn btn-ghost btn-xs">details</button>
+                        </th>
+                    </tr>
+                    {/* row 3 */}
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <td>
+                            <div className="flex items-center gap-3">
+                                <div className="avatar">
+                                    <div className="mask mask-squircle h-12 w-12">
+                                        <img
+                                            src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                                            alt="Avatar Tailwind CSS Component" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="font-bold">Marjy Ferencz</div>
+                                    <div className="text-sm opacity-50">Russia</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            Rowe-Schoen
+                            <br />
+                            <span className="badge badge-ghost badge-sm">Office Assistant I</span>
+                        </td>
+                        <td>Crimson</td>
+                        <th>
+                            <button className="btn btn-ghost btn-xs">details</button>
+                        </th>
+                    </tr>
+                    {/* row 4 */}
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <td>
+                            <div className="flex items-center gap-3">
+                                <div className="avatar">
+                                    <div className="mask mask-squircle h-12 w-12">
+                                        <img
+                                            src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                                            alt="Avatar Tailwind CSS Component" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="font-bold">Yancy Tear</div>
+                                    <div className="text-sm opacity-50">Brazil</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            Wyman-Ledner
+                            <br />
+                            <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+                        </td>
+                        <td>Indigo</td>
+                        <th>
+                            <button className="btn btn-ghost btn-xs">details</button>
+                        </th>
+                    </tr>
+                    </tbody>
+                    {/* foot */}
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Job</th>
+                        <th>Favorite Color</th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     )
 }
