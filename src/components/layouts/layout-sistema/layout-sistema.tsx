@@ -13,9 +13,9 @@ export function LayoutSistema({rotas, children}: Props) {
     return (
         <main className={`flex`}>
             <Sidemenu rotas={rotas}/>
-            <div className={`flex flex-col w-full h-screen items-center gap-10`}>
+            <div className={`flex flex-col w-full h-screen items-center gap-2`}>
                 <Header/>
-                <div className={`w-full`}>
+                <div className={`flex flex-col gap-2 w-full`}>
                     <Breadcrumb rotas={rotas}/>
                     {children}
                 </div>

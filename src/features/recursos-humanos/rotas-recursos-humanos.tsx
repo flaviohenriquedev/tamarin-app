@@ -16,7 +16,7 @@ export const rotasRecursosHumanos: RouteType[] = [
         subRoute: [
             {
                 title: 'Lançamentos',
-                href: '/folha-pagamento',
+                href: '/rh/folha-pagamento/lancamentos',
                 breadcrumbRef: 'lancamentos_folha'
             },
             {

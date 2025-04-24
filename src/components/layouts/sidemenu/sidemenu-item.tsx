@@ -23,7 +23,8 @@ export function SidemenuItem({rota}: Props) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}
-                    className={`py-2 px-3 text-[9pt] cursor-default hover:bg-[#363636] rounded-md`}>
+                    className={`py-2 px-3 text-[9pt] cursor-default hover:bg-[#363636] rounded-md`}
+                    onClick={() => handleClick(rota)}>
                     {rota.title}
                 </li>
             )

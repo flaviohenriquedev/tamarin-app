@@ -19,20 +19,24 @@ export class StatusColaboradorFactory {
     private static readonly infos = {
         ATIVO: {
             label: 'Ativo',
-            bg: 'bg-[#41C227]'
+            bg: 'bg-[#41C227]',
+            borderColor: 'border-[#41C227]'
         },
         FERIAS: {
             label: 'Férias',
-            bg: 'bg-[#27ABC2]'
+            bg: 'bg-[#27ABC2]',
+            borderColor: 'border-[#27ABC2]'
 
         },
         AFASTADO: {
             label: 'Afastado',
-            bg: 'bg-[#E6A10B]'
+            bg: 'bg-[#E6A10B]',
+            borderColor: 'border-[#E6A10B]'
         },
         DESLIGADO: {
             label: 'Desligado',
-            bg: 'bg-[#D42C2C]'
+            bg: 'bg-[#D42C2C]',
+            borderColor: 'border-[#D42C2C]'
         }
     };
 

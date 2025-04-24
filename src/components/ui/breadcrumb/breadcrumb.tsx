@@ -17,8 +17,8 @@ export function Breadcrumb({rotas}: Props) {
     function renderData() {
         return (
             breadcrumbs && breadcrumbs.map((breadcrumb, index) => (
-                <li key={breadcrumb.title} className={`flex items-center ${pathname === breadcrumb.href ? 'text-[#B8520A]' : 'text-white/40'}`}>
-                    <div className={`flex items-center gap-2 p-2 ${pathname === breadcrumb.href ? 'text-sm' : 'text-xs'}`}>
+                <li key={breadcrumb.title} className={`flex items-center ${pathname === breadcrumb.href ? 'text-white' : 'text-white/40'}`}>
+                    <div className={`flex items-center gap-2 p-1 text-sm`}>
                         {breadcrumb.icon}
                         {breadcrumb.title}
                     </div>
@@ -30,7 +30,7 @@ export function Breadcrumb({rotas}: Props) {
 
     return (
         <div>
-            <ul className={`flex`}>
+            <ul className={`flex w-fit rounded-tr-md rounded-br-md pr-2`}>
                 {renderData()}
             </ul>
         </div>
