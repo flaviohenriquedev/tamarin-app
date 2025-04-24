@@ -37,7 +37,7 @@ export default function PaginaLogin() {
             }}
         >
             {/* Capa preta semi-transparente */}
-            <div className="absolute inset-0" style={{ backgroundColor: '#1F1F1F', opacity: 0.91 }} />
+            <div className="absolute inset-0" style={{ backgroundColor: '#17181A', opacity: 0.91 }} />
 
             {/* Conteúdo da página */}
             <div className="flex items-center justify-center p-20 relative z-10">

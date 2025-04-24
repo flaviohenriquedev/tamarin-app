@@ -9,7 +9,7 @@ export default function LayoutModuloRecursosHumanos({children}: { children: Reac
     return (
         <main className={`flex`}>
             <Sidemenu rotas={rotasRecursosHumanos} />
-            <div className={`flex flex-col w-full h-full justify-center items-center gap-10`}>
+            <div className={`flex flex-col w-full h-screen items-center gap-10`}>
                 <Header/>
                 {children}
             </div>
