@@ -5,15 +5,25 @@ import {useState} from "react";
 import {AnimatePresence} from "framer-motion";
 import {colaboradores, ColaboradorMockado} from "@/features/recursos-humanos/colaborador/ts/dados-mocados";
 import {ColaboradorInfo} from "@/features/recursos-humanos/colaborador/colaborador-info";
+import {Button} from "@/components/ui/button/button";
+import {LineContent} from "@/components/ui/line-content/line-content";
+import {openModal} from "@/utils/utils";
+import {Modal} from "@/components/ui/modal/modal";
+import {InputString} from "@/components/ui/input/input-string";
+import {EntidadePadrao} from "@/class/EntidadePadrao";
+import {Label} from "@/components/ui/label/label";
 
 export function ColaboradorPaginaInicial() {
 
-    const [colaborador, setColaborador] = useState<ColaboradorMockado>(new ColaboradorMockado())
+    const [colaboradorSelecionado, setColaboradorSelecionado] = useState<ColaboradorMockado>(new ColaboradorMockado())
+
 
     function renderColaborador() {
         return colaboradores.map((colaborador) => {
             return (
-                <tr key={colaborador.key} className={`hover:bg-[#363636]`} onDoubleClick={() => setColaborador(colaborador)}>
+                <tr key={colaborador.key}
+                    className={`${colaborador === colaboradorSelecionado ? 'bg-[#B8520A]' : 'hover:bg-[#363636]'}`}
+                    onDoubleClick={() => setColaboradorSelecionado(colaborador)}>
                     <th className={`text-center`}>
                         <label>
                             <input type="checkbox" className="checkbox"/>
@@ -53,10 +63,18 @@ export function ColaboradorPaginaInicial() {
     }
 
     return (
-        <div id={`container-principal`}
-             className={`relative flex justify-between`}>
-            <div id={`tabela`}
-                 className={`
+        <>
+            <div id={`container-principal`}
+                 className={`relative flex flex-col items-between`}>
+
+                <div id={`acoes`}>
+                    <LineContent className={`justify-end`}>
+                        <Button onClick={() => openModal(`modal-cadastro`)}>Novo Cadastro</Button>
+                    </LineContent>
+                </div>
+
+                <div id={`tabela`}
+                     className={`
                 overflow-x-hidden
                 overflow-y-scroll
                 h-screen
@@ -66,30 +84,61 @@ export function ColaboradorPaginaInicial() {
                 scrollbar-track-transparent
                 scrollbar-thin
             `}>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th className={`text-center`}>
-                            <label>
-                                <input type="checkbox" className="checkbox"/>
-                            </label>
-                        </th>
-                        <th>Nome</th>
-                        <th>Cargo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {renderColaborador()}
-                    </tbody>
-                </table>
+                    <table className="table table-pin-rows">
+                        <thead>
+                        <tr>
+                            <th className={`text-center`}>
+                                <label>
+                                    <input type="checkbox" className="checkbox"/>
+                                </label>
+                            </th>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {renderColaborador()}
+                        </tbody>
+                    </table>
+                </div>
+                <AnimatePresence>
+                    {colaboradorSelecionado.nome && (
+                        <ColaboradorInfo
+                            colaborador={colaboradorSelecionado}
+                            setColaborador={setColaboradorSelecionado}/>
+                    )}
+                </AnimatePresence>
             </div>
-            <AnimatePresence>
-                {colaborador.nome && (
-                    <ColaboradorInfo
-                        colaborador={colaborador}
-                        setColaborador={setColaborador}/>
-                )}
-            </AnimatePresence>
-        </div>
+
+            <Modal idModal={`modal-cadastro`}>
+                <form className={`flex flex-col items-center justify-center p-10`}>
+                    <LineContent>
+                        <Label title={`Nome Completo`}>
+                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        </Label>
+
+                        <Label title={`CPF`}>
+                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        </Label>
+
+                        <Label title={`Data Nascimento`}>
+                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        </Label>
+                    </LineContent>
+
+                    <LineContent>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                    </LineContent>
+
+                    <LineContent>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
+                    </LineContent>
+                </form>
+            </Modal>
+        </>
     )
 }

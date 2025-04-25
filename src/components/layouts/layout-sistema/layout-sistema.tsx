@@ -1,6 +1,5 @@
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {Header} from "@/components/layouts/header/header";
-import {Breadcrumb} from "@/components/ui/breadcrumb/breadcrumb";
 import {RouteType} from "@/types/RouteType";
 import {ReactNode} from "react";
 
@@ -11,12 +10,11 @@ type Props = {
 
 export function LayoutSistema({rotas, children}: Props) {
     return (
-        <main className={`flex gap-2`}>
+        <main className={`flex gap-3`}>
             <Sidemenu rotas={rotas}/>
             <div className={`flex flex-col w-full h-screen items-center gap-2`}>
-                <Header/>
+                <Header rotas={rotas}/>
                 <div className={`flex flex-col gap-2 w-full`}>
-                    <Breadcrumb rotas={rotas}/>
                     {children}
                 </div>
             </div>

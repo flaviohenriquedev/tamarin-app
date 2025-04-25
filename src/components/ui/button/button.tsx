@@ -4,7 +4,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode
 }
 
-export function Button({children, type = 'button'}: Props) {
+export function Button({children, type = 'button', onClick}: Props) {
     return (
         <button className={`
                             bg-[#B8520A]
@@ -13,7 +13,8 @@ export function Button({children, type = 'button'}: Props) {
                             p-2
                             hover:bg-[#B8520A]/90
                             `}
-                type={type}>
+                type={type}
+                onClick={onClick}>
             {children}
         </button>
     )
