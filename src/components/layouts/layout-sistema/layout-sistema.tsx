@@ -10,11 +10,11 @@ type Props = {
 
 export function LayoutSistema({rotas, children}: Props) {
     return (
-        <main className={`flex gap-3`}>
+        <main className={`flex gap-5`}>
             <Sidemenu rotas={rotas}/>
-            <div className={`flex flex-col w-full h-screen items-center gap-2`}>
+            <div className={`flex flex-col w-full items-center gap-2`}>
                 <Header rotas={rotas}/>
-                <div className={`flex flex-col gap-2 w-full`}>
+                <div className={`flex w-full`}>
                     {children}
                 </div>
             </div>

@@ -1,5 +1,5 @@
-import {ColaboradorPaginaInicial} from "@/features/recursos-humanos/colaborador/colaborador-pagina-inicial";
+import {ColaboradorListar} from "@/features/recursos-humanos/colaborador/colaborador-listar";
 
 export default function PaginaColaborador() {
-    return <ColaboradorPaginaInicial />
+    return <ColaboradorListar />
 }

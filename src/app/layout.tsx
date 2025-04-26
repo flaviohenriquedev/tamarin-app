@@ -2,7 +2,9 @@ import type {Metadata} from "next";
 import {ReactNode} from "react";
 import Providers from "@/providers/providers";
 
+
 import "./globals.css";
+import PrelineScriptWrapper from "@/components/PrelineScriptWrapper";
 
 export const metadata: Metadata = {
     title: "Tamarin",
@@ -17,10 +19,14 @@ export default function RootLayout({
     return (
         <html lang="pt-BR" suppressHydrationWarning>
         <body
-            className={`antialiased overflow-hidden`}
+            className={`antialiased overflow-hidden bg-background`}
         >
-        <Providers>{children}</Providers>
+        <PrelineScriptWrapper/>
+        <Providers>
+            {children}
+        </Providers>
         </body>
+
         </html>
     );
 }

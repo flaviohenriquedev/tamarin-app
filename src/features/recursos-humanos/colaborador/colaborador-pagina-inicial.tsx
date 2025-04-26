@@ -22,7 +22,7 @@ export function ColaboradorPaginaInicial() {
         return colaboradores.map((colaborador) => {
             return (
                 <tr key={colaborador.key}
-                    className={`${colaborador === colaboradorSelecionado ? 'bg-[#B8520A]' : 'hover:bg-[#363636]'}`}
+                    className={`${colaborador === colaboradorSelecionado ? 'bg-base-200 text-base-content' : 'hover:bg-[#363636]'}`}
                     onDoubleClick={() => setColaboradorSelecionado(colaborador)}>
                     <th className={`text-center`}>
                         <label>
@@ -64,8 +64,7 @@ export function ColaboradorPaginaInicial() {
 
     return (
         <>
-            <div id={`container-principal`}
-                 className={`relative flex flex-col items-between`}>
+            <div className={`relative flex flex-col w-full items-between`}>
 
                 <div id={`acoes`}>
                     <LineContent className={`justify-end`}>
@@ -75,15 +74,13 @@ export function ColaboradorPaginaInicial() {
 
                 <div id={`tabela`}
                      className={`
-                overflow-x-hidden
-                overflow-y-scroll
-                h-screen
-                w-full
-                pb-50
-                scrollbar-thumb-[#363636]
-                scrollbar-track-transparent
-                scrollbar-thin
-            `}>
+                                    overflow-y-auto
+                                    h-screen
+                                    scrollbar-thumb-[#363636]
+                                    scrollbar-track-transparent
+                                    scrollbar-thin
+                                    pb-50
+                                `}>
                     <table className="table table-pin-rows">
                         <thead>
                         <tr>

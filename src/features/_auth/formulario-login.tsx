@@ -2,11 +2,11 @@
 
 import React, {FormEvent} from 'react';
 import Image from "next/image";
-import {Button} from "@/components/ui/button/button";
 import {useRouter} from "next/navigation";
 import {Autenticacao} from "@/class/Autenticacao";
 import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/input-string";
+import {Button} from "@/components/ui/button/button";
 
 
 export function FormularioLogin() {
@@ -34,9 +34,10 @@ export function FormularioLogin() {
                 <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
                 <span className={`text-xl mt-1`}>tamar<strong>in</strong></span>
             </div>
-
-            <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`} type={"email"}/>
-            <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`} type={`password`}/>
+            <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`}
+                         type={"email"}/>
+            <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`}
+                         type={`password`}/>
 
             <Button type={'submit'}>Entrar</Button>
         </form>

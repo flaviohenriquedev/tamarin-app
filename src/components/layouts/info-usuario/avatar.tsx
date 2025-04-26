@@ -18,14 +18,14 @@ export function Avatar() {
                     flex
                     items-center
                     justify-center
-                    text-white
+                    text-base-content
                     text-xl
                     font-bold
                     w-12
                     h-12
                     rounded-full
                     cursor-default
-                    border-2 border-[#B8520A]`}
+                    border-2 border-primary`}
             onClick={() => setShowMenu(!showMenu)}>
                 FH
             </div>

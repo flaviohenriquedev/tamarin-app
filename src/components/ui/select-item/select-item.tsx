@@ -3,6 +3,7 @@
 import {useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
+import {inputStyle} from "@/components/ui/input/style";
 
 type Props = {
     values: { label: string }[]
@@ -34,14 +35,8 @@ export function SelectItem({values, onSelect}: Props) {
         <div className="relative min-w-60">
             <div
                 className={`
-                    border-none
-                    outline-hidden
-                    bg-[#363636]
-                    p-2
-                    rounded-md
-                    text-sm
-                    focus:outline-1
-                    focus:outline-[#B8520A]
+                    ${inputStyle}
+                    
                     flex
                     items-center
                     justify-between
@@ -57,6 +52,11 @@ export function SelectItem({values, onSelect}: Props) {
 
             <ul
                 className={`
+                z-10
+                border
+                border-primary
+                    bg-base-200
+                    text-base-content
                     absolute
                     left-0
                     top-full
@@ -65,7 +65,6 @@ export function SelectItem({values, onSelect}: Props) {
                     transition-all
                     duration-300
                     w-full
-                    bg-[#363636]
                     rounded-md
                     text-[9pt]
                     ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}

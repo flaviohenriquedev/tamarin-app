@@ -7,11 +7,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({children, type = 'button', onClick}: Props) {
     return (
         <button className={`
-                            bg-[#B8520A]
+                            bg-primary
                             text-sm
+                            text-primary-content
                             rounded-md
                             p-2
-                            hover:bg-[#B8520A]/90
                             `}
                 type={type}
                 onClick={onClick}>

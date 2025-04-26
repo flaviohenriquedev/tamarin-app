@@ -1,14 +1,14 @@
 'use client'
 
 import {ReactNode} from "react";
-import {ThemeProvider} from 'next-themes'
 import {SideMenuContextProvider} from "@/context/sidemenu-context";
 import {SessionProvider} from "next-auth/react";
+import {ThemeProvider} from "next-themes";
 
 export default function Providers({children}: { children: ReactNode }) {
     return (
         <SessionProvider>
-            <ThemeProvider enableSystem={false}>
+            <ThemeProvider enableSystem={false} attribute={'class'}>
                 <SideMenuContextProvider>
                     {children}
                 </SideMenuContextProvider>

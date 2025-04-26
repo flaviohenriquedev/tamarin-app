@@ -16,7 +16,7 @@ export function Input({
             text-sm
             
             focus:outline-1 
-            focus:outline-[#B8520A]
+            focus:outline-primary
         `}
                placeholder={placeholder}
                type={type}/>

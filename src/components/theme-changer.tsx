@@ -1,31 +1,56 @@
-'use client'
+'use client';
 
-import {useTheme} from 'next-themes'
-import {useEffect, useState} from 'react'
+import {useTheme} from "next-themes";
+import {Moon, Sun} from "lucide-react";
+import {AnimatePresence, motion} from "framer-motion";
+import {useEffect, useState} from "react";
 
 export const ThemeChanger = () => {
-    const { theme, setTheme } = useTheme()
-    const [mounted, setMounted] = useState(false)
+    const { resolvedTheme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true)
-    }, [])
+        setMounted(true);
+    }, []);
 
-    useEffect(() => {
-        if (mounted && !theme) {
-            setTheme('dark')
-        }
-    }, [mounted, theme, setTheme])
+    const toggleTheme = () => {
+        setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    };
 
     if (!mounted) {
-        return null // Não renderiza nada até estar montado no cliente
+        return null; // ou um placeholder invisível
     }
 
     return (
-        <div className={`flex flex-col`}>
-            <>The current theme is: {theme}</>
-            <button onClick={() => setTheme('light')}>Light Mode</button>
-            <button onClick={() => setTheme('dark')}>Dark Mode</button>
-        </div>
-    )
-}
+        <button
+            onClick={toggleTheme}
+            className="relative w-10 h-10 flex items-center justify-center overflow-hidden"
+        >
+            <AnimatePresence mode="wait" initial={false}>
+                {resolvedTheme === "dark" ? (
+                    <motion.div
+                        key="sun"
+                        initial={{ y: -20, opacity: 0, rotate: -90 }}
+                        animate={{ y: 0, opacity: 1, rotate: 0 }}
+                        exit={{ y: 20, opacity: 0, rotate: 90 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute"
+                    >
+                        <Sun className="w-6 h-6 text-yellow-400" />
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="moon"
+                        initial={{ y: -20, opacity: 0, rotate: -90 }}
+                        animate={{ y: 0, opacity: 1, rotate: 0 }}
+                        exit={{ y: 20, opacity: 0, rotate: 90 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute"
+                    >
+                        <Moon className="w-6 h-6 text-slate-800" />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </button>
+    );
+};

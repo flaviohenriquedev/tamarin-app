@@ -55,8 +55,9 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                         border-l
                         border-t
                         rounded-tl-md
-                        border-[#363636]
-                        bg-[#17181A]
+                        border-gray-200
+                        dark:border-neutral-700
+                        bg-base-100
                         z-10
                         shadow-[0px_0_30px_rgba(0,0,0,0.4)]
                         overflow-y-scroll
@@ -121,7 +122,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                         <Link
                             prefetch={true}
                             href={''}
-                            className={`font-semibold text-sm text-[#B8520A] hover:underline`}>Dados Férias </Link>
+                            className={`font-semibold text-sm text-primary hover:underline`}>Dados Férias </Link>
                         <ul className={`pl-4`}>
                             <li>
                                 <label className={`font-light text-[9pt]`}>Data inicio: </label>
@@ -135,7 +136,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                     </li>
                     <li>
                         <Link prefetch={true} href={''}
-                              className={`font-semibold text-sm text-[#B8520A] hover:underline`}>Dados Admissão</Link>
+                              className={`font-semibold text-sm text-primary hover:underline`}>Dados Admissão</Link>
                         <ul className={`pl-4`}>
                             <li>
                                 <label className={`font-light text-[9pt]`}>Data admissão: </label>
@@ -154,7 +155,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
 
                     <li>
                         <Link prefetch={true} href={''}
-                              className={`font-semibold text-sm text-[#B8520A] hover:underline`}>Dados Aleatórios</Link>
+                              className={`font-semibold text-sm text-primary hover:underline`}>Dados Aleatórios</Link>
                         <ul className={`pl-4`}>
                             <li>
                                 <label className={`font-light text-[9pt]`}>Data inicio: </label>
@@ -169,7 +170,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
 
                     <li>
                         <Link prefetch={true} href={''}
-                              className={`font-semibold text-sm text-[#B8520A] hover:underline`}>Dados
+                              className={`font-semibold text-sm text-primary hover:underline`}>Dados
                             Afastamenho</Link>
                         <ul className={`pl-4`}>
                             <li>
@@ -185,7 +186,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
 
                     <li>
                         <Link prefetch={true} href={''}
-                              className={`font-semibold text-sm text-[#B8520A] hover:underline`}>Dados
+                              className={`font-semibold text-sm text-primary hover:underline`}>Dados
                             Desligamento</Link>
                         <ul className={`pl-4`}>
                             <li>

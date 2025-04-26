@@ -32,7 +32,7 @@ export function SidemenuItem({rota}: Props) {
     }
 
     return (
-        <li className={`text-[10pt] font-light my-4 border-l-2 border-transparent hover:border-orange-600`}
+        <li className={`text-[10pt] font-light my-4 border-l-2 border-transparent hover:border-primary`}
             key={rota.title}>
             <div className={`flex h-full p-2 items-center justify-between cursor-default`}
                  onClick={() => handleClick(rota)}>

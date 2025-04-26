@@ -1,56 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap') layer(base);
 
 @import "tailwindcss";
+@import "preline/variants.css";
+@import "preline/src/plugins/datepicker/styles.css";
+@import '../themes/_default-colors.css';
 
-@plugin "daisyui";
 @plugin 'tailwind-scrollbar';
+@source "../node_modules/preline/dist/*.js";
+@plugin "@tailwindcss/forms";
 
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentcolor);
-    }
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @utility text-balance {
     text-wrap: balance;
 }
 
-@layer utilities {
-    :root {
-        --background: #ffffff;
-        --foreground: black;
-        font-family: Inter, sans-serif, Arial;
-    }
+@theme inline {
+    --color-primary: var(--primary);
+    --color-primary-content: var(--primary-content);
+    --color-base-100: var(--base-100);
+    --color-base-200: var(--base-200);
+    --color-base-300: var(--base-300);
+    --color-base-content: var(--base-content);
+}
 
-    [data-theme='dark'] {
-        --background: #17181a;
-        --foreground: #ffffff;
-    }
+:root {
+    --primary: var(--color-orange-400);
+    --primary-content: var(--lg-primary-content);
+    --base-100: var(--lg-base-100);
+    --base-200: var(--lg-base-200);
+    --base-300: var(--lg-base-300);
+}
 
-    body {
-        color: var(--foreground);
-        background: var(--background);
-        height: 100vh;
-    }
-
-    .bg-image-bg-light {
-        background-image: url('/assets/img/bg-light.jpg');
-    }
-
-    .bg-image-bg-dark {
-        background-image: url('/assets/img/bg-dark.jpg');
-    }
+.dark {
+    --primary: var(--color-orange-400);
+    --primary-content: var(--dk-primary-content);
+    --base-content: var(--dk-base-content);
+    --base-100: var(--dk-base-100);
+    --base-200: var(--dk-base-200);
+    --base-300: var(--dk-base-300);
 }

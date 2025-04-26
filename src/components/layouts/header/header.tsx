@@ -3,9 +3,10 @@
 import {SelectItem} from "@/components/ui/select-item/select-item";
 import {InfoUsuario} from "@/components/layouts/info-usuario/info-usuario";
 import {SideMenuContext} from "@/context/sidemenu-context";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {Breadcrumb} from "@/components/ui/breadcrumb/breadcrumb";
 import {RouteType} from "@/types/RouteType";
+import {ThemeChanger} from "@/components/theme-changer";
 
 type Props = {
     rotas?: RouteType[];
@@ -30,6 +31,7 @@ export function Header({rotas}: Props) {
                         label: 'Nubank'
                     }
                 ]}/>
+                <ThemeChanger />
                 <InfoUsuario/>
             </div>
         </header>
