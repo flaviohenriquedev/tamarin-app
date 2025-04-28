@@ -8,7 +8,7 @@ import {ThemeProvider} from "next-themes";
 export default function Providers({children}: { children: ReactNode }) {
     return (
         <SessionProvider>
-            <ThemeProvider enableSystem={false} attribute={'class'}>
+            <ThemeProvider>
                 <SideMenuContextProvider>
                     {children}
                 </SideMenuContextProvider>

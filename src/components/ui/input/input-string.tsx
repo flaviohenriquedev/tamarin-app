@@ -3,6 +3,7 @@
 import React, {InputHTMLAttributes} from "react"
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {useValorAtributo} from "@/components/ui/input/hook/useValorAtributo";
+import {inputStyle} from "@/components/ui/input/style";
 
 interface Props<E extends EntidadePadrao> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string
@@ -29,8 +30,20 @@ export function InputString<E extends EntidadePadrao>({
     const {valorAtributo, atribuirValor} = useValorAtributo(entidade, atributo);
 
     return (
-        <div className="max-w-sm space-y-3">
-            <input type="text" className="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="This is placeholder" />
-        </div>
+        <input
+            className={inputStyle}
+            id={id}
+            placeholder={placeholder}
+            name={name}
+            maxLength={maxLength}
+            type={type ? type : "text"}
+            autoComplete={autoComplete}
+            disabled={disabled}
+            value={value ? value : valorAtributo}
+            onChange={onChange ? onChange : (e) => atribuirValor(e.target.value)}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+            required={required}
+        />
     );
 }

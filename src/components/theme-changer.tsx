@@ -1,9 +1,9 @@
 'use client';
 
 import {useTheme} from "next-themes";
-import {Moon, Sun} from "lucide-react";
-import {AnimatePresence, motion} from "framer-motion";
 import {useEffect, useState} from "react";
+import {AnimatePresence, motion} from "framer-motion";
+import {Moon, Sun} from "lucide-react";
 
 export const ThemeChanger = () => {
     const { resolvedTheme, setTheme } = useTheme();

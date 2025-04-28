@@ -55,8 +55,7 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                         border-l
                         border-t
                         rounded-tl-md
-                        border-gray-200
-                        dark:border-neutral-700
+                        border-base-content/10
                         bg-base-100
                         z-10
                         shadow-[0px_0_30px_rgba(0,0,0,0.4)]

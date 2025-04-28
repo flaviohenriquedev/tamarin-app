@@ -22,7 +22,7 @@ export function ColaboradorPaginaInicial() {
         return colaboradores.map((colaborador) => {
             return (
                 <tr key={colaborador.key}
-                    className={`${colaborador === colaboradorSelecionado ? 'bg-base-200 text-base-content' : 'hover:bg-[#363636]'}`}
+                    className={`${colaborador === colaboradorSelecionado ? 'bg-base-200 text-base-content' : 'hover:bg-base-300'}`}
                     onDoubleClick={() => setColaboradorSelecionado(colaborador)}>
                     <th className={`text-center`}>
                         <label>
@@ -76,7 +76,7 @@ export function ColaboradorPaginaInicial() {
                      className={`
                                     overflow-y-auto
                                     h-screen
-                                    scrollbar-thumb-[#363636]
+                                    scrollbar-thumb-base-300
                                     scrollbar-track-transparent
                                     scrollbar-thin
                                     pb-50

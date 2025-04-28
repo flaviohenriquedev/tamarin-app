@@ -6,7 +6,7 @@ type Props = {
 export function SelectItemValue({valor, setItemSelecionado}: Props) {
 
     return (
-        <li className={`px-3 py-2 hover:cursor-default hover:bg-[#1A1A1A]`} onClick={() => setItemSelecionado(valor)}>
+        <li className={`px-3 py-2 hover:cursor-default hover:bg-base-300`} onClick={() => setItemSelecionado(valor)}>
             {valor}
         </li>
     )

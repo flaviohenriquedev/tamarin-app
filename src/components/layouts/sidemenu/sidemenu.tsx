@@ -23,12 +23,12 @@ export function Sidemenu({expanded = true, rotas}: Props) {
     }
 
     return (
-        <aside className={`sidemenu flex flex-col gap-10 h-screen w-[25rem] min-w-[20rem] px-2 ${expanded ? 'block' : 'hidden'} border-r border-gray-200 dark:border-neutral-700`}>
+        <aside className={`sidemenu flex flex-col gap-10 h-screen w-[25rem] min-w-[20rem] px-2 ${expanded ? 'block' : 'hidden'} border-r border-base-200`}>
             <div className={`flex items-center justify-center max-h-20 min-h-20 font-bold`}>
                 {cliente}
             </div>
             <ul className={`
-            scrollbar-thumb-[#363636]
+            scrollbar-thumb-base-300
             scrollbar-track-transparent
             scrollbar-thin
             overflow-y-scroll 

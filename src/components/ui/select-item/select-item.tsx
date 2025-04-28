@@ -36,7 +36,6 @@ export function SelectItem({values, onSelect}: Props) {
             <div
                 className={`
                     ${inputStyle}
-                    
                     flex
                     items-center
                     justify-between
@@ -52,10 +51,10 @@ export function SelectItem({values, onSelect}: Props) {
 
             <ul
                 className={`
-                z-10
-                border
-                border-primary
-                    bg-base-200
+                    z-10
+                    border
+                    border-base-300
+                    bg-base-100
                     text-base-content
                     absolute
                     left-0

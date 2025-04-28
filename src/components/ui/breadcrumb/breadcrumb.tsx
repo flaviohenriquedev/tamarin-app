@@ -20,7 +20,7 @@ export function Breadcrumb({rotas}: Props) {
                 <li key={breadcrumb.title} className={`
                     flex
                     items-center
-                    ${pathname === breadcrumb.href ? 'text-white bg-[#363636] rounded-md px-2 py-1' : 'text-white/40'}
+                    ${pathname === breadcrumb.href ? 'text-base-content bg-base-300 rounded-md px-2 py-1' : 'text-base-content/40'}
                     `}>
                     <div className={`flex items-center gap-2 text-[9pt]`}>
                         {breadcrumb.icon}
