@@ -8,7 +8,7 @@ import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {AnimatePresence, motion} from "framer-motion";
 import Image from "next/image";
 import {RouteType} from "@/types/RouteType";
-import {inputStyle} from "@/components/ui/input/style";
+import {InputSearch} from "@/components/ui/input/input-search";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
@@ -134,21 +134,20 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 <AnimatePresence initial={false}>
                     {filteredData && filteredData.length > 0 && (
                         <motion.aside
-                            className={`flex pl-2 flex-col h-screen border-r border-base-200`}
+                            className={`flex gap-4 px-2 flex-col h-screen border-r border-base-200`}
                             initial={{width: 0, opacity: 0}}
                             animate={{width: '16rem', opacity: 1}}
                             exit={{width: 0, opacity: 0}}
                             transition={{duration: 0.2}}
                         >
                             {moduloSelecionado && (
-                                <div className={`flex border-b border-base-200 pl-4 items-center min-h-14`}>
+                                <div className={`flex border-b border-base-200 pl-3 items-center min-h-14`}>
                                     <label className={'font-bold'}>{moduloSelecionado.titulo}</label>
                                 </div>
                             )}
-
-                            <input className={inputStyle}
-                                         onChange={(e) => setSearchMenu(e.target.value)}/>
-
+                            <InputSearch
+                                placeholder={`Filtrar...`}
+                                onChange={(e) => setSearchMenu(e.target.value)}/>
                             <Sidemenu rotas={filteredData}/>
                         </motion.aside>
                     )}

@@ -1,8 +1,9 @@
 import {RouteType} from "@/types/RouteType";
 import {useState} from "react";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {IoIosArrowDown} from "react-icons/io";
 import {AnimatePresence, motion} from "framer-motion";
+import Link from "next/link";
 
 type Props = {
     rota: RouteType
@@ -11,6 +12,7 @@ type Props = {
 export function SidemenuItem({rota}: Props) {
     const [openList, setOpenList] = useState<boolean>(false)
     const route = useRouter();
+    const path = usePathname()
 
     function handleClick(rota: RouteType) {
         if (rota.href) {
@@ -23,9 +25,11 @@ export function SidemenuItem({rota}: Props) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}
-                    className={`py-2 px-3 text-[9pt] cursor-default hover:bg-base-300 rounded-md`}
+                    className={`flex items-center h-6 px-3 gap-4 text-[9pt] font-semibold cursor-default text-gray-500 rounded-md`}
                     onClick={() => handleClick(rota)}>
-                    {rota.title}
+                    <div className={`relative flex items-center ml-[.1rem] border-l min-h-full border-gray-500`}>
+                    </div>
+                    <Link prefetch={true} className={`cursor-default ${rota.href === path ? 'text-primary' : ''} hover:text-base-content p-1 w-full border-md`} href={rota.href!}>{rota.title}</Link>
                 </li>
             )
         })
@@ -33,42 +37,41 @@ export function SidemenuItem({rota}: Props) {
 
     return (
         <li
-            className={`text-[9pt] font-light p-1`}
+            className={`text-[10pt] font-light p-1`}
             key={rota.title}
         >
             <div
                 className={`
                     flex
                     h-full
-                    p-2
+                    py-1 px-2
                     items-center
                     justify-between
                     cursor-default
                     font-semibold
-                    ${openList ? 'bg-base-200 text-base-content' : 'text-gray-500'}
+                    ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-500'}
                     rounded-md hover:bg-base-200`}
                 onClick={() => handleClick(rota)}
             >
                 <div
                     className={`flex items-center gap-3 min-w-0 overflow-hidden whitespace-nowrap text-ellipsis`}
                 >
-                    {rota.icon && <div className={`${openList ? 'text-primary' : ''}`}>{rota.icon}</div>}
+                    {rota.icon && <div className={`${(openList || path === rota.href) ? 'text-primary' : ''}`}>{rota.icon}</div>}
                     <span className="truncate">{rota.title}</span>
                 </div>
 
                 {rota.subRoute && (
                     <div
                         className={`
-          flex
-          items-center
-          rounded-full
-          arrow-rota-menu
-          px-4
-          w-fit
-          transition-transform
-          duration-300
-          ${openList ? 'rotate-180' : ''}
-        `}
+                                      flex
+                                      items-center
+                                      rounded-full
+                                      arrow-rota-menu
+                                      w-fit
+                                      transition-transform
+                                      duration-300
+                                      ${openList ? 'rotate-180' : ''}
+                                    `}
                     >
                         <IoIosArrowDown />
                     </div>
@@ -78,7 +81,6 @@ export function SidemenuItem({rota}: Props) {
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
-                        className="pl-9"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
