@@ -32,44 +32,63 @@ export function SidemenuItem({rota}: Props) {
     }
 
     return (
-        <li className={`text-[10pt] font-light my-4 border-l-2 border-transparent hover:border-primary`}
-            key={rota.title}>
-            <div className={`flex h-full p-2 items-center justify-between cursor-default`}
-                 onClick={() => handleClick(rota)}>
-                <div className={`flex items-center gap-4 `}>
-                    {rota.icon && rota.icon}
-                    {rota.title}
+        <li
+            className={`text-[9pt] font-light p-1`}
+            key={rota.title}
+        >
+            <div
+                className={`
+                    flex
+                    h-full
+                    p-2
+                    items-center
+                    justify-between
+                    cursor-default
+                    font-semibold
+                    ${openList ? 'bg-base-200 text-base-content' : 'text-gray-500'}
+                    rounded-md hover:bg-base-200`}
+                onClick={() => handleClick(rota)}
+            >
+                <div
+                    className={`flex items-center gap-3 min-w-0 overflow-hidden whitespace-nowrap text-ellipsis`}
+                >
+                    {rota.icon && <div className={`${openList ? 'text-primary' : ''}`}>{rota.icon}</div>}
+                    <span className="truncate">{rota.title}</span>
                 </div>
+
                 {rota.subRoute && (
-                    <div className={`
-                                        flex
-                                        items-center
-                                        rounded-full
-                                        arrow-rota-menu
-                                        px-4
-                                        w-fit
-                                        transition-transform
-                                        duration-300
-                                        ${openList ? 'rotate-180' : ''}
-                                        `}>
-                        <IoIosArrowDown/>
+                    <div
+                        className={`
+          flex
+          items-center
+          rounded-full
+          arrow-rota-menu
+          px-4
+          w-fit
+          transition-transform
+          duration-300
+          ${openList ? 'rotate-180' : ''}
+        `}
+                    >
+                        <IoIosArrowDown />
                     </div>
                 )}
             </div>
+
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
-                        className={'pl-9'}
-                        initial={{height: 0, opacity: 0}}
-                        animate={{height: 'auto', opacity: 1}}
-                        exit={{height: 0, opacity: 0}}
-                        transition={{duration: 0.2}}
+                        className="pl-9"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
                     >
                         {renderSubItem(rota.subRoute)}
                     </motion.ul>
-
                 )}
             </AnimatePresence>
         </li>
+
     )
 }

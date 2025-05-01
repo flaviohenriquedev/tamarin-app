@@ -1,9 +1,9 @@
-import {icones} from "@/components/common/icones";
 import {IoSettingsSharp} from "react-icons/io5";
 import {HiUsers} from "react-icons/hi2";
 import {ReactNode} from "react";
 import {RouteType} from "@/types/RouteType";
 import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
+import {icones} from "@/components/common/icones";
 
 // const modulos = {
 //     GERENCIAMENTOS: 'Gerenciamento do Sistema',
@@ -16,24 +16,34 @@ export type ModuloType = {
     icone: ReactNode,
     descricao: string,
     href: string,
-    destaque: boolean
+    destaque: boolean,
+    rotas: RouteType[],
 }
 
 export const rotasSistema: ModuloType[] = [
     {
-        modulo: 'GERENCIAMENTOS',
-        titulo: 'Gerenciamento do Sistema',
-        icone: <IoSettingsSharp size={45}/>,
-        descricao: 'Acesse as Configurações gerais do sistema.',
-        href: '/adm',
-        destaque: true
-    },
-    {
         modulo: 'RECURSOS_HUMANOS',
         titulo: 'Recursos Humanos',
-        icone: <HiUsers size={45}/>,
+        icone: <HiUsers size={15}/>,
         descricao: 'Gerencie colaboradores, folhas de pagamento e mais.',
         href: '/rh',
-        destaque: false
+        destaque: false,
+        rotas: rotasRecursosHumanos
+    },
+    {
+        modulo: 'GERENCIAMENTOS',
+        titulo: 'Gerenciamento do Sistema',
+        icone: <IoSettingsSharp size={15}/>,
+        descricao: 'Acesse as Configurações gerais do sistema.',
+        href: '/adm',
+        destaque: true,
+        rotas: [
+            {
+                title: 'Colaborador',
+                icon: icones.colaboradores,
+                href: '/rh/colaborador',
+                breadcrumbRef: 'colaborador'
+            },
+        ]
     }
 ]

@@ -1,8 +1,8 @@
 'use client'
 
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {useSession} from "next-auth/react";
+import {useEffect} from "react";
+import {useRouter} from "next/navigation";
 
 type Options = {
     redirectIfAuthenticated?: boolean;
@@ -11,7 +11,7 @@ type Options = {
 
 export function useAuthRedirect({
                                     redirectIfAuthenticated = false,
-                                    redirectTo = "/login"
+                                    redirectTo = "/auth/login"
                                 }: Options = {}) {
     const { status } = useSession();
     const router = useRouter();

@@ -263,3 +263,8 @@
     --color-black: #000;
     --color-white: #fff;
 }
+
+.text-orientation-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+}

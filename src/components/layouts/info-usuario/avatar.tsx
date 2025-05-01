@@ -19,10 +19,10 @@ export function Avatar() {
                     items-center
                     justify-center
                     text-base-content
-                    text-xl
+                    text-sm
                     font-bold
-                    w-12
-                    h-12
+                    w-10
+                    h-10
                     rounded-full
                     cursor-default
                     border-2 border-primary`}

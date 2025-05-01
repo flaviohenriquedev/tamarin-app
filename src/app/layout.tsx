@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {ReactNode} from "react";
-import Providers from "@/providers/providers";
 
 import "./globals.css";
+import Providers from "@/providers/providers";
 
 export const metadata: Metadata = {
     title: "Tamarin",

@@ -36,6 +36,7 @@ export function SelectItem({values, onSelect}: Props) {
             <div
                 className={`
                     ${inputStyle}
+                    input-sm
                     flex
                     items-center
                     justify-between

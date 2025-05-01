@@ -10,7 +10,7 @@ export function InfoUsuario() {
     return (
         <div className={`flex gap-2 items-center`}>
             <div className={'flex justify-center items-end flex-col font-light'}>
-                <strong className={`text-sm`}>{nomeFormatado}</strong>
+                <strong className={`text-[9pt]`}>{nomeFormatado}</strong>
                 <span className={`text-[8pt]`}>{email}</span>
             </div>
             <Avatar />

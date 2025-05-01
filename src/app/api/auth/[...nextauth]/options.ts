@@ -30,7 +30,7 @@ export const nextAuthOptions = {
         }),
     ],
     pages: {
-        signIn: '/login',
+        signIn: '/auth/login',
         signOut: '/',
     },
     callbacks: {

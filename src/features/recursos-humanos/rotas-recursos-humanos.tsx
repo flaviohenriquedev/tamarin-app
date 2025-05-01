@@ -1,7 +1,6 @@
 import {icones} from "@/components/common/icones";
 import {RouteType} from "@/types/RouteType";
 
-// const tamanhoIcone = 18;
 export const rotasRecursosHumanos: RouteType[] = [
     {
         title: 'Colaborador',

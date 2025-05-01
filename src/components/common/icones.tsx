@@ -14,7 +14,7 @@ import {PiDotsThreeFill} from "react-icons/pi";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {LuFile, LuFolderInput, LuFolderTree} from "react-icons/lu";
 
-const tamanhoIcone = 20
+const tamanhoIcone = 13
 export const icones = {
     folhaPagamento: <MdAttachMoney size={tamanhoIcone}/>,
     pontoFrequencia: <MdOutlineAccessTime size={tamanhoIcone}/>,

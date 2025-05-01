@@ -17,7 +17,7 @@ export function Header({rotas}: Props) {
     const {setCliente} = useContext(SideMenuContext);
 
     return (
-        <header className={`flex items-center justify-between pr-8 w-full max-h-20 min-h-20`}>
+        <header className={`content-header bg-base-200 flex items-center justify-between pl-3 pr-4 w-full h-14 border-b border-base-300/50`}>
             {rotas && <Breadcrumb rotas={rotas}/>}
             <div className={`flex items-center gap-10 ml-auto`}>
                 <SelectItem onSelect={setCliente} values={[

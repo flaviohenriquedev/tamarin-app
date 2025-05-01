@@ -8,7 +8,6 @@ import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/input-string";
 import {Button} from "@/components/ui/button/button";
 
-
 export function FormularioLogin() {
     const router = useRouter();
     const autenticacao = new Autenticacao();
@@ -24,7 +23,7 @@ export function FormularioLogin() {
         if (result?.error) {
             return console.log('Usuário e/ou Senha incorretos.')
         }
-        router.replace("/init")
+        router.replace("/")
     }
 
     return (
