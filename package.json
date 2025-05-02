@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.2",
     "@types/lodash": "^4.17.16",
     "datatables.net": "^2.2.2",
     "dropzone": "^6.0.0-beta.2",

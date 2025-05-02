@@ -59,15 +59,16 @@ export function Table<E extends EntidadePadrao>({lista, colunas, funcaoEditar, f
     function renderRowItem(row: any) {
         return colunas.map((coluna, index) => {
             return (
-                <td key={`${index.toString()}-${coluna.descricao}`}>{row[coluna.field]}</td>
+                <td key={`${index.toString()}-${coluna.descricao}`}>
+                    {row[coluna.field]}</td>
             )
         })
     }
 
     return (
         <>
-            <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                <table className="table">
+            <div className="rounded-box border border-base-content/5 bg-base-100 h-screen overflow-x-auto">
+                <table className="table table-pin-rows">
                     <thead>
                     <tr>
                         {renderHead()}

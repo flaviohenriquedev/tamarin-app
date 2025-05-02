@@ -6,7 +6,7 @@ import {SideMenuContext} from "@/context/sidemenu-context";
 import React, {useContext} from "react";
 import {Breadcrumb} from "@/components/ui/breadcrumb/breadcrumb";
 import {RouteType} from "@/types/RouteType";
-import {ThemeChanger} from "@/components/theme-changer";
+import {ThemeChanger} from "@/components/ui/theme-changer/theme-changer";
 
 type Props = {
     rotas?: RouteType[];

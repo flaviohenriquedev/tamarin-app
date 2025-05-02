@@ -1,7 +1,7 @@
-import {Usuario} from "@/features/common/usuario/ts/usuario";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
+import {Usuario} from "@/features/gerenciamento-sistema/gestao-usuario/usuario/ts/usuario";
 
-export class Autenticacao extends EntidadePadrao{
+export class Autenticacao extends EntidadePadrao {
     email: string;
     senha: string;
     token: string;

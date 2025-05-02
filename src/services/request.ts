@@ -4,7 +4,7 @@ import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 export async function request<T>(
     endpoint: string,
     method: MetodoHTTP,
-    body?: any
+    body?: unknown,
 ): Promise<T | null> {
     const session = await getSession();
     const token = session?.user?.token;

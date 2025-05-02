@@ -1,6 +1,8 @@
+type Value = string | number | undefined | null;
+
 export interface SelectItem {
     label?: string;
-    value: any;
+    value: Value;
     styleClass?: string;
     icon?: string;
     title?: string;

@@ -3,7 +3,7 @@
 import {ReactNode} from "react";
 import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 import {Loading} from "@/components/layouts/loading/loading";
-import {LayoutInicial} from "@/features/layout-inicial/layout-inicial";
+import {LayoutInicial} from "@/components/layouts/layout-inicial/layout-inicial";
 
 export default function InitLayout({children} :{children: ReactNode}) {
 

@@ -1,0 +1,13 @@
+.container-pagina-cadastro {
+    display: grid;
+    grid-template-areas: "header-pagina-cadastro" "content-pagina-cadastro";
+    grid-template-rows: 1rem 1fr;
+}
+
+.header-pagina-cadastro {
+    grid-area: header-pagina-cadastro;
+}
+
+.content-pagina-cadastro {
+    grid-area: content-pagina-cadastro;
+}

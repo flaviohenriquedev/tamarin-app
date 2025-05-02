@@ -3,7 +3,7 @@ import {HiUsers} from "react-icons/hi2";
 import {ReactNode} from "react";
 import {RouteType} from "@/types/RouteType";
 import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
-import {icones} from "@/components/common/icones";
+import {rotasConfig} from "@/features/gerenciamento-sistema/rotas-config";
 
 // const modulos = {
 //     GERENCIAMENTOS: 'Gerenciamento do Sistema',
@@ -35,15 +35,8 @@ export const rotasSistema: ModuloType[] = [
         titulo: 'Gerenciamento do Sistema',
         icone: <IoSettingsSharp size={15}/>,
         descricao: 'Acesse as Configurações gerais do sistema.',
-        href: '/adm',
+        href: '/config',
         destaque: true,
-        rotas: [
-            {
-                title: 'Colaborador',
-                icon: icones.colaboradores,
-                href: '/rh/colaborador',
-                breadcrumbRef: 'colaborador'
-            },
-        ]
+        rotas: rotasConfig
     }
 ]
