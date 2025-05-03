@@ -3,12 +3,12 @@
 import {InfoUsuario} from "@/components/layouts/info-usuario/info-usuario";
 import React from "react";
 import {Breadcrumb} from "@/components/ui/breadcrumb/breadcrumb";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 import {ThemeChanger} from "@/components/ui/theme-changer/theme-changer";
 import {ClienteSelectItem} from "@/components/layouts/info-cliente/cliente-select-item";
 
 type Props = {
-    rotas?: RouteType[];
+    rotas?: TRoute[];
 }
 
 export function Header({rotas}: Props) {

@@ -1,15 +1,20 @@
 import {icones} from "@/components/common/icones";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 
-export const rotasConfig: RouteType[] = [
+export const rotasConfig: TRoute[] = [
     {
         title: 'Clientes',
         icon: icones.empresa,
         href: '/config/clientes',
     },
     {
+        title: 'Usuarios',
+        icon: icones.usuario,
+        href: '/manager/usuario'
+    },
+    {
         title: 'Dominio',
-        icon: icones.colaboradores,
+        icon: icones.configuracaoGeral,
         subRoute: [
             {
                 title: 'Localidade',

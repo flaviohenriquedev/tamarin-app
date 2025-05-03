@@ -1,10 +1,10 @@
 import {TColuna} from "@/types/TColuna";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const departamentoColunasListagem: TColuna[] = [
+export const usuarioColunasListagem: TColuna[] = [
     {
-        descricao: 'Descrição',
-        field: 'descricao',
+        descricao: 'Nome',
+        field: 'nome',
         tipoDado: TipoDadoEnum.STRING,
-    },
+    }
 ]

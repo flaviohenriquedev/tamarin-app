@@ -1,0 +1,17 @@
+.dl-container {
+    display: grid;
+    grid-template-areas: "dl-left dl-middle dl-right";
+    grid-template-columns: 8rem 2rem 8rem;
+}
+
+.dl-left {
+    grid-area: dl-left;
+}
+
+.dl-middle {
+    grid-area: dl-middle;
+}
+
+.dl-right {
+    grid-area: dl-right;
+}

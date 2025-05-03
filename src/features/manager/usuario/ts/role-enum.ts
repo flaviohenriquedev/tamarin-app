@@ -1,32 +1,32 @@
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
-export enum Status {
-    INATIVO = "INATIVO",
-    ATIVO = "ATIVO",
-    DELETADO = "DELETADO"
+export enum RoleUsuarioENUM {
+    MASTER = "MASTER",
+    ADMIN = "ADMIN",
+    USER = "USER"
 }
 
-export class StatusFactory {
+export class RoleUsuarioFactory {
 
-    private static readonly status: Status[] = [
-        Status.INATIVO,
-        Status.ATIVO,
-        Status.DELETADO
+    private static readonly status: RoleUsuarioENUM[] = [
+        RoleUsuarioENUM.MASTER,
+        RoleUsuarioENUM.ADMIN,
+        RoleUsuarioENUM.USER
     ];
 
     private static readonly infos = {
-        INATIVO: {
-            label: 'Inativo'
+        MASTER: {
+            label: 'Master'
         },
-        ATIVO: {
-            label: 'Ativo'
+        ADMIN: {
+            label: 'Administrador'
         },
-        DELETADO: {
-            label: 'Deletado'
+        USER: {
+            label: 'Usuário'
         }
     };
 
-    static getStatus(): Status[] {
+    static getStatus(): RoleUsuarioENUM[] {
         return this.status;
     }
 
@@ -36,7 +36,7 @@ export class StatusFactory {
         });
     }
 
-    static getLabel(status: Status): string {
+    static getLabel(status: RoleUsuarioENUM): string {
         return status ? this.infos[status].label : '';
     }
 

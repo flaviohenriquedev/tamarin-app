@@ -1,18 +1,18 @@
 "use client";
 
 import React, {createContext, useState} from "react";
-import {RouteType} from "@/types/RouteType";
-import {TSelectItemValue} from "@/components/ui/select-item/ts/TSelectItemValue";
+import {TRoute} from "@/types/TRoute";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 type SidemenuContextProps = {
     expanded: boolean;
     setExpanded: (value: boolean) => void;
     sideMenuEntered: boolean;
     setSideMenuEntered: (value: boolean) => void;
-    rotas: RouteType[];
-    setRotas: (rotas: RouteType[]) => void;
-    cliente: TSelectItemValue;
-    setCliente: (value: TSelectItemValue) => void;
+    rotas: TRoute[];
+    setRotas: (rotas: TRoute[]) => void;
+    cliente: TSelectItem;
+    setCliente: (value: TSelectItem) => void;
 };
 
 export const SideMenuContext = createContext<SidemenuContextProps>({
@@ -37,8 +37,8 @@ export const SideMenuContextProvider = ({
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [sideMenuEntered, setSideMenuEntered] = useState<boolean>(false);
-    const [rotas, setRotas] = useState<RouteType[]>([])
-    const [cliente, setCliente] = useState<TSelectItemValue>({value: '', label: ''})
+    const [rotas, setRotas] = useState<TRoute[]>([])
+    const [cliente, setCliente] = useState<TSelectItem>({value: '', label: ''})
 
     return (
         <SideMenuContext.Provider

@@ -1,10 +1,10 @@
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {Header} from "@/components/layouts/header/header";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 import {ReactNode} from "react";
 
 type Props = {
-    rotas: RouteType[],
+    rotas: TRoute[],
     children: ReactNode
 }
 

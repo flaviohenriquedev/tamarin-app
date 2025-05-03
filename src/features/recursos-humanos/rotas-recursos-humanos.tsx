@@ -1,7 +1,7 @@
 import {icones} from "@/components/common/icones";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 
-export const rotasRecursosHumanos: RouteType[] = [
+export const rotasRecursosHumanos: TRoute[] = [
     {
         title: 'Colaborador',
         icon: icones.colaboradores,
@@ -126,6 +126,10 @@ export const rotasRecursosHumanos: RouteType[] = [
             {
                 title: 'Departamentos',
                 href: '/rh/adm/departamento'
+            },
+            {
+                title: 'Usuarios',
+                href: '/manager/usuario'
             },
         ]
     }

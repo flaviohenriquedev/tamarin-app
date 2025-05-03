@@ -1,11 +1,11 @@
 'use client'
 
 import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {Coluna} from "@/types/Coluna";
+import {TColuna} from "@/types/TColuna";
 
 type Props<E extends EntidadePadrao> = {
     lista: E[];
-    colunas: Coluna[];
+    colunas: TColuna[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
 }

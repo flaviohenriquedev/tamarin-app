@@ -1,6 +1,6 @@
 type Value = string | number | undefined | null;
 
-export interface SelectItem {
+export type TSelectItem = {
     label?: string;
     value: Value;
     styleClass?: string;

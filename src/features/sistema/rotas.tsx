@@ -1,7 +1,7 @@
 import {IoSettingsSharp} from "react-icons/io5";
 import {HiUsers} from "react-icons/hi2";
 import {ReactNode} from "react";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
 import {rotasConfig} from "@/features/gerenciamento-sistema/rotas-config";
 
@@ -17,7 +17,7 @@ export type ModuloType = {
     descricao: string,
     href: string,
     destaque: boolean,
-    rotas: RouteType[],
+    rotas: TRoute[],
 }
 
 export const rotasSistema: ModuloType[] = [

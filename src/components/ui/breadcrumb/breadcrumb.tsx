@@ -2,11 +2,11 @@
 
 import {usePathname} from "next/navigation";
 import {IoIosArrowForward} from "react-icons/io";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 import {formarBreadcrumb} from "@/components/ui/breadcrumb/formar-breadcrumb";
 
 type Props = {
-    rotas: RouteType[]
+    rotas: TRoute[]
 }
 
 export function Breadcrumb({rotas}: Props) {

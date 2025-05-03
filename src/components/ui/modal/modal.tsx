@@ -70,7 +70,10 @@ export default function Modal({children, isOpen, setIsOpen, title}: Props) {
                             data-closed:sm:scale-95
                         `}
                     >
-                        <div className={`flex justify-end px-6 py-4 w-full`} onClick={() => setIsOpen(false)}><X className={`cursor-pointer`}/></div>
+                        <div className={`flex justify-end px-6 py-4 w-full`}
+                             onClick={() => setIsOpen(false)}>
+                            <X className={`hover:text-primary`}/>
+                        </div>
                         {title && (<div><span>{title}</span></div>)}
                         {children}
                     </DialogPanel>

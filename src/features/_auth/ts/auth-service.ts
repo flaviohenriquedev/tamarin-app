@@ -1,4 +1,4 @@
-import {EndPoint} from "@/types/enpoint";
+import {EndPoint} from "@/types/TEndpoint";
 import {Usuario} from "@/features/gerenciamento-sistema/gestao-usuario/usuario/ts/usuario";
 
 export class AuthService {

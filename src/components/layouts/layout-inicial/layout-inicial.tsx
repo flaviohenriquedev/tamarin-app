@@ -7,7 +7,7 @@ import {ModuloType, rotasSistema} from "@/features/sistema/rotas";
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {AnimatePresence, motion} from "framer-motion";
 import Image from "next/image";
-import {RouteType} from "@/types/RouteType";
+import {TRoute} from "@/types/TRoute";
 import {InputSearch} from "@/components/ui/input/input-search";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
@@ -15,11 +15,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     const [moduloSelecionado, setModuloSelecionado] = useState<ModuloType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
     const [searchMenu, setSearchMenu] = useState("");
-    const [filteredData, setFilteredData] = useState<RouteType[]>();
+    const [filteredData, setFilteredData] = useState<TRoute[]>();
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     function onMouseEnter() {
+
         timeoutRef.current = setTimeout(() => {
             setMostrarTooltip(true);
         }, 800);
@@ -29,7 +30,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
-        setMostrarTooltip(false);
+        setMostrarTooltip(!mostrarTooltip);
     }
 
     function handleClick(modulo: ModuloType) {
@@ -49,11 +50,11 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
     useEffect(() => {
         const filterMenu = () => {
-            const filteredMap: { [key: string]: RouteType } = {};
+            const filteredMap: { [key: string]: TRoute } = {};
 
             if (moduloSelecionado?.rotas) {
                 moduloSelecionado?.rotas.forEach((d) => {
-                    const filteredMenu: RouteType = {...d};
+                    const filteredMenu: TRoute = {...d};
                     if (
                         d.title
                             .toLowerCase()
@@ -82,7 +83,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 });
             }
 
-            const filtered: RouteType[] = Object.values(filteredMap);
+            const filtered: TRoute[] = Object.values(filteredMap);
             setFilteredData(filtered);
         };
 
@@ -96,11 +97,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                     onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
                     className={`px-1`}
                     onClick={() => handleClick(modulo)}>
+
                     <div data-tip={modulo.titulo}
                          className={`
                             flex
                             border-2
-                            ${mostrarTooltip ? 'tooltip' : ''}
+                            ${moduloSelecionado && modulo.modulo !== moduloSelecionado.modulo && mostrarTooltip ? 'tooltip' : ''}
                             ${moduloSelecionado && modulo.modulo === moduloSelecionado.modulo ? `
                                 bg-primary/15
                                 border-primary

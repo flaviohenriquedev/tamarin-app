@@ -1,4 +1,4 @@
-import {SelectItem} from "@/interface/SelectItem";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 export enum StatusColaborador {
     ATIVO = "ATIVO",
@@ -44,7 +44,7 @@ export class StatusColaboradorFactory {
         return this.status;
     }
 
-    static getSelectItens(): SelectItem[] {
+    static getSelectItens(): TSelectItem[] {
         return this.status.map(item => {
             return {label: this.getLabel(item), value: item};
         });
@@ -54,7 +54,7 @@ export class StatusColaboradorFactory {
         return status ? this.infos[status].label : '';
     }
 
-    static getItemByInfo(info: string): SelectItem | undefined {
+    static getItemByInfo(info: string): TSelectItem | undefined {
         const status = this.status.find(item => item === info);
 
         if (status) {

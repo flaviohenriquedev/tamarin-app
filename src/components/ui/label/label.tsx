@@ -16,18 +16,21 @@ export function Label({children, title, required}: Props) {
             flex-col
             gap-1
         `}>
-            <label className={`
+            {title && (
+                <label className={`
                 flex
                 gap-1
                 items-center
             `}>
-                {required && <FaAsterisk size={8} color="red"/>}
-                <span className={`
+
+                    {required && <FaAsterisk size={8} color="red"/>}
+                    <span className={`
                     text-[9pt]
                     label-text
                     pl-1
                 `}>{title}</span>
-            </label>
+                </label>
+            )}
             {children}
         </div>
     );

@@ -1,4 +1,4 @@
-import {EndPoint} from "@/types/enpoint";
+import {EndPoint} from "@/types/TEndpoint";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 const rotas: EndPoint = {

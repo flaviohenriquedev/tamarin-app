@@ -1,8 +1,8 @@
-import {TSelectItemValue} from "@/components/ui/select-item/ts/TSelectItemValue";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 type Props = {
-    valor: TSelectItemValue,
-    setItemSelecionado: (valor: TSelectItemValue) => void,
+    valor: TSelectItem,
+    setItemSelecionado: (valor: TSelectItem) => void,
 }
 
 export function SelectItemValue({valor, setItemSelecionado}: Props) {

@@ -1,6 +1,6 @@
 import {request} from "@/services/request";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {EndPoint} from "@/types/enpoint";
+import {EndPoint} from "@/types/TEndpoint";
 
 export class CrudService<E extends EntidadePadrao> {
     protected endpoint: EndPoint;
