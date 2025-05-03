@@ -10,18 +10,10 @@ import {
     ColaboradorMockado
 } from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/dados-mocados";
 import {ColaboradorInfo} from "@/features/recursos-humanos/gestao-colaborador/colaborador/colaborador-info";
-import {Button} from "@/components/ui/button/button";
-import {LineContent} from "@/components/ui/line-content/line-content";
-import {openModal} from "@/utils/utils";
-import {Modal} from "@/components/ui/modal/modal";
-import {InputString} from "@/components/ui/input/input-string";
-import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {Label} from "@/components/ui/label/label";
 
 export function ColaboradorPaginaInicial() {
 
     const [colaboradorSelecionado, setColaboradorSelecionado] = useState<ColaboradorMockado>(new ColaboradorMockado())
-
 
     function renderColaborador() {
         return colaboradores.map((colaborador) => {
@@ -70,13 +62,6 @@ export function ColaboradorPaginaInicial() {
     return (
         <>
             <div className={`relative flex flex-col w-full items-between`}>
-
-                <div id={`acoes`}>
-                    <LineContent className={`justify-end`}>
-                        <Button onClick={() => openModal(`modal-cadastro`)}>Novo Cadastro</Button>
-                    </LineContent>
-                </div>
-
                 <div id={`tabela`}
                      className={`
                                     overflow-y-auto
@@ -111,36 +96,6 @@ export function ColaboradorPaginaInicial() {
                     )}
                 </AnimatePresence>
             </div>
-
-            <Modal idModal={`modal-cadastro`}>
-                <form className={`flex flex-col items-center justify-center p-10`}>
-                    <LineContent>
-                        <Label title={`Nome Completo`}>
-                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        </Label>
-
-                        <Label title={`CPF`}>
-                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        </Label>
-
-                        <Label title={`Data Nascimento`}>
-                            <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        </Label>
-                    </LineContent>
-
-                    <LineContent>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                    </LineContent>
-
-                    <LineContent>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                        <InputString atributo={`teste`} entidade={new EntidadePadrao()}/>
-                    </LineContent>
-                </form>
-            </Modal>
         </>
     )
 }

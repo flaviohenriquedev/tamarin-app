@@ -15,9 +15,13 @@ export class CrudService<E extends EntidadePadrao> {
         return resultado ?? [];
     }
 
-    async salvar(data: E): Promise<E | null> {
+    async salvar(data: E, callback?: () => void): Promise<E | null> {
         if (!this.endpoint.salvar) return null;
-        return await request<E | null>(this.endpoint.salvar.caminho, this.endpoint.salvar.metodo, data);
+        return await request<E | null>(this.endpoint.salvar.caminho, this.endpoint.salvar.metodo, data)
+            .then((response) => {
+                if (callback) callback();
+                return response
+            });
     }
 
     async atualizar(id: string | number, data: E): Promise<E | null> {

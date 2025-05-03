@@ -41,4 +41,4 @@ export function InputNumerico<E extends EntidadePadrao>({
             required={required}
         />
     );
-};
+}

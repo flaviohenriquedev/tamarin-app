@@ -2,13 +2,14 @@
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {
-    LocalidadePaisFormulario
-} from "@/features/gerenciamento-sistema/gestao-localidade/pais/localidade-pais-formulario";
+    LocalidadePaisCamposFormulario
+} from "@/features/gerenciamento-sistema/gestao-localidade/pais/localidade-pais-campos-formulario";
 import {Table} from "@/components/ui/table/table";
 import {paisColunasListagem} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais-colunas-listagem";
 import {useEffect, useState} from "react";
 import {PaisService} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais-service";
 import {Pais} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais";
+import toast from "react-hot-toast";
 
 const service = new PaisService();
 
@@ -24,9 +25,17 @@ export function LocalidadePais() {
         });
     }, [atualizarLista]);
 
-    return (
-        <PaginaCadastro formularioCadastro={<LocalidadePaisFormulario />}>
+    function handleSalvar() {
+        service.salvar(entidade, () => {
+            setEntidade(new Pais());
+            setAtualizarLista(true);
+            toast.success("Registro salvo com sucesso.");
+        }).then()
+    }
 
+    return (
+        <PaginaCadastro camposFormulario={<LocalidadePaisCamposFormulario entidade={entidade}/>}
+                        onSubmit={handleSalvar}>
             <Table colunas={paisColunasListagem}
                    lista={listaEntidade}/>
         </PaginaCadastro>

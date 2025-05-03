@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {get, set} from "lodash";
-import {EntidadePadrao} from "@/sistema/_root/entidades/EntidadePadrao";
+import {EntidadePadrao} from "@/class/EntidadePadrao";
 
 export function useValorAtributo<E extends EntidadePadrao>(
     entidade: E,

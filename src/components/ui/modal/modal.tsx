@@ -2,16 +2,15 @@
 
 import {Dialog, DialogBackdrop, DialogPanel} from '@headlessui/react'
 import {ReactNode} from "react";
-import {LineContent} from "@/components/ui/line-content/line-content";
-import {Button} from "@/components/ui/button/button";
 
 type Props = {
     children: ReactNode;
     isOpen: boolean,
     setIsOpen: (isOpen: boolean) => void,
+    title?: string,
 }
 
-export default function Modal({children, isOpen, setIsOpen}: Props) {
+export default function Modal({children, isOpen, setIsOpen, title}: Props) {
     return (
         <Dialog open={isOpen} onClose={setIsOpen} className="relative z-10">
             <DialogBackdrop
@@ -70,15 +69,8 @@ export default function Modal({children, isOpen, setIsOpen}: Props) {
                             data-closed:sm:scale-95
                         `}
                     >
-                        <div className="bg-base-100 text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            {children}
-                        </div>
-                        <div className="bg-base-200 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <LineContent justifyContent={`end`}>
-                                <Button buttonStyle={`info`} onClick={() => setIsOpen(false)}>Salvar</Button>
-                                <Button buttonStyle={`warning`} onClick={() => setIsOpen(false)}>Cancelar</Button>
-                            </LineContent>
-                        </div>
+                        {title && (<div><span>{title}</span></div>)}
+                        {children}
                     </DialogPanel>
                 </div>
             </div>
