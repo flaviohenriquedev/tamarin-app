@@ -4,21 +4,22 @@ import {useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
 import {inputStyle} from "@/components/ui/input/style";
+import {TSelectItemValue} from "@/components/ui/select-item/ts/TSelectItemValue";
 
 type Props = {
-    values: { label: string }[]
-    onSelect: (value: string) => void
+    values: TSelectItemValue[]
+    onSelect: (value: TSelectItemValue) => void
 }
 
 export function SelectItem({values, onSelect}: Props) {
     const [showList, setShowList] = useState(false);
-    const [itemSelecionado, setItemSelecionado] = useState<string>('');
+    const [itemSelecionado, setItemSelecionado] = useState<TSelectItemValue>();
 
     function handleShowList() {
         setShowList(!showList);
     }
 
-    function handleSelectItem(valor: string) {
+    function handleSelectItem(valor: TSelectItemValue) {
         setItemSelecionado(valor);
         onSelect(valor)
         setShowList(false);
@@ -26,8 +27,9 @@ export function SelectItem({values, onSelect}: Props) {
 
     function renderItens() {
         return values.map(value => {
-            return <SelectItemValue key={value.label}
-                                    setItemSelecionado={handleSelectItem} valor={value.label}/>
+            return <SelectItemValue key={value.value}
+                                    setItemSelecionado={handleSelectItem}
+                                    valor={value}/>
         })
     }
 
@@ -44,7 +46,7 @@ export function SelectItem({values, onSelect}: Props) {
                 `}
                 onClick={handleShowList}
             >
-                <label>{itemSelecionado ? itemSelecionado : 'Selecione'}</label>
+                <label>{itemSelecionado ? itemSelecionado.label : 'Selecione'}</label>
                 <IoIosArrowDown
                     className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
                 />

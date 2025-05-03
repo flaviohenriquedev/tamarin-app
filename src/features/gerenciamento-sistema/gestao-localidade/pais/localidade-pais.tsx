@@ -9,7 +9,7 @@ import {paisColunasListagem} from "@/features/gerenciamento-sistema/gestao-local
 import {useEffect, useState} from "react";
 import {PaisService} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais-service";
 import {Pais} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 
 const service = new PaisService();
 

@@ -8,11 +8,6 @@ export const rotasRecursosHumanos: RouteType[] = [
         href: '/rh/colaborador'
     },
     {
-        title: 'Cliente',
-        icon: icones.colaboradores,
-        href: '/rh/cliente'
-    },
-    {
         title: 'Folha de Pagamento',
         icon: icones.folhaPagamento,
         subRoute: [

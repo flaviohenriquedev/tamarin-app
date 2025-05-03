@@ -3,6 +3,11 @@ import {RouteType} from "@/types/RouteType";
 
 export const rotasConfig: RouteType[] = [
     {
+        title: 'Clientes',
+        icon: icones.empresa,
+        href: '/config/clientes',
+    },
+    {
         title: 'Dominio',
         icon: icones.colaboradores,
         subRoute: [
@@ -11,6 +16,5 @@ export const rotasConfig: RouteType[] = [
                 href: '/config/localidade',
             }
         ]
-    },
+    }
 ];
-

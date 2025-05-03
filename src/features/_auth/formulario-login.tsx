@@ -7,6 +7,7 @@ import {Autenticacao} from "@/class/Autenticacao";
 import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/input-string";
 import {Button} from "@/components/ui/button/button";
+import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 
 export function FormularioLogin() {
     const router = useRouter();
@@ -33,10 +34,16 @@ export function FormularioLogin() {
                 <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
                 <span className={`text-xl mt-1`}>tamar<strong>in</strong></span>
             </div>
-            <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`}
-                         type={"email"}/>
-            <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`}
-                         type={`password`}/>
+            
+            <LineContentFill>
+                <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`}
+                             type={"email"}/>
+            </LineContentFill>
+
+            <LineContentFill>
+                <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`}
+                             type={`password`}/>
+            </LineContentFill>
 
             <Button type={'submit'}>Entrar</Button>
         </form>

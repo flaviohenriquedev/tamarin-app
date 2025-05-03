@@ -3,7 +3,8 @@ import {ReactNode} from "react";
 
 import "./globals.css";
 import Providers from "@/providers/providers";
-import {Toaster} from "react-hot-toast";
+import {Toaster} from "sonner";
+import {CircleCheckBig} from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Tamarin",
@@ -21,7 +22,10 @@ export default function RootLayout({
             className={`antialiased overflow-hidden`}
         >
         <Providers>
-            <Toaster position="top-center" />
+            <Toaster richColors position={`top-right`} icons={{
+                success: <CircleCheckBig />,
+                error: <CircleCheckBig />
+            }}/>
             {children}
         </Providers>
         </body>
