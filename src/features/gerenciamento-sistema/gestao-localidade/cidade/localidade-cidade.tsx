@@ -11,6 +11,7 @@ import {
 import {
     cidadeColunasListagem
 } from "@/features/gerenciamento-sistema/gestao-localidade/cidade/ts/cidade-colunas-listagem";
+import {toast} from "sonner";
 
 const service = new CidadeService();
 
@@ -25,8 +26,17 @@ export function LocalidadeCidade() {
         });
     }, [atualizarLista]);
 
+    function handleSalvar() {
+        service.salvar(entidade, () => {
+            setEntidade(new Cidade());
+            setAtualizarLista(true);
+            toast.success("Registro salvo com sucesso.");
+        }).then()
+    }
+
     return (
-        <PaginaCadastro formularioCadastro={<LocalidadeCidadeFormulario />}>
+        <PaginaCadastro camposFormulario={<LocalidadeCidadeFormulario />}
+                        onSubmit={handleSalvar}>
 
             <Table colunas={cidadeColunasListagem}
                    lista={listaEntidade}/>

@@ -1,4 +1,4 @@
-import {Usuario} from "@/features/common/usuario/ts/usuario";
+import {Usuario} from "@/features/manager/usuario/ts/usuario";
 
 type UsuarioType = InstanceType<typeof Usuario> & {
     accessToken: string;

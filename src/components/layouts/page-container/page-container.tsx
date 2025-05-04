@@ -1,9 +1,7 @@
 import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {FormEvent, ReactNode, useEffect, useState} from "react";
-import {closeModal, openModal} from "@/utils/utils";
+import {ReactNode, useEffect, useState} from "react";
+import {openModal} from "@/utils/utils";
 import {Button} from "@/components/ui/button/button";
-import {Modal} from "@/components/ui/modal/modal";
-import {LineContent} from "@/components/ui/line-content/line-content";
 
 type Props<T extends EntidadePadrao> = {
     children: ReactNode,
@@ -19,8 +17,6 @@ type Props<T extends EntidadePadrao> = {
 export function PageContainer<T extends EntidadePadrao>({
                                                             children,
                                                             tituloPersonalizadoBotaoNovoCadastro,
-                                                            formularioCadastro,
-                                                            onSave,
                                                             onModalOpen
                                                         }: Props<T>) {
 
@@ -33,15 +29,6 @@ export function PageContainer<T extends EntidadePadrao>({
     useEffect(() => {
         generateIdModal()
     }, [])
-
-    function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-
-        onSave.funcaoSalvar().then(() => {
-            onSave.callBack();
-            closeModal(idModal);
-        })
-    }
 
     return (
         <>
@@ -63,15 +50,6 @@ export function PageContainer<T extends EntidadePadrao>({
 
             <div className={`conteudo-pagina-children`}>{children}</div>
 
-            <Modal idModal={`${idModal}`}>
-                <form onSubmit={onSubmit}>
-                    {formularioCadastro}
-
-                    <LineContent justifyContent={`end`}>
-                        <Button type={'submit'}>Salvar</Button>
-                    </LineContent>
-                </form>
-            </Modal>
         </>
     )
 

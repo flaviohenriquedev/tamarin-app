@@ -35,9 +35,11 @@ export const nextAuthOptions = {
     },
     callbacks: {
         async jwt({ token, user }: any) {
+            console.log("TOKEN -> ",token, "USER -> ", user)
             return {...token, ...user}
         },
         async session({ session, token }: any) {
+            console.log("SESSION -> ",session, "TOKEN -> ", token)
             session.user = token;
             return session;
         }

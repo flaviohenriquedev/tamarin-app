@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight} from 'lucide-react'
 
 interface DualListBoxProps {
@@ -16,11 +16,6 @@ export function DualListBox2({
                             }: DualListBoxProps) {
     const [disponiveis, setDisponiveis] = useState<string[]>([])
     const [selecionados, setSelecionados] = useState<string[]>([])
-
-    useEffect(() => {
-        setDisponiveis([...itens].sort())
-        setSelecionados([])
-    }, [itens])
 
     function addItem(item: string) {
         if (!selecionados.includes(item)) {
