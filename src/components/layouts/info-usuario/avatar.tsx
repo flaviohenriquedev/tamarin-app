@@ -1,43 +1,23 @@
 'use client'
 
-import {useState} from "react";
 import {signOut} from "next-auth/react";
-import {RxExit} from "react-icons/rx";
 
 export function Avatar() {
-
-    const [showMenu, setShowMenu] = useState(false);
 
     async function logout() {
         await signOut({redirect: false})
     }
 
     return (
-        <div className={'relative'}>
-            <div className={`
-                    flex
-                    items-center
-                    justify-center
-                    text-base-content
-                    text-sm
-                    font-bold
-                    w-10
-                    h-10
-                    rounded-full
-                    cursor-default
-                    border-2 border-primary`}
-            onClick={() => setShowMenu(!showMenu)}>
-                FH
-            </div>
-            <div className={`absolute ${showMenu ? 'block' : 'hidden'}`}>
-                <div onClick={logout}
-                     className={`flex gap-2 items-center p-2 rounded-lg cursor-default hover:bg-base-200`}>
-                    <div>
-                        <RxExit/>
-                    </div>
-                    <span>Sair</span>
+        <div className="dropdown dropdown-end">
+            <div className="avatar" tabIndex={0} role="button" >
+                <div className="w-10 ring-primary ring-offset-base-100 rounded-full ring-2 ring-offset-2">
+                    <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
                 </div>
             </div>
+            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li onClick={logout}>Logout</li>
+            </ul>
         </div>
     )
 }

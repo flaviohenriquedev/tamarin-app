@@ -1,16 +1,15 @@
 'use client'
 
 import React, {InputHTMLAttributes} from "react"
-import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {useValorAtributo} from "@/components/ui/input/hook/useValorAtributo";
 import {inputStyle} from "@/components/ui/input/style";
 
-interface Props<E extends EntidadePadrao> extends InputHTMLAttributes<HTMLInputElement> {
+interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string
     entidade: E
 }
 
-export function InputString<E extends EntidadePadrao>({
+export function InputString<E extends object>({
                                                           id,
                                                           type,
                                                           placeholder,

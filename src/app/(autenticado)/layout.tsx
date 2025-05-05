@@ -11,5 +11,6 @@ export default function InitLayout({children} :{children: ReactNode}) {
 
     if (status === "loading") return <Loading />;
     if (status === "unauthenticated") return null;
+
     return <LayoutInicial>{children}</LayoutInicial>
 }

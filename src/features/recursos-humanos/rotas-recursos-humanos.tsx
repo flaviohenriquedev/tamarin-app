@@ -132,6 +132,6 @@ export const rotasRecursosHumanos: TRoute[] = [
                 href: '/manager/usuario'
             },
         ]
-    }
+    },
 ];
 
