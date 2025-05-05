@@ -63,16 +63,15 @@ export default function Modal({children, isOpen, setIsOpen, title}: Props) {
                             data-enter:ease-out
                             data-leave:duration-200
                             data-leave:ease-in
+                            sm:m-3
                             sm:my-8
                             sm:w-full
-                            sm:max-w-lg
                             data-closed:sm:translate-y-0
                             data-closed:sm:scale-95
                         `}
                     >
-                        <div className={`flex justify-end px-6 py-4 w-full`}
-                             onClick={() => setIsOpen(false)}>
-                            <X className={`hover:text-primary`}/>
+                        <div className={`flex justify-end px-6 py-4 w-full`}>
+                            <X onClick={() => setIsOpen(false)} className={`hover:text-primary`}/>
                         </div>
                         {title && (<div><span>{title}</span></div>)}
                         {children}

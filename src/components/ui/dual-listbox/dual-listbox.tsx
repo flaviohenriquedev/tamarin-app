@@ -1,16 +1,21 @@
 'use client'
 
 import './style.css'
-import {ChevronsLeft, ChevronsRight, CircleMinus, CirclePlus} from "lucide-react";
-import {useState} from "react";
+import {ChevronsLeft, ChevronsRight, Minus, Plus} from "lucide-react";
+import {useEffect, useState} from "react";
+import {DualListboxItem} from "@/components/ui/dual-listbox/dual-listbox-item";
+import {DualListboxList} from "@/components/ui/dual-listbox/dual-listbox-list";
 
 export function DualListbox() {
-    const itens = ['Banana', 'Maçã', 'Uva', 'Laranja', 'Abacaxi']
+    const itens = ['Banana', 'Maçã', 'Uva', 'Laranja', 'Abacaxi', 'Arroz', 'Feijão', 'Macarrão', 'Côco']
 
     const [disponiveis, setDisponiveis] = useState<string[]>([])
     const [selecionados, setSelecionados] = useState<string[]>([])
 
-
+    useEffect(() => {
+        setDisponiveis([...itens].sort())
+        setSelecionados([])
+    }, [])
 
     function addItem(item: string) {
         if (!selecionados.includes(item)) {
@@ -36,51 +41,31 @@ export function DualListbox() {
         setSelecionados([])
     }
 
-    function renderItensDisponiveis() {
-        return disponiveis.map(item => {
-            return <li key={item}
-                       onClick={() => addItem(item)}
-                       className={`flex items-center justify-between px-2 py-1`}>
-                {item} <CirclePlus size={15}/>
-            </li>
-        })
-    }
-
-    function renderItensSelecionados() {
-        return selecionados.map(item => {
-            return <li key={item}
-                       onClick={() => removeItem(item)}
-                       className={`flex items-center justify-between px-2 py-1`}>
-                {item} <CircleMinus size={15}/>
-            </li>
-        })
-    }
-
     return (
-        <div className={`dl-container w-fit h-60`}>
-            <div className={`dl-left flex flex-col bg-base-200 rounded-md`}>
+        <div className={`dl-container w-fit`}>
+            <div className={`dl-left flex flex-col rounded-md bg-base-200`}>
                 <div className={`w-auto`}>
                     <input className={`w-full`}/>
                 </div>
 
-                <div className={`dl-list`}>
-                    <ul className="space-y-2">
-                        {disponiveis.map((item, index) => (
-                            <li
-                                key={index}
-                                onDoubleClick={() => addItem(item)}
-                                className="cursor-pointer bg-base-200 px-4 py-2 rounded shadow hover:bg-base-300 transition"
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <DualListboxList>
+                    {disponiveis.map((item, index) => (
+                        <DualListboxItem key={index} item={item} onClick={addItem} icon={<Plus size={18} className={`
+                            text-success
+                            cursor-pointer
+                            `} />}/>
+                    ))}
+                </DualListboxList>
             </div>
 
-            <div className={`dl-middle flex flex-col items-center justify-center h-full gap-2`}>
-                <ChevronsRight/>
-                <ChevronsLeft/>
+            <div className={`dl-middle flex flex-col items-center justify-center h-full gap-3 p-2`}>
+                <div onClick={addTodos} className={`flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer`}>
+                    <ChevronsRight size={18}/>
+                </div>
+                <div onClick={removerTodos} className={`flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer`}>
+                    <ChevronsLeft size={18}/>
+                </div>
+
             </div>
 
             <div className={`dl-right flex flex-col bg-base-200 rounded-md`}>
@@ -88,19 +73,14 @@ export function DualListbox() {
                     <input className={`w-full`}/>
                 </div>
 
-                <div className={`dl-list`}>
-                    <ul className="space-y-2">
-                        {selecionados.map((item, index) => (
-                            <li
-                                key={index}
-                                onDoubleClick={() => removeItem(item)}
-                                className="cursor-pointer bg-green-300 px-4 py-2 rounded shadow hover:bg-green-400 transition"
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <DualListboxList>
+                    {selecionados.map((item, index) => (
+                        <DualListboxItem key={index} item={item} onClick={removeItem} icon={<Minus size={18} className={`
+                            text-error
+                            cursor-pointer
+                            `} />}/>
+                    ))}
+                </DualListboxList>
             </div>
         </div>
     )
