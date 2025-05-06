@@ -1,14 +1,14 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
-const rotas: EndPoint = {
+const rotas: EndPointType = {
     rotaAlternativa: {
         caminho: '/colaborador/:id',
         metodo: MetodoHTTP.POST
     }
 }
 
-export const colaboradorEndPoints: EndPoint = {
+export const colaboradorEndPoints: EndPointType = {
     ...rotas,
     listar: {
         caminho: '/colaborador',

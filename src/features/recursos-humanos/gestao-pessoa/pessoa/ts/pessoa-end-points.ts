@@ -1,7 +1,7 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
-export const pessoaEndPoints: EndPoint = {
+export const pessoaEndPoints: EndPointType = {
     listar: {
         caminho: '/pessoa',
         metodo: MetodoHTTP.GET

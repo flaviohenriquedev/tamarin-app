@@ -1,10 +1,10 @@
 'use client'
 
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 import {SidemenuItem} from "@/components/layouts/sidemenu/sidemenu-item";
 
 type Props = {
-    rotas: TRoute[]
+    rotas: RouteType[]
 }
 
 export function Sidemenu({rotas}: Props) {

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import {ModuloType} from "@/features/sistema/rotas";
+import {SistemaType} from "@/features/sistema/rotas";
 
 type Props = {
-    modulo: ModuloType
+    modulo: SistemaType
 }
 
 export function CardModulo({modulo}: Props) {

@@ -1,4 +1,4 @@
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 import {useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {IoIosArrowDown} from "react-icons/io";
@@ -6,7 +6,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import Link from "next/link";
 
 type Props = {
-    rota: TRoute
+    rota: RouteType
 }
 
 export function SidemenuItem({rota}: Props) {
@@ -14,14 +14,14 @@ export function SidemenuItem({rota}: Props) {
     const route = useRouter();
     const path = usePathname()
 
-    function handleClick(rota: TRoute) {
+    function handleClick(rota: RouteType) {
         if (rota.href) {
             return route.push(rota.href);
         }
         return setOpenList(!openList);
     }
 
-    function renderSubItem(subRotas: TRoute[]) {
+    function renderSubItem(subRotas: RouteType[]) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}

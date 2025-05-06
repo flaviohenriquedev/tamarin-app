@@ -1,8 +1,8 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 const basUrl: string = '/cidade'
-export const cidadeEndPoints: EndPoint = {
+export const cidadeEndPoints: EndPointType = {
     listar: {
         caminho: basUrl,
         metodo: MetodoHTTP.GET

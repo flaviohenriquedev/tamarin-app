@@ -1,11 +1,11 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {ResponseAuth} from "@/features/_auth/ts/response-auth";
 
 export class AuthService {
-    protected endpoint: EndPoint;
+    protected endpoint: EndPointType;
     private baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-    constructor(endpoint: EndPoint) {
+    constructor(endpoint: EndPointType) {
         this.endpoint = endpoint;
     }
 

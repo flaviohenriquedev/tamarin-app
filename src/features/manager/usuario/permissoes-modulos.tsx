@@ -1,15 +1,15 @@
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 import {useState} from "react";
 import {PermissoesSubrotas} from "@/features/manager/usuario/permissoes-subrotas";
 
 type Props = {
-    modulo: TRoute
+    modulo: RouteType
 }
 
 export function PermissoesModulos({modulo}: Props) {
     const [moduloSelecionado, setModuloSelecionado] = useState<boolean>(false);
 
-    function renderizarSubrotas(subrotas: TRoute[]) {
+    function renderizarSubrotas(subrotas: RouteType[]) {
         return subrotas.map(rota => {
             return (
                 <PermissoesSubrotas key={rota.title} rota={rota}>

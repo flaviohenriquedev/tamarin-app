@@ -1,7 +1,7 @@
 import {icones} from "@/components/common/icones";
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 
-export const rotasConfig: TRoute[] = [
+export const rotasGerenciamentoSistema: RouteType[] = [
     {
         title: 'Clientes',
         icon: icones.empresa,

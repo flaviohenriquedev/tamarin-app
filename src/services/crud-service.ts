@@ -1,10 +1,10 @@
 import {request} from "@/services/request";
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 
 export class CrudService<E> {
-    protected endpoint: EndPoint;
+    protected endpoint: EndPointType;
 
-    constructor(endpoint: EndPoint) {
+    constructor(endpoint: EndPointType) {
         this.endpoint = endpoint;
     }
 

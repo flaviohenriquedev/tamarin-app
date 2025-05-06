@@ -1,11 +1,11 @@
 import {Dot} from "lucide-react";
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 import {ReactNode, useState} from "react";
 import {funcionalidades} from "@/enums/FuncionalidadeEnum";
 
 type Props = {
     children?: ReactNode;
-    rota: TRoute
+    rota: RouteType
 }
 
 export function PermissoesSubrotas({rota, children}: Props) {

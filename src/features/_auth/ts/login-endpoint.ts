@@ -1,13 +1,13 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
-const rotas: EndPoint = {
+const rotas: EndPointType = {
     login: {
         caminho: '/auth/login',
         metodo: MetodoHTTP.POST
     }
 }
 
-export const loginEndpoint: EndPoint = {
+export const loginEndpoint: EndPointType = {
     ...rotas
 }

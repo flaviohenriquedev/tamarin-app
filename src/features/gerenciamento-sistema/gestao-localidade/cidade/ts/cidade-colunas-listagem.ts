@@ -1,7 +1,7 @@
-import {TColuna} from "@/types/_root/TColuna";
+import {ColumnType} from "@/types/_root/ColumnType";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const cidadeColunasListagem: TColuna[] = [
+export const cidadeColunasListagem: ColumnType[] = [
     {
         descricao: 'Nome',
         field: 'nome',

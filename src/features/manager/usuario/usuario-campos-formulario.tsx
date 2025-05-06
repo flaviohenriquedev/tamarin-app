@@ -8,7 +8,7 @@ import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cl
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {ModuloType, rotasSistema} from "@/features/sistema/rotas";
+import {rotasSistema, SistemaType} from "@/features/sistema/rotas";
 
 import './css/style.css'
 import {PermissoesModulos} from "@/features/manager/usuario/permissoes-modulos";
@@ -24,7 +24,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
 
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>(new Cliente());
-    const [sistemaSelecionado, setSistemaSelecionado] = useState<ModuloType>();
+    const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
 
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
         setClienteSelecionado(cliente);
     }
 
-    function selecionarSistema(sistema: ModuloType) {
+    function selecionarSistema(sistema: SistemaType) {
         setSistemaSelecionado(sistema)
     }
 

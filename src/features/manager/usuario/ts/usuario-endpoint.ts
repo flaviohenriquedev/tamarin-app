@@ -1,16 +1,16 @@
-import {EndPoint} from "@/types/_root/TEndpoint";
+import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 const basUrl: string = '/usuario'
 
-const endPointsExtras: EndPoint = {
+const endPointsExtras: EndPointType = {
     teste1: {
         caminho: '',
         metodo: MetodoHTTP.PUT
     }
 }
 
-export const usuarioEndPoints: EndPoint = {
+export const usuarioEndPoints: EndPointType = {
     ...endPointsExtras,
     listar: {
         caminho: basUrl,

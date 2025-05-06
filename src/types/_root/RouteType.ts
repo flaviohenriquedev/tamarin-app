@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
 
-export type TRoute = {
+export type RouteType = {
     title: string
     icon?: ReactNode
     href?: string
-    subRoute?: TRoute[]
+    subRoute?: RouteType[]
 }

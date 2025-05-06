@@ -3,24 +3,24 @@
 import React, {ReactNode, useEffect, useRef, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
-import {ModuloType, rotasSistema} from "@/features/sistema/rotas";
+import {rotasSistema} from "@/features/sistema/rotas";
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {AnimatePresence, motion} from "framer-motion";
 import Image from "next/image";
-import {TRoute} from "@/types/_root/TRoute";
+import {RouteType} from "@/types/_root/RouteType";
 import {InputSearch} from "@/components/ui/input/input-search";
+import {SistemaType} from "@/features/sistema/types";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
-    const [moduloSelecionado, setModuloSelecionado] = useState<ModuloType>();
+    const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
     const [searchMenu, setSearchMenu] = useState("");
-    const [filteredData, setFilteredData] = useState<TRoute[]>();
+    const [filteredData, setFilteredData] = useState<RouteType[]>();
 
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     function onMouseEnter() {
-
         timeoutRef.current = setTimeout(() => {
             setMostrarTooltip(true);
         }, 800);
@@ -33,28 +33,28 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         setMostrarTooltip(!mostrarTooltip);
     }
 
-    function handleClick(modulo: ModuloType) {
-        setModuloSelecionado(modulo)
-        localStorage.setItem("moduloSelecionado", modulo.modulo)
+    function handleClick(sistema: SistemaType) {
+        setSistemaSelecionado(sistema)
+        localStorage.setItem("sistemaSelecionado", sistema.sistema.key)
     }
 
     useEffect(() => {
-        const moduloSelecionadoStorage = localStorage.getItem("moduloSelecionado");
-        if (moduloSelecionadoStorage) {
-            const moduloEncontrado = rotasSistema.find(m => m.modulo === moduloSelecionadoStorage);
-            if (moduloEncontrado) {
-                setModuloSelecionado(moduloEncontrado);
+        const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
+        if (sistemaSelecionadoStorage) {
+            const sistemaEncontrado = rotasSistema.find(s => s.sistema.key === sistemaSelecionadoStorage);
+            if (sistemaEncontrado) {
+                setSistemaSelecionado(sistemaEncontrado);
             }
         }
     }, [])
 
     useEffect(() => {
         const filterMenu = () => {
-            const filteredMap: { [key: string]: TRoute } = {};
+            const filteredMap: { [key: string]: RouteType } = {};
 
-            if (moduloSelecionado?.rotas) {
-                moduloSelecionado?.rotas.forEach((d) => {
-                    const filteredMenu: TRoute = {...d};
+            if (sistemaSelecionado?.rotas) {
+                sistemaSelecionado?.rotas.forEach((d) => {
+                    const filteredMenu: RouteType = {...d};
                     if (
                         d.title
                             .toLowerCase()
@@ -83,29 +83,29 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 });
             }
 
-            const filtered: TRoute[] = Object.values(filteredMap);
+            const filtered: RouteType[] = Object.values(filteredMap);
             setFilteredData(filtered);
         };
 
         filterMenu();
-    }, [moduloSelecionado?.rotas, searchMenu]);
+    }, [sistemaSelecionado?.rotas, searchMenu]);
 
-    function renderizarModulos() {
-        return rotasSistema.map(modulo => {
+    function renderizarSistemas() {
+        return rotasSistema.map(sistema => {
             return (
-                <li key={modulo.modulo}
+                <li key={sistema.sistema.key}
                     onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
                     className={`px-1`}
-                    onClick={() => handleClick(modulo)}>
+                    onClick={() => handleClick(sistema)}>
 
-                    <div data-tip={modulo.titulo}
+                    <div data-tip={sistema.sistema.label}
                          className={`
                             flex
                             border-2
                             transition-colors
                             duration-200
-                            ${moduloSelecionado && modulo.modulo !== moduloSelecionado.modulo && mostrarTooltip ? 'tooltip' : ''}
-                            ${moduloSelecionado && modulo.modulo === moduloSelecionado.modulo ? `
+                            ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
+                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
                                 bg-primary/15
                                 border-primary
                                 text-base-content
@@ -116,7 +116,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             p-2
                             rounded-md
                             `}>
-                        {modulo.icone}
+                        {sistema.icone}
                     </div>
                 </li>
             )
@@ -132,7 +132,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                         <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={30} height={30}/>
                     </div>
 
-                    <ul className={`flex flex-col gap-2 h-screen `}>{renderizarModulos()}</ul>
+                    <ul className={`flex flex-col gap-2 h-screen `}>{renderizarSistemas()}</ul>
                 </aside>
 
                 <AnimatePresence initial={false}>
@@ -144,9 +144,9 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             exit={{width: 0, opacity: 0}}
                             transition={{duration: 0.2}}
                         >
-                            {moduloSelecionado && (
+                            {sistemaSelecionado && (
                                 <div className={`flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden`}>
-                                    <label className={'font-bold'}>{moduloSelecionado.titulo}</label>
+                                    <label className={'font-bold'}>{sistemaSelecionado.sistema.label}</label>
                                 </div>
                             )}
                             <InputSearch
@@ -159,7 +159,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
             </div>
 
             <div className={`content`}>
-                <Header rotas={moduloSelecionado && moduloSelecionado.rotas}/>
+                <Header rotas={sistemaSelecionado && sistemaSelecionado.rotas}/>
                 <div className={`content-page `}>
                     {children}
                 </div>

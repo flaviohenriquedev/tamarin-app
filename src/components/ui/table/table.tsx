@@ -1,11 +1,11 @@
 'use client'
 
-import {TColuna} from "@/types/_root/TColuna";
+import {ColumnType} from "@/types/_root/ColumnType";
 import {get} from "lodash";
 
 type Props<E> = {
     lista: E[];
-    colunas: TColuna[];
+    colunas: ColumnType[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
 }
