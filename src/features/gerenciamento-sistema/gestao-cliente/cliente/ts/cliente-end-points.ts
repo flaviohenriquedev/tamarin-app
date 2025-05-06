@@ -1,4 +1,4 @@
-import {EndPoint} from "@/types/TEndpoint";
+import {EndPoint} from "@/types/_root/TEndpoint";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 export const clienteEndPoints: EndPoint = {

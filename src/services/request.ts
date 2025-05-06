@@ -7,7 +7,7 @@ export async function request<T>(
     body?: unknown,
 ): Promise<T | null> {
     const session = await getSession();
-    const token = session?.user?.token;
+    const token = session?.user?.accessToken;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
     const headers: HeadersInit = {

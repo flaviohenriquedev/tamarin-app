@@ -1,6 +1,6 @@
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {Header} from "@/components/layouts/header/header";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {ReactNode} from "react";
 
 type Props = {

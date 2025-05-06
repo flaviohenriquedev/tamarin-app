@@ -7,7 +7,7 @@ import {ModuloType, rotasSistema} from "@/features/sistema/rotas";
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {AnimatePresence, motion} from "framer-motion";
 import Image from "next/image";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {InputSearch} from "@/components/ui/input/input-search";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
@@ -102,6 +102,8 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                          className={`
                             flex
                             border-2
+                            transition-colors
+                            duration-200
                             ${moduloSelecionado && modulo.modulo !== moduloSelecionado.modulo && mostrarTooltip ? 'tooltip' : ''}
                             ${moduloSelecionado && modulo.modulo === moduloSelecionado.modulo ? `
                                 bg-primary/15

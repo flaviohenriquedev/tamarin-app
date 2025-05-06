@@ -1,5 +1,5 @@
 import {icones} from "@/components/common/icones";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 
 export const rotasConfig: TRoute[] = [
     {
@@ -14,7 +14,7 @@ export const rotasConfig: TRoute[] = [
     },
     {
         title: 'Dominio',
-        icon: icones.configuracaoGeral,
+        icon: icones.configGeral,
         subRoute: [
             {
                 title: 'Localidade',

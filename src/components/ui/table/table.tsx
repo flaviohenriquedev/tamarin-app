@@ -1,16 +1,16 @@
 'use client'
 
-import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {TColuna} from "@/types/TColuna";
+import {TColuna} from "@/types/_root/TColuna";
+import {get} from "lodash";
 
-type Props<E extends EntidadePadrao> = {
+type Props<E> = {
     lista: E[];
     colunas: TColuna[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
 }
 
-export function Table<E extends EntidadePadrao>({lista, colunas, funcaoEditar, funcaoDeletar}: Props<E>) {
+export function Table<E extends object>({lista, colunas, funcaoEditar}: Props<E>) {
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
@@ -37,11 +37,11 @@ export function Table<E extends EntidadePadrao>({lista, colunas, funcaoEditar, f
         </tr>
     }
 
-    function renderRowItem(row: any) {
+    function renderRowItem(row: E) {
         return colunas.map((coluna, index) => {
             return (
                 <td key={`${index.toString()}-${coluna.descricao}`}>
-                    {row[coluna.field]}</td>
+                    {get(row, coluna.field)}</td>
             )
         })
     }

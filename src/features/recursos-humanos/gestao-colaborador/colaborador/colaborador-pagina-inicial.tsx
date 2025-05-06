@@ -10,6 +10,7 @@ import {
     ColaboradorMockado
 } from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/dados-mocados";
 import {ColaboradorInfo} from "@/features/recursos-humanos/gestao-colaborador/colaborador/colaborador-info";
+import Image from "next/image";
 
 export function ColaboradorPaginaInicial() {
 
@@ -30,7 +31,9 @@ export function ColaboradorPaginaInicial() {
                         <div className="flex items-center gap-3">
                             <div className="avatar">
                                 <div className="mask mask-squircle h-12 w-12">
-                                    <img
+                                    <Image
+                                        width={20}
+                                        height={20}
                                         src={colaborador.fotoPerfil}
                                         alt="Avatar Tailwind CSS Component"/>
                                 </div>

@@ -2,7 +2,7 @@
 
 import {usePathname} from "next/navigation";
 import {IoIosArrowForward} from "react-icons/io";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {formarBreadcrumb} from "@/components/ui/breadcrumb/formar-breadcrumb";
 
 type Props = {

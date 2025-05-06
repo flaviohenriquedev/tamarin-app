@@ -5,20 +5,23 @@ type Props<E> = {
     item: E
     fieldLabel: string
     icon: ReactNode
-    onClick: (item: E) => void
+    action: (item: E) => void
+    onClick?: (item: E) => void
+    destaque?: boolean
 }
 
-export function DualListboxItem<E>({item, icon, onClick, fieldLabel}: Props<E>) {
+export function DualListboxItem<E>({item, icon, action, onClick, fieldLabel, destaque = false}: Props<E>) {
     return (
         <div>
-            <li className="flex cursor-default items-center justify-between p-2 text-[9pt] flex-nowrap"
+            <li onClick={() => onClick ? onClick(item) : null}
+                className={`flex cursor-default items-center justify-between p-2 text-[9pt] flex-nowrap ${destaque ? 'bg-base-100' : ''}`}
             >
                 <span
                     className="block max-w-full overflow-hidden whitespace-nowrap text-ellipsis"
                     title={get(item, fieldLabel)}>
                     {get(item, fieldLabel)}
                 </span>
-                <div onClick={() => onClick(item)}>
+                <div onClick={() => action(item)}>
                     {icon}
                 </div>
             </li>

@@ -1,20 +1,20 @@
 'use client'
 
 import {UsuarioService} from "@/features/manager/usuario/ts/usuario-service";
-import {Usuario} from "@/features/manager/usuario/ts/usuario";
 import {useEffect, useState} from "react";
 import {toast} from "sonner";
 import {UsuarioCamposFormulario} from "@/features/manager/usuario/usuario-campos-formulario";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {Table} from "@/components/ui/table/table";
 import {usuarioColunasListagem} from "@/features/manager/usuario/ts/usuario-colunas-listagem";
+import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 
 const service = new UsuarioService()
 
 export function UsuarioPaginaInicial() {
 
-    const [entidade, setEntidade] = useState<Usuario>(new Usuario());
-    const [listaEntidade, setListaEntidade] = useState<Usuario[]>([]);
+    const [entidade, setEntidade] = useState<UsuarioDTO>(new UsuarioDTO());
+    const [listaEntidade, setListaEntidade] = useState<UsuarioDTO[]>([]);
     const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export function UsuarioPaginaInicial() {
 
     function handleSalvar() {
         service.salvar(entidade, () => {
-            setEntidade(new Usuario());
+            setEntidade(new UsuarioDTO());
             setAtualizarLista(true);
             toast.success("Registro salvo com sucesso.");
         }).then()

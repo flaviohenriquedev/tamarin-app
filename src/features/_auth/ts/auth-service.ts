@@ -1,5 +1,5 @@
-import {EndPoint} from "@/types/TEndpoint";
-import {Usuario} from "@/features/gerenciamento-sistema/gestao-usuario/usuario/ts/usuario";
+import {EndPoint} from "@/types/_root/TEndpoint";
+import {ResponseAuth} from "@/features/_auth/ts/response-auth";
 
 export class AuthService {
     protected endpoint: EndPoint;
@@ -9,7 +9,7 @@ export class AuthService {
         this.endpoint = endpoint;
     }
 
-    async login(email?: string, senha?: string): Promise<Usuario> {
+    async login(email?: string, senha?: string): Promise<ResponseAuth | null> {
         if (this.endpoint.login) {
             const response = await fetch(`${this.baseUrl}${this.endpoint.login.caminho}`, {
                 method: this.endpoint.login.metodo,
@@ -20,7 +20,6 @@ export class AuthService {
             });
             return await response.json();
         }
-        return new Usuario();
+        return null;
     }
-
 }

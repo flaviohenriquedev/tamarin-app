@@ -13,7 +13,7 @@ import {IoIosArrowForward} from "react-icons/io";
 import {PiDotsThreeFill} from "react-icons/pi";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {LuFile, LuFolderInput, LuFolderTree} from "react-icons/lu";
-import {Building2, Columns3Cog, User} from "lucide-react";
+import {Building2, Columns3Cog, LogOut, Settings, User} from "lucide-react";
 
 const tamanhoIcone = 13
 export const icones = {
@@ -33,5 +33,7 @@ export const icones = {
     arvoreDePastas: <LuFolderTree size={tamanhoIcone}/>,
     arquivo: <LuFile size={tamanhoIcone}/>,
     empresa: <Building2 size={tamanhoIcone}/>,
-    configuracaoGeral: <Columns3Cog size={tamanhoIcone}/>
+    configGeral: <Columns3Cog size={tamanhoIcone}/>,
+    config: <Settings size={tamanhoIcone} />,
+    logout: <LogOut size={tamanhoIcone}/>
 };

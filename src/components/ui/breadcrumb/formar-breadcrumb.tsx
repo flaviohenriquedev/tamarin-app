@@ -1,6 +1,6 @@
 import {PiDotsThreeFill} from "react-icons/pi";
 import {LuFolderInput} from "react-icons/lu";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 
 export function formarBreadcrumb(path: string | null, rotas: TRoute[], caminho: TRoute[] = []): TRoute[] | null {
     for (const rota of rotas) {

@@ -1,5 +1,5 @@
 import {icones} from "@/components/common/icones";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 
 export const rotasRecursosHumanos: TRoute[] = [
     {

@@ -1,8 +1,8 @@
 import {CrudService} from "@/services/crud-service";
-import {Usuario} from "@/features/manager/usuario/ts/usuario";
 import {usuarioEndPoints} from "@/features/manager/usuario/ts/usuario-endpoint";
+import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 
-export class UsuarioService extends CrudService<Usuario> {
+export class UsuarioService extends CrudService<UsuarioDTO> {
     constructor() {
         super(usuarioEndPoints);
     }

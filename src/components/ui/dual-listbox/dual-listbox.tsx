@@ -17,6 +17,7 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
 
     const [listaValores, setListaValores] = useState<E[]>([])
     const [listaValoresDestino, setListaValoresDestino] = useState<E[]>([])
+    const [listaSelecionados, setListaSelecionados] = useState<E[]>([])
 
     useEffect(() => {
         setListaValores(listaEntidade)
@@ -26,6 +27,14 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
         setListaValores(listaEntidade && listaEntidade.length > 0 ? listaEntidade : listaEntidade)
         setListaValoresDestino(listaDestino && listaDestino.length > 0 ? listaDestino : [])
     }, [listaDestino, listaEntidade])
+
+    function selecionarItem(item: E) {
+        if (!listaSelecionados.includes(item)) {
+            setListaSelecionados((prev) => [...prev, item])
+        } else {
+            setListaSelecionados(prev => prev.filter(i => i !== item))
+        }
+    }
 
     function addItem(item: E) {
         if (!listaValoresDestino.includes(item)) {
@@ -47,6 +56,7 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                 return valorA.localeCompare(valorB);
             }))
         setListaValores([])
+        setListaSelecionados([])
     }
 
     function removeItem(item: E) {
@@ -69,6 +79,7 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                 return valorA.localeCompare(valorB);
             }))
         setListaValoresDestino([])
+        setListaSelecionados([])
     }
 
     return (
@@ -84,7 +95,9 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                             key={index}
                             fieldLabel={fieldLabel}
                             item={item}
-                            onClick={addItem}
+                            destaque={listaSelecionados.includes(item)}
+                            action={addItem}
+                            onClick={selecionarItem}
                             icon={<Plus size={18} className={`text-success cursor-pointer`}/>}/>
                     ))}
                 </DualListboxList>
@@ -113,7 +126,7 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                             key={index}
                             item={item}
                             fieldLabel={fieldLabel}
-                            onClick={removeItem}
+                            action={removeItem}
                             icon={<Minus size={18} className={`
                             text-error
                             cursor-pointer

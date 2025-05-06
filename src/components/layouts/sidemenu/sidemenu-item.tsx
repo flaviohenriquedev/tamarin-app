@@ -1,4 +1,4 @@
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {IoIosArrowDown} from "react-icons/io";

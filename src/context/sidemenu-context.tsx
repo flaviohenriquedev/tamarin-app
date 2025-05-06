@@ -1,7 +1,7 @@
 "use client";
 
 import React, {createContext, useState} from "react";
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 type SidemenuContextProps = {

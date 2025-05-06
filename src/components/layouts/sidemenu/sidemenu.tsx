@@ -1,6 +1,6 @@
 'use client'
 
-import {TRoute} from "@/types/TRoute";
+import {TRoute} from "@/types/_root/TRoute";
 import {SidemenuItem} from "@/components/layouts/sidemenu/sidemenu-item";
 
 type Props = {
