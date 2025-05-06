@@ -1,23 +1,22 @@
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/input-string";
 import {Label} from "@/components/ui/label/label";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {RoleUsuarioFactory} from "@/features/manager/usuario/ts/role-enum";
 import {useEffect, useState} from "react";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {rotasSistema, SistemaType} from "@/features/sistema/rotas";
+import {rotasSistema} from "@/features/sistema/rotas";
 
 import './css/style.css'
 import {PermissoesModulos} from "@/features/manager/usuario/permissoes-modulos";
+import {SistemaType} from "@/features/sistema/types";
 
 type Props = {
     entidade: UsuarioDTO
 }
 
-const rolesSelectItem: TSelectItem[] = RoleUsuarioFactory.getSelectItens();
+// const rolesSelectItem: TSelectItem[] = RoleUsuarioFactory.getSelectItens();
 const service = new ClienteService();
 
 export function UsuarioCamposFormulario({entidade}: Props) {
@@ -94,14 +93,14 @@ export function UsuarioCamposFormulario({entidade}: Props) {
                         <ul>
                             {rotasSistema.map(sistema => {
                                 return (
-                                    <li key={sistema.titulo}
+                                    <li key={sistema.sistema.label}
                                         className={`
                                                cursor-default
                                                p-2
                                                rounded-md
-                                               ${sistemaSelecionado && sistemaSelecionado.titulo === sistema.titulo ? 'bg-primary' : 'hover:bg-base-100'}`}
+                                               ${sistemaSelecionado && sistemaSelecionado.sistema.label === sistema.sistema.label ? 'bg-primary' : 'hover:bg-base-100'}`}
                                         onClick={() => selecionarSistema(sistema)}>
-                                        {sistema.titulo}
+                                        {sistema.sistema.label}
                                     </li>
                                 )
                             })}
