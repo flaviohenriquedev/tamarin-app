@@ -69,10 +69,9 @@ export default function Modal({children, isOpen, setIsOpen, title}: Props) {
                             data-closed:sm:scale-95
                         `}
                     >
-                        <div className={`flex justify-end px-6 py-4 w-full`}>
-                            <X onClick={() => setIsOpen(false)} className={`hover:text-primary`}/>
+                        <div className={`flex items-center justify-between px-6 py-4 w-full`}>
+                            {title && (<div><span className={`text-lg`}>{title}</span></div>)} <X onClick={() => setIsOpen(false)} className={`hover:text-primary`}/>
                         </div>
-                        {title && (<div><span>{title}</span></div>)}
                         {children}
                     </DialogPanel>
                 </div>

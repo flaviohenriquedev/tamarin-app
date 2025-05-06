@@ -33,7 +33,8 @@ export function UsuarioPaginaInicial() {
 
     return (
         <PaginaCadastro camposFormulario={<UsuarioCamposFormulario entidade={entidade}/>}
-                        onSubmit={handleSalvar}>
+                        onSubmit={handleSalvar}
+                        title={`Cadastro de Usuário`}>
             <Table colunas={usuarioColunasListagem}
                    lista={listaEntidade}/>
         </PaginaCadastro>
