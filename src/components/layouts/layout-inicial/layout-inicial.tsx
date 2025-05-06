@@ -145,7 +145,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             transition={{duration: 0.2}}
                         >
                             {moduloSelecionado && (
-                                <div className={`flex border-b border-base-200 pl-3 items-center min-h-14`}>
+                                <div className={`flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden`}>
                                     <label className={'font-bold'}>{moduloSelecionado.titulo}</label>
                                 </div>
                             )}

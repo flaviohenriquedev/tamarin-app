@@ -9,10 +9,9 @@ import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/t
 import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {ModuloType, rotasSistema} from "@/features/sistema/rotas";
-import {TRoute} from "@/types/_root/TRoute";
 
 import './css/style.css'
-import {Dot} from "lucide-react";
+import {PermissoesModulos} from "@/features/manager/usuario/permissoes-modulos";
 
 type Props = {
     entidade: UsuarioDTO
@@ -26,6 +25,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>(new Cliente());
     const [sistemaSelecionado, setSistemaSelecionado] = useState<ModuloType>();
+
 
     useEffect(() => {
         service.listar().then(result => {
@@ -44,41 +44,13 @@ export function UsuarioCamposFormulario({entidade}: Props) {
     function renderizarRotas() {
         if (sistemaSelecionado) {
             return sistemaSelecionado.rotas.map(modulo => {
-                return (
-                    <li key={modulo.title} className={`flex flex-col gap-1 px-2 py-1`}>
-                        <div className={`flex items-center gap-3`}>
-                            <input type="checkbox" className="checkbox checkbox-xs checkbox-primary" />
-                            <label className={`text-sm`}>{modulo.title}</label>
-                        </div>
-                        {modulo.subRoute && (
-                            <ul>
-                                {renderizarSubrotas(modulo.subRoute)}
-                            </ul>
-                        )}
-                    </li>
-                )
+                return <PermissoesModulos key={modulo.title} modulo={modulo}/>
             })
         }
     }
 
-    function renderizarSubrotas(subrotas: TRoute[]) {
-        return subrotas.map(rota => {
-            return (
-                <li key={rota.title}
-                    className={`cursor-default hover:bg-base-100 rounded-md`}>
-                    <div className={`flex items-center gap-3`}>
-                        <Dot size={16}/>
-                        {rota.title}
-                    </div>
-                    {rota.subRoute && renderizarSubrotas(rota.subRoute)}
-                </li>
-            )
-        })
-    }
-
     return (
         <div>
-            {/*parte de cima*/}
             <div>
                 <LineContent>
                     <Label title={`Nome Completo`}>
@@ -93,7 +65,6 @@ export function UsuarioCamposFormulario({entidade}: Props) {
                 </LineContent>
             </div>
 
-            {/*parte de baixo*/}
             <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
                 <Fieldset label={`Clientes`} className={`cad-user-clients h-full`}>
                     <div>
@@ -140,13 +111,14 @@ export function UsuarioCamposFormulario({entidade}: Props) {
 
                 <Fieldset label={`Módulos`}
                           className={`
-                          absolute
+                            absolute
                             cad-user-module
                             h-full
                             overflow-y-auto
                             scrollbar-thumb-base-300
                             scrollbar-track-transparent
-                            scrollbar-thin`}>
+                            scrollbar-thin`
+                          }>
                     <div>
                         <ul>
                             {renderizarRotas()}

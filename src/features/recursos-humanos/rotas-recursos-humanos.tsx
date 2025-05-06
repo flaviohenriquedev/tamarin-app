@@ -17,11 +17,20 @@ export const rotasRecursosHumanos: TRoute[] = [
             },
             {
                 title: 'Eventos',
-                href: '/rh/folha/eventos'
+                href: '#'
             },
             {
                 title: 'Contra-cheques',
-                href: '/rh/folha/contra-cheques'
+                subRoute: [
+                    {
+                        title: 'Counter Strike',
+                        href: '#'
+                    },
+                    {
+                        title: 'Cois e tal',
+                        href: '#'
+                    }
+                ]
             }
         ]
     },
