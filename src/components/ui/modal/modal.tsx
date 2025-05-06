@@ -65,7 +65,6 @@ export default function Modal({children, isOpen, setIsOpen, title}: Props) {
                             data-leave:ease-in
                             sm:m-3
                             sm:my-8
-                            sm:w-full
                             data-closed:sm:translate-y-0
                             data-closed:sm:scale-95
                         `}
