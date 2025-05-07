@@ -3,7 +3,8 @@ import {RouteType} from "@/types/_root/RouteType";
 
 type KeySistema =
     'RECURSOS_HUMANOS' |
-    'GERENCIAMENTO_SISTEMA';
+    'GERENCIAMENTO_SISTEMA' |
+    'CONTABIL';
 
 type InfoSistema = {
     key: KeySistema,
