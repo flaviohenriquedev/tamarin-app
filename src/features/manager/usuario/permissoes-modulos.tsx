@@ -28,7 +28,7 @@ export function PermissoesModulos({modulo}: Props) {
             <div className={`flex items-center gap-3`}>
                 <input type="checkbox"
                        checked={moduloSelecionado}
-                       className="checkbox checkbox-xs checkbox-primary"
+                       className="cursor-default checkbox checkbox-xs"
                        onChange={() => setModuloSelecionado(!moduloSelecionado)}
 
                 />

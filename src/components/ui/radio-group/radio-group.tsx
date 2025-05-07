@@ -1,0 +1,21 @@
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+
+type Props = {
+    values: TSelectItem[]
+}
+
+export function RadioGroup({values}: Props) {
+    return (
+        <div className={`flex flex-col gap-1 bg-base-100 p-1 rounded-md`}>
+            {values.map((item: TSelectItem) => {
+                return (
+                    <div key={item.value}
+                        className={`flex bg-base-200 items-center p-2 gap-2 rounded-md`}>
+                        <input key={item.value} type="radio" name="radio-8" className="cursor-default radio radio-xs" />
+                        <label>{item.label}</label>
+                    </div>
+                )
+            })}
+        </div>
+    )
+}

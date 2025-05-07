@@ -6,17 +6,23 @@ import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cl
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
+
 import {rotasSistema} from "@/features/sistema/rotas";
 
 import './css/style.css'
 import {PermissoesModulos} from "@/features/manager/usuario/permissoes-modulos";
 import {SistemaType} from "@/features/sistema/types";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {RoleUsuarioFactory} from "@/features/manager/usuario/ts/role-enum";
+import {PermissoesItemSistema} from "@/features/manager/usuario/permissoes-item-sistema";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
+import {PermissoesItemCliente} from "@/features/manager/usuario/ts/permissoes-item-cliente";
 
 type Props = {
     entidade: UsuarioDTO
 }
 
-// const rolesSelectItem: TSelectItem[] = RoleUsuarioFactory.getSelectItens();
+const rolesSelectItem: TSelectItem[] = RoleUsuarioFactory.getSelectItens();
 const service = new ClienteService();
 
 export function UsuarioCamposFormulario({entidade}: Props) {
@@ -24,7 +30,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>(new Cliente());
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
-
+    const [sistemaCheck, setSistemaCheck] = useState<boolean>(false);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -61,25 +67,26 @@ export function UsuarioCamposFormulario({entidade}: Props) {
                     <Label title={`CPF`}>
                         <InputString atributo={`cpf`} entidade={entidade}/>
                     </Label>
+                    <Label title={`Telefone`}>
+                        <InputString atributo={`telefone`} entidade={entidade}/>
+                    </Label>
+
+                    <Checkbox label={`Usuário Master?`}/>
                 </LineContent>
             </div>
 
             <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
                 <Fieldset label={`Clientes`} className={`cad-user-clients h-full`}>
                     <div>
-                        <ul>
+                        <ul className={`flex flex-col gap-1`}>
                             {listaClientes && listaClientes.length > 0
                                 ? listaClientes.map(cliente => {
                                     return (
-                                        <li key={cliente.id}
-                                            className={`
-                                               cursor-default
-                                               p-2
-                                               rounded-md
-                                               ${clienteSelecionado.id === cliente.id ? 'bg-primary' : 'hover:bg-base-100'}`}
-                                            onClick={() => selecionarCliente(cliente)}>
-                                            {cliente.nomeFantasia}
-                                        </li>
+                                        <PermissoesItemCliente
+                                            key={cliente.id}
+                                            destacar={clienteSelecionado.id === cliente.id}
+                                            cliente={cliente}
+                                            onClick={selecionarCliente} />
                                     )
                                 }) : (
                                     <div className="skeleton h-full w-full"></div>
@@ -90,18 +97,15 @@ export function UsuarioCamposFormulario({entidade}: Props) {
 
                 <Fieldset label={`Sistemas`} className={`cad-user-system h-full`}>
                     <div>
-                        <ul>
+                        <ul className={`flex flex-col gap-1`}>
                             {rotasSistema.map(sistema => {
                                 return (
-                                    <li key={sistema.sistema.label}
-                                        className={`
-                                               cursor-default
-                                               p-2
-                                               rounded-md
-                                               ${sistemaSelecionado && sistemaSelecionado.sistema.label === sistema.sistema.label ? 'bg-primary' : 'hover:bg-base-100'}`}
-                                        onClick={() => selecionarSistema(sistema)}>
-                                        {sistema.sistema.label}
-                                    </li>
+                                    <PermissoesItemSistema
+                                        key={sistema.sistema.key}
+                                        sistema={sistema}
+                                        onSelect={selecionarSistema}
+                                        valuesRadioGroup={rolesSelectItem}
+                                        destacar={sistemaSelecionado && sistemaSelecionado.sistema.label === sistema.sistema.label}/>
                                 )
                             })}
                         </ul>

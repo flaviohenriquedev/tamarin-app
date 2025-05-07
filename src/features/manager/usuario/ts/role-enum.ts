@@ -1,7 +1,6 @@
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 export enum RoleUsuarioENUM {
-    MASTER = "MASTER",
     ADMIN = "ADMIN",
     USER = "USER"
 }
@@ -9,15 +8,11 @@ export enum RoleUsuarioENUM {
 export class RoleUsuarioFactory {
 
     private static readonly status: RoleUsuarioENUM[] = [
-        RoleUsuarioENUM.MASTER,
         RoleUsuarioENUM.ADMIN,
         RoleUsuarioENUM.USER
     ];
 
     private static readonly infos = {
-        MASTER: {
-            label: 'Master'
-        },
         ADMIN: {
             label: 'Administrador'
         },

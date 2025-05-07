@@ -22,7 +22,7 @@ export default function RootLayout({
             className={`antialiased overflow-hidden`}
         >
         <Providers>
-            <Toaster richColors position={`top-right`} icons={{
+            <Toaster richColors position={`top-center`} icons={{
                 success: <CircleCheckBig />,
                 error: <CircleCheckBig />
             }}/>

@@ -17,8 +17,8 @@ export function LineContent({children, justifyContent, alignItems, className}: P
                 : 'justify-start',
 
         alignItems === 'center' ? 'items-center'
-            : justifyContent === 'end' ? 'items-end'
-                : 'items-start',
+            : justifyContent === 'start' ? 'items-start'
+                : 'items-end',
     )
 
     return (
