@@ -1,6 +1,6 @@
 'use client'
 
-import React, {ReactNode, useEffect, useRef, useState} from "react";
+import React, {ReactNode, useContext, useEffect, useRef, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
 import {rotasSistema} from "@/features/sistema/rotas";
@@ -10,9 +10,11 @@ import Image from "next/image";
 import {RouteType} from "@/types/_root/RouteType";
 import {InputSearch} from "@/components/ui/input/input-search";
 import {SistemaType} from "@/features/sistema/types";
+import {ListaClientes} from "@/components/layouts/layout-inicial/lista-clientes";
+import {SideMenuContext} from "@/context/sidemenu-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
-
+    const { cliente } = useContext(SideMenuContext);
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
     const [searchMenu, setSearchMenu] = useState("");
@@ -144,9 +146,19 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             exit={{width: 0, opacity: 0}}
                             transition={{duration: 0.2}}
                         >
+
+                            <div className={`flex items-center justify-between`}>
+                                <div
+                                    className={`flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden`}>
+                                    <label className={'font-bold'}>{cliente && cliente.id ? cliente.nomeFantasia : 'Selecione um cliente...'}</label>
+                                </div>
+                                <ListaClientes />
+                            </div>
+
                             {sistemaSelecionado && (
-                                <div className={`flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden`}>
-                                    <label className={'font-bold'}>{sistemaSelecionado.sistema.label}</label>
+                                <div
+                                    className={`flex border-b border-base-200 pl-3 pb-3 items-center flex-nowrap truncate overflow-y-hidden`}>
+                                    <label className={'font-semibold'}>{sistemaSelecionado.sistema.label}</label>
                                 </div>
                             )}
                             <InputSearch

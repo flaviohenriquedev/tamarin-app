@@ -1,16 +1,15 @@
 import {ReactNode} from "react";
-import {get} from "lodash";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
-type Props<E> = {
-    item: E
-    fieldLabel: string
+type Props = {
+    item: TSelectItem
     icon: ReactNode
-    action: (item: E) => void
-    onClick?: (item: E) => void
+    action: (item: TSelectItem) => void
+    onClick?: (item: TSelectItem) => void
     destaque?: boolean
 }
 
-export function DualListboxItem<E>({item, icon, action, onClick, fieldLabel, destaque = false}: Props<E>) {
+export function DualListboxItem({item, icon, action, onClick, destaque = false}: Props) {
     return (
         <div>
             <li onClick={() => onClick ? onClick(item) : null}
@@ -18,8 +17,8 @@ export function DualListboxItem<E>({item, icon, action, onClick, fieldLabel, des
             >
                 <span
                     className="block max-w-full overflow-hidden whitespace-nowrap text-ellipsis"
-                    title={get(item, fieldLabel)}>
-                    {get(item, fieldLabel)}
+                    title={item.label}>
+                    {item.label}
                 </span>
                 <div onClick={() => action(item)}>
                     {icon}

@@ -2,7 +2,7 @@
 
 import React, {createContext, useState} from "react";
 import {RouteType} from "@/types/_root/RouteType";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
 type SidemenuContextProps = {
     expanded: boolean;
@@ -11,8 +11,8 @@ type SidemenuContextProps = {
     setSideMenuEntered: (value: boolean) => void;
     rotas: RouteType[];
     setRotas: (rotas: RouteType[]) => void;
-    cliente: TSelectItem;
-    setCliente: (value: TSelectItem) => void;
+    cliente: Cliente;
+    setCliente: (value: Cliente) => void;
 };
 
 export const SideMenuContext = createContext<SidemenuContextProps>({
@@ -25,7 +25,7 @@ export const SideMenuContext = createContext<SidemenuContextProps>({
     rotas: [],
     setRotas: () => {
     },
-    cliente: {value: '', label: ''},
+    cliente: new Cliente(),
     setCliente: () => {
     },
 });
@@ -38,7 +38,7 @@ export const SideMenuContextProvider = ({
     const [expanded, setExpanded] = useState(false);
     const [sideMenuEntered, setSideMenuEntered] = useState<boolean>(false);
     const [rotas, setRotas] = useState<RouteType[]>([])
-    const [cliente, setCliente] = useState<TSelectItem>({value: '', label: ''})
+    const [cliente, setCliente] = useState<Cliente>(new Cliente())
 
     return (
         <SideMenuContext.Provider

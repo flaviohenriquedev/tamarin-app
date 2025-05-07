@@ -30,7 +30,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>(new Cliente());
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
-    const [sistemaCheck, setSistemaCheck] = useState<boolean>(false);
+    const [listaSistema, setListaSistema] = useState<SistemaType[]>([]);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -39,6 +39,11 @@ export function UsuarioCamposFormulario({entidade}: Props) {
     }, []);
 
     function selecionarCliente(cliente: Cliente) {
+        if(cliente.sistemas && cliente.sistemas.length > 0) {
+            setListaSistema(rotasSistema.filter(sistema => cliente.sistemas.includes(sistema.sistema.key)))
+        } else {
+            setListaSistema([])
+        }
         setClienteSelecionado(cliente);
     }
 
@@ -98,7 +103,7 @@ export function UsuarioCamposFormulario({entidade}: Props) {
                 <Fieldset label={`Sistemas`} className={`cad-user-system h-full`}>
                     <div>
                         <ul className={`flex flex-col gap-1`}>
-                            {rotasSistema.map(sistema => {
+                            {listaSistema && listaSistema.length > 0 && listaSistema.map(sistema => {
                                 return (
                                     <PermissoesItemSistema
                                         key={sistema.sistema.key}

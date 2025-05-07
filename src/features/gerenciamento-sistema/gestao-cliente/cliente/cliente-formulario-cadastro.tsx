@@ -5,46 +5,35 @@ import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/t
 import {useEffect, useState} from "react";
 import {rotasSistema} from "@/features/sistema/rotas";
 import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {SistemaType} from "@/features/sistema/types";
 
 type Props = {
     entidade: Cliente;
 }
 
-class ClienteDTO extends Cliente {
-    sistemas: Sistema[]
-}
-
-class Sistema {
-    key: string;
-    descricao: string;
-}
-
 export function ClienteFormularioCadastro({entidade}: Props) {
-    
-    const [listaSistema, setListaSistema] = useState<Sistema[]>([]);
-    const [entidadeDTO, setEntidadeDTO] = useState<ClienteDTO>(new ClienteDTO());
-    
-    useEffect(() => {
-        const sistemas: Sistema[] = [];
-        rotasSistema.map(sistema => {
-            sistemas.push({key: sistema.sistema.key, descricao: sistema.sistema.label})
-        })
-        setListaSistema(sistemas);
-    }, [])
+
+    const [listaSistema] = useState<SistemaType[]>(rotasSistema);
+    const [selectItemSistema, setSelectItemSistema] = useState<TSelectItem[]>([]);
 
     useEffect(() => {
-        const clienteDTO = new ClienteDTO();
-        clienteDTO.dataCriacao = entidade.dataCriacao;
-        clienteDTO.usuarioCriacao = entidade.usuarioCriacao;
-        clienteDTO.dataAlteracao = entidade.dataAlteracao;
-        clienteDTO.usuarioAlteracao = entidade.usuarioAlteracao;
-        clienteDTO.nomeFantasia = entidade.nomeFantasia;
-        clienteDTO.razaoSocial = entidade.razaoSocial;
-        clienteDTO.cnpj = entidade.cnpj;
-        clienteDTO.dataAbertura = entidade.dataAbertura;
-        setEntidadeDTO(clienteDTO);
-    }, [entidade]);
-    
+        setSelectItemSistema(getSelectItemSistema())
+    }, [listaSistema]);
+
+    function getSelectItemSistema(): TSelectItem[] {
+        const itens: TSelectItem[] = []
+        if (listaSistema && listaSistema.length > 0) {
+            listaSistema.map(sistema => {
+                itens.push({
+                    label: sistema.sistema.label,
+                    value: sistema.sistema.key,
+                })
+            })
+        }
+        return itens;
+    }
+
     return (
         <>
             <LineContentFill>
@@ -75,9 +64,9 @@ export function ClienteFormularioCadastro({entidade}: Props) {
                 </Label>
             </LineContentFill>
             <DualListbox
-                listaEntidade={listaSistema}
-                fieldLabel={`descricao`}
-                listaDestino={entidadeDTO.sistemas} />
+                entidade={entidade}
+                listaValores={selectItemSistema}
+                atributo={`sistemas`} />
         </>
     )
 }

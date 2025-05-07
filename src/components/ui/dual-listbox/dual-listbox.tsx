@@ -5,30 +5,35 @@ import {ChevronsLeft, ChevronsRight, Minus, Plus} from "lucide-react";
 import {useEffect, useState} from "react";
 import {DualListboxItem} from "@/components/ui/dual-listbox/dual-listbox-item";
 import {DualListboxList} from "@/components/ui/dual-listbox/dual-listbox-list";
-import {get} from "lodash";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {set} from "lodash";
 
 type Props<E> = {
-    listaEntidade: E[];
-    fieldLabel: string;
-    listaDestino: E[];
+    entidade: E
+    listaValores: TSelectItem[];
+    atributo: string
 }
 
-export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<E>) {
+export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
 
-    const [listaValores, setListaValores] = useState<E[]>([])
-    const [listaValoresDestino, setListaValoresDestino] = useState<E[]>([])
-    const [listaSelecionados, setListaSelecionados] = useState<E[]>([])
-
-    useEffect(() => {
-        setListaValores(listaEntidade)
-    }, [listaEntidade]);
+    const [listaValoresDisponiveis, setListaValoresDisponiveis] = useState<TSelectItem[]>([])
+    const [listaValoresAdicionados, setListaValoresAdicionados] = useState<TSelectItem[]>([])
+    const [listaSelecionados, setListaSelecionados] = useState<TSelectItem[]>([])
 
     useEffect(() => {
-        setListaValores(listaEntidade && listaEntidade.length > 0 ? listaEntidade : listaEntidade)
-        setListaValoresDestino(listaDestino && listaDestino.length > 0 ? listaDestino : [])
-    }, [listaDestino, listaEntidade])
+        setListaValoresDisponiveis(listaValores)
+    }, [listaValores]);
 
-    function selecionarItem(item: E) {
+    useEffect(() => {
+        setListaValoresDisponiveis(listaValores && listaValores.length > 0 ? listaValores : listaValores)
+        setListaValoresAdicionados([])
+    }, [listaValores])
+
+    useEffect(() => {
+        if (entidade) set(entidade, atributo, listaValoresAdicionados.map(item => item.value))
+    }, [atributo, entidade, listaValoresAdicionados]);
+
+    function selecionarItem(item: TSelectItem) {
         if (!listaSelecionados.includes(item)) {
             setListaSelecionados((prev) => [...prev, item])
         } else {
@@ -36,49 +41,49 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
         }
     }
 
-    function addItem(item: E) {
-        if (!listaValoresDestino.includes(item)) {
-            setListaValores(prev => prev.filter(i => i !== item))
-            setListaValoresDestino(prev => [...prev, item]
+    function addItem(item: TSelectItem) {
+        if (!listaValoresAdicionados.includes(item)) {
+            setListaValoresDisponiveis(prev => prev.filter(i => i !== item))
+            setListaValoresAdicionados(prev => [...prev, item]
                 .sort((a, b) => {
-                    const valorA = String(get(a, fieldLabel));
-                    const valorB = String(get(b, fieldLabel));
+                    const valorA = a.label;
+                    const valorB = b.label;
                     return valorA.localeCompare(valorB);
                 }))
         }
     }
 
     function addTodos() {
-        setListaValoresDestino(prev => [...prev, ...listaValores]
+        setListaValoresAdicionados(prev => [...prev, ...listaValoresDisponiveis]
             .sort((a, b) => {
-                const valorA = String(get(a, fieldLabel));
-                const valorB = String(get(b, fieldLabel));
+                const valorA = a.label;
+                const valorB = b.label;
                 return valorA.localeCompare(valorB);
             }))
-        setListaValores([])
+        setListaValoresDisponiveis([])
         setListaSelecionados([])
     }
 
-    function removeItem(item: E) {
-        if (!listaValores.includes(item)) {
-            setListaValoresDestino(prev => prev.filter(i => i !== item))
-            setListaValores(prev => [...prev, item]
+    function removeItem(item: TSelectItem) {
+        if (!listaValoresDisponiveis.includes(item)) {
+            setListaValoresAdicionados(prev => prev.filter(i => i !== item))
+            setListaValoresDisponiveis(prev => [...prev, item]
                 .sort((a, b) => {
-                    const valorA = String(get(a, fieldLabel));
-                    const valorB = String(get(b, fieldLabel));
+                    const valorA = a.label;
+                    const valorB = b.label;
                     return valorA.localeCompare(valorB);
                 }))
         }
     }
 
     function removerTodos() {
-        setListaValores(prev => [...prev, ...listaValoresDestino]
+        setListaValoresDisponiveis(prev => [...prev, ...listaValoresAdicionados]
             .sort((a, b) => {
-                const valorA = String(get(a, fieldLabel));
-                const valorB = String(get(b, fieldLabel));
+                const valorA = a.label;
+                const valorB = b.label;
                 return valorA.localeCompare(valorB);
             }))
-        setListaValoresDestino([])
+        setListaValoresAdicionados([])
         setListaSelecionados([])
     }
 
@@ -90,10 +95,9 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                 </div>
 
                 <DualListboxList>
-                    {listaValores && listaValores.map((item, index) => (
+                    {listaValoresDisponiveis && listaValoresDisponiveis.map((item, index) => (
                         <DualListboxItem
                             key={index}
-                            fieldLabel={fieldLabel}
                             item={item}
                             destaque={listaSelecionados.includes(item)}
                             action={addItem}
@@ -121,11 +125,10 @@ export function DualListbox<E>({listaEntidade, fieldLabel, listaDestino}: Props<
                 </div>
 
                 <DualListboxList>
-                    {listaValoresDestino && listaValoresDestino.map((item, index) => (
+                    {listaValoresAdicionados && listaValoresAdicionados.map((item, index) => (
                         <DualListboxItem
                             key={index}
                             item={item}
-                            fieldLabel={fieldLabel}
                             action={removeItem}
                             icon={<Minus size={18} className={`
                             text-error

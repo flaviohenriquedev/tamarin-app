@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Table} from "@/components/ui/table/table";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
@@ -18,7 +18,12 @@ const service = new ClienteService();
 export function ClientePaginaInicial() {
     const [entidade, setEntidade] = useState<Cliente>(new Cliente());
     const [listaEntidade, setListaEntidade] = useState<Cliente[]>([]);
-    const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
+
+    const atualizarLista = useCallback(() => {
+        service.listar().then(result => {
+            setListaEntidade(result)
+        });
+    }, []);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -29,14 +34,15 @@ export function ClientePaginaInicial() {
     function handleSalvar() {
         service.salvar(entidade, () => {
             setEntidade(new Cliente());
-            setAtualizarLista(true);
+            atualizarLista();
             toast.success("Registro salvo com sucesso.");
         }).then()
     }
 
     return (
         <PaginaCadastro camposFormulario={<ClienteFormularioCadastro entidade={entidade}/>}
-                        onSubmit={handleSalvar}>
+                        onSubmit={handleSalvar}
+        title={`Cadastro de Clientes`}>
             <Table colunas={clienteColunasListagem}
                    lista={listaEntidade}/>
         </PaginaCadastro>
