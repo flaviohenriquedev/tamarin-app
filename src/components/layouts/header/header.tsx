@@ -3,17 +3,26 @@
 import {InfoUsuario} from "@/components/layouts/info-usuario/info-usuario";
 import React from "react";
 import {Breadcrumb} from "@/components/ui/breadcrumb/breadcrumb";
-import {RouteType} from "@/types/_root/RouteType";
 import {ThemeChanger} from "@/components/ui/theme-changer/theme-changer";
+import {SistemaType} from "@/features/sistema/types";
+import {useRouter} from "next/navigation";
 
 type Props = {
-    rotas?: RouteType[];
+    sistema?: SistemaType;
 }
 
-export function Header({rotas}: Props) {
+export function Header({sistema}: Props) {
+
+    const router = useRouter();
+
     return (
         <header className={`content-header bg-base-200 flex items-center justify-between pl-3 pr-4 w-full h-14 border-b border-base-300/50`}>
-            {rotas && <Breadcrumb rotas={rotas}/>}
+            <div className={`flex items-center gap-2`}>
+                <label className={`cursor-pointer text-sm text-base-content/60 hover:text-base-content`} onClick={() => sistema && router.push(sistema.href)}>{sistema?.sistema.label}</label>
+                <div className="border-r self-stretch border-base-content/40"></div>
+                {sistema && sistema.rotas && <Breadcrumb rotas={sistema.rotas}/>}
+            </div>
+
             <div className={`flex items-center gap-10 ml-auto`}>
                 <ThemeChanger />
                 <InfoUsuario/>

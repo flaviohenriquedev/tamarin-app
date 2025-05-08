@@ -15,6 +15,7 @@ import {SideMenuContext} from "@/context/sidemenu-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
     const { cliente } = useContext(SideMenuContext);
+
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
     const [searchMenu, setSearchMenu] = useState("");
@@ -154,13 +155,6 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                                 </div>
                                 <ListaClientes />
                             </div>
-
-                            {sistemaSelecionado && (
-                                <div
-                                    className={`flex border-b border-base-200 pl-3 pb-3 items-center flex-nowrap truncate overflow-y-hidden`}>
-                                    <label className={'font-semibold'}>{sistemaSelecionado.sistema.label}</label>
-                                </div>
-                            )}
                             <InputSearch
                                 placeholder={`Filtrar...`}
                                 onChange={(e) => setSearchMenu(e.target.value)}/>
@@ -171,7 +165,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
             </div>
 
             <div className={`content`}>
-                <Header rotas={sistemaSelecionado && sistemaSelecionado.rotas}/>
+                <Header sistema={sistemaSelecionado && sistemaSelecionado}/>
                 <div className={`content-page `}>
                     {children}
                 </div>
