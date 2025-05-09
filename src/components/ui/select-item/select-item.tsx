@@ -1,5 +1,3 @@
-'use client'
-
 import {useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
@@ -34,11 +32,10 @@ export function SelectItem({values, onSelect}: Props) {
     }
 
     return (
-        <div className="relative min-w-60">
+        <div className="relative min-w-52">
             <div
                 className={`
                     ${inputStyle}
-                    input-sm
                     flex
                     items-center
                     justify-between

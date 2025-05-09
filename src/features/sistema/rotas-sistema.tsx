@@ -5,24 +5,25 @@ import {rotasGerenciamentoSistema} from "@/features/gerenciamento-sistema/rotas-
 import {SistemaType} from "@/features/sistema/types";
 import {ChartNoAxesCombined} from "lucide-react";
 import {rotasContabil} from "@/features/contabil/rotas-contabil";
+import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
 export const rotasSistema: SistemaType[] = [
     {
-        sistema: {key: 'RECURSOS_HUMANOS', label: 'Recursos Humanos'},
+        sistema: SistemaENUM.RECURSOS_HUMANOS,
         icone: <HiUsers size={15}/>,
         href: '/rh',
         destaque: false,
         rotas: rotasRecursosHumanos
     },
     {
-        sistema: {key: 'CONTABIL', label: 'Gestão Contábil'},
+        sistema: SistemaENUM.CONTABIL,
         icone: <ChartNoAxesCombined size={15}/>,
         href: '/contabil',
         destaque: true,
         rotas: rotasContabil
     },
     {
-        sistema: {key: 'GERENCIAMENTO_SISTEMA', label: 'Gerenciamento do Sistema'},
+        sistema: SistemaENUM.GERENCIAR_SISTEMA,
         icone: <IoSettingsSharp size={15}/>,
         href: '/config',
         destaque: true,

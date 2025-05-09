@@ -1,20 +1,19 @@
 'use client'
 
-import React, {ReactNode, useContext, useEffect, useRef, useState} from "react";
+import React, {ReactNode, useEffect, useRef, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
-import {rotasSistema} from "@/features/sistema/rotas";
+import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {Sidemenu} from "@/components/layouts/sidemenu/sidemenu";
 import {AnimatePresence, motion} from "framer-motion";
 import Image from "next/image";
 import {RouteType} from "@/types/_root/RouteType";
 import {InputSearch} from "@/components/ui/input/input-search";
 import {SistemaType} from "@/features/sistema/types";
-import {ListaClientes} from "@/components/layouts/layout-inicial/lista-clientes";
-import {SideMenuContext} from "@/context/sidemenu-context";
+import {InfoCliente} from "@/components/layouts/info-cliente";
+import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
-    const { cliente } = useContext(SideMenuContext);
 
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
@@ -38,13 +37,13 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
     function handleClick(sistema: SistemaType) {
         setSistemaSelecionado(sistema)
-        localStorage.setItem("sistemaSelecionado", sistema.sistema.key)
+        localStorage.setItem("sistemaSelecionado", sistema.sistema)
     }
 
     useEffect(() => {
         const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
         if (sistemaSelecionadoStorage) {
-            const sistemaEncontrado = rotasSistema.find(s => s.sistema.key === sistemaSelecionadoStorage);
+            const sistemaEncontrado = rotasSistema.find(s => s.sistema === sistemaSelecionadoStorage);
             if (sistemaEncontrado) {
                 setSistemaSelecionado(sistemaEncontrado);
             }
@@ -96,12 +95,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     function renderizarSistemas() {
         return rotasSistema.map(sistema => {
             return (
-                <li key={sistema.sistema.key}
+                <li key={sistema.sistema}
                     onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
                     className={`px-1`}
                     onClick={() => handleClick(sistema)}>
 
-                    <div data-tip={sistema.sistema.label}
+                    <div data-tip={SistemaENUMFactory.getLabel(sistema.sistema)}
                          className={`
                             flex
                             border-2
@@ -147,14 +146,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             exit={{width: 0, opacity: 0}}
                             transition={{duration: 0.2}}
                         >
-
-                            <div className={`flex items-center justify-between`}>
-                                <div
-                                    className={`flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden`}>
-                                    <label className={'font-bold'}>{cliente && cliente.id ? cliente.nomeFantasia : 'Selecione um cliente...'}</label>
-                                </div>
-                                <ListaClientes />
-                            </div>
+                            <InfoCliente/>
                             <InputSearch
                                 placeholder={`Filtrar...`}
                                 onChange={(e) => setSearchMenu(e.target.value)}/>

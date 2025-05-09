@@ -36,7 +36,9 @@ export function LocalidadePais() {
     return (
         <PaginaCadastro camposFormulario={<LocalidadePaisCamposFormulario entidade={entidade}/>}
                         onSubmit={handleSalvar}>
-            <Table colunas={paisColunasListagem}
+            <Table funcaoAtualizarLista={() => {
+            }}
+                   colunas={paisColunasListagem}
                    lista={listaEntidade}/>
         </PaginaCadastro>
     )

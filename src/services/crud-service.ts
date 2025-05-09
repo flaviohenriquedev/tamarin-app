@@ -14,6 +14,12 @@ export class CrudService<E> {
         return resultado ?? [];
     }
 
+    async buscarPorId(id: string): Promise<E | null> {
+        if (!this.endpoint.buscarPorId) return null;
+        const resultado = await request<E>(this.endpoint.buscarPorId.caminho.replace(":id", id), this.endpoint.buscarPorId.metodo);
+        return resultado ?? null;
+    }
+
     async salvar(data: E, callback?: () => void): Promise<E | null> {
         if (!this.endpoint.salvar) return null;
         return await request<E | null>(this.endpoint.salvar.caminho, this.endpoint.salvar.metodo, data)

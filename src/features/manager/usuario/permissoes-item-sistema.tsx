@@ -1,13 +1,14 @@
 import {RadioGroup} from "@/components/ui/radio-group/radio-group";
-import {SistemaType} from "@/features/sistema/types";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import React, {useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
+import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
+import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 
 type Props = {
-    sistema: SistemaType
-    onSelect: (sistema: SistemaType) => void
-    valuesRadioGroup: TSelectItem[]
+    sistema: ClienteSistema
+    onSelect: (sistema: ClienteSistema) => void
+    valuesRadioGroup?: TSelectItem[]
     destacar?: boolean
 }
 
@@ -16,7 +17,7 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
     const [sistemaChecked, setSistemaChecked] = useState<boolean>(false)
 
     return (
-        <li key={sistema.sistema.label}>
+        <li key={sistema.keySistema}>
             <div className={`
                     flex
                     items-center
@@ -41,8 +42,13 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
                     onClick={() => {
                     onSelect(sistema)
                 }}
+                >{SistemaENUMFactory.getLabel(sistema.keySistema)}</label>
+                <div className="badge badge-xs badge-warning">Adm</div>
+                <div className="badge badge-xs badge-info">Usuário</div>
+                <div>
 
-                >{sistema.sistema.label}</label>
+                </div>
+
             </div>
 
 
@@ -55,7 +61,7 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
                         exit={{height: 0, opacity: 0}}
                         transition={{duration: 0.2}}
                     >
-                    <RadioGroup values={valuesRadioGroup}/>
+                        {valuesRadioGroup && (<RadioGroup values={valuesRadioGroup}/>)}
                     </motion.div>
                 )}
             </AnimatePresence>

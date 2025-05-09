@@ -1,12 +1,13 @@
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {Label} from "@/components/ui/label/label";
 import {InputString} from "@/components/ui/input/input-string";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {useEffect, useState} from "react";
-import {rotasSistema} from "@/features/sistema/rotas";
 import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {SistemaType} from "@/features/sistema/types";
+import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
+import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
+import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {set} from "lodash";
 
 type Props = {
     entidade: Cliente;
@@ -14,25 +15,29 @@ type Props = {
 
 export function ClienteFormularioCadastro({entidade}: Props) {
 
-    const [listaSistema] = useState<SistemaType[]>(rotasSistema);
-    const [selectItemSistema, setSelectItemSistema] = useState<TSelectItem[]>([]);
+    const [sistemasSelecionados, setSistemasSelecionados] = useState<DualListboxValue[]>([]);
+    const [listaSistemaDualList, setListaSistemaDualList] = useState<DualListboxType[]>([]);
 
     useEffect(() => {
-        setSelectItemSistema(getSelectItemSistema())
-    }, [listaSistema]);
+        setListaSistemaDualList(
+            rotasSistema.map(item => ({
+                label: item.sistema.label,
+                value: item.sistema.key
+            }))
+        );
+    }, []);
 
-    function getSelectItemSistema(): TSelectItem[] {
-        const itens: TSelectItem[] = []
-        if (listaSistema && listaSistema.length > 0) {
-            listaSistema.map(sistema => {
-                itens.push({
-                    label: sistema.sistema.label,
-                    value: sistema.sistema.key,
-                })
-            })
-        }
-        return itens;
-    }
+    useEffect(() => {
+        const sistemas: ClienteSistema[] = []
+        sistemasSelecionados.map(item => {
+            if (item) {
+                const clienteSistema = new ClienteSistema();
+                clienteSistema.keySistema = item.toString();
+                sistemas.push(clienteSistema);
+            }
+        })
+        set(entidade, 'sistemas', sistemas);
+    }, [entidade, sistemasSelecionados]);
 
     return (
         <>
@@ -64,9 +69,12 @@ export function ClienteFormularioCadastro({entidade}: Props) {
                 </Label>
             </LineContentFill>
             <DualListbox
-                entidade={entidade}
-                listaValores={selectItemSistema}
-                atributo={`sistemas`} />
+                valores={listaSistemaDualList}
+                stateRetorno={{
+                    value: sistemasSelecionados,
+                    funcSet: setSistemasSelecionados
+                }}
+            />
         </>
     )
 }

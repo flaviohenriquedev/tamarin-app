@@ -2,38 +2,31 @@
 
 import './style.css'
 import {ChevronsLeft, ChevronsRight, Minus, Plus} from "lucide-react";
-import {useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {DualListboxItem} from "@/components/ui/dual-listbox/dual-listbox-item";
 import {DualListboxList} from "@/components/ui/dual-listbox/dual-listbox-list";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {set} from "lodash";
+import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 
-type Props<E> = {
-    entidade: E
-    listaValores: TSelectItem[];
-    atributo: string
+type Props = {
+    valores: DualListboxType[];
+    stateRetorno: {value: DualListboxValue[], funcSet: Dispatch<SetStateAction<DualListboxValue[]>>};
 }
 
-export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
+export function DualListbox({valores, stateRetorno}: Props) {
 
-    const [listaValoresDisponiveis, setListaValoresDisponiveis] = useState<TSelectItem[]>([])
-    const [listaValoresAdicionados, setListaValoresAdicionados] = useState<TSelectItem[]>([])
-    const [listaSelecionados, setListaSelecionados] = useState<TSelectItem[]>([])
-
+    const [listaValoresDisponiveis, setListaValoresDisponiveis] = useState<DualListboxType[]>([])
+    const [listaValoresAdicionados, setListaValoresAdicionados] = useState<DualListboxType[]>([])
+    const [listaSelecionados, setListaSelecionados] = useState<DualListboxType[]>([])
+    
     useEffect(() => {
-        setListaValoresDisponiveis(listaValores)
-    }, [listaValores]);
+        setListaValoresDisponiveis([...valores].sort((a, b) => {
+            const valorA = a.label;
+            const valorB = b.label;
+            return valorA.localeCompare(valorB);
+        }))
+    }, [valores])
 
-    useEffect(() => {
-        setListaValoresDisponiveis(listaValores && listaValores.length > 0 ? listaValores : listaValores)
-        setListaValoresAdicionados([])
-    }, [listaValores])
-
-    useEffect(() => {
-        if (entidade) set(entidade, atributo, listaValoresAdicionados.map(item => item.value))
-    }, [atributo, entidade, listaValoresAdicionados]);
-
-    function selecionarItem(item: TSelectItem) {
+    function selecionarItem(item: DualListboxType) {
         if (!listaSelecionados.includes(item)) {
             setListaSelecionados((prev) => [...prev, item])
         } else {
@@ -41,7 +34,7 @@ export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
         }
     }
 
-    function addItem(item: TSelectItem) {
+    function addItem(item: DualListboxType) {
         if (!listaValoresAdicionados.includes(item)) {
             setListaValoresDisponiveis(prev => prev.filter(i => i !== item))
             setListaValoresAdicionados(prev => [...prev, item]
@@ -50,6 +43,7 @@ export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
                     const valorB = b.label;
                     return valorA.localeCompare(valorB);
                 }))
+            stateRetorno.funcSet((prev) => [...prev, item.value])
         }
     }
 
@@ -62,11 +56,13 @@ export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
             }))
         setListaValoresDisponiveis([])
         setListaSelecionados([])
+        stateRetorno.funcSet(Array.from(listaValoresAdicionados.map(v => v.value)))
     }
 
-    function removeItem(item: TSelectItem) {
+    function removeItem(item: DualListboxType) {
         if (!listaValoresDisponiveis.includes(item)) {
             setListaValoresAdicionados(prev => prev.filter(i => i !== item))
+            stateRetorno.funcSet(prev => prev.filter(i => i !== item.value))
             setListaValoresDisponiveis(prev => [...prev, item]
                 .sort((a, b) => {
                     const valorA = a.label;
@@ -84,6 +80,7 @@ export function DualListbox<E>({entidade, listaValores, atributo}: Props<E>) {
                 return valorA.localeCompare(valorB);
             }))
         setListaValoresAdicionados([])
+        stateRetorno.funcSet([])
         setListaSelecionados([])
     }
 

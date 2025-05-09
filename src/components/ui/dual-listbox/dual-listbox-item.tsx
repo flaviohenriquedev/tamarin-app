@@ -1,11 +1,11 @@
 import {ReactNode} from "react";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {DualListboxType} from "@/components/ui/dual-listbox/ts/DualListboxType";
 
 type Props = {
-    item: TSelectItem
+    item: DualListboxType
     icon: ReactNode
-    action: (item: TSelectItem) => void
-    onClick?: (item: TSelectItem) => void
+    action: (item: DualListboxType) => void
+    onClick?: (item: DualListboxType) => void
     destaque?: boolean
 }
 

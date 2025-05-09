@@ -1,9 +1,9 @@
 'use client'
 
 import {UsuarioService} from "@/features/manager/usuario/ts/usuario-service";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {toast} from "sonner";
-import {UsuarioCamposFormulario} from "@/features/manager/usuario/usuario-campos-formulario";
+import {UsuarioComponenteCadastro} from "@/features/manager/usuario/usuario-componente-cadastro";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {Table} from "@/components/ui/table/table";
 import {usuarioColunasListagem} from "@/features/manager/usuario/ts/usuario-colunas-listagem";
@@ -15,7 +15,12 @@ export function UsuarioPaginaInicial() {
 
     const [entidade, setEntidade] = useState<UsuarioDTO>(new UsuarioDTO());
     const [listaEntidade, setListaEntidade] = useState<UsuarioDTO[]>([]);
-    const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
+
+    const atualizarLista = useCallback(() => {
+        service.listar().then(result => {
+            setListaEntidade(result)
+        });
+    }, []);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -26,16 +31,16 @@ export function UsuarioPaginaInicial() {
     function handleSalvar() {
         service.salvar(entidade, () => {
             setEntidade(new UsuarioDTO());
-            setAtualizarLista(true);
             toast.success("Registro salvo com sucesso.");
         }).then()
     }
 
     return (
-        <PaginaCadastro camposFormulario={<UsuarioCamposFormulario entidade={entidade}/>}
+        <PaginaCadastro camposFormulario={<UsuarioComponenteCadastro entidade={entidade}/>}
                         onSubmit={handleSalvar}
                         title={`Cadastro de Usuário`}>
-            <Table colunas={usuarioColunasListagem}
+            <Table funcaoAtualizarLista={atualizarLista}
+                   colunas={usuarioColunasListagem}
                    lista={listaEntidade}/>
         </PaginaCadastro>
     )

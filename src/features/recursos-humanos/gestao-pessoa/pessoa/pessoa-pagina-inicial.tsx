@@ -5,8 +5,6 @@ import {useCallback, useEffect, useState} from "react";
 import {Pessoa} from "@/features/recursos-humanos/gestao-pessoa/pessoa/ts/pessoa";
 import {PageContainer} from "@/components/layouts/page-container/page-container";
 import {PessoaFormularioCadastro} from "@/features/recursos-humanos/gestao-pessoa/pessoa/pessoa-formulario-cadastro";
-import {pessoaColunasListagem} from "@/features/recursos-humanos/gestao-pessoa/pessoa/ts/pessoa-colunas-listagem";
-import {Table} from "@/components/ui/table/table";
 
 const service = new PessoaService();
 
@@ -38,9 +36,10 @@ export function PessoaPaginaInicial() {
             onSave={onSave}
             onModalOpen={() => setEntidade(new Pessoa())}
             formularioCadastro={<PessoaFormularioCadastro entidade={entidade}/>}>
-            <Table colunas={pessoaColunasListagem}
-                   lista={listaEntidade}
-                   funcaoDeletar={handleDeletar}/>
+            <div></div>
+            {/*<Table colunas={pessoaColunasListagem}*/}
+            {/*       lista={listaEntidade}*/}
+            {/*       funcaoDeletar={handleDeletar}/>*/}
         </PageContainer>
     )
 }

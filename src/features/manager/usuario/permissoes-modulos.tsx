@@ -33,12 +33,6 @@ export function PermissoesModulos({modulo}: Props) {
 
                 />
                 <label className={`text-sm`}>{modulo.title}</label>
-                <div className={`flex items-center gap-1`}>
-                    <div className={`flex items-center justify-center bg-info rounded-full w-3 h-3`} />
-                    <div className={`flex items-center justify-center bg-warning rounded-full w-3 h-3`} />
-                    <div className={`flex items-center justify-center bg-error rounded-full w-3 h-3`} />
-                    <div className={`flex items-center justify-center bg-base-100 p-1 rounded-xs h-3 w-5 cursor-pointer hover:bg-primary hover:text-primary-content transition-colors duration-200`}><span>...</span></div>
-                </div>
             </div>
             {moduloSelecionado && modulo.subRoute && (
                 <ul>

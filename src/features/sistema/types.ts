@@ -1,18 +1,9 @@
 import {ReactNode} from "react";
 import {RouteType} from "@/types/_root/RouteType";
-
-type KeySistema =
-    'RECURSOS_HUMANOS' |
-    'GERENCIAMENTO_SISTEMA' |
-    'CONTABIL';
-
-type InfoSistema = {
-    key: KeySistema,
-    label: string,
-}
+import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
 export type SistemaType = {
-    sistema: InfoSistema,
+    sistema: SistemaENUM,
     icone: ReactNode,
     href: string,
     destaque: boolean,
