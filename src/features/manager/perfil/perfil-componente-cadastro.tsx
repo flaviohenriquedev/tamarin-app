@@ -48,6 +48,7 @@ export function PerfilComponenteCadastro({entidade}: Props) {
     }
 
     function selecionarSistema(sistema: ClienteSistema) {
+        getLog()
         setClienteSistemaSelecionado(sistema)
     }
 
@@ -62,6 +63,10 @@ export function PerfilComponenteCadastro({entidade}: Props) {
                 })
             }
         }
+    }
+
+    function getLog() {
+        console.log(listaClienteSistema);
     }
 
     return (

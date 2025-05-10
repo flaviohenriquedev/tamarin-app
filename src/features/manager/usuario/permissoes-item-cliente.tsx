@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
 type Props = {
@@ -8,9 +7,6 @@ type Props = {
 }
 
 export function PermissoesItemCliente({ destacar, cliente, onClick }: Props) {
-
-    const [clienteChecked, setClienteChecked] = useState<boolean>(false)
-
     return (
         <li className={`
                 flex
@@ -27,11 +23,6 @@ export function PermissoesItemCliente({ destacar, cliente, onClick }: Props) {
                ` : 'hover:bg-base-100 border-transparent text-gray-400'}
                 `}
             onClick={() => onClick(cliente)}>
-            <input type="checkbox"
-                   checked={clienteChecked}
-                   className="cursor-default checkbox checkbox-xs"
-                   onChange={() => setClienteChecked(!clienteChecked)}
-            />
             <label>{cliente.nomeFantasia}</label>
         </li>
     )

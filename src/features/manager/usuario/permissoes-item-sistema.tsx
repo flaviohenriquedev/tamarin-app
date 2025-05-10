@@ -1,9 +1,10 @@
 import {RadioGroup} from "@/components/ui/radio-group/radio-group";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {set} from "lodash";
 
 type Props = {
     sistema: ClienteSistema
@@ -14,7 +15,11 @@ type Props = {
 
 export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, destacar = false }: Props) {
 
-    const [sistemaChecked, setSistemaChecked] = useState<boolean>(false)
+    const [sistemaChecked, setSistemaChecked] = useState<boolean>(sistema.checked)
+
+    useEffect(() => {
+        set(sistema, 'checked', sistemaChecked)
+    }, [sistema, sistemaChecked])
 
     return (
         <li key={sistema.keySistema}>

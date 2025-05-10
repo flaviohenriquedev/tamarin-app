@@ -9,4 +9,10 @@ export class ClienteSistema extends EntidadePadrao {
     constructor() {
         super();
     }
+
+    private _checked: boolean;
+
+    set checked(value: boolean) {
+        this._checked = value;
+    }
 }

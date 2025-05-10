@@ -26,6 +26,10 @@ export function DualListbox({valores, stateRetorno}: Props) {
         }))
     }, [valores])
 
+    useEffect(() => {
+
+    }, []);
+
     function selecionarItem(item: DualListboxType) {
         if (!listaSelecionados.includes(item)) {
             setListaSelecionados((prev) => [...prev, item])
@@ -46,17 +50,14 @@ export function DualListbox({valores, stateRetorno}: Props) {
             stateRetorno.funcSet((prev) => [...prev, item.value])
         }
     }
-
     function addTodos() {
-        setListaValoresAdicionados(prev => [...prev, ...listaValoresDisponiveis]
-            .sort((a, b) => {
-                const valorA = a.label;
-                const valorB = b.label;
-                return valorA.localeCompare(valorB);
-            }))
+        const novaLista = [...listaValoresAdicionados, ...listaValoresDisponiveis]
+            .sort((a, b) => a.label.localeCompare(b.label))
+
+        setListaValoresAdicionados(novaLista)
         setListaValoresDisponiveis([])
         setListaSelecionados([])
-        stateRetorno.funcSet(Array.from(listaValoresAdicionados.map(v => v.value)))
+        stateRetorno.funcSet(novaLista.map(v => v.value))
     }
 
     function removeItem(item: DualListboxType) {
@@ -73,14 +74,12 @@ export function DualListbox({valores, stateRetorno}: Props) {
     }
 
     function removerTodos() {
-        setListaValoresDisponiveis(prev => [...prev, ...listaValoresAdicionados]
-            .sort((a, b) => {
-                const valorA = a.label;
-                const valorB = b.label;
-                return valorA.localeCompare(valorB);
-            }))
+        const novaListaDisponiveis = [...listaValoresDisponiveis, ...listaValoresAdicionados]
+            .sort((a, b) => a.label.localeCompare(b.label))
+
+        setListaValoresDisponiveis(novaListaDisponiveis)
         setListaValoresAdicionados([])
-        stateRetorno.funcSet([])
+        stateRetorno.funcSet([]) // continua vazio, já que você limpou os adicionados
         setListaSelecionados([])
     }
 

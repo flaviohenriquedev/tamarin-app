@@ -4,7 +4,6 @@ import {PerfilService} from "@/features/manager/perfil/ts/perfil-service";
 import {useCallback, useEffect, useState} from "react";
 import {toast} from "sonner";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
-import {Table} from "@/components/ui/table/table";
 import {
     departamentoColunasListagem
 } from "@/features/recursos-humanos/gestao-departamento/departamento/ts/departamento-colunas-listagem";
@@ -39,12 +38,11 @@ export function PerfilPaginaInicial() {
 
     return (
         <PaginaCadastro
+            funcaoAtualizarLista={atualizarLista}
+            colunas={departamentoColunasListagem}
+            lista={listaEntidade}
             camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
             title={`Cadastro de Perfil`}
-            onSubmit={handleSalvar}>
-            <Table funcaoAtualizarLista={atualizarLista}
-                   colunas={departamentoColunasListagem}
-                   lista={listaEntidade}/>
-        </PaginaCadastro>
+            onSubmit={handleSalvar} />
     )
 }

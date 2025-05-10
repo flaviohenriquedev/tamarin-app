@@ -8,6 +8,7 @@ import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {set} from "lodash";
+import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 
 type Props = {
     entidade: Cliente;
@@ -21,8 +22,8 @@ export function ClienteFormularioCadastro({entidade}: Props) {
     useEffect(() => {
         setListaSistemaDualList(
             rotasSistema.map(item => ({
-                label: item.sistema.label,
-                value: item.sistema.key
+                label: SistemaENUMFactory.getLabel(item.sistema),
+                value: item.sistema
             }))
         );
     }, []);
@@ -31,9 +32,11 @@ export function ClienteFormularioCadastro({entidade}: Props) {
         const sistemas: ClienteSistema[] = []
         sistemasSelecionados.map(item => {
             if (item) {
-                const clienteSistema = new ClienteSistema();
-                clienteSistema.keySistema = item.toString();
-                sistemas.push(clienteSistema);
+                if (item && Object.values(SistemaENUM).includes(item as SistemaENUM)) {
+                    const clienteSistema = new ClienteSistema();
+                    clienteSistema.keySistema = item as SistemaENUM;
+                    sistemas.push(clienteSistema);
+                }
             }
         })
         set(entidade, 'sistemas', sistemas);
