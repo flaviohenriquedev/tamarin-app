@@ -13,9 +13,10 @@ import {PermissoesItemCliente} from "@/features/manager/usuario/permissoes-item-
 import Modal from "@/components/ui/modal/modal";
 import {PerfilService} from "@/features/manager/perfil/ts/perfil-service";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
-import {Perfil} from "@/features/manager/perfil/ts/perfil";
+import {Perfil, PerfilRota} from "@/features/manager/perfil/ts/perfil";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {PermissoesModulos} from "@/features/manager/usuario/permissoes-modulos";
+import {set} from "lodash";
 
 type Props = {
     entidade: Perfil;
@@ -29,7 +30,7 @@ export function PerfilComponenteCadastro({entidade}: Props) {
     const [listaCliente, setListaCliente] = useState<Cliente[]>([])
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>(new Cliente())
     const [clienteSistemaSelecionado, setClienteSistemaSelecionado] = useState<ClienteSistema>();
-
+    const [perfilRotas, setPerfilRotas] = useState<PerfilRota[]>([])
     const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([]);
 
     const [abrirModalCadastroPerfil, setAbrirModalCadastroPerfil] = useState<boolean>(false);
@@ -38,17 +39,20 @@ export function PerfilComponenteCadastro({entidade}: Props) {
         clienteService.listar().then(retorno => setListaCliente(retorno));
     }, []);
 
-    function selecionarCliente(cliente: Cliente) {
+    useEffect(() => {
+        set(entidade, 'rotas', perfilRotas)
+        console.log('ENTIDADE ->', entidade)
+    }, [entidade, perfilRotas]);
 
+    function selecionarCliente(cliente: Cliente) {
         if (cliente.sistemas && cliente.sistemas.length > 0) {
             setListaClienteSistema(cliente.sistemas)
         }
-
         setClienteSelecionado(cliente);
     }
 
     function selecionarSistema(sistema: ClienteSistema) {
-        getLog()
+
         setClienteSistemaSelecionado(sistema)
     }
 
@@ -59,14 +63,16 @@ export function PerfilComponenteCadastro({entidade}: Props) {
             )
             if (sistemaSelecionado) {
                 return sistemaSelecionado.rotas.map(modulo => {
-                    return <PermissoesModulos key={modulo.title} modulo={modulo}/>
+                    return <PermissoesModulos
+                                key={modulo.title}
+                                modulo={modulo}
+                                statePerfilRotas={{
+                                    val: perfilRotas,
+                                    func: setPerfilRotas
+                                }}/>
                 })
             }
         }
-    }
-
-    function getLog() {
-        console.log(listaClienteSistema);
     }
 
     return (

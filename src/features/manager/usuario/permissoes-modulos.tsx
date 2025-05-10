@@ -1,18 +1,20 @@
 'use client'
 
 import {RouteType} from "@/types/_root/RouteType";
-import {useEffect, useState} from "react";
+import {SetStateAction, useEffect, useState} from "react";
 import {PermissoesSubrotas} from "@/features/manager/usuario/permissoes-subrotas";
 import {Ellipsis, Eye, ListChecks, PencilRuler} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {FuncionalidadeEnum, FuncionalidadeEnumFactory} from "@/enums/FuncionalidadeEnum";
+import {PerfilRota} from "@/features/manager/perfil/ts/perfil";
 
 type Props = {
-    modulo: RouteType
+    modulo: RouteType,
+    statePerfilRotas: { val: PerfilRota[], func: (valor: SetStateAction<PerfilRota[]>) => void }
 }
 
-export function PermissoesModulos({modulo}: Props) {
+export function PermissoesModulos({modulo, statePerfilRotas}: Props) {
     const [openListSubRoute, setOpenListSubRoute] = useState<boolean>(false);
     const [funcionalidadeSelecionada, setFuncionalidadeSelecionada] = useState<TSelectItem>()
     const [mostrarListaPermissoes, setMostrarListaPermissoes] = useState<boolean>(false)
@@ -25,7 +27,10 @@ export function PermissoesModulos({modulo}: Props) {
     function renderizarSubrotas(subrotas: RouteType[]) {
         return subrotas.map(rota => {
             return (
-                <PermissoesSubrotas key={rota.title} rota={rota}>
+                <PermissoesSubrotas
+                    key={rota.title}
+                    rota={rota}
+                    statePerfilRotas={statePerfilRotas}>
                     {rota.subRoute && (
                         <ul className={`pl-32`}>
                             {renderizarSubrotas(rota.subRoute)}
@@ -40,9 +45,9 @@ export function PermissoesModulos({modulo}: Props) {
         <li key={modulo.title} className={`flex flex-col gap-1 px-2 py-1`}>
             <div className={`flex items-center gap-3`}>
                 {modulo.subRoute ? (
-                        <div className={`cursor-pointer`} onClick={() => setOpenListSubRoute(!openListSubRoute)}>
-                            <ListChecks size={15} />
-                        </div>
+                    <div className={`cursor-pointer`} onClick={() => setOpenListSubRoute(!openListSubRoute)}>
+                        <ListChecks size={15}/>
+                    </div>
                 ) : (
                     <div className={`relative`}>
                         <div className={`
@@ -58,20 +63,20 @@ export function PermissoesModulos({modulo}: Props) {
                              onClick={() => setMostrarListaPermissoes(!mostrarListaPermissoes)}>
                             <div className={`flex h-fill w-fill items-center justify-center`}>
                                 {funcionalidadeSelecionada && funcionalidadeSelecionada.value as FuncionalidadeEnum === FuncionalidadeEnum.SOMENTE_LEITURA ? (
-                                    <Eye size={15} />
+                                    <Eye size={15}/>
                                 ) : funcionalidadeSelecionada && funcionalidadeSelecionada.value as FuncionalidadeEnum === FuncionalidadeEnum.EDITAR ? (
-                                    <PencilRuler size={15} />
-                                ) : <Ellipsis size={15} />}
+                                    <PencilRuler size={15}/>
+                                ) : <Ellipsis size={15}/>}
                             </div>
                         </div>
                         <AnimatePresence initial={false}>
                             {mostrarListaPermissoes && (
                                 <motion.ul
                                     className="absolute flex flex-col gap-2 top-full w-32 p-2 z-10 bg-base-100 shadow-[-5px_5px_7px_0px_rgba(0,_0,_0,_0.1)] rounded-md overflow-hidden"
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.1 }}
+                                    initial={{height: 0, opacity: 0}}
+                                    animate={{height: 'auto', opacity: 1}}
+                                    exit={{height: 0, opacity: 0}}
+                                    transition={{duration: 0.1}}
                                 >
                                     {funcionalidadeSelecionada && (
                                         <li onClick={() => {

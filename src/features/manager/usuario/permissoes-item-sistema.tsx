@@ -5,6 +5,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {set} from "lodash";
+import {ListFilterPlus} from "lucide-react";
 
 type Props = {
     sistema: ClienteSistema
@@ -48,15 +49,13 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
                     onSelect(sistema)
                 }}
                 >{SistemaENUMFactory.getLabel(sistema.keySistema)}</label>
-                <div className="badge badge-xs badge-warning">Adm</div>
-                <div className="badge badge-xs badge-info">Usuário</div>
-                <div>
-
-                </div>
+                {sistemaChecked && destacar && (
+                    <div className={`flex items-center justify-center p-1 cursor-pointer rounded-md border-2 border-transparent hover:bg-base-100`}>
+                        <ListFilterPlus size={15}/>
+                    </div>
+                )}
 
             </div>
-
-
             <AnimatePresence initial={false}>
                 {destacar && (
                     <motion.div

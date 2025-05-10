@@ -4,9 +4,14 @@ import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cl
 export class Perfil extends EntidadeAuditavel {
     public clienteSistema: ClienteSistema;
     public descricao: string;
-    public rotas: string[];
+    public rotas: PerfilRota[];
 
     constructor() {
         super();
     }
+}
+
+export type PerfilRota = {
+    idRota: string;
+    roles: string[];
 }

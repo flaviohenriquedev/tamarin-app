@@ -1,8 +1,7 @@
-type Value = string | number | undefined | null;
-
+export type TSelectItemValue = string | number | undefined | null;
 export type TSelectItem = {
     label: string;
-    value: Value;
+    value: TSelectItemValue;
     styleClass?: string;
     icon?: string;
     title?: string;

@@ -1,16 +1,18 @@
 import {RouteType} from "@/types/_root/RouteType";
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {ReactNode, SetStateAction, useEffect, useState} from "react";
 import {FuncionalidadeEnum, FuncionalidadeEnumFactory} from "@/enums/FuncionalidadeEnum";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {TSelectItem, TSelectItemValue} from "@/components/ui/select-item/ts/TSelectItem";
 import {Ellipsis, Eye, PencilRuler} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
+import {PerfilRota} from "@/features/manager/perfil/ts/perfil";
 
 type Props = {
     children?: ReactNode;
-    rota: RouteType
+    rota: RouteType,
+    statePerfilRotas: {val: PerfilRota[], func: (valor: SetStateAction<PerfilRota[]>) => void}
 }
 
-export function PermissoesSubrotas({rota, children}: Props) {
+export function PermissoesSubrotas({rota, children, statePerfilRotas}: Props) {
     const [mostrarListaPermissoes, setMostrarListaPermissoes] = useState<boolean>(false)
     const [selectItemFuncionalidades, setSelectItemFuncionalidades] = useState<TSelectItem[]>(FuncionalidadeEnumFactory.getSelectItens())
     const [funcionalidadeSelecionada, setFuncionalidadeSelecionada] = useState<TSelectItem>()
@@ -18,6 +20,45 @@ export function PermissoesSubrotas({rota, children}: Props) {
     useEffect(() => {
         if (selectItemFuncionalidades.length === 0) setSelectItemFuncionalidades(FuncionalidadeEnumFactory.getSelectItens())
     }, [selectItemFuncionalidades.length])
+
+    // const addPerfilRota = useCallback((
+    //     (idRota: string, role: TSelectItemValue) => {
+    //         const perfilRota: PerfilRota = {idRota: idRota, roles: [role as string]}
+    //         setPerfilRotas(pev => [...pev, perfilRota])
+    //     }
+    // ), [])
+
+    const addPerfilRota = (idRota: string, role: TSelectItemValue) => {
+        const perfilRota: PerfilRota = {idRota: idRota, roles: [role as string]}
+        statePerfilRotas.func(pev => [...pev, perfilRota])
+    }
+
+    const removePerfilRota = (idRota: string) => {
+        if (statePerfilRotas.val.map(perfil => perfil.idRota).includes(idRota)) {
+            statePerfilRotas.func(prev => prev.filter(i => i.idRota !== idRota))
+        }
+    }
+
+    // const selecionarFuncionalidade = useCallback((
+    //     (modulo: RouteType, funcionalidade: TSelectItem) => {
+    //         setFuncionalidadeSelecionada(funcionalidade)
+    //         addPerfilRota(modulo.id, funcionalidade.value)
+    //         setMostrarListaPermissoes(false)
+    //         console.log(modulo, funcionalidade)
+    //     }
+    // ), [addPerfilRota])
+
+    const selecionarFuncionalidade =  (modulo: RouteType, funcionalidade: TSelectItem) => {
+        addPerfilRota(modulo.id, funcionalidade.value)
+        setFuncionalidadeSelecionada(funcionalidade)
+        setMostrarListaPermissoes(false)
+    }
+
+    const removerFuncionalidade =  (modulo: RouteType) => {
+        removePerfilRota(modulo.id)
+        setFuncionalidadeSelecionada(undefined)
+        setMostrarListaPermissoes(false)
+    }
 
     return (
         <li key={rota.title}>
@@ -33,10 +74,7 @@ export function PermissoesSubrotas({rota, children}: Props) {
                             cursor-pointer
                             px-[.5rem]
                             py-[.1rem]
-                            border-2
-                            border-transparent
-                            hover:border-base-content 
-                            ${funcionalidadeSelecionada ? funcionalidadeSelecionada.styleClass : 'bg-base-300'}`}
+                            ${funcionalidadeSelecionada ? funcionalidadeSelecionada.styleClass : ''}`}
                          onClick={() => setMostrarListaPermissoes(!mostrarListaPermissoes)}>
                         <div className={`flex h-fill w-fill items-center justify-center`}>
                             {funcionalidadeSelecionada && funcionalidadeSelecionada.value as FuncionalidadeEnum === FuncionalidadeEnum.SOMENTE_LEITURA ? (
@@ -57,10 +95,7 @@ export function PermissoesSubrotas({rota, children}: Props) {
                                 transition={{ duration: 0.1 }}
                             >
                                 {funcionalidadeSelecionada && (
-                                    <li onClick={() => {
-                                        setFuncionalidadeSelecionada(undefined)
-                                        setMostrarListaPermissoes(false)
-                                    }}
+                                    <li onClick={() => removerFuncionalidade(rota)}
                                         className="cursor-pointer rounded-md bg-base-300 text-warning hover:bg-base-200 p-1">
                                         Limpar
                                     </li>
@@ -77,10 +112,7 @@ export function PermissoesSubrotas({rota, children}: Props) {
                                                         text-base-content
                                                        ` : 'hover:bg-base-200 border-transparent text-gray-400'}
                                         `}
-                                        onClick={() => {
-                                            setFuncionalidadeSelecionada(funcionalidade)
-                                            setMostrarListaPermissoes(false)
-                                        }}>
+                                        onClick={() => selecionarFuncionalidade(rota, funcionalidade)}>
                                         {funcionalidade.label}
                                     </li>
                                 ))}
