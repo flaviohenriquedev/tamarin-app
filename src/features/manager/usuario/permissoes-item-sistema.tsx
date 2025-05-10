@@ -50,7 +50,18 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
                 }}
                 >{SistemaENUMFactory.getLabel(sistema.keySistema)}</label>
                 {sistemaChecked && destacar && (
-                    <div className={`flex items-center justify-center p-1 cursor-pointer rounded-md border-2 border-transparent hover:bg-base-100`}>
+                    <div className={`
+                        flex
+                        items-center
+                        justify-center
+                        p-1
+                        cursor-pointer
+                        rounded-md
+                        border-2
+                        border-transparent
+                        transform
+                        active:scale-95
+                        hover:bg-base-100`}>
                         <ListFilterPlus size={15}/>
                     </div>
                 )}
