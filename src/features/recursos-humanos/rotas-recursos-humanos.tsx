@@ -1,25 +1,30 @@
 import {icones} from "@/components/common/icones";
 import {RouteType} from "@/types/_root/RouteType";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export const rotasRecursosHumanos: RouteType[] = [
     {
         id: 'recursoshumanos-colaborador',
+        module: ModuloENUM.COLABORADOR,
         title: 'Colaborador',
         icon: icones.colaboradores,
         href: '/rh/colaborador'
     },
     {
         id: 'recursoshumanos-folha-pagamento',
+        module: ModuloENUM.FOLHA_PAGAMENTO,
         title: 'Folha de Pagamento',
         icon: icones.folhaPagamento,
         subRoute: [
             {
                 id: 'recursoshumanos-folha-pagamento-lancamentos',
+                module: ModuloENUM.FOLHA_PAGAMENTO_LANCAMENTOS,
                 title: 'Lançamentos',
                 href: '/rh/folha-pagamento/lancamentos'
             },
             {
                 id: 'recursoshumanos-folha-pagamento-eventos',
+                module: ModuloENUM.FOLHA_PAGAMENTO_EVENTOS,
                 title: 'Eventos',
                 href: '/rh/folha-pagamento/eventos'
             },
@@ -32,6 +37,7 @@ export const rotasRecursosHumanos: RouteType[] = [
         subRoute: [
             {
                 id: 'recursoshumanos-ponto-frequencia-registro-ponto',
+                module: ModuloENUM.REGISTRO_DE_PONTO,
                 title: 'Registro de Ponto',
                 href: '/rh/ponto/registro'
             },

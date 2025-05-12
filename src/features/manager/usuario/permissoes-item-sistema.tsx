@@ -4,26 +4,33 @@ import React, {useEffect, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {set} from "lodash";
 import {ListFilterPlus} from "lucide-react";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
+import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 
 type Props = {
-    sistema: ClienteSistema
-    onSelect: (sistema: ClienteSistema) => void
+    clienteSistema: ClienteSistema
+    perfilSistema: PerfilSistema
+    onClick: (perfilSistema: PerfilSistema) => void
+    onCheck: (sistema: ClienteSistema) => void
     valuesRadioGroup?: TSelectItem[]
     destacar?: boolean
 }
 
-export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, destacar = false }: Props) {
+export function PermissoesItemSistema({ clienteSistema, perfilSistema, onClick, onCheck, valuesRadioGroup, destacar = false }: Props) {
 
-    const [sistemaChecked, setSistemaChecked] = useState<boolean>(sistema.checked)
+    const [sistemaChecked, setSistemaChecked] = useState<boolean>(perfilSistema.checked)
 
     useEffect(() => {
-        set(sistema, 'checked', sistemaChecked)
-    }, [sistema, sistemaChecked])
+        onCheck(clienteSistema)
+    }, [onCheck, clienteSistema, sistemaChecked])
+
+    useEffect(() => {
+        console.log('MUDOU O CHECK ->', perfilSistema.checked)
+    }, [perfilSistema.checked]);
 
     return (
-        <li key={sistema.keySistema}>
+        <li key={clienteSistema.id}>
             <div className={`
                     flex
                     items-center
@@ -38,17 +45,13 @@ export function PermissoesItemSistema({ sistema, onSelect, valuesRadioGroup, des
                             text-base-content
                        ` : 'hover:bg-base-100 border-transparent text-gray-400'}
                     `}>
-                <input type="checkbox"
-                       checked={sistemaChecked}
-                       className="cursor-default checkbox checkbox-xs"
-                       onChange={() => setSistemaChecked(!sistemaChecked)}
-
-                />
+                <Checkbox entidade={perfilSistema}
+                          atributo={'checked'} />
                 <label className={`w-full h-full p-2 `}
                     onClick={() => {
-                    onSelect(sistema)
+                    onClick(perfilSistema)
                 }}
-                >{SistemaENUMFactory.getLabel(sistema.keySistema)}</label>
+                >{SistemaENUMFactory.getLabel(clienteSistema.keySistema)}</label>
                 {sistemaChecked && destacar && (
                     <div className={`
                         flex

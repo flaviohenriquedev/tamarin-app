@@ -1,19 +1,19 @@
 'use client'
 
-import {PerfilService} from "@/features/manager/perfil/ts/perfil-service";
 import {useCallback, useEffect, useState} from "react";
 import {toast} from "sonner";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
-import {
-    departamentoColunasListagem
-} from "@/features/recursos-humanos/gestao-departamento/departamento/ts/departamento-colunas-listagem";
-import {Perfil} from "@/features/manager/perfil/ts/perfil";
-import {PerfilComponenteCadastro} from "@/features/manager/perfil/perfil-componente-cadastro";
+import {PerfilComponenteCadastro} from "@/features/manager/gestaoPerfil/perfil/perfil-componente-cadastro";
+import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {perfilColunasListagem} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-colunas-listagem";
 
 const service = new PerfilService();
 
 export function PerfilPaginaInicial() {
     const [entidade, setEntidade] = useState<Perfil>(new Perfil());
+
+
     const [listaEntidade, setListaEntidade] = useState<Perfil[]>([]);
 
     const atualizarLista = useCallback(() => {
@@ -29,6 +29,8 @@ export function PerfilPaginaInicial() {
     }, [atualizarLista]);
 
     function handleSalvar() {
+        entidade.sistemas = entidade.sistemas.filter(s => s.checked);
+    
         service.salvar(entidade, () => {
             setEntidade(new Perfil());
             atualizarLista();
@@ -39,7 +41,7 @@ export function PerfilPaginaInicial() {
     return (
         <PaginaCadastro
             funcaoAtualizarLista={atualizarLista}
-            colunas={departamentoColunasListagem}
+            colunas={perfilColunasListagem}
             lista={listaEntidade}
             camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
             title={`Cadastro de Perfil`}

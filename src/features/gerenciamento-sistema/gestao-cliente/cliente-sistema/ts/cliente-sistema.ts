@@ -3,16 +3,11 @@ import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/t
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
 export class ClienteSistema extends EntidadePadrao {
+
     public cliente: Cliente;
     public keySistema: SistemaENUM;
 
     constructor() {
         super();
-    }
-
-    private _checked: boolean;
-
-    set checked(value: boolean) {
-        this._checked = value;
     }
 }

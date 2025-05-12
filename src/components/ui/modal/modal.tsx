@@ -1,5 +1,3 @@
-'use client'
-
 import {Dialog, DialogBackdrop, DialogPanel} from '@headlessui/react'
 import {ReactNode} from "react";
 import {X} from "lucide-react";

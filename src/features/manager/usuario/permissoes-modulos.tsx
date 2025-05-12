@@ -7,11 +7,11 @@ import {Ellipsis, Eye, ListChecks, PencilRuler} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {FuncionalidadeEnum, FuncionalidadeEnumFactory} from "@/enums/FuncionalidadeEnum";
-import {PerfilRota} from "@/features/manager/perfil/ts/perfil";
+import {PerfilSistemaModulo} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/ts/pefil-sistema-modulo";
 
 type Props = {
     modulo: RouteType,
-    statePerfilRotas: { val: PerfilRota[], func: (valor: SetStateAction<PerfilRota[]>) => void }
+    statePerfilRotas: { val: PerfilSistemaModulo[], func: (valor: SetStateAction<PerfilSistemaModulo[]>) => void }
 }
 
 export function PermissoesModulos({modulo, statePerfilRotas}: Props) {

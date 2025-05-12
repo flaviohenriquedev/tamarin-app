@@ -2,13 +2,12 @@ import {useState} from "react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
 type Props = {
-    destacar: boolean,
-    cliente: Cliente,
-    onClick: (cliente: Cliente) => void
+    destacar?: boolean
+    cliente: Cliente
+    onClick: (cliente: Cliente) => void;
 }
 
-export function PermissoesItemCliente({ destacar, cliente, onClick }: Props) {
-
+export function ComponentePerfilClienteItem({ destacar, cliente, onClick }: Props) {
     const [clienteChecked, setClienteChecked] = useState<boolean>(false)
 
     return (
