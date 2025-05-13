@@ -53,38 +53,32 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     useEffect(() => {
         const filterMenu = () => {
             const filteredMap: { [key: string]: RouteType } = {};
-
             if (sistemaSelecionado?.rotas) {
                 sistemaSelecionado?.rotas.forEach((d) => {
                     const filteredMenu: RouteType = {...d};
                     if (
-                        d.title
-                            .toLowerCase()
+                        d.title?.toLowerCase()
                             .includes(searchMenu.toLowerCase()) ||
-                        (d.subRoute &&
-                            d.subRoute.some((sub) =>
-                                sub.title
-                                    .toLowerCase()
-                                    .includes(searchMenu.toLowerCase())
-                            ))
+                        (d.subRoute && d.subRoute.some((sub) =>
+                            sub.title?.toLowerCase()
+                                .includes(searchMenu.toLowerCase())
+                        ))
                     ) {
-                        filteredMap[d.title] = filteredMenu;
+                        if (d.title) filteredMap[d.title] = filteredMenu;
                     }
 
                     if (d.subRoute) {
                         const filteredSubmenu = d.subRoute.filter((sub) =>
-                            sub.title
-                                .toLowerCase()
+                            sub.title?.toLowerCase()
                                 .includes(searchMenu.toLowerCase())
                         );
                         if (filteredSubmenu.length > 0) {
                             filteredMenu.subRoute = filteredSubmenu;
-                            filteredMap[d.title] = filteredMenu;
+                            if (d.title) filteredMap[d.title] = filteredMenu;
                         }
                     }
-                });
+                })
             }
-
             const filtered: RouteType[] = Object.values(filteredMap);
             setFilteredData(filtered);
         };

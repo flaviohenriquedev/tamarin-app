@@ -13,7 +13,6 @@ const service = new PerfilService();
 export function PerfilPaginaInicial() {
     const [entidade, setEntidade] = useState<Perfil>(new Perfil());
 
-
     const [listaEntidade, setListaEntidade] = useState<Perfil[]>([]);
 
     const atualizarLista = useCallback(() => {
@@ -40,11 +39,11 @@ export function PerfilPaginaInicial() {
 
     return (
         <PaginaCadastro
+            title={`Cadastro de Perfil`}
+            camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
             funcaoAtualizarLista={atualizarLista}
             colunas={perfilColunasListagem}
             lista={listaEntidade}
-            camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
-            title={`Cadastro de Perfil`}
             onSubmit={handleSalvar} />
     )
 }

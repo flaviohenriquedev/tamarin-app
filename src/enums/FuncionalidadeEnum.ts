@@ -23,8 +23,22 @@ export class FuncionalidadeEnumFactory {
         }
     };
 
+    private static readonly funcionalidadesPadrao = {
+        SOMENTE_LEITURA: {
+            label: "Somente Leitura",
+        },
+        MANIPULAR_CADASTRO: {
+            label: 'Manipular Cadastro'
+        },
+    };
+
+
     static getFuncionalidade(): FuncionalidadeEnum[] {
         return this.funcionalidade;
+    }
+
+    static getFuncionalidadesPadrao() {
+        return this.funcionalidadesPadrao;
     }
 
     static getSelectItens(): TSelectItem[] {
