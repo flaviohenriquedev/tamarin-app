@@ -5,6 +5,7 @@ import {TSelectItem, TSelectItemValue} from "@/components/ui/select-item/ts/TSel
 import {Ellipsis, Eye, PencilRuler} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {PerfilRota} from "@/features/manager/perfil/ts/perfil";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
 
 type Props = {
     children?: ReactNode;
@@ -113,6 +114,7 @@ export function PermissoesSubrotas({rota, children, statePerfilRotas}: Props) {
                                                        ` : 'hover:bg-base-200 border-transparent text-gray-400'}
                                         `}
                                         onClick={() => selecionarFuncionalidade(rota, funcionalidade)}>
+                                        <Checkbox entidade={funcionalidade} atributo={'checked'} />
                                         {funcionalidade.label}
                                     </li>
                                 ))}

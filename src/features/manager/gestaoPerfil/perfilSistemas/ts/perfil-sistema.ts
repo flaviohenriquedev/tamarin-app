@@ -13,5 +13,6 @@ export class PerfilSistema extends EntidadePadrao {
 
     constructor() {
         super();
+        this.rotas = [];
     }
 }

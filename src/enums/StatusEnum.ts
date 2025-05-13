@@ -7,7 +7,6 @@ export enum Status {
 }
 
 export class StatusFactory {
-
     private static readonly status: Status[] = [
         Status.INATIVO,
         Status.ATIVO,

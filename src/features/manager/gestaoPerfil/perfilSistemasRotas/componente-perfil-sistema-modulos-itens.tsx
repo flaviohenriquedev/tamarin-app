@@ -7,6 +7,7 @@ import {Ellipsis, Eye, ListChecks, PencilRuler} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {PerfilSistemaModulo} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/ts/pefil-sistema-modulo";
 import Modal from "@/components/ui/modal/modal";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
 
 type Props = {
     modulo: RouteType,
@@ -94,10 +95,11 @@ export function ComponentePerfilSistemaModulosItens({modulo, statePerfilRotas}: 
                                         {selectItemFuncionalidades && selectItemFuncionalidades.map((funcionalidade) => (
                                             <li key={funcionalidade.value}
                                                 className={`
-                                            cursor-pointer
-                                            rounded-md
-                                            p-1
-                                            border-2
+                                                            cursor-pointer
+                                                            rounded-md
+                                                            bg-red-300
+                                                            p-1
+                                                            border-2
                                             ${funcionalidade.value === funcionalidadeSelecionada?.value ? `bg-primary/15
                                                         border-primary
                                                         text-base-content
@@ -107,6 +109,7 @@ export function ComponentePerfilSistemaModulosItens({modulo, statePerfilRotas}: 
                                                     setFuncionalidadeSelecionada(funcionalidade)
                                                     setMostrarListaPermissoes(false)
                                                 }}>
+                                                <Checkbox entidade={funcionalidade} atributo={'checked'} />
                                                 {funcionalidade.label}
                                             </li>
                                         ))}

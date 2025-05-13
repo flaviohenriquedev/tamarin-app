@@ -8,4 +8,5 @@ export type RouteType = {
     icon?: ReactNode;
     href?: string;
     subRoute?: RouteType[];
+    roles?: string[];
 }

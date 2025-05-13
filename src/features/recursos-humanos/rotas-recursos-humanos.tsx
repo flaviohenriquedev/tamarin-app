@@ -12,7 +12,6 @@ export const rotasRecursosHumanos: RouteType[] = [
     },
     {
         id: 'recursoshumanos-folha-pagamento',
-        module: ModuloENUM.FOLHA_PAGAMENTO,
         title: 'Folha de Pagamento',
         icon: icones.folhaPagamento,
         subRoute: [

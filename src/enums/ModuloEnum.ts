@@ -8,6 +8,16 @@ export enum ModuloENUM {
     REGISTRO_DE_PONTO = "REGISTRO_DE_PONTO"
 }
 
+type Funcionalidade = {
+    label: string;
+};
+
+type ModuloFuncionalidade = {
+    funcionalidades: {
+        [key: string]: Funcionalidade;
+    };
+};
+
 export class ModuloFactory {
 
     private static readonly modulos: ModuloENUM[] = [
@@ -36,6 +46,52 @@ export class ModuloFactory {
         }
     };
 
+    private static readonly funcionalidadesPadrao = {
+        SOMENTE_LEITURA: {
+            label: "Somente Leitura",
+        },
+        MANIPULAR_CADASTRO: {
+            label: 'Manipular Cadastro'
+        },
+    };
+
+    private static readonly funcionalidades: { [k in ModuloENUM]: ModuloFuncionalidade } = {
+        COLABORADOR: {
+            funcionalidades: {
+                ...this.funcionalidadesPadrao,
+                CONSULTAR_TESTE: {
+                    label: 'Consultar Teste'
+                }
+            }
+        },
+        FOLHA_PAGAMENTO: {
+            funcionalidades: {
+                ...this.funcionalidadesPadrao,
+                CONSULTAR_FOLHA_PAGAMENTO: {
+                    label: 'Consultar Folha Pagamento'
+                }
+            }
+        },
+        FOLHA_PAGAMENTO_LANCAMENTOS: {
+            funcionalidades: {
+                ...this.funcionalidadesPadrao,
+                CONSULTAR_FOLHA_PAGAMENTO: {
+                    label: 'Consultar Folha Pagamento'
+                }
+            }
+        },
+        FOLHA_PAGAMENTO_EVENTOS: {
+            funcionalidades: {
+                ...this.funcionalidadesPadrao,
+            }
+        },
+        REGISTRO_DE_PONTO: {
+            funcionalidades: {
+                ...this.funcionalidadesPadrao,
+            }
+        }
+    }
+
     static getModulos(): ModuloENUM[] {
         return this.modulos;
     }
@@ -45,6 +101,25 @@ export class ModuloFactory {
             return {label: this.getLabel(item), value: item};
         });
     }
+
+    static getFuncionalidades(modulo: ModuloENUM) {
+        return this.funcionalidades[modulo].funcionalidades;
+    }
+
+    static getFuncionalidadesSelectItens(modulo?: ModuloENUM): TSelectItem[] {
+        if (modulo) {
+            const funcionalidades = this.getFuncionalidades(modulo);
+            return Object.entries(funcionalidades).map(([key, value]) => ({
+                label: value.label,
+                value: key
+            }));
+        }
+        // Caso não passe nenhum módulo, retorna a lista de módulos
+        return this.modulos.map(item => {
+            return { label: this.getLabel(item), value: item };
+        });
+    }
+
 
     static getLabel(modulo: ModuloENUM): string {
         return modulo ? this.infos[modulo].label : '';

@@ -6,4 +6,5 @@ export type TSelectItem = {
     icon?: string;
     title?: string;
     disabled?: boolean;
+    checked?: boolean;
 }
