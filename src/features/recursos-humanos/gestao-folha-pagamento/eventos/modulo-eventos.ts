@@ -1,21 +1,21 @@
-import {FuncionalidadesType, ModulosType} from "@/types/_root/ModulosTypes";
+import {ModulosType} from "@/types/_root/ModulosTypes";
 
-type Modulos = 'FOLHA_PAGAMENTO_EVENTOS'
+type Modulos = 'EVENTOS'
 
 export const ModuloEventos: ModulosType<Modulos> = {
     infos() {
         return {
-            id: 'recursoshumanos-folha-pagamento-eventos',
-            modulo: 'FOLHA_PAGAMENTO_EVENTOS',
+            id: 'eventos',
+            modulo: 'EVENTOS',
             title: 'Eventos',
             href: '/rh/folha-pagamento/eventos',
-            funcionalidades: this.funcionalidades()
+            funcionalidades: this.funcionalidades!()
         };
     },
-    funcionalidades(): { [key: string]: FuncionalidadesType } {
+    funcionalidades(){
         return {
-            CONSULTAR_FOLHA_PAGAMENTO: {
-                label: 'Consultar Folha Pagamento'
+            CONSULTAR_SERASA: {
+                label: 'Consultar o Serasa'
             }
         }
     }

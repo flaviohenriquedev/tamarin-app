@@ -1,48 +1,32 @@
 'use client'
 
-import React, {InputHTMLAttributes} from "react"
-import {useValorAtributo} from "@/components/ui/input/hook/useValorAtributo";
+import React from "react"
 import {inputStyle} from "@/components/ui/input/style";
-
-interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
-    atributo: string
-    entidade: E
-}
+import {Input} from "@/components/ui/input/input";
+import {InputProps} from "@/interfaces/InputProps";
 
 export function InputString<E extends object>({
-                                                          id,
-                                                          type,
-                                                          placeholder,
-                                                          name,
-                                                          maxLength,
-                                                          disabled,
-                                                          entidade,
-                                                          atributo,
-                                                          onBlur,
-                                                          autoComplete,
-                                                          onKeyDown,
-                                                          required = false,
-                                                          value,
-                                                          onChange
-                                                      }: Props<E>) {
-
-    const {valorAtributo, atribuirValor} = useValorAtributo(entidade, atributo);
-
+                                                  entidade,
+                                                  atributo,
+                                                  ...props
+                                              }: InputProps<E>) {
     return (
-        <input
+        <Input
+            entidade={entidade}
+            atributo={atributo}
             className={inputStyle}
-            id={id}
-            placeholder={placeholder}
-            name={name}
-            maxLength={maxLength}
-            type={type ? type : "text"}
-            autoComplete={autoComplete}
-            disabled={disabled}
-            value={value ? value : valorAtributo}
-            onChange={onChange ? onChange : (e) => atribuirValor(e.target.value)}
-            onBlur={onBlur}
-            onKeyDown={onKeyDown}
-            required={required}
+            id={props.id}
+            placeholder={props.placeholder}
+            name={props.name}
+            maxLength={props.maxLength}
+            type={props.type ? props.type : "text"}
+            autoComplete={props.autoComplete}
+            disabled={props.disabled}
+            value={props.value}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            onKeyDown={props.onKeyDown}
+            required={props.required}
         />
     );
 }

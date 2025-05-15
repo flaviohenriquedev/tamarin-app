@@ -14,16 +14,14 @@ export const rotasGerenciamentoSistema: RouteType[] = [
         icon: icones.usuario,
         subRoute: [
             {
-                id: 'gerenciar-sistema-controle-acesso-usuarios',
-                title: 'Usuarios',
-                icon: icones.usuario,
-                href: '/manager/usuario'
-            },
-            {
                 id: 'gerenciar-sistema-controle-acesso-perfis',
                 title: 'Perfis',
-                icon: icones.usuario,
                 href: '/manager/perfis'
+            },
+            {
+                id: 'gerenciar-sistema-controle-acesso-usuarios',
+                title: 'Usuarios',
+                href: '/manager/usuario'
             },
         ]
     },

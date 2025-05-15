@@ -26,12 +26,6 @@ export function ComponentePerfilClienteItem({ destacar, cliente, onClick }: Prop
                ` : 'hover:bg-base-100 border-transparent text-gray-400'}
                 `}
             onClick={() => onClick(cliente)}>
-            <input type="checkbox"
-                   checked={clienteChecked}
-                   className="cursor-default checkbox checkbox-xs"
-                   onChange={() => setClienteChecked(!clienteChecked)}
-
-            />
             <label>{cliente.nomeFantasia}</label>
         </li>
     )

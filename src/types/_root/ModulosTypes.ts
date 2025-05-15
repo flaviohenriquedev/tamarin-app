@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 
 export type ModulosType<M extends string = string> = {
     infos(): InfosModuloType<M>;
-    funcionalidades(): { [key: string]: FuncionalidadesType };
+    funcionalidades?(): { [key: string]: FuncionalidadesType };
 }
 
 export type FuncionalidadesType = {
@@ -15,7 +15,7 @@ export type InfosModuloType<M extends string = string> = {
     title: string,
     icon?: ReactNode,
     href: string,
-    funcionalidades: { [key: string]: FuncionalidadesType; };
+    funcionalidades?: { [key: string]: FuncionalidadesType; };
 }
 
 export type ModuloFuncionalidade = {

@@ -29,7 +29,7 @@ export function PerfilPaginaInicial() {
 
     function handleSalvar() {
         entidade.sistemas = entidade.sistemas.filter(s => s.checked);
-    
+
         service.salvar(entidade, () => {
             setEntidade(new Perfil());
             atualizarLista();
@@ -44,6 +44,6 @@ export function PerfilPaginaInicial() {
             funcaoAtualizarLista={atualizarLista}
             colunas={perfilColunasListagem}
             lista={listaEntidade}
-            onSubmit={handleSalvar} />
+            onSubmit={handleSalvar}/>
     )
 }

@@ -1,21 +1,21 @@
 import {FuncionalidadesType, ModulosType} from "@/types/_root/ModulosTypes";
 
-type Modulos = 'FOLHA_PAGAMENTO_LANCAMENTOS'
+type Modulos = 'LANCAMENTOS'
 
 export const ModuloLancamentos: ModulosType<Modulos> = {
     infos() {
         return {
-            id: 'recursoshumanos-folha-pagamento-lancamentos',
-            modulo: 'FOLHA_PAGAMENTO_LANCAMENTOS',
+            id: 'lancamentos',
+            modulo: 'LANCAMENTOS',
             title: 'Lançamentos',
             href: '/rh/folha-pagamento/lancamentos',
-            funcionalidades: this.funcionalidades()
+            funcionalidades: this.funcionalidades!()
         };
     },
     funcionalidades(): { [key: string]: FuncionalidadesType } {
         return {
-            CONSULTAR_FOLHA_PAGAMENTO: {
-                label: 'Consultar Folha Pagamento'
+            CONSULTAR_LANCAMENTOS: {
+                label: 'Consultar Lançamentos'
             }
         }
     }

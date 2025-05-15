@@ -102,25 +102,6 @@ export class ModuloFactory {
         });
     }
 
-    static getFuncionalidades(modulo: ModuloENUM) {
-        return this.funcionalidades[modulo].funcionalidades;
-    }
-
-    static getFuncionalidadesSelectItens(modulo?: ModuloENUM): TSelectItem[] {
-        if (modulo) {
-            const funcionalidades = this.getFuncionalidades(modulo);
-            return Object.entries(funcionalidades).map(([key, value]) => ({
-                label: value.label,
-                value: key
-            }));
-        }
-        // Caso não passe nenhum módulo, retorna a lista de módulos
-        return this.modulos.map(item => {
-            return { label: this.getLabel(item), value: item };
-        });
-    }
-
-
     static getLabel(modulo: ModuloENUM): string {
         return modulo ? this.infos[modulo].label : '';
     }

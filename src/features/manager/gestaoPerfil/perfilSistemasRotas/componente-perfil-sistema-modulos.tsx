@@ -7,9 +7,9 @@ import Modal from "@/components/ui/modal/modal";
 import {useCallback, useState} from "react";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {ModuloFactory} from "@/enums/ModuloEnum";
-import {Button} from "@/components/ui/button/button";
 import {LineContent} from "@/components/ui/line-content/line-content";
+import {FuncionalidadeEnumFactory} from "@/enums/FuncionalidadeEnum";
+import {Button} from "@/components/ui/button/button";
 
 type Props = {
     perfilSistema?: PerfilSistema;
@@ -29,9 +29,24 @@ export function ComponentePerfilSistemaModulos({
 
     const buscarFuncionalidadesPorModulo = useCallback((
         (modulo: RouteType) => {
-            if (modulo.module) {
-                setFuncionalidadesSelectItens(ModuloFactory.getFuncionalidadesSelectItens(modulo.module))
+            const funcionalidades: TSelectItem[] = Object.entries(FuncionalidadeEnumFactory.getFuncionalidadesPadrao()).map(([key, value]) => ({
+                label: value.label,
+                value: key
+            }));
+            if (modulo.funcionalidades) {
+                Object.entries(modulo.funcionalidades).map(([key, value]) => (
+                    funcionalidades.push(
+                        {
+                            label: value.label,
+                            value: key
+                        }
+                    )
+                ));
             }
+            if (funcionalidades) {
+                return setFuncionalidadesSelectItens(funcionalidades)
+            }
+            return setFuncionalidadesSelectItens([])
         }
     ), [])
 
@@ -47,8 +62,13 @@ export function ComponentePerfilSistemaModulos({
         return modulos.map(modulo => {
             return (
                 <li key={modulo.id}>
-                    <div className={'flex items-center gap-1.5'}>
-                        {modulo.subRoute ? '' : getItemCheck(modulo)}
+                    <div className={`
+                        flex
+                        items-center
+                        gap-1.5
+                        ${moduloAdicionado(modulo) ? 'text-primary font-semibold' : ''}
+                    `}>
+                        {modulo.subRoute ? '' : getItemOpenModal(modulo)}
                         {modulo.title}
                     </div>
                     {modulo.subRoute && (
@@ -61,9 +81,16 @@ export function ComponentePerfilSistemaModulos({
         })
     }
 
-    function getItemCheck(modulo: RouteType) {
+    const moduloAdicionado = (modulo: RouteType) => {
+        return perfilSistema?.rotas.map(r => r.modulo).includes(modulo.modulo as string);
+    }
+
+    function getItemOpenModal(modulo: RouteType) {
         return (
-            <div className={'cursor-pointer'}
+            <div className={`
+                    cursor-pointer
+                    ${moduloAdicionado(modulo) ? 'text-primary font-bold' : ''}
+                    `}
                  onClick={() => onSelectModulo(modulo)}>
                 <ListChecks size={15}/>
             </div>
@@ -73,21 +100,17 @@ export function ComponentePerfilSistemaModulos({
     function aplicarFuncionalidades() {
         const funcionalidadesSelecionadas = funcionalidadesSelectItens.filter(f => f.checked);
 
-        if (
-            funcionalidadesSelecionadas.length > 0 &&
-            moduloSelecionado?.module &&
-            perfilSistema
-        ) {
+        if (funcionalidadesSelecionadas.length > 0 && moduloSelecionado?.modulo && perfilSistema) {
             const funcArray = funcionalidadesSelecionadas.map(func => func.value as string);
             const moduloExistente = perfilSistema.rotas.find(
-                rota => rota.modulo === moduloSelecionado.module
+                rota => rota.modulo === moduloSelecionado.modulo
             );
 
             if (moduloExistente) {
                 moduloExistente.roles = funcArray;
             } else {
                 const novoPerfilSistemaModulo = new PerfilSistemaModulo();
-                novoPerfilSistemaModulo.modulo = moduloSelecionado.module;
+                novoPerfilSistemaModulo.modulo = moduloSelecionado.modulo;
                 novoPerfilSistemaModulo.roles = funcArray;
                 perfilSistema.rotas.push(novoPerfilSistemaModulo);
             }
@@ -95,6 +118,13 @@ export function ComponentePerfilSistemaModulos({
         setOpenModal(false);
     }
 
+    const isChecked = (funcionalidade: TSelectItem): boolean => {
+        return perfilSistema?.rotas.some(
+            rota =>
+                rota.modulo === moduloSelecionado?.modulo as string &&
+                rota.roles.includes(funcionalidade.value as string)
+        ) ?? false;
+    };
 
     return (
         <>
@@ -119,24 +149,33 @@ export function ComponentePerfilSistemaModulos({
                 title={`Selecionar Funcionalidades: ${moduloSelecionado?.title}`}
                 isOpen={openModal}
                 setIsOpen={setOpenModal}>
-                <div>
-                    <ul className={'grid grid-cols-4'}>
+                <div className={`flex flex-col gap-4 p-4`}>
+                    <ul className={'grid grid-cols-4 gap-2 p-5 bg-base-200 rounded-sm'}>
                         {funcionalidadesSelectItens && funcionalidadesSelectItens.map((funcionalidade) => (
                             <li key={funcionalidade.value}
                                 className={`
-                                        cursor-pointer
+                                        flex
+                                        items-center
+                                        gap-2
+                                        text-xs
                                         rounded-md
-                                        p-1
+                                        p-2
+                                        ${isChecked(funcionalidade) ? 'text-primary font-semibold' : ''}
                                         `}>
-                                <Checkbox entidade={funcionalidade} atributo={'checked'}/>
+                                <Checkbox
+                                    entidade={funcionalidade}
+                                    atributo={'checked'}
+                                    classWhenChecked={`checkbox-primary`}
+                                    isChecked={isChecked(funcionalidade)}/>
                                 {funcionalidade.label}
                             </li>
                         ))}
                     </ul>
+
+                    <LineContent justifyContent={'end'}>
+                        <Button onClick={aplicarFuncionalidades}>Aplicar</Button>
+                    </LineContent>
                 </div>
-                <LineContent justifyContent={'end'}>
-                    <Button onClick={aplicarFuncionalidades}>Aplicar</Button>
-                </LineContent>
             </Modal>
         </>
     )

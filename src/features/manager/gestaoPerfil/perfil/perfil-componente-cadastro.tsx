@@ -19,13 +19,12 @@ import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {RouteType} from "@/types/_root/RouteType";
 
 type Props = {
-    entidade: Perfil;
+    entidade: Perfil
 }
 
 const clienteService = new ClienteService();
 
 export function PerfilComponenteCadastro({entidade}: Props) {
-
     const [listaClientes, setListaClientes] = useState<Cliente[]>([])
     const [listaModulos, setListaModulos] = useState<RouteType[]>([])
     const [perfilSistemaSelecionado, setPerfilSistemaSelecionado] = useState<PerfilSistema>();
@@ -59,7 +58,7 @@ export function PerfilComponenteCadastro({entidade}: Props) {
                 })
                 setListaPerfilSistema(perfisSistema)
             }
-            set(entidade, 'cliente', cliente)
+            set(entidade, 'cliente.id', cliente.id)
         }
     ), [entidade])
 
@@ -69,31 +68,33 @@ export function PerfilComponenteCadastro({entidade}: Props) {
 
     return (
         <>
-            <div>
-                <LineContent>
-                    <Label title={`Descrição`}>
-                        <InputString atributo={`descricao`} entidade={entidade}/>
-                    </Label>
-                </LineContent>
+            <LineContent>
+                <Label title={`Descrição`}>
+                    <InputString
+                        name={`descricao`}
+                        atributo={`descricao`}
+                        entidade={entidade}
+                        required/>
+                </Label>
+            </LineContent>
 
-                <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
+            <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
 
-                    <ComponentePerfilCliente
-                        className={'cad-user-clients'}
-                        listaClientes={listaClientes}
-                        selecionarCliente={selecionarCliente}/>
+                <ComponentePerfilCliente
+                    className={'cad-user-clients'}
+                    listaClientes={listaClientes}
+                    selecionarCliente={selecionarCliente}/>
 
-                    <ComponentePefilSistema
-                        className={'cad-user-system'}
-                        listaPerfilSistema={listaPerfilSistema}
-                        selecionarPerfilSistema={selecionarPerfilSistema}/>
+                <ComponentePefilSistema
+                    className={'cad-user-system'}
+                    listaPerfilSistema={listaPerfilSistema}
+                    selecionarPerfilSistema={selecionarPerfilSistema}/>
 
-                    <ComponentePerfilSistemaModulos
-                        perfilSistema={perfilSistemaSelecionado}
-                        className={'cad-user-module'}
-                        listaModulos={listaModulos}
-                    />
-                </div>
+                <ComponentePerfilSistemaModulos
+                    perfilSistema={perfilSistemaSelecionado}
+                    className={'cad-user-module'}
+                    listaModulos={listaModulos}
+                />
             </div>
         </>
     )
