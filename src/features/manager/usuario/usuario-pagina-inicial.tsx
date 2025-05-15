@@ -8,6 +8,7 @@ import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadast
 import {Table} from "@/components/ui/table/table";
 import {usuarioColunasListagem} from "@/features/manager/usuario/ts/usuario-colunas-listagem";
 import {UsuarioDTO} from "@/features/manager/usuario/ts/usuario-dto";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
 const service = new UsuarioService()
 
@@ -30,7 +31,8 @@ export function UsuarioPaginaInicial() {
 
     function handleSalvar() {
         service.salvar(entidade, () => {
-            setEntidade(new UsuarioDTO());
+            setEntidade(new Perfil());
+            atualizarLista();
             toast.success("Registro salvo com sucesso.");
         }).then()
     }
