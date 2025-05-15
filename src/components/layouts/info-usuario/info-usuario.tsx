@@ -1,17 +1,29 @@
 import {Avatar} from "@/components/layouts/info-usuario/avatar";
-
-const nomeUsuario = 'Flavio Henrique Moreira Rosa'
-const email = 'flavio.henrique.dev@gmail.com'
+import {useSession} from "next-auth/react";
+import {useEffect, useState} from "react";
 
 export function InfoUsuario() {
-
-    const nomeFormatado = formatarNome(nomeUsuario);
+    const session = useSession();
+    
+    const [nomeUsuario, setNomeUsuario] = useState('');
+    const [emailUsuario, setEmailUsuario] = useState('');
+    
+    useEffect(() => {
+        if (session.data?.user.name) {
+            setNomeUsuario(formatarNome(session.data.user.name));
+        }
+        
+        if (session.data?.user.email) {
+            setEmailUsuario(session.data.user.email)
+        }
+        
+    }, [session.data?.user.email, session.data?.user.name])
 
     return (
         <div className={`flex gap-2 items-center`}>
             <div className={'flex justify-center items-end flex-col font-light'}>
-                <strong className={`text-[9pt]`}>{nomeFormatado}</strong>
-                <span className={`text-[8pt]`}>{email}</span>
+                <strong className={`text-[9pt]`}>{nomeUsuario}</strong>
+                <span className={`text-[8pt]`}>{emailUsuario}</span>
             </div>
             <Avatar />
         </div>

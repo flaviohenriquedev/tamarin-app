@@ -57,6 +57,8 @@ export function PerfilComponenteCadastro({entidade}: Props) {
                     perfisSistema.push(perfilSistema);
                 })
                 setListaPerfilSistema(perfisSistema)
+            } else {
+                setListaPerfilSistema([])
             }
             set(entidade, 'cliente.id', cliente.id)
         }
