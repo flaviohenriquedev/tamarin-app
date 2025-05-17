@@ -10,6 +10,7 @@ import {ColumnType} from "@/types/_root/ColumnType";
 
 type Props<E extends object> = {
     funcaoAtualizarLista: () => void;
+    onOpenModal: () => void;
     colunas: ColumnType[];
     lista: E[];
     children?: ReactNode,
@@ -18,10 +19,11 @@ type Props<E extends object> = {
     title?: string
 }
 
-export function PaginaCadastro<E extends object>({funcaoAtualizarLista, colunas, lista, children, camposFormulario, onSubmit, title}: Props<E>) {
+export function PaginaCadastro<E extends object>({funcaoAtualizarLista, onOpenModal, colunas, lista, children, camposFormulario, onSubmit, title}: Props<E>) {
     const [open, setOpen] = useState(false)
 
     const handleClick = () => {
+        onOpenModal();
         setOpen(true)
     }
 

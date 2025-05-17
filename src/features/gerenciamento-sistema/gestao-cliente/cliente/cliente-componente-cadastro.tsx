@@ -7,9 +7,10 @@ import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {set} from "lodash";
+import {get, set} from "lodash";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
+import {InputCNPJ} from "@/components/ui/input/input-cnpj";
 
 type Props = {
     entidade: Cliente;
@@ -60,7 +61,7 @@ export function ClienteComponenteCadastro({entidade}: Props) {
 
             <LineContentFill>
                 <Label title={`CNPJ`}>
-                    <InputString
+                    <InputCNPJ
                         entidade={entidade}
                         atributo={`cnpj`}/>
                 </Label>
