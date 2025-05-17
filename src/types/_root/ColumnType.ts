@@ -4,5 +4,5 @@ export type ColumnType = {
     descricao: string;
     field: string;
     urlFotoPerfil?: string;
-    tipoDado: TipoDadoEnum;
+    tipoDado?: TipoDadoEnum;
 }

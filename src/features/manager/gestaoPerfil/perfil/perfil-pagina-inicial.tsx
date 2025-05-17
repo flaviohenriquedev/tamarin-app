@@ -40,6 +40,7 @@ export function PerfilPaginaInicial() {
     return (
         <PaginaCadastro
             title={`Cadastro de Perfil`}
+            onOpenModal={() => setEntidade(new Perfil())}
             camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
             funcaoAtualizarLista={atualizarLista}
             colunas={perfilColunasListagem}

@@ -1,3 +1,5 @@
+import {format, isValid, parse} from "date-fns";
+
 export function openModal(idModal: string) {
     (document.getElementById(idModal) as HTMLDialogElement).showModal()
 }
@@ -44,4 +46,14 @@ export function limparCNPJ(valor: string) {
         return valor.replace(/\D/g, "");
     }
     return null;
+}
+
+const FORMAT_BR = "dd/MM/yyyy";
+export function parseDateBR(value: string): Date | undefined {
+    const parsed = parse(value, FORMAT_BR, new Date());
+    return isValid(parsed) ? parsed : undefined;
+}
+
+export function formatDateBR(date: Date): string {
+    return format(date, FORMAT_BR);
 }

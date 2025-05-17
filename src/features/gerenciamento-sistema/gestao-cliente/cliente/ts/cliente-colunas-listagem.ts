@@ -4,22 +4,20 @@ import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 export const clienteColunasListagem: ColumnType[] = [
     {
         descricao: 'Nome Fantasia',
-        field: 'nomeFantasia',
-        tipoDado: TipoDadoEnum.STRING,
+        field: 'nomeFantasia'
     },
     {
         descricao: 'Razão Social',
-        field: 'razaoSocial',
-        tipoDado: TipoDadoEnum.STRING,
+        field: 'razaoSocial'
     },
     {
         descricao: 'CNPJ',
         field: 'cnpj',
-        tipoDado: TipoDadoEnum.STRING,
+        tipoDado: TipoDadoEnum.CNPJ
     },
     {
         descricao: 'Data de Abertura',
         field: 'dataAbertura',
-        tipoDado: TipoDadoEnum.DATE,
+        tipoDado: TipoDadoEnum.DATA_COMPLETA,
     },
 ]
