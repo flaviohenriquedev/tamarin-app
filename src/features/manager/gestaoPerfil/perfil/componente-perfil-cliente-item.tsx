@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
 type Props = {
@@ -8,8 +7,6 @@ type Props = {
 }
 
 export function ComponentePerfilClienteItem({ destacar, cliente, onClick }: Props) {
-    const [clienteChecked, setClienteChecked] = useState<boolean>(false)
-
     return (
         <li className={`
                 flex

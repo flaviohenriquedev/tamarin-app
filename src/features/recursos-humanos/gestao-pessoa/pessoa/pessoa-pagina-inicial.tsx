@@ -23,10 +23,6 @@ export function PessoaPaginaInicial() {
     //     setUsuario(entidade);
     // }
 
-    function handleDeletar(entidade: Pessoa) {
-        service.deletar(entidade.id).then();
-    }
-
     const funcaoSalvar = useCallback(() => service.salvar(entidade), [entidade])
     const callBack = useCallback(() => setAtualizarLista(prev => !prev), [])
     const onSave = {funcaoSalvar, callBack}

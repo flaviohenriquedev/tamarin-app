@@ -35,7 +35,7 @@ import {
 } from "@/features/recursos-humanos/gestao-recrutamento-selecao/processos-seletivos/modulo-processos-seletivos";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
 import {ModuloDepartamentos} from "@/features/recursos-humanos/gestao-administracao/departamentos/modulo-departamentos";
-import {ModuloUsuarios} from "@/features/manager/usuario/ts/modulo-usuario";
+import {ModuloUsuarios} from "@/features/manager/gestaoUsuario/usuario/ts/modulo-usuario";
 
 export const rotasRecursosHumanos: RouteType[] = [
     ModuloColaborador.infos(),

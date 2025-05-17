@@ -7,16 +7,17 @@ import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/t
 import '@/features/manager/gestaoPerfil/perfil/css/style.css'
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {set} from "lodash";
-import {ComponentePefilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/componente-pefil-sistema";
+import {ComponentePerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/componente-perfil-sistema";
 import {
     ComponentePerfilSistemaModulos
 } from "@/features/manager/gestaoPerfil/perfilSistemasRotas/componente-perfil-sistema-modulos";
 import {ComponentePerfilCliente} from "@/features/manager/gestaoPerfil/perfil/componente-perfil-cliente";
-import './css/style.css'
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {RouteType} from "@/types/_root/RouteType";
+
+import './css/style.css'
 
 type Props = {
     entidade: Perfil
@@ -80,21 +81,21 @@ export function PerfilComponenteCadastro({entidade}: Props) {
                 </Label>
             </LineContent>
 
-            <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
+            <div className={`relative cad-perfil-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
 
                 <ComponentePerfilCliente
-                    className={'cad-user-clients'}
+                    className={'cad-perfil-clients'}
                     listaClientes={listaClientes}
                     selecionarCliente={selecionarCliente}/>
 
-                <ComponentePefilSistema
-                    className={'cad-user-system'}
+                <ComponentePerfilSistema
+                    className={'cad-perfil-system'}
                     listaPerfilSistema={listaPerfilSistema}
                     selecionarPerfilSistema={selecionarPerfilSistema}/>
 
                 <ComponentePerfilSistemaModulos
                     perfilSistema={perfilSistemaSelecionado}
-                    className={'cad-user-module'}
+                    className={'cad-perfil-module'}
                     listaModulos={listaModulos}
                 />
             </div>

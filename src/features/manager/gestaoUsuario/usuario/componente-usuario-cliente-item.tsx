@@ -1,12 +1,12 @@
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
 type Props = {
-    destacar: boolean;
-    cliente: Cliente;
+    destacar?: boolean
+    cliente: Cliente
     onClick: (cliente: Cliente) => void;
 }
 
-export function PermissoesItemCliente({ destacar, cliente, onClick }: Props) {
+export function ComponenteUsuarioClienteItem({ destacar, cliente, onClick }: Props) {
     return (
         <li className={`
                 flex

@@ -1,7 +1,7 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {ComponentePerfilClienteItem} from "@/features/manager/gestaoPerfil/perfil/componente-perfil-cliente-item";
 import {useCallback, useState} from "react";
+import {ComponenteUsuarioClienteItem} from "@/features/manager/gestaoUsuario/usuario/componente-usuario-cliente-item";
 
 type Props = {
     className: string;
@@ -9,7 +9,7 @@ type Props = {
     selecionarCliente: (cliente: Cliente) => void;
 }
 
-export function ComponentePerfilCliente({className, listaClientes, selecionarCliente }: Props) {
+export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente }: Props) {
 
     const [idClienteSelecionado, setIdClienteSelecionado] = useState<string>()
 
@@ -26,7 +26,7 @@ export function ComponentePerfilCliente({className, listaClientes, selecionarCli
                 {listaClientes && listaClientes.length > 0
                     ? listaClientes.map(cliente => {
                         return (
-                            <ComponentePerfilClienteItem
+                            <ComponenteUsuarioClienteItem
                                 key={cliente.id}
                                 destacar={idClienteSelecionado === cliente.id}
                                 cliente={cliente}

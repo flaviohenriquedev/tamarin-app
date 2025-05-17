@@ -7,6 +7,8 @@ export class ClienteSistema extends EntidadePadrao {
     public cliente: Cliente;
     public keySistema: SistemaENUM;
 
+    public checked: boolean;
+
     constructor() {
         super();
     }

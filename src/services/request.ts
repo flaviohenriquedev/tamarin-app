@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 export async function request<T>(
     endpoint: string,
-    method: MetodoHTTP,
+    method: MetodoHTTP | undefined,
     body?: unknown,
 ): Promise<T | null> {
     const session = await getSession();

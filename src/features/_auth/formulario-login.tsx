@@ -3,15 +3,15 @@
 import React, {FormEvent} from 'react';
 import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {Autenticacao} from "@/class/Autenticacao";
 import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/input-string";
 import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
+import {RequestAuth} from "@/features/_auth/ts/request-auth";
 
 export function FormularioLogin() {
     const router = useRouter();
-    const autenticacao = new Autenticacao();
+    const autenticacao: RequestAuth = {email: '', senha: ''};
 
     async function handleSubmit(event: FormEvent) {
         event.preventDefault()
@@ -36,12 +36,18 @@ export function FormularioLogin() {
             </div>
             
             <LineContentFill>
-                <InputString entidade={autenticacao} placeholder={`Email`} atributo={`email`} name={`email`}
+                <InputString entidade={autenticacao}
+                             placeholder={`Email`}
+                             atributo={`email`}
+                             name={`email`}
                              type={"email"}/>
             </LineContentFill>
 
             <LineContentFill>
-                <InputString entidade={autenticacao} placeholder={`Senha`} atributo={`senha`} name={`senha`}
+                <InputString entidade={autenticacao}
+                             placeholder={`Senha`}
+                             atributo={`senha`}
+                             name={`senha`}
                              type={`password`}/>
             </LineContentFill>
 

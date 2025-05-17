@@ -105,7 +105,6 @@ export function ComponentePerfilSistemaModulos({
             const moduloExistente = perfilSistema.rotas.find(
                 rota => rota.modulo === moduloSelecionado.modulo
             );
-
             if (moduloExistente) {
                 moduloExistente.roles = funcArray;
             } else {
@@ -130,14 +129,14 @@ export function ComponentePerfilSistemaModulos({
         <>
             <Fieldset label={`Módulos`}
                       className={`
-                  ${className}
-                    absolute
-                    h-full
-                    overflow-y-auto
-                    scrollbar-thumb-base-300
-                    scrollbar-track-transparent
-                    scrollbar-thin`
-                      }>
+                                  ${className}
+                                    absolute
+                                    h-full
+                                    overflow-y-auto
+                                    scrollbar-thumb-base-300
+                                    scrollbar-track-transparent
+                                    scrollbar-thin`
+                                      }>
                 <div className={`flex flex-col gap-4`}>
                     <ul>
                         {renderizarModulos(listaModulos)}

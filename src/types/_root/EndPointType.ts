@@ -11,6 +11,6 @@ export type EndPointType = {
 };
 
 export type EndPontDetail = {
-    caminho: string;
+    caminho?: string;
     metodo: MetodoHTTP;
 }

@@ -1,7 +1,9 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {PermissoesItemSistema} from "@/features/manager/usuario/permissoes-item-sistema";
 import {useCallback, useState} from "react";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
+import {
+    ComponentePerfilSistemaItens
+} from "@/features/manager/gestaoPerfil/perfilSistemas/componente-perfil-sistema-itens";
 
 type Props = {
     className: string;
@@ -9,7 +11,7 @@ type Props = {
     selecionarPerfilSistema: (perfilSistema: PerfilSistema) => void;
 }
 
-export function ComponentePefilSistema({
+export function ComponentePerfilSistema({
                                            className,
                                            listaPerfilSistema,
                                            selecionarPerfilSistema}: Props) {
@@ -25,21 +27,18 @@ export function ComponentePefilSistema({
 
     return (
         <Fieldset label={`Sistemas`} className={`${className} h-full`}>
-            <div>
-                <ul className={`flex flex-col gap-1`}>
-                    {listaPerfilSistema && listaPerfilSistema.length > 0 && listaPerfilSistema.map(perfilSistema => {
-                        return (
-                            <PermissoesItemSistema
-                                key={perfilSistema.clienteSistema.keySistema}
-                                clienteSistema={perfilSistema.clienteSistema}
-                                perfilSistema={perfilSistema}
-                                onClick={selectPerfilSistema}
-                                onCheck={() => {}}
-                                destacar={idPerfilSistemaSelecionado === perfilSistema.clienteSistema.id}/>
-                        )
-                    })}
-                </ul>
-            </div>
+            <ul className={`flex flex-col gap-1`}>
+                {listaPerfilSistema && listaPerfilSistema.length > 0 && listaPerfilSistema.map(perfilSistema => {
+                    return (
+                        <ComponentePerfilSistemaItens
+                            key={perfilSistema.clienteSistema.keySistema}
+                            clienteSistema={perfilSistema.clienteSistema}
+                            perfilSistema={perfilSistema}
+                            onClick={selectPerfilSistema}
+                            destacar={idPerfilSistemaSelecionado === perfilSistema.clienteSistema.id}/>
+                    )
+                })}
+            </ul>
         </Fieldset>
     )
 }
