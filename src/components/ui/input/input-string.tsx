@@ -1,7 +1,6 @@
 'use client'
 
 import React from "react"
-import {inputStyle} from "@/components/ui/input/style";
 import {Input} from "@/components/ui/input/input";
 import {InputProps} from "@/interfaces/InputProps";
 
@@ -14,7 +13,6 @@ export function InputString<E extends object>({
         <Input
             entidade={entidade}
             atributo={atributo}
-            className={inputStyle}
             id={props.id}
             placeholder={props.placeholder}
             name={props.name}

@@ -19,8 +19,8 @@ export abstract class CrudService<E> {
 
     async buscarPorId(id: string): Promise<E | null> {
         if (this.getEndpoint().buscarPorId) {
-            const resultado = await request<E>(`
-                ${this.getURL(this.getBaseURL(), this.getEndpoint().buscarPorId, id)}`,
+            const resultado = await request<E>(
+                `${this.getURL(this.getBaseURL(), this.getEndpoint().buscarPorId, id)}`,
                 this.getEndpoint().buscarPorId?.metodo);
             return resultado ?? null;
         }
@@ -29,8 +29,8 @@ export abstract class CrudService<E> {
 
     async salvar(data: E, callback?: () => void): Promise<E | null> {
         if (this.getEndpoint().salvar) {
-            const resultado = await request<E | null>(`
-                ${this.getURL(this.getBaseURL(), this.getEndpoint().salvar)}`,
+            const resultado = await request<E | null>(
+                `${this.getURL(this.getBaseURL(), this.getEndpoint().salvar)}`,
                 this.getEndpoint().salvar?.metodo,
                 data);
             if (callback) callback();

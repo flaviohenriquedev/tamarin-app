@@ -6,5 +6,10 @@ export const perfilColunasListagem: ColumnType[] = [
         descricao: 'Descrição',
         field: 'descricao',
         tipoDado: TipoDadoEnum.STRING,
-    }
+    },
+    {
+        descricao: 'Cliente',
+        field: 'cliente.nomeFantasia',
+        tipoDado: TipoDadoEnum.STRING,
+    },
 ]

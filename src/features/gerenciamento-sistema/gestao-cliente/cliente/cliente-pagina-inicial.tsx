@@ -5,8 +5,8 @@ import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/t
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {
-    ClienteFormularioCadastro
-} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/cliente-formulario-cadastro";
+    ClienteComponenteCadastro
+} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/cliente-componente-cadastro";
 import {toast} from "sonner";
 import {
     clienteColunasListagem
@@ -39,7 +39,7 @@ export function ClientePaginaInicial() {
     }
 
     return (
-        <PaginaCadastro camposFormulario={<ClienteFormularioCadastro entidade={entidade}/>}
+        <PaginaCadastro camposFormulario={<ClienteComponenteCadastro entidade={entidade}/>}
                         onSubmit={handleSalvar}
                         title={`Cadastro de Clientes`}
                         funcaoAtualizarLista={atualizarLista}

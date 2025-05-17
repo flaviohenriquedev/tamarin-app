@@ -1,9 +1,9 @@
-import FormularioFormik from "@/app/(autenticado)/dev/formulario-yup";
+import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 
 export default function PaginaDev() {
     return (
         <div className="flex flex-col p-8">
-            <FormularioFormik />
+            <InputDataCompleta />
         </div>
     )
 }

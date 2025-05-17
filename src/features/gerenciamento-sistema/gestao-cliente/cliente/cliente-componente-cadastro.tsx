@@ -9,12 +9,13 @@ import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cl
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {set} from "lodash";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 
 type Props = {
     entidade: Cliente;
 }
 
-export function ClienteFormularioCadastro({entidade}: Props) {
+export function ClienteComponenteCadastro({entidade}: Props) {
 
     const [sistemasSelecionados, setSistemasSelecionados] = useState<DualListboxValue[]>([]);
     const [listaSistemaDualList, setListaSistemaDualList] = useState<DualListboxType[]>([]);
@@ -50,7 +51,6 @@ export function ClienteFormularioCadastro({entidade}: Props) {
                         entidade={entidade}
                         atributo={`nomeFantasia`}/>
                 </Label>
-
                 <Label title={`Razão Social`}>
                     <InputString
                         entidade={entidade}
@@ -64,13 +64,13 @@ export function ClienteFormularioCadastro({entidade}: Props) {
                         entidade={entidade}
                         atributo={`cnpj`}/>
                 </Label>
-
                 <Label title={`Data de Abertura`}>
-                    <InputString
+                    <InputDataCompleta
                         entidade={entidade}
                         atributo={`dataAbertura`}/>
                 </Label>
             </LineContentFill>
+
             <DualListbox
                 valores={listaSistemaDualList}
                 stateRetorno={{
