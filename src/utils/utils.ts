@@ -28,6 +28,17 @@ export function mascararCNPJ(valor: string) {
     return '';
 }
 
+export function mascararCPF(valor: string): string {
+    if (valor) {
+        const somenteNumeros = valor.replace(/\D/g, "");
+        return somenteNumeros
+            .replace(/^(\d{3})(\d)/, "$1.$2")
+            .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+            .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+    }
+    return '';
+}
+
 export function limparCNPJ(valor: string) {
     if (valor) {
         return valor.replace(/\D/g, "");
