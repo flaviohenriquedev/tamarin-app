@@ -26,6 +26,7 @@ type Props = {
 const clienteService = new ClienteService();
 
 export function PerfilComponenteCadastro({entidade}: Props) {
+
     const [listaClientes, setListaClientes] = useState<Cliente[]>([])
     const [listaModulos, setListaModulos] = useState<RouteType[]>([])
     const [perfilSistemaSelecionado, setPerfilSistemaSelecionado] = useState<PerfilSistema>();

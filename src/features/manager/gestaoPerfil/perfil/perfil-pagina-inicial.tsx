@@ -38,13 +38,12 @@ export function PerfilPaginaInicial() {
     }
 
     return (
-        <PaginaCadastro
-            title={`Cadastro de Perfil`}
-            onOpenModal={() => setEntidade(new Perfil())}
-            camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
-            funcaoAtualizarLista={atualizarLista}
-            colunas={perfilColunasListagem}
-            lista={listaEntidade}
-            onSubmit={handleSalvar}/>
+        <PaginaCadastro camposFormulario={<PerfilComponenteCadastro entidade={entidade}/>}
+                        title={`Cadastro de Perfil`}
+                        onOpenModal={() => setEntidade(new Perfil())}
+                        funcaoAtualizarLista={atualizarLista}
+                        colunas={perfilColunasListagem}
+                        lista={listaEntidade}
+                        onSubmit={handleSalvar}/>
     )
 }

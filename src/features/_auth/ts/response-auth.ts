@@ -3,4 +3,5 @@ export type ResponseAuth = {
     name: string;
     email: string;
     accessToken: string;
+    refreshToken: string;
 }

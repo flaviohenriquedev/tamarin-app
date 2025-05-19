@@ -38,9 +38,13 @@ export function ClientePaginaInicial() {
         }).then()
     }
 
+    const clearEntidade = () => {
+        setEntidade(new Cliente())
+    }
+
     return (
         <PaginaCadastro camposFormulario={<ClienteComponenteCadastro entidade={entidade}/>}
-                        onOpenModal={() => setEntidade(new Cliente())}
+                        onOpenModal={clearEntidade}
                         onSubmit={handleSalvar}
                         title={`Cadastro de Clientes`}
                         funcaoAtualizarLista={atualizarLista}

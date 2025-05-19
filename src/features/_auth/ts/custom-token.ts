@@ -5,4 +5,7 @@ export type CustomToken = JWT & {
     name: string;
     email: string;
     accessToken: string;
+    expiresToken: Date;
+    refreshToken: string;
+    expiresRefreshtoken: Date
 };
