@@ -18,7 +18,7 @@ export function ComponenteUsuarioCliente({className, listaClientes, selecionarCl
             setIdClienteSelecionado(cliente.id)
             selecionarCliente(cliente)
         }
-    ), [])
+    ), [selecionarCliente])
 
     return (
         <Fieldset label={`Clientes`} className={`${className} h-full`}>

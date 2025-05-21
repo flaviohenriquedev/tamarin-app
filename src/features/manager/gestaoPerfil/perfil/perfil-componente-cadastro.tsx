@@ -49,23 +49,21 @@ export function PerfilComponenteCadastro({entidade}: Props) {
         }
     }, [perfilSistemaSelecionado]);
 
-    const selecionarCliente = useCallback((
-        (cliente: Cliente) => {
-            if (cliente.sistemas && cliente.sistemas.length > 0) {
-                const perfisSistema: PerfilSistema[] = [];
-                cliente.sistemas.forEach(sistema => {
-                    const perfilSistema = new PerfilSistema();
-                    perfilSistema.clienteSistema = sistema;
-                    perfisSistema.push(perfilSistema);
-                })
-                setListaPerfilSistema(perfisSistema)
-            } else {
-                setListaPerfilSistema([])
-            }
-            set(entidade, 'cliente.id', cliente.id)
-
+    const selecionarCliente = useCallback((cliente: Cliente) => {
+        if (cliente.sistemas && cliente.sistemas.length > 0) {
+            const perfisSistema: PerfilSistema[] = [];
+            cliente.sistemas.forEach(sistema => {
+                const perfilSistema = new PerfilSistema();
+                perfilSistema.clienteSistema = sistema;
+                perfisSistema.push(perfilSistema);
+            })
+            setListaPerfilSistema(perfisSistema)
+        } else {
+            setListaPerfilSistema([])
         }
-    ), [entidade])
+        set(entidade, 'cliente.id', cliente.id)
+
+    }, [entidade])
 
     function selecionarPerfilSistema(perfilSistema: PerfilSistema) {
         setPerfilSistemaSelecionado(perfilSistema)

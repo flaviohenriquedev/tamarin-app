@@ -1,14 +1,10 @@
-import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
+import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
+import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 
-export class PerfilSistemaModulo extends EntidadePadrao {
-
+export class UsuarioPefil extends EntidadeAuditavel {
+    usuario: Usuario;
     perfilSistema: PerfilSistema;
-    modulo: string;
-    roles: string[];
-
-    checked: boolean;
-    isLista: boolean;
 
     constructor() {
         super();

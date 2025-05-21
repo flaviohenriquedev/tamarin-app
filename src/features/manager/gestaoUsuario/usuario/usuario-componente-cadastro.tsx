@@ -7,24 +7,26 @@ import '@/features/manager/gestaoUsuario/usuario/css/style.css'
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {ComponenteUsuarioCliente} from "@/features/manager/gestaoUsuario/usuario/componente-usuario-cliente";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {ComponenteUsuarioSistema} from "@/features/manager/gestaoUsuario/usuarioSistemas/componente-usuario-sistema";
-import {ComponenteUsuarioPerfis} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfis";
+import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
-import {PerfilSistemaService} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema-service";
+import {InputCPF} from "@/components/ui/input/input-cpf";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
+import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
 type Props = {
     entidade: Usuario
 }
 
 const clienteService = new ClienteService();
-const perfilSistemaService = new PerfilSistemaService();
+const perfilService = new PerfilService();
 
 export function UsuarioComponenteCadastro({entidade}: Props) {
     const [listaClientes, setListaClientes] = useState<Cliente[]>([])
     const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([])
-    const [listaPerfilSistema, setListaPerfilSistema] = useState<PerfilSistema[]>([])
+    const [listaPerfil, setListaPerfil] = useState<Perfil[]>([])
 
     const [clienteSistemaSelecionado, setClienteSistemaSelecionado] = useState<ClienteSistema>(new ClienteSistema())
 
@@ -46,8 +48,9 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
 
     const selecionarClienteSistema = useCallback((
         (clienteSistema: ClienteSistema) => {
-            perfilSistemaService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
-                setListaPerfilSistema(result);
+            perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
+                console.log('LOG RESULT ->', result)
+                setListaPerfil(result);
             })
             setClienteSistemaSelecionado(clienteSistema)
         }
@@ -67,7 +70,7 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
                         entidade={entidade}/>
                 </Label>
                 <Label title={`CPF`}>
-                    <InputString
+                    <InputCPF
                         atributo={`cpf`}
                         entidade={entidade}/>
                 </Label>
@@ -76,6 +79,12 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
                         atributo={`telefone`}
                         entidade={entidade}/>
                 </Label>
+
+                <Checkbox
+                    label={'Usuário Master'}
+                    entidade={entidade}
+                    atributo={'usuarioMaster'} />
+
             </LineContent>
 
             <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
@@ -90,9 +99,9 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
                     listaClienteSistema={listaClienteSistema}
                     selecionarClienteSistema={selecionarClienteSistema}/>
 
-                <ComponenteUsuarioPerfis
+                <ComponenteUsuarioPerfil
                     className={'cad-user-module'}
-                    listaPerfilSistema={listaPerfilSistema}
+                    listaPerfil={listaPerfil}
                 />
             </div>
         </>

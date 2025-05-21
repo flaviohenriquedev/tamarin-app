@@ -36,11 +36,12 @@ export function UsuarioPaginaInicial() {
     }
 
     return (
-        <PaginaCadastro funcaoAtualizarLista={atualizarLista}
-                        camposFormulario={<UsuarioComponenteCadastro entidade={entidade}/>}
+        <PaginaCadastro camposFormulario={<UsuarioComponenteCadastro entidade={entidade}/>}
+                        funcaoAtualizarLista={atualizarLista}
                         onSubmit={handleSalvar}
                         title={`Cadastro de Usuário`}
                         colunas={usuarioColunasListagem}
-                        lista={listaEntidade}/>
+                        lista={listaEntidade}
+                        onOpenModal={() => setEntidade(new Usuario())}/>
     )
 }

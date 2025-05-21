@@ -1,12 +1,12 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
 type Props = {
     className: string;
-    listaPerfilSistema: PerfilSistema[];
+    listaPerfil: Perfil[];
 }
 
-export function ComponenteUsuarioPerfis({className, listaPerfilSistema}: Props) {
+export function ComponenteUsuarioPerfil({className, listaPerfil}: Props) {
 
     return (
         <Fieldset label={`Perfis`}
@@ -21,9 +21,9 @@ export function ComponenteUsuarioPerfis({className, listaPerfilSistema}: Props) 
                   }>
             <div className={`flex flex-col gap-4`}>
                 <ul>
-                    {listaPerfilSistema && listaPerfilSistema.length > 0 && (
-                        listaPerfilSistema.map(perfilSistema => {
-                            return <li key={perfilSistema.id}>{perfilSistema.perfil.descricao}</li>
+                    {listaPerfil && listaPerfil.length > 0 && (
+                        listaPerfil.map(perfil => {
+                            return <li key={perfil.id}>{perfil.descricao}</li>
                         })
                     )}
                 </ul>
