@@ -1,6 +1,5 @@
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/input-string";
-import {Label} from "@/components/ui/label/label";
 import {useCallback, useEffect, useState} from "react";
 
 import '@/features/manager/gestaoUsuario/usuario/css/style.css'
@@ -38,52 +37,49 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
         })
     }, []);
 
-    const selecionarCliente = useCallback((
-        (cliente: Cliente) => {
-            if (cliente.sistemas && cliente.sistemas.length > 0) {
-                setListaClienteSistema(cliente.sistemas)
-            }
-        }
-    ), [])
+    const selecionarCliente = useCallback((cliente: Cliente) => {
+        perfilService.buscarPerfisPorIdCliente(cliente.id).then(result => {
+            setListaPerfil(result);
+        })
+    }, [])
 
-    const selecionarClienteSistema = useCallback((
-        (clienteSistema: ClienteSistema) => {
-            perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
-                console.log('LOG RESULT ->', result)
-                setListaPerfil(result);
-            })
-            setClienteSistemaSelecionado(clienteSistema)
-        }
-    ), [])
+    const selecionarClienteSistema = useCallback((clienteSistema: ClienteSistema) => {
+        perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
+            setListaPerfil(result);
+        })
+        setClienteSistemaSelecionado(clienteSistema)
+    }, [])
 
     return (
         <>
             <LineContent>
-                <Label title={`Nome Completo`}>
-                    <InputString
-                        atributo={`nome`}
-                        entidade={entidade}/>
-                </Label>
-                <Label title={`Email`}>
-                    <InputString
-                        atributo={`email`}
-                        entidade={entidade}/>
-                </Label>
-                <Label title={`CPF`}>
-                    <InputCPF
-                        atributo={`cpf`}
-                        entidade={entidade}/>
-                </Label>
-                <Label title={`Telefone`}>
-                    <InputString
-                        atributo={`telefone`}
-                        entidade={entidade}/>
-                </Label>
+                <InputString
+                    label={'Nome Completo'}
+                    atributo={`nome`}
+                    entidade={entidade}
+                    required/>
+
+                <InputString
+                    label={'Email'}
+                    atributo={`email`}
+                    entidade={entidade}
+                    required/>
+
+                <InputCPF
+                    label={'CPF'}
+                    atributo={`cpf`}
+                    entidade={entidade}
+                    required/>
+
+                <InputString
+                    label={'Telefone'}
+                    atributo={`telefone`}
+                    entidade={entidade}/>
 
                 <Checkbox
                     label={'Usuário Master'}
                     entidade={entidade}
-                    atributo={'usuarioMaster'} />
+                    atributo={'usuarioMaster'}/>
 
             </LineContent>
 
@@ -94,15 +90,14 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
                     listaClientes={listaClientes}
                     selecionarCliente={selecionarCliente}/>
 
+                <ComponenteUsuarioPerfil
+                    className={'cad-user-module'}
+                    listaPerfil={listaPerfil}/>
+
                 <ComponenteUsuarioSistema
                     className={'cad-user-system'}
                     listaClienteSistema={listaClienteSistema}
                     selecionarClienteSistema={selecionarClienteSistema}/>
-
-                <ComponenteUsuarioPerfil
-                    className={'cad-user-module'}
-                    listaPerfil={listaPerfil}
-                />
             </div>
         </>
     )

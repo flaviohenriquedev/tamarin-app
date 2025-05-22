@@ -42,6 +42,6 @@ export function UsuarioPaginaInicial() {
                         title={`Cadastro de Usuário`}
                         colunas={usuarioColunasListagem}
                         lista={listaEntidade}
-                        onOpenModal={() => setEntidade(new Usuario())}/>
+                        onCloseModal={() => setEntidade(new Usuario())}/>
     )
 }

@@ -42,7 +42,7 @@ export function Checkbox<E>({entidade, atributo, isChecked = false, label, class
     }
 
     return (
-        <label className={`label flex items-center h-8`}>
+        <label className={`label flex items-center h-8 text-sm`}>
             <input type="checkbox"
                    className={`
                     cursor-pointer

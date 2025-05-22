@@ -157,7 +157,7 @@ export function ComponentePerfilSistemaModulos({
                                         items-center
                                         gap-2
                                         text-xs
-                                        rounded-md
+                                        rounded-sm
                                         p-2
                                         ${isChecked(funcionalidade) ? 'text-primary font-semibold' : ''}
                                         `}>

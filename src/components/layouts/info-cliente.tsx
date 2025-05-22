@@ -57,7 +57,7 @@ export function InfoCliente() {
         if (listaClientes && listaClientes.length > 0) {
             return (
                 <motion.ul
-                    className="absolute top-0 left-full p-2 ml-2 z-50 bg-base-100 shadow-[-5px_5px_7px_0px_rgba(0,_0,_0,_0.1)] rounded-md mt-2"
+                    className="absolute top-0 left-full p-2 ml-2 z-50 bg-base-100 shadow-[-5px_5px_7px_0px_rgba(0,_0,_0,_0.1)] rounded-sm mt-2"
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: -20, opacity: 0 }}
@@ -80,7 +80,7 @@ export function InfoCliente() {
                                     ` : "border-transparent text-gray-400"}
                                 cursor-pointer
                                 bg-base-100
-                                rounded-md
+                                rounded-sm
                                 hover:bg-base-200
                                 truncate
                                 whitespace-nowrap
@@ -101,7 +101,7 @@ export function InfoCliente() {
                     {cliente && cliente.id ? cliente.nomeFantasia : "Selecione um cliente..."}
                 </label>
             </div>
-            <div className="btn btn-sm m-1 rounded-md" onClick={handleShowList}>
+            <div className="btn btn-sm m-1 rounded-sm" onClick={handleShowList}>
                 {loading ? <span className="loading loading-spinner loading-sm"></span>
                     : <ListTodo size={15} />}
             </div>

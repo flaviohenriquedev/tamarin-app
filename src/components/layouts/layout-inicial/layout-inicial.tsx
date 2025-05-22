@@ -110,7 +110,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             items-center
                             justify-center
                             p-2
-                            rounded-md
+                            rounded-sm
                             `}>
                         {sistema.icone}
                     </div>
@@ -123,7 +123,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         <div className={`container-sistema`}>
             <div className={`side-bar flex`}>
                 <aside
-                    className={`flex flex-col gap-4 w-fit shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-linear-to-t from-base-200 to-base-100 p-2`}>
+                    className={`flex flex-col gap-4 w-fit shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-linear-to-t from-base-200 to-base-100 `}>
                     <div className={`flex border-b border-base-200 justify-center items-center h-12`}>
                         <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={30} height={30}/>
                     </div>
@@ -134,7 +134,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 <AnimatePresence initial={false}>
                     {filteredData && filteredData.length > 0 && (
                         <motion.aside
-                            className={`flex gap-4 px-2 flex-col h-screen border-r border-base-200`}
+                            className={`flex gap-4 px-1 flex-col h-screen border-r border-base-200`}
                             initial={{width: 0, opacity: 0}}
                             animate={{width: '16rem', opacity: 1}}
                             exit={{width: 0, opacity: 0}}

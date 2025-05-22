@@ -25,7 +25,7 @@ export function ComponentePerfilSistemaItens({
                     gap-1
                     cursor-default
                     border-2
-                    rounded-md
+                    rounded-sm
                     px-2
                     ${destacar ? `
                             bg-primary/15

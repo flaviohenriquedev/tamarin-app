@@ -51,7 +51,7 @@ export function FormularioLogin() {
                              type={`password`}/>
             </LineContentFill>
 
-            <Button type={'submit'}>Entrar</Button>
+            <Button buttonSize={`sm`} type={'submit'}>Entrar</Button>
         </form>
     );
 }

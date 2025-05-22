@@ -64,7 +64,7 @@ export function SelectItem({values, onSelect}: Props) {
                     transition-all
                     duration-300
                     w-full
-                    rounded-md
+                    rounded-sm
                     text-[9pt]
                     ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}
                 `}

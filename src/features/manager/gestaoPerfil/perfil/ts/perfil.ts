@@ -6,6 +6,8 @@ export class Perfil extends EntidadeCliente {
     descricao: string;
     sistemas: PerfilSistema[];
 
+    checked: boolean;
+
     constructor() {
         super();
     }

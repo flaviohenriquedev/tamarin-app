@@ -8,7 +8,7 @@ type Props = {
 
 export function Fieldset({children, className, label}: Props) {
     return (
-        <fieldset className={`${className} fieldset bg-base-200 border-base-300 rounded-md w-xs border p-3`}>
+        <fieldset className={`${className} fieldset border-base-200 rounded-sm w-xs border p-3 shadow-[-6px_5px_2px_-3px_rgba(0,_0,_0,_0.1)]`}>
             <legend className="fieldset-legend">{label}</legend>
             {children}
         </fieldset>

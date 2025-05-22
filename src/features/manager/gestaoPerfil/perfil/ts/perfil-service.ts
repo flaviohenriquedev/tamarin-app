@@ -14,6 +14,11 @@ export class PerfilService extends CrudService<Perfil> {
         return perfilEndPoints;
     }
 
+    async buscarPerfisPorIdCliente(idCliente: string): Promise<Perfil[]> {
+        const resultado = await request<Perfil[]>(`${this.getBaseURL()}/buscar-por-id-cliente/${idCliente}`, MetodoHTTP.GET);
+        return resultado ?? [];
+    }
+
     async buscarPerfisPorIdClienteSistema(idClienteSistema: string): Promise<Perfil[]> {
         const resultado = await request<Perfil[]>(`${this.getBaseURL()}/buscar-por-id-cliente-sistema/${idClienteSistema}`, MetodoHTTP.GET);
         return resultado ?? [];

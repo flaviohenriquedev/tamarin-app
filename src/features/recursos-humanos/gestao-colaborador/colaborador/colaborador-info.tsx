@@ -76,13 +76,13 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
             </div>
             <div className={`flex gap-2`}>
                 <div className={`
-                                relative w-30 h-30 border-3 rounded-md ${StatusColaboradorFactory.getInfo(colaborador.status).borderColor}
+                                relative w-30 h-30 border-3 rounded-sm ${StatusColaboradorFactory.getInfo(colaborador.status).borderColor}
                             `}>
                     <Image
                         src={colaborador.fotoPerfil}
                         alt="foto"
                         fill
-                        className="object-cover rounded-md"
+                        className="object-cover rounded-sm"
                     />
                 </div>
                 <div className={`flex flex-col justify-between`}>

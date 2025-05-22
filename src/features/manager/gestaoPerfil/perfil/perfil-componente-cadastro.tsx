@@ -1,6 +1,5 @@
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/input-string";
-import {Label} from "@/components/ui/label/label";
 import {useCallback, useEffect, useState} from "react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
@@ -72,13 +71,12 @@ export function PerfilComponenteCadastro({entidade}: Props) {
     return (
         <>
             <LineContent>
-                <Label title={`Descrição`}>
-                    <InputString
-                        name={`descricao`}
-                        atributo={`descricao`}
-                        entidade={entidade}
-                        required/>
-                </Label>
+                <InputString
+                    label={`Descrição`}
+                    name={`descricao`}
+                    atributo={`descricao`}
+                    entidade={entidade}
+                    required/>
             </LineContent>
 
             <div className={`relative cad-perfil-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>

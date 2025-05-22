@@ -10,7 +10,7 @@ import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 export const rotasSistema: SistemaType[] = [
     {
         sistema: SistemaENUM.RECURSOS_HUMANOS,
-        icone: <HiUsers size={15}/>,
+        icone: <HiUsers size={20}/>,
         href: '/rh',
         destaque: false,
         rotas: rotasRecursosHumanos

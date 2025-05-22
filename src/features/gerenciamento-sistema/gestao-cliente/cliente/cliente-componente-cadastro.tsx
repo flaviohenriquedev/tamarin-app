@@ -1,16 +1,14 @@
-import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
-import {Label} from "@/components/ui/label/label";
 import {InputString} from "@/components/ui/input/input-string";
 import {useEffect, useState} from "react";
 import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
-import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {set} from "lodash";
-import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {InputCNPJ} from "@/components/ui/input/input-cnpj";
+import {LineContent} from "@/components/ui/line-content/line-content";
+import {Fieldset} from "@/components/ui/fieldset/fieldset";
 
 type Props = {
     entidade: Cliente;
@@ -20,6 +18,7 @@ export function ClienteComponenteCadastro({entidade}: Props) {
 
     const [sistemasSelecionados, setSistemasSelecionados] = useState<DualListboxValue[]>([]);
     const [listaSistemaDualList, setListaSistemaDualList] = useState<DualListboxType[]>([]);
+    const [listaSistemaClienteDualList, setListaSistemaClienteDualList] = useState<DualListboxType[]>([]);
 
     useEffect(() => {
         setListaSistemaDualList(
@@ -31,54 +30,131 @@ export function ClienteComponenteCadastro({entidade}: Props) {
     }, []);
 
     useEffect(() => {
-        const sistemas: ClienteSistema[] = []
-        sistemasSelecionados.map(item => {
-            if (item) {
-                if (item && Object.values(SistemaENUM).includes(item as SistemaENUM)) {
-                    const clienteSistema = new ClienteSistema();
-                    clienteSistema.keySistema = item as SistemaENUM;
-                    sistemas.push(clienteSistema);
-                }
-            }
-        })
-        set(entidade, 'sistemas', sistemas);
-    }, [entidade, sistemasSelecionados]);
+        const lista: DualListboxType[] = [];
+        if (entidade.sistemas?.length > 0) {
+            console.log('DENTRO DOS SISTEMAS DA ENTIDADE ->', entidade.sistemas);
+            entidade.sistemas.map(sistema => {
+                lista.push({
+                    label: SistemaENUMFactory.getLabel(sistema.keySistema),
+                    value: sistema.keySistema,
+                })
+                console.log('LISTA PUSHEADA', lista)
+            })
+        }
+        setListaSistemaClienteDualList(lista);
+    }, [entidade]);
 
     return (
-        <>
-            <LineContentFill>
-                <Label title={`Nome Fantasia`}>
-                    <InputString
-                        entidade={entidade}
-                        atributo={`nomeFantasia`}/>
-                </Label>
-                <Label title={`Razão Social`}>
-                    <InputString
-                        entidade={entidade}
-                        atributo={`razaoSocial`}/>
-                </Label>
-            </LineContentFill>
+        <div className="grid grid-cols-[2fr_1fr] gap-4">
+            <div className={`flex flex-col gap-4`}>
+                <Fieldset label={`Dados Básicos`}>
+                    <LineContent>
 
-            <LineContentFill>
-                <Label title={`CNPJ`}>
-                    <InputCNPJ
-                        entidade={entidade}
-                        atributo={`cnpj`}/>
-                </Label>
-                <Label title={`Data de Abertura`}>
-                    <InputDataCompleta
-                        entidade={entidade}
-                        atributo={`dataAbertura`}/>
-                </Label>
-            </LineContentFill>
+                        <InputString
+                            label={`Nome Fantasia`}
+                            entidade={entidade}
+                            atributo={`nomeFantasia`}
+                            required/>
 
-            <DualListbox
-                valores={listaSistemaDualList}
-                stateRetorno={{
-                    value: sistemasSelecionados,
-                    funcSet: setSistemasSelecionados
-                }}
-            />
-        </>
+                        <InputString
+                            label={`Razão Social`}
+                            entidade={entidade}
+                            atributo={`razaoSocial`}
+                            required/>
+
+                        <InputCNPJ
+                            label={`CNPJ`}
+                            entidade={entidade}
+                            atributo={`cnpj`}
+                            required/>
+
+                        <InputDataCompleta
+                            label={`Data de Abertura`}
+                            entidade={entidade}
+                            atributo={`dataAbertura`}
+                            required/>
+
+                    </LineContent>
+
+                    <LineContent>
+
+                        <InputString
+                            label={'Inscrição Estadual'}
+                            entidade={entidade}
+                            atributo={`inscricaoEstadual`}/>
+
+                        <InputString
+                            label={'Inscrição Municipal'}
+                            entidade={entidade}
+                            atributo={`inscricaoMunicipal`}/>
+
+                        <InputString
+                            label={`Telefone`}
+                            entidade={entidade}
+                            atributo={`telefone`}/>
+
+                        <InputString
+                            label={`Email`}
+                            entidade={entidade}
+                            atributo={`email`}/>
+
+                    </LineContent>
+                </Fieldset>
+                <Fieldset label={`Localização`}>
+                    <LineContent>
+
+                        <InputString
+                            label={'Logradouro'}
+                            entidade={entidade}
+                            atributo={`logradouro`}/>
+
+                        <InputString
+                            label={'Número'}
+                            entidade={entidade}
+                            atributo={`numero`}/>
+
+                        <InputString
+                            label={`Complemento`}
+                            entidade={entidade}
+                            atributo={`complemento`}/>
+
+                        <InputString
+                            label={'Bairro'}
+                            entidade={entidade}
+                            atributo={`bairro`}/>
+
+                    </LineContent>
+
+                    <LineContent>
+
+                        <InputString
+                            label={'Cidade'}
+                            entidade={entidade}
+                            atributo={`cidade`}/>
+
+                        <InputString
+                            label={'UF'}
+                            entidade={entidade}
+                            atributo={`uf`}/>
+
+                        <InputString
+                            label={'CEP'}
+                            entidade={entidade}
+                            atributo={`cep`}/>
+
+                    </LineContent>
+                </Fieldset>
+            </div>
+            <Fieldset label={`Sistemas`}>
+                <DualListbox
+                    listaA={listaSistemaDualList}
+                    listaB={listaSistemaClienteDualList}
+                    stateRetorno={{
+                        value: sistemasSelecionados,
+                        funcSet: setSistemasSelecionados
+                    }}
+                />
+            </Fieldset>
+        </div>
     )
 }

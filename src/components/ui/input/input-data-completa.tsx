@@ -1,7 +1,7 @@
 'use client'
 
 import {inputStyle} from "@/components/ui/input/style";
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import {DayPicker} from "react-day-picker";
 import {ptBR as localePtBR} from "react-day-picker/locale";
 import {format, isValid, parse} from "date-fns";
@@ -21,7 +21,7 @@ function formatDateBR(date: Date): string {
     return format(date, FORMAT_BR);
 }
 
-export function InputDataCompleta<E>({entidade, atributo}: InputProps<E>) {
+export function InputDataCompleta<E>({entidade, atributo, label, name, required}: InputProps<E>) {
     const [date, setDate] = useState<Date | undefined>();
     const [inputValue, setInputValue] = useState<string>("");
     const [open, setOpen] = useState(false);
@@ -65,6 +65,22 @@ export function InputDataCompleta<E>({entidade, atributo}: InputProps<E>) {
     }, []);
 
     return (
+
+
+
+    <div className={`
+            flex-1
+            flex
+            flex-col
+            gap-1`}>
+        {label && (
+            <label
+                htmlFor={name}
+                className="flex gap-1 text-[9pt] pl-1">
+                {required && <span className={`text-error font-semibold`}>*</span>}
+                {label}
+            </label>
+        )}
         <div className="relative w-fit" ref={wrapperRef}>
             <div className="relative flex items-center">
                 <input
@@ -106,5 +122,6 @@ export function InputDataCompleta<E>({entidade, atributo}: InputProps<E>) {
                 )}
             </AnimatePresence>
         </div>
+    </div>
     );
 }

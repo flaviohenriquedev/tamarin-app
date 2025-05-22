@@ -16,7 +16,7 @@ export function InputSearch({ onChange, placeholder }:Props) {
                     outline-hidden
                     text-base-content/50
                     focus-within:border-primary
-                    rounded-md
+                    rounded-sm
                     h-10
                     px-3
                 `}

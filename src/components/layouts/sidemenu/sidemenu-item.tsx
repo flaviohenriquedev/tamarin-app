@@ -25,10 +25,8 @@ export function SidemenuItem({rota}: Props) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}
-                    className={`flex items-center h-6 px-3 gap-4 text-[9pt] font-semibold cursor-default text-gray-500 rounded-md`}
+                    className={`flex items-center p-2 gap-4 text-md font-semibold cursor-default text-gray-500 rounded-sm `}
                     onClick={() => handleClick(rota)}>
-                    <div className={`relative flex items-center ml-[.1rem] border-l min-h-full border-gray-500`}>
-                    </div>
                     <Link prefetch={true} className={`cursor-default ${rota.href === path ? 'text-primary' : ''} hover:text-base-content p-1 w-full border-md`} href={rota.href!}>{rota.title}</Link>
                 </li>
             )
@@ -37,20 +35,20 @@ export function SidemenuItem({rota}: Props) {
 
     return (
         <li
-            className={`text-[10pt] font-light p-1`}
+            className={`text-sm font-light p-1`}
             key={rota.title}
         >
             <div
                 className={`
                     flex
                     h-full
-                    py-1 px-2
+                    py-2 px-2
                     items-center
                     justify-between
                     cursor-default
-                    font-semibold
+                    font-normal
                     ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-500'}
-                    rounded-md hover:bg-base-200`}
+                    rounded-sm hover:bg-base-200`}
                 onClick={() => handleClick(rota)}
             >
                 <div
@@ -81,6 +79,7 @@ export function SidemenuItem({rota}: Props) {
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
+                        className={`px-6`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}

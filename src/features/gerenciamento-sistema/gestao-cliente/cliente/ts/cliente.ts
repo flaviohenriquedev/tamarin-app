@@ -6,9 +6,21 @@ export class Cliente extends EntidadeAuditavel {
     razaoSocial: string;
     cnpj: string;
     dataAbertura: Date;
+    inscricaoEstadual: string;
+    inscricaoMunicipal: string;
+    telefone: string;
+    email: string;
+    logradouro: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
     sistemas: ClienteSistema[];
 
     constructor() {
         super();
+        this.sistemas = []
     }
 }

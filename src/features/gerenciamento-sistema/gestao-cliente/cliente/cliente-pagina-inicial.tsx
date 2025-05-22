@@ -20,15 +20,14 @@ export function ClientePaginaInicial() {
 
     const atualizarLista = useCallback(() => {
         service.listar().then(result => {
+            console.log('RESULT -> ', result);
             setListaEntidade(result)
         });
     }, []);
 
     useEffect(() => {
-        service.listar().then(result => {
-            setListaEntidade(result)
-        });
-    }, [atualizarLista]);
+        console.log('LISTA ENTIDADE -->', listaEntidade);
+    }, [listaEntidade]);
 
     function handleSalvar() {
         service.salvar(entidade, () => {
@@ -42,13 +41,24 @@ export function ClientePaginaInicial() {
         setEntidade(new Cliente())
     }
 
+    function consultar(cliente: Cliente) {
+        console.log('CLIENTE', cliente)
+        setEntidade(cliente)
+    }
+
+    function excluir() {
+        console.log("excluir");
+    }
+
     return (
         <PaginaCadastro camposFormulario={<ClienteComponenteCadastro entidade={entidade}/>}
-                        onOpenModal={clearEntidade}
+                        onCloseModal={clearEntidade}
                         onSubmit={handleSalvar}
                         title={`Cadastro de Clientes`}
                         funcaoAtualizarLista={atualizarLista}
                         colunas={clienteColunasListagem}
-                        lista={listaEntidade} />
+                        lista={listaEntidade}
+                        acoesTabela={{consultar: consultar, excluir: excluir}}
+        />
     )
 }

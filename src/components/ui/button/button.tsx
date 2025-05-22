@@ -11,7 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({
                            children,
-                           buttonSize = 'sm',
+                           buttonSize = 'xs',
                            buttonStyle = 'primary',
                            type = 'button',
                            onClick,
@@ -20,6 +20,7 @@ export function Button({
         <button className={`
             btn
             btn-soft
+            rounded-sm
             cursor-default
             ${buttonSize === 'xs' ? 'btn-xs'
             : buttonSize === 'sm' ? 'btn-sm'

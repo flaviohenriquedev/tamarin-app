@@ -15,7 +15,7 @@ export function ComponenteUsuarioClienteItem({ destacar, cliente, onClick }: Pro
                 p-2
                 cursor-default
                 border-2
-               rounded-md
+               rounded-sm
                ${destacar ? `
                     bg-primary/15
                     border-primary

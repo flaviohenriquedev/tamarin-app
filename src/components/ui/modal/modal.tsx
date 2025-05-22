@@ -4,14 +4,21 @@ import {X} from "lucide-react";
 
 type Props = {
     children: ReactNode;
+    onCloseModal?: () => void;
     isOpen: boolean,
     setIsOpen: (isOpen: boolean) => void,
     title?: string,
 }
 
-export default function Modal({children, isOpen, setIsOpen, title}: Props) {
+export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}: Props) {
+
+    function handleCloseModal() {
+        setIsOpen(false);
+        if (onCloseModal) onCloseModal();
+    }
+
     return (
-        <Dialog open={isOpen} onClose={setIsOpen} className="relative z-10">
+        <Dialog open={isOpen} onClose={handleCloseModal} className="relative z-10">
             <DialogBackdrop
                 transition
                 className={`
@@ -68,7 +75,7 @@ export default function Modal({children, isOpen, setIsOpen, title}: Props) {
                         `}
                     >
                         <div className={`flex items-center justify-between px-6 py-4 w-full`}>
-                            {title && (<div><span className={`text-lg`}>{title}</span></div>)} <X onClick={() => setIsOpen(false)} className={`hover:text-primary`}/>
+                            {title && (<div><span className={`text-lg`}>{title}</span></div>)} <X onClick={handleCloseModal} className={`hover:text-primary`}/>
                         </div>
                         {children}
                     </DialogPanel>

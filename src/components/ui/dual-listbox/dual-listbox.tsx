@@ -8,131 +8,137 @@ import {DualListboxList} from "@/components/ui/dual-listbox/dual-listbox-list";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 
 type Props = {
-    valores: DualListboxType[];
-    stateRetorno: {value: DualListboxValue[], funcSet: Dispatch<SetStateAction<DualListboxValue[]>>};
+    listaA: DualListboxType[];
+    listaB: DualListboxType[];
+    valores?: DualListboxType[];
+    stateRetorno: {
+        value: DualListboxValue[],
+        funcSet: Dispatch<SetStateAction<DualListboxValue[]>>
+    };
 }
 
-export function DualListbox({valores, stateRetorno}: Props) {
-
-    const [listaValoresDisponiveis, setListaValoresDisponiveis] = useState<DualListboxType[]>([])
-    const [listaValoresAdicionados, setListaValoresAdicionados] = useState<DualListboxType[]>([])
-    const [listaSelecionados, setListaSelecionados] = useState<DualListboxType[]>([])
-    
-    useEffect(() => {
-        setListaValoresDisponiveis([...valores].sort((a, b) => {
-            const valorA = a.label;
-            const valorB = b.label;
-            return valorA.localeCompare(valorB);
-        }))
-    }, [valores])
+export function DualListbox({stateRetorno, listaA, listaB}: Props) {
+    const [listaDisponiveis, setListaDisponiveis] = useState<DualListboxType[]>([]);
+    const [listaAdicionados, setListaAdicionados] = useState<DualListboxType[]>([]);
+    const [selecionados, setSelecionados] = useState<DualListboxValue[]>([]);
+    const [filtroDisponiveis, setFiltroDisponiveis] = useState('');
+    const [filtroAdicionados, setFiltroAdicionados] = useState('');
 
     useEffect(() => {
+        const apenasDisponiveis = listaA.filter(itemA =>
+            !listaB.some(itemB => itemB.value === itemA.value)
+        );
+        const ordenados = apenasDisponiveis.sort((a, b) => a.label.localeCompare(b.label));
+        setListaDisponiveis(ordenados);
+        setListaAdicionados([...listaB].sort((a, b) => a.label.localeCompare(b.label)));
+    }, [listaA, listaB]);
 
-    }, []);
-
-    function selecionarItem(item: DualListboxType) {
-        if (!listaSelecionados.includes(item)) {
-            setListaSelecionados((prev) => [...prev, item])
-        } else {
-            setListaSelecionados(prev => prev.filter(i => i !== item))
-        }
+    function alternarSelecao(item: DualListboxType) {
+        const existe = selecionados.includes(item.value);
+        setSelecionados(prev =>
+            existe ? prev.filter(v => v !== item.value) : [...prev, item.value]
+        );
     }
 
     function addItem(item: DualListboxType) {
-        if (!listaValoresAdicionados.includes(item)) {
-            setListaValoresDisponiveis(prev => prev.filter(i => i !== item))
-            setListaValoresAdicionados(prev => [...prev, item]
-                .sort((a, b) => {
-                    const valorA = a.label;
-                    const valorB = b.label;
-                    return valorA.localeCompare(valorB);
-                }))
-            stateRetorno.funcSet((prev) => [...prev, item.value])
-        }
-    }
-    function addTodos() {
-        const novaLista = [...listaValoresAdicionados, ...listaValoresDisponiveis]
-            .sort((a, b) => a.label.localeCompare(b.label))
+        if (listaAdicionados.some(i => i.value === item.value)) return;
 
-        setListaValoresAdicionados(novaLista)
-        setListaValoresDisponiveis([])
-        setListaSelecionados([])
-        stateRetorno.funcSet(novaLista.map(v => v.value))
+        const novaListaAdicionados = [...listaAdicionados, item].sort((a, b) => a.label.localeCompare(b.label));
+        const novaListaDisponiveis = listaDisponiveis.filter(i => i.value !== item.value);
+
+        setListaAdicionados(novaListaAdicionados);
+        setListaDisponiveis(novaListaDisponiveis);
+        setSelecionados(prev => prev.filter(v => v !== item.value));
+        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
     }
 
     function removeItem(item: DualListboxType) {
-        if (!listaValoresDisponiveis.includes(item)) {
-            setListaValoresAdicionados(prev => prev.filter(i => i !== item))
-            stateRetorno.funcSet(prev => prev.filter(i => i !== item.value))
-            setListaValoresDisponiveis(prev => [...prev, item]
-                .sort((a, b) => {
-                    const valorA = a.label;
-                    const valorB = b.label;
-                    return valorA.localeCompare(valorB);
-                }))
-        }
+        const novaListaDisponiveis = [...listaDisponiveis, item].sort((a, b) => a.label.localeCompare(b.label));
+        const novaListaAdicionados = listaAdicionados.filter(i => i.value !== item.value);
+
+        setListaDisponiveis(novaListaDisponiveis);
+        setListaAdicionados(novaListaAdicionados);
+        setSelecionados(prev => prev.filter(v => v !== item.value));
+        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
+    }
+
+    function addTodos() {
+        const novaListaAdicionados = [...listaAdicionados, ...listaDisponiveis].sort((a, b) => a.label.localeCompare(b.label));
+        setListaAdicionados(novaListaAdicionados);
+        setListaDisponiveis([]);
+        setSelecionados([]);
+        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
     }
 
     function removerTodos() {
-        const novaListaDisponiveis = [...listaValoresDisponiveis, ...listaValoresAdicionados]
-            .sort((a, b) => a.label.localeCompare(b.label))
-
-        setListaValoresDisponiveis(novaListaDisponiveis)
-        setListaValoresAdicionados([])
-        stateRetorno.funcSet([]) // continua vazio, já que você limpou os adicionados
-        setListaSelecionados([])
+        const novaListaDisponiveis = [...listaDisponiveis, ...listaAdicionados].sort((a, b) => a.label.localeCompare(b.label));
+        setListaDisponiveis(novaListaDisponiveis);
+        setListaAdicionados([]);
+        setSelecionados([]);
+        stateRetorno.funcSet([]);
     }
 
-    return (
-        <div className={`dl-container w-fit border rounded border-base-content/30 p-2`}>
-            <div className={`dl-left flex flex-col rounded-md bg-base-200`}>
-                <div className={`w-auto`}>
-                    <input className={`w-full`}/>
-                </div>
+    const disponiveisFiltrados = listaDisponiveis.filter(i =>
+        i.label.toLowerCase().includes(filtroDisponiveis.toLowerCase())
+    );
 
+    const adicionadosFiltrados = listaAdicionados.filter(i =>
+        i.label.toLowerCase().includes(filtroAdicionados.toLowerCase())
+    );
+
+    return (
+        <div className="dl-container w-full border rounded-sm bg-base-200 border-base-content/10 p-2 flex gap-4">
+            {/* Coluna da esquerda (disponíveis) */}
+            <div className="dl-left flex flex-col rounded-sm bg-base-100 w-full">
+                <input
+                    placeholder="Filtrar..."
+                    value={filtroDisponiveis}
+                    onChange={e => setFiltroDisponiveis(e.target.value)}
+                    className="w-full mb-2 px-2 py-1 rounded border border-base-content/20"
+                />
                 <DualListboxList>
-                    {listaValoresDisponiveis && listaValoresDisponiveis.map((item, index) => (
+                    {disponiveisFiltrados.map((item, index) => (
                         <DualListboxItem
                             key={index}
                             item={item}
-                            destaque={listaSelecionados.includes(item)}
+                            destaque={selecionados.includes(item.value)}
                             action={addItem}
-                            onClick={selecionarItem}
-                            icon={<Plus size={18} className={`text-success cursor-pointer`}/>}/>
+                            onClick={alternarSelecao}
+                            icon={<Plus size={18} className="text-success cursor-pointer" />}
+                        />
                     ))}
                 </DualListboxList>
             </div>
 
-            <div className={`dl-middle flex flex-col items-center justify-center h-full gap-3 p-2`}>
-                <div onClick={addTodos}
-                     className={`flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer`}>
-                    <ChevronsRight size={18}/>
+            {/* Botões centrais */}
+            <div className="dl-middle flex flex-col items-center justify-center gap-3">
+                <div onClick={addTodos} className="flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer">
+                    <ChevronsRight size={18} />
                 </div>
-                <div onClick={removerTodos}
-                     className={`flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer`}>
-                    <ChevronsLeft size={18}/>
+                <div onClick={removerTodos} className="flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer">
+                    <ChevronsLeft size={18} />
                 </div>
-
             </div>
 
-            <div className={`dl-right flex flex-col rounded-md bg-base-200`}>
-                <div className={`w-auto`}>
-                    <input className={`w-full`}/>
-                </div>
-
+            {/* Coluna da direita (adicionados) */}
+            <div className="dl-right flex flex-col rounded-sm bg-base-200 w-full">
+                <input
+                    placeholder="Filtrar..."
+                    value={filtroAdicionados}
+                    onChange={e => setFiltroAdicionados(e.target.value)}
+                    className="w-full mb-2 px-2 py-1 rounded border border-base-content/20"
+                />
                 <DualListboxList>
-                    {listaValoresAdicionados && listaValoresAdicionados.map((item, index) => (
+                    {adicionadosFiltrados.map((item, index) => (
                         <DualListboxItem
                             key={index}
                             item={item}
                             action={removeItem}
-                            icon={<Minus size={18} className={`
-                            text-error
-                            cursor-pointer
-                            `}/>}/>
+                            icon={<Minus size={18} className="text-error cursor-pointer" />}
+                        />
                     ))}
                 </DualListboxList>
             </div>
         </div>
-    )
+    );
 }

@@ -8,6 +8,7 @@ import {get, set} from "lodash";
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
     entidade: E;
+    label?: string;
 }
 
 export function InputCNPJ<E extends object>({
@@ -15,6 +16,7 @@ export function InputCNPJ<E extends object>({
                                                 atributo,
                                                 id,
                                                 name,
+                                                label,
                                                 type,
                                                 autoComplete,
                                                 disabled,
@@ -23,7 +25,7 @@ export function InputCNPJ<E extends object>({
                                                 onKeyDown,
                                                 required
                                             }: InputProps<E>) {
-    
+
     const [valorInput, setValorInput] = useState<string>('')
 
     useEffect(() => {
@@ -41,21 +43,35 @@ export function InputCNPJ<E extends object>({
     }
 
     return (
-        <input
-            className={inputStyle}
-            id={id}
-            placeholder="__.___.___/____-__"
-            name={name}
-            minLength={18}
-            maxLength={18}
-            type={type ? type : "text"}
-            autoComplete={autoComplete}
-            disabled={disabled}
-            value={valorInput}
-            onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
-            onBlur={onBlur}
-            onKeyDown={onKeyDown}
-            required={required}
-        />
+        <div className={`
+            flex-1
+            flex
+            flex-col
+            gap-1`}>
+            {label && (
+                <label
+                    htmlFor={name}
+                    className="flex gap-1 text-[9pt] pl-1">
+                    {required && <span className={`text-error font-semibold`}>*</span>}
+                    {label}
+                </label>
+            )}
+            <input
+                className={inputStyle}
+                id={id}
+                placeholder="__.___.___/____-__"
+                name={name}
+                minLength={18}
+                maxLength={18}
+                type={type ? type : "text"}
+                autoComplete={autoComplete}
+                disabled={disabled}
+                value={valorInput}
+                onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
+                onBlur={onBlur}
+                onKeyDown={onKeyDown}
+                required={required}
+            />
+        </div>
     );
 }

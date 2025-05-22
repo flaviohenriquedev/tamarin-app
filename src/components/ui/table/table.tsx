@@ -3,6 +3,8 @@ import {get} from "lodash";
 import {useContext, useEffect} from "react";
 import {ClienteContext} from "@/context/cliente-context";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
+import {AcoesTabela} from "@/components/ui/table/ts/types";
+import {SquareArrowOutUpRight, Trash} from "lucide-react";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
@@ -10,11 +12,13 @@ type Props<E> = {
     colunas: ColumnType[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
+    acoesTabela?: AcoesTabela<E>
 }
 
-export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, funcaoEditar}: Props<E>) {
+export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela}: Props<E>) {
 
     const {cliente} = useContext(ClienteContext)
+
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
@@ -32,18 +36,37 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, f
                 <tr key={Math.random()}
                     className={`text-xs`}>
                     {renderRowItem(item)}
-                    {funcaoEditar && (
-                        <td>
-                            <button onClick={() => funcaoEditar(item)}
-                                    className={`hover:cursor-pointer`}>Editar
-                            </button>
-                        </td>
-                    )}
+                    {getAcaoConsultar(item)}
+                    {getAcaoExcluir(item)}
                 </tr>
             )
         }) : <tr>
             <td>Nenhum dado encontrado</td>
         </tr>
+    }
+
+    function getAcaoConsultar(e: E) {
+        if (acoesTabela?.consultar) {
+            return (
+                <td>
+                    <button className={'cursor-pointer text-info'} onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
+                        <SquareArrowOutUpRight size={15} />
+                    </button>
+                </td>
+            )
+        }
+    }
+
+    function getAcaoExcluir(e: E) {
+        if (acoesTabela?.excluir) {
+            return (
+                <td>
+                    <button className={'cursor-pointer text-error'}  onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
+                        <Trash size={15} />
+                    </button>
+                </td>
+            )
+        }
     }
 
     function renderRowItem(row: E) {
