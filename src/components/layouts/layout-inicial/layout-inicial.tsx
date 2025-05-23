@@ -11,12 +11,11 @@ import {RouteType} from "@/types/_root/RouteType";
 import {InputSearch} from "@/components/ui/input/input-search";
 import {SistemaType} from "@/features/sistema/types";
 import {InfoCliente} from "@/components/layouts/info-cliente";
-import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
     const user = useUsuario();
-
 
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
@@ -90,7 +89,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     }, [sistemaSelecionado?.rotas, searchMenu]);
 
     function renderizarSistemas() {
-        return rotasSistema.map(sistema => {
+        return rotasSistema.filter(rs => rs.sistema !== SistemaENUM.GERENCIAR_SISTEMA).map(sistema => {
             return (
                 <li key={sistema.sistema}
                     onMouseEnter={onMouseEnter}
@@ -106,7 +105,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
                                 bg-base-100
                                 text-primary
-                            ` : "text-gray-300"}
+                            ` : 'text-gray-300'}
                             tooltip-right
                             items-center
                             justify-center
@@ -122,6 +121,41 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         })
     }
 
+    function renderizarSistemasUsuarioMaster() {
+        return rotasSistema.filter(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA).map(sistema => {
+            return (
+                <li key={sistema.sistema}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    onClick={() => handleClick(sistema)}>
+
+                    <div data-tip={SistemaENUMFactory.getDescricao(sistema.sistema)}
+                         className={`
+                            flex
+                            transition-colors
+                            duration-200
+                            ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
+                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
+                                bg-warning
+                                font-bold
+                                text-warning-content
+                                text-[8pt]
+                            ` : 'text-gray-300 text-[8pt] font-light'}
+                            tooltip-right
+                            items-center
+                            justify-center
+                            p-4
+                            `}>
+                        <div className={`flex gap-[.4rem] flex-col items-center`}>
+                            {sistema.icone}
+                            <label className={`text-center`}>{SistemaENUMFactory.getLabel(sistema.sistema)}</label>
+                        </div>
+                    </div>
+                </li>
+            )
+        })
+    }
+
     return (
         <div className={`container-sistema`}>
 
@@ -132,7 +166,11 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                         <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={30} height={30}/>
                     </div>
 
-                    <ul className={`flex flex-col gap-2 h-screen `}>{renderizarSistemas()}</ul>
+                    <ul className={`flex flex-col gap-2 h-full `}>
+                        {renderizarSistemas()}
+                        {user.usuarioMaster && renderizarSistemasUsuarioMaster()}
+                    </ul>
+
                 </aside>
 
                 <AnimatePresence initial={false}>

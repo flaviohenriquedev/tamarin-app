@@ -79,7 +79,7 @@ export function ComponenteUsuarioSistemaItens({
                 <label className={`w-full h-full p-2 `} onClick={() => {
                     onClick(clienteSistema)
                 }}>
-                    {SistemaENUMFactory.getLabel(clienteSistema.keySistema)}
+                    {SistemaENUMFactory.getDescricao(clienteSistema.keySistema)}
                 </label>
                 {loading ? <span className="loading loading-spinner loading-sm"></span> : <ChevronRight size={20}/>}
             </div>
