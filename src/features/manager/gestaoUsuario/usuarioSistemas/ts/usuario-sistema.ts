@@ -9,8 +9,6 @@ export class UsuarioSistema extends EntidadePadrao {
     public clienteSistema: ClienteSistema;
     public rotas: PerfilSistemaModulo[];
 
-    public checked: boolean = false;
-
     constructor() {
         super();
         this.rotas = [];

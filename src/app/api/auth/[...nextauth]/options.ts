@@ -33,10 +33,6 @@ export const nextAuthOptions: NextAuthOptions = {
     },
     callbacks: {
         async jwt({token, user}: { token: JWT; user?: User }): Promise<CustomToken> {
-            if (user) {
-                return {...token, ...user};
-            }
-
             if (!(new Date() < new Date(token.expiresToken))) {
                 const responseToken = await getToken(token);
                 return {
@@ -47,7 +43,9 @@ export const nextAuthOptions: NextAuthOptions = {
                     expiresRefreshtoken: responseToken.expiresRefreshToken,
                 };
             }
-
+            if (user) {
+                return {...token, ...user};
+            }
             return token as CustomToken;
         },
 

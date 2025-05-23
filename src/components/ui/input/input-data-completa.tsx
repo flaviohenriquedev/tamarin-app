@@ -5,7 +5,7 @@ import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import {DayPicker} from "react-day-picker";
 import {ptBR as localePtBR} from "react-day-picker/locale";
 import {format, isValid, parse} from "date-fns";
-import {Calendar} from "lucide-react";
+import {Asterisk, Calendar} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {InputProps} from "@/interfaces/InputProps";
 import {set} from "lodash";
@@ -76,8 +76,8 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required}
         {label && (
             <label
                 htmlFor={name}
-                className="flex gap-1 text-[9pt] pl-1">
-                {required && <span className={`text-error font-semibold`}>*</span>}
+                className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
+                {required && <span className={`text-error `}><Asterisk size={12}/></span>}
                 {label}
             </label>
         )}

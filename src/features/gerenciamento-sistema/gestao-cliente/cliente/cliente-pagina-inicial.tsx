@@ -20,7 +20,6 @@ export function ClientePaginaInicial() {
 
     const atualizarLista = useCallback(() => {
         service.listar().then(result => {
-            console.log('RESULT -> ', result);
             setListaEntidade(result)
         });
     }, []);
@@ -42,7 +41,6 @@ export function ClientePaginaInicial() {
     }
 
     function consultar(cliente: Cliente) {
-        console.log('CLIENTE', cliente)
         setEntidade(cliente)
     }
 

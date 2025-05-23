@@ -4,11 +4,12 @@ import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {InputCNPJ} from "@/components/ui/input/input-cnpj";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 
 type Props = {
     entidade: Cliente;
@@ -38,11 +39,16 @@ export function ClienteComponenteCadastro({entidade}: Props) {
                     label: SistemaENUMFactory.getLabel(sistema.keySistema),
                     value: sistema.keySistema,
                 })
-                console.log('LISTA PUSHEADA', lista)
             })
         }
         setListaSistemaClienteDualList(lista);
     }, [entidade]);
+
+    function addSistema(valor: DualListboxType) {
+        const clienteSistema: ClienteSistema = new ClienteSistema();
+        clienteSistema.keySistema = valor.value as SistemaENUM;
+        entidade.sistemas.push(clienteSistema);
+    }
 
     return (
         <div className="grid grid-cols-[2fr_1fr] gap-4">
@@ -149,6 +155,7 @@ export function ClienteComponenteCadastro({entidade}: Props) {
                 <DualListbox
                     listaA={listaSistemaDualList}
                     listaB={listaSistemaClienteDualList}
+                    onAddValor={addSistema}
                     stateRetorno={{
                         value: sistemasSelecionados,
                         funcSet: setSistemasSelecionados

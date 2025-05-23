@@ -1,5 +1,3 @@
-'use client'
-
 import './style.css'
 import {ChevronsLeft, ChevronsRight, Minus, Plus} from "lucide-react";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
@@ -10,6 +8,7 @@ import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts
 type Props = {
     listaA: DualListboxType[];
     listaB: DualListboxType[];
+    onAddValor: (valor: DualListboxType) => void;
     valores?: DualListboxType[];
     stateRetorno: {
         value: DualListboxValue[],
@@ -17,7 +16,7 @@ type Props = {
     };
 }
 
-export function DualListbox({stateRetorno, listaA, listaB}: Props) {
+export function DualListbox({listaA, listaB, onAddValor}: Props) {
     const [listaDisponiveis, setListaDisponiveis] = useState<DualListboxType[]>([]);
     const [listaAdicionados, setListaAdicionados] = useState<DualListboxType[]>([]);
     const [selecionados, setSelecionados] = useState<DualListboxValue[]>([]);
@@ -49,7 +48,7 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
         setListaAdicionados(novaListaAdicionados);
         setListaDisponiveis(novaListaDisponiveis);
         setSelecionados(prev => prev.filter(v => v !== item.value));
-        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
+        onAddValor(item);
     }
 
     function removeItem(item: DualListboxType) {
@@ -59,7 +58,6 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
         setListaDisponiveis(novaListaDisponiveis);
         setListaAdicionados(novaListaAdicionados);
         setSelecionados(prev => prev.filter(v => v !== item.value));
-        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
     }
 
     function addTodos() {
@@ -67,7 +65,6 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
         setListaAdicionados(novaListaAdicionados);
         setListaDisponiveis([]);
         setSelecionados([]);
-        stateRetorno.funcSet(novaListaAdicionados.map(i => i.value));
     }
 
     function removerTodos() {
@@ -75,7 +72,6 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
         setListaDisponiveis(novaListaDisponiveis);
         setListaAdicionados([]);
         setSelecionados([]);
-        stateRetorno.funcSet([]);
     }
 
     const disponiveisFiltrados = listaDisponiveis.filter(i =>
@@ -104,7 +100,7 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
                             destaque={selecionados.includes(item.value)}
                             action={addItem}
                             onClick={alternarSelecao}
-                            icon={<Plus size={18} className="text-success cursor-pointer" />}
+                            icon={<Plus size={18} className="text-success cursor-pointer"/>}
                         />
                     ))}
                 </DualListboxList>
@@ -112,16 +108,18 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
 
             {/* Botões centrais */}
             <div className="dl-middle flex flex-col items-center justify-center gap-3">
-                <div onClick={addTodos} className="flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer">
-                    <ChevronsRight size={18} />
+                <div onClick={addTodos}
+                     className="flex items-center justify-center w-8 h-8 rounded-full bg-success cursor-pointer">
+                    <ChevronsRight size={18}/>
                 </div>
-                <div onClick={removerTodos} className="flex items-center justify-center w-8 h-8 rounded-full bg-base-200 cursor-pointer">
-                    <ChevronsLeft size={18} />
+                <div onClick={removerTodos}
+                     className="flex items-center justify-center w-8 h-8 rounded-full bg-error cursor-pointer">
+                    <ChevronsLeft size={18}/>
                 </div>
             </div>
 
             {/* Coluna da direita (adicionados) */}
-            <div className="dl-right flex flex-col rounded-sm bg-base-200 w-full">
+            <div className="dl-right flex bg-base-100 flex-col rounded-sm w-full">
                 <input
                     placeholder="Filtrar..."
                     value={filtroAdicionados}
@@ -134,7 +132,7 @@ export function DualListbox({stateRetorno, listaA, listaB}: Props) {
                             key={index}
                             item={item}
                             action={removeItem}
-                            icon={<Minus size={18} className="text-error cursor-pointer" />}
+                            icon={<Minus size={18} className="text-error cursor-pointer"/>}
                         />
                     ))}
                 </DualListboxList>

@@ -70,7 +70,7 @@ export function PaginaCadastro<E extends object>({funcaoAtualizarLista, onCloseM
                     <Table funcaoAtualizarLista={funcaoAtualizarLista}
                            colunas={colunas}
                            lista={lista}
-                           acoesTabela={{consultar: consultarEntidade, excluir: excluirEntidade}}/>
+                           acoesTabela={acoesTabela ? {consultar: consultarEntidade, excluir: excluirEntidade} : {}}/>
                     {children && children}
                 </div>
             </div>

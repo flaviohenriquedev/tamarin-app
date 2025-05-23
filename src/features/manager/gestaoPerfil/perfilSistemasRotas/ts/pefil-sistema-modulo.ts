@@ -7,9 +7,6 @@ export class PerfilSistemaModulo extends EntidadePadrao {
     modulo: string;
     roles: string[];
 
-    checked: boolean;
-    isLista: boolean;
-
     constructor() {
         super();
     }

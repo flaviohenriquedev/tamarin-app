@@ -4,7 +4,8 @@ import {useContext, useEffect} from "react";
 import {ClienteContext} from "@/context/cliente-context";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela} from "@/components/ui/table/ts/types";
-import {SquareArrowOutUpRight, Trash} from "lucide-react";
+import {IoOpen} from "react-icons/io5";
+import {MdDelete} from "react-icons/md";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
@@ -22,7 +23,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
-            return <th key={index} className={`text-sm`}>{coluna.descricao}</th>
+            return <th key={index}>{coluna.descricao}</th>
         }) : <></>
     }
 
@@ -33,11 +34,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function renderRow() {
         return lista && lista.length > 0 ? lista.map(item => {
             return (
-                <tr key={Math.random()}
-                    className={`text-xs`}>
+                <tr key={Math.random()}>
                     {renderRowItem(item)}
-                    {getAcaoConsultar(item)}
-                    {getAcaoExcluir(item)}
+                    {getAcoes(item)}
                 </tr>
             )
         }) : <tr>
@@ -45,14 +44,23 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         </tr>
     }
 
+    function getAcoes(e: E) {
+        if (acoesTabela) {
+            return (
+                <td className={`flex items-center gap-4`}>
+                    {getAcaoConsultar(e)}
+                    {getAcaoExcluir(e)}
+                </td>
+            )
+        }
+    }
+
     function getAcaoConsultar(e: E) {
         if (acoesTabela?.consultar) {
             return (
-                <td>
-                    <button className={'cursor-pointer text-info'} onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
-                        <SquareArrowOutUpRight size={15} />
-                    </button>
-                </td>
+                <button className={'cursor-pointer text-info'} onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
+                    <IoOpen size={20} />
+                </button>
             )
         }
     }
@@ -60,11 +68,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcaoExcluir(e: E) {
         if (acoesTabela?.excluir) {
             return (
-                <td>
-                    <button className={'cursor-pointer text-error'}  onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
-                        <Trash size={15} />
-                    </button>
-                </td>
+                <button className={'cursor-pointer text-error'}  onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
+                    <MdDelete size={20} />
+                </button>
             )
         }
     }

@@ -13,6 +13,7 @@
 .content {
     grid-area: content;
     display: grid;
+    margin-left: .3rem;
     grid-template-areas: "content-header" "content-page" ;
     grid-template-rows: auto 1fr;
     row-gap: .5rem
@@ -29,4 +30,5 @@
 
 .content-page {
     grid-area: content-page;
+    width: 100%;
 }

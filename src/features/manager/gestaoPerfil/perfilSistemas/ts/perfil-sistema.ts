@@ -4,12 +4,9 @@ import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cl
 import {PerfilSistemaModulo} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/ts/pefil-sistema-modulo";
 
 export class PerfilSistema extends EntidadePadrao {
-
     public perfil: Perfil;
     public clienteSistema: ClienteSistema;
     public rotas: PerfilSistemaModulo[];
-
-    public checked: boolean = false;
 
     constructor() {
         super();

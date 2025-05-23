@@ -18,7 +18,6 @@ export class AuthService {
                 },
                 body: JSON.stringify({email, senha})
             });
-            console.log('RESPONSE LOGIN', response);
             return await response.json();
         }
         return null;

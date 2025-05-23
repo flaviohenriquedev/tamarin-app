@@ -12,8 +12,11 @@ import {InputSearch} from "@/components/ui/input/input-search";
 import {SistemaType} from "@/features/sistema/types";
 import {InfoCliente} from "@/components/layouts/info-cliente";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
+    const user = useUsuario();
+
 
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
@@ -121,6 +124,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
     return (
         <div className={`container-sistema`}>
+
             <div className={`side-bar flex`}>
                 <aside
                     className={`flex flex-col gap-4 w-fit shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-linear-to-t from-base-200 to-base-100 `}>
@@ -153,6 +157,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
             <div className={`content`}>
                 <Header sistema={sistemaSelecionado && sistemaSelecionado}/>
                 <div className={`content-page `}>
+                    <div>Bem-vindo, {user?.nome}</div>
                     {children}
                 </div>
             </div>

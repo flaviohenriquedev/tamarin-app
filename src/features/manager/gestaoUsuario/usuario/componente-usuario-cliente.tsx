@@ -7,9 +7,10 @@ type Props = {
     className: string;
     listaClientes: Cliente[];
     selecionarCliente: (cliente: Cliente) => void;
+    onCheckCliente: (cliente: Cliente, valor: boolean) => void;
 }
 
-export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente }: Props) {
+export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente, onCheckCliente }: Props) {
 
     const [idClienteSelecionado, setIdClienteSelecionado] = useState<string>()
 
@@ -30,6 +31,7 @@ export function ComponenteUsuarioCliente({className, listaClientes, selecionarCl
                                 key={cliente.id}
                                 destacar={idClienteSelecionado === cliente.id}
                                 cliente={cliente}
+                                onCheckCliente={onCheckCliente}
                                 onClick={selecionar}/>
                         )
                     }) : (

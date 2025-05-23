@@ -1,7 +1,7 @@
 .dl-container {
     display: grid;
     grid-template-areas: "dl-left dl-middle dl-right";
-    grid-template-columns: 10rem 3rem 10rem;
+    grid-template-columns: 10rem 2rem 10rem;
 }
 
 .dl-left {

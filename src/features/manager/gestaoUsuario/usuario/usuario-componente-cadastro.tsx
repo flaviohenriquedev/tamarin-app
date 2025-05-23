@@ -14,6 +14,7 @@ import {InputCPF} from "@/components/ui/input/input-cpf";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {UsuarioCliente} from "@/features/manager/gestaoUsuario/usuarioCliente/ts/usuario-cliente";
 
 type Props = {
     entidade: Usuario
@@ -38,6 +39,8 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
     }, []);
 
     const selecionarCliente = useCallback((cliente: Cliente) => {
+        setListaClienteSistema(cliente.sistemas);
+
         perfilService.buscarPerfisPorIdCliente(cliente.id).then(result => {
             setListaPerfil(result);
         })
@@ -49,6 +52,29 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
         })
         setClienteSistemaSelecionado(clienteSistema)
     }, [])
+
+    const checkCliente = (cliente: Cliente, valorCheck: boolean) => {
+        if (valorCheck) {
+            const usuarioCliente: UsuarioCliente = new UsuarioCliente();
+            usuarioCliente.cliente = cliente;
+
+            if (entidade.clientes && entidade.clientes.length > 0) {
+                const index = entidade.clientes.findIndex(cliente => cliente.cliente.id === cliente.id)
+                if (index > -1) {
+                    return;
+                }
+            }
+            return entidade.clientes.push(usuarioCliente);
+        } else {
+            if (entidade.clientes && entidade.clientes.length > 0) {
+                const index = entidade.clientes.map(uc => uc.cliente).findIndex(c => c.id === cliente.id)
+                if (index > -1) {
+                    entidade.clientes.splice(index, 1);
+                }
+            }
+        }
+
+    }
 
     return (
         <>
@@ -86,18 +112,19 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
             <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
 
                 <ComponenteUsuarioCliente
+                    onCheckCliente={checkCliente}
                     className={'cad-user-clients'}
                     listaClientes={listaClientes}
                     selecionarCliente={selecionarCliente}/>
-
-                <ComponenteUsuarioPerfil
-                    className={'cad-user-module'}
-                    listaPerfil={listaPerfil}/>
 
                 <ComponenteUsuarioSistema
                     className={'cad-user-system'}
                     listaClienteSistema={listaClienteSistema}
                     selecionarClienteSistema={selecionarClienteSistema}/>
+
+                <ComponenteUsuarioPerfil
+                    className={'cad-user-module'}
+                    listaPerfil={listaPerfil}/>
             </div>
         </>
     )

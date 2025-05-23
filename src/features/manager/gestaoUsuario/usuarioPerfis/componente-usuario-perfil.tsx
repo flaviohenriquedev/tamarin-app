@@ -8,7 +8,6 @@ type Props = {
 }
 
 export function ComponenteUsuarioPerfil({className, listaPerfil}: Props) {
-
     return (
         <Fieldset label={`Perfis`}
                   className={`
@@ -27,8 +26,8 @@ export function ComponenteUsuarioPerfil({className, listaPerfil}: Props) {
                             return <li key={perfil.id}>
                                 <div>
                                     <Checkbox entidade={perfil}
+                                              label={`${perfil.descricao}`}
                                               atributo={'checked'}/>
-                                    {perfil.descricao}
                                 </div>
                             </li>
                         })

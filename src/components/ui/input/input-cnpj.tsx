@@ -4,6 +4,7 @@ import React, {InputHTMLAttributes, useEffect, useState} from "react"
 import {inputStyle} from "@/components/ui/input/style";
 import {limparCNPJ, mascararCNPJ} from "@/utils/utils";
 import {get, set} from "lodash";
+import {Asterisk} from "lucide-react";
 
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
@@ -51,8 +52,8 @@ export function InputCNPJ<E extends object>({
             {label && (
                 <label
                     htmlFor={name}
-                    className="flex gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error font-semibold`}>*</span>}
+                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
+                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
                     {label}
                 </label>
             )}

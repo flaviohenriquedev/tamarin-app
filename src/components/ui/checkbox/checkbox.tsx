@@ -8,6 +8,7 @@ type Props<E> = {
     atributo: string;
     isChecked?: boolean;
     label?: string;
+    onCheck?: (e: E, valor: boolean) => void;
     classWhenChecked?:
         'checkbox-primary' |
         'checkbox-secondary' |
@@ -19,7 +20,7 @@ type Props<E> = {
         'checkbox-neutral '
 }
 
-export function Checkbox<E>({entidade, atributo, isChecked = false, label, classWhenChecked}: Props<E>) {
+export function Checkbox<E>({entidade, atributo, isChecked = false, label, classWhenChecked, onCheck}: Props<E>) {
     const [valor, setValor] = useState<boolean>(false)
 
     useEffect(() => {
@@ -38,11 +39,12 @@ export function Checkbox<E>({entidade, atributo, isChecked = false, label, class
     const atribuirValor = (e: ChangeEvent<HTMLInputElement>) => {
         const novoValor = e.target.checked
         setValor(novoValor)
+        if (onCheck) onCheck(entidade, novoValor)
         if (entidade) set(entidade, atributo, novoValor)
     }
 
     return (
-        <label className={`label flex items-center h-8 text-sm`}>
+        <label className={`label flex items-center text-sm`}>
             <input type="checkbox"
                    className={`
                     cursor-pointer

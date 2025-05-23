@@ -14,7 +14,11 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
 
     function handleCloseModal() {
         setIsOpen(false);
-        if (onCloseModal) onCloseModal();
+        if (onCloseModal) {
+            setTimeout(() => {
+                onCloseModal();
+            }, 1000);
+        }
     }
 
     return (
