@@ -7,24 +7,25 @@ import {ChartNoAxesCombined} from "lucide-react";
 import {rotasContabil} from "@/features/contabil/rotas-contabil";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
+const sizeIcon = 20
 export const rotasSistema: SistemaType[] = [
     {
         sistema: SistemaENUM.RECURSOS_HUMANOS,
-        icone: <HiUsers size={20}/>,
+        icone: <HiUsers size={sizeIcon}/>,
         href: '/rh',
         destaque: false,
         rotas: rotasRecursosHumanos
     },
     {
         sistema: SistemaENUM.CONTABIL,
-        icone: <ChartNoAxesCombined size={15}/>,
+        icone: <ChartNoAxesCombined size={sizeIcon}/>,
         href: '/contabil',
         destaque: true,
         rotas: rotasContabil
     },
     {
         sistema: SistemaENUM.GERENCIAR_SISTEMA,
-        icone: <IoSettingsSharp size={15}/>,
+        icone: <IoSettingsSharp size={sizeIcon}/>,
         href: '/config',
         destaque: true,
         rotas: rotasGerenciamentoSistema

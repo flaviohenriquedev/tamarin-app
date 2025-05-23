@@ -36,7 +36,7 @@ export function ComponentePerfilSistemaItens({
                 <Checkbox entidade={perfilSistema}
                           atributo={'checked'}/>
                 <label className={`w-full h-full p-2 `} onClick={() => {onClick(perfilSistema)}}
-                >{SistemaENUMFactory.getLabel(clienteSistema.keySistema)}</label>
+                >{SistemaENUMFactory.getDescricao(clienteSistema.keySistema)}</label>
             </div>
         </li>
     )

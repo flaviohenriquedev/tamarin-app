@@ -4,6 +4,7 @@ import {usePathname, useRouter} from "next/navigation";
 import {IoIosArrowDown} from "react-icons/io";
 import {AnimatePresence, motion} from "framer-motion";
 import Link from "next/link";
+import {Dot} from "lucide-react";
 
 type Props = {
     rota: RouteType
@@ -25,9 +26,11 @@ export function SidemenuItem({rota}: Props) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}
-                    className={`flex items-center p-2 gap-4 text-md font-semibold cursor-default text-gray-500 rounded-sm `}
+                    className={`flex items-center px-2 py-1 ${rota.href === path ? 'text-primary' : ''} gap-2 text-md font-semibold cursor-default text-gray-500 rounded-sm `}
                     onClick={() => handleClick(rota)}>
-                    <Link prefetch={true} className={`cursor-default ${rota.href === path ? 'text-primary' : ''} hover:text-base-content p-1 w-full border-md`} href={rota.href!}>{rota.title}</Link>
+                    <Dot size={26}/>
+                    <Link prefetch={true} className={`cursor-default hover:text-base-content w-full border-md`}
+                          href={rota.href!}>{rota.title}</Link>
                 </li>
             )
         })
@@ -35,26 +38,32 @@ export function SidemenuItem({rota}: Props) {
 
     return (
         <li
-            className={`text-sm font-light p-1`}
+            className={`
+                border-b
+                border-base-300
+                font-semibold
+                text-sm
+                `}
             key={rota.title}
         >
             <div
                 className={`
                     flex
                     h-full
-                    py-2 px-2
+                    p-3
                     items-center
                     justify-between
                     cursor-default
-                    font-normal
-                    ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-500'}
-                    rounded-sm hover:bg-base-200`}
+                    hover:bg-base-200
+                    ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-400'}
+                    font-normal`}
                 onClick={() => handleClick(rota)}
             >
                 <div
                     className={`flex items-center gap-3 min-w-0 overflow-hidden whitespace-nowrap text-ellipsis`}
                 >
-                    {rota.icon && <div className={`${(openList || path === rota.href) ? 'text-primary' : ''}`}>{rota.icon}</div>}
+                    {rota.icon &&
+                        <div className={`${(openList || path === rota.href) ? 'text-primary' : ''}`}>{rota.icon}</div>}
                     <span className="truncate">{rota.title}</span>
                 </div>
 
@@ -71,7 +80,7 @@ export function SidemenuItem({rota}: Props) {
                                       ${openList ? 'rotate-180' : ''}
                                     `}
                     >
-                        <IoIosArrowDown />
+                        <IoIosArrowDown/>
                     </div>
                 )}
             </div>
@@ -79,11 +88,11 @@ export function SidemenuItem({rota}: Props) {
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
-                        className={`px-6`}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        className={`bg-base-100`}
+                        initial={{height: 0, opacity: 0}}
+                        animate={{height: 'auto', opacity: 1}}
+                        exit={{height: 0, opacity: 0}}
+                        transition={{duration: 0.2}}
                     >
                         {renderSubItem(rota.subRoute)}
                     </motion.ul>

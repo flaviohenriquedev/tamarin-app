@@ -5,7 +5,7 @@ export const inputStyle = `
     py-5
     w-full
     min-w-52
-    rounded-sm
+    rounded-none
     border-base-300
     shadow-none
     rounded-none

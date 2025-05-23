@@ -20,7 +20,7 @@ export function Button({
         <button className={`
             btn
             btn-soft
-            rounded-sm
+            rounded-none
             cursor-default
             ${buttonSize === 'xs' ? 'btn-xs'
             : buttonSize === 'sm' ? 'btn-sm'

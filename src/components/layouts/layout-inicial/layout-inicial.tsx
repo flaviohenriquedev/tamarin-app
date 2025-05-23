@@ -93,32 +93,32 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         return rotasSistema.map(sistema => {
             return (
                 <li key={sistema.sistema}
-                    onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
-                    className={`px-1`}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
                     onClick={() => handleClick(sistema)}>
 
-                    <div data-tip={SistemaENUMFactory.getLabel(sistema.sistema)}
+                    <div data-tip={SistemaENUMFactory.getDescricao(sistema.sistema)}
                          className={`
                             flex
-                            border-2
                             transition-colors
                             duration-200
                             ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
                             ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
-                                bg-primary/15
-                                border-primary
-                                text-base-content
-                            ` : "border-transparent text-gray-400"}
+                                bg-base-100
+                                text-primary
+                            ` : "text-gray-300"}
                             tooltip-right
                             items-center
                             justify-center
-                            p-2
-                            rounded-sm
+                            p-4
                             `}>
+                        <div className={`flex gap-[.4rem] flex-col items-center`}>
                         {sistema.icone}
+                            <label className={`text-[8pt] text-center font-light`}>{SistemaENUMFactory.getLabel(sistema.sistema)}</label>
+                        </div>
                     </div>
                 </li>
-            )
+        )
         })
     }
 
@@ -127,7 +127,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
             <div className={`side-bar flex`}>
                 <aside
-                    className={`flex flex-col gap-4 w-fit shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-linear-to-t from-base-200 to-base-100 `}>
+                    className={`flex flex-col gap-4 w-18 shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-base-300 `}>
                     <div className={`flex border-b border-base-200 justify-center items-center h-12`}>
                         <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={30} height={30}/>
                     </div>
@@ -138,7 +138,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 <AnimatePresence initial={false}>
                     {filteredData && filteredData.length > 0 && (
                         <motion.aside
-                            className={`flex gap-4 px-1 flex-col h-screen border-r border-base-200`}
+                            className={`flex gap-4 flex-col h-screen border-r border-base-300 bg-base-200`}
                             initial={{width: 0, opacity: 0}}
                             animate={{width: '16rem', opacity: 1}}
                             exit={{width: 0, opacity: 0}}
@@ -157,7 +157,6 @@ export function LayoutInicial({children}: { children: ReactNode }) {
             <div className={`content`}>
                 <Header sistema={sistemaSelecionado && sistemaSelecionado}/>
                 <div className={`content-page `}>
-                    <div>Bem-vindo, {user?.nome}</div>
                     {children}
                 </div>
             </div>
