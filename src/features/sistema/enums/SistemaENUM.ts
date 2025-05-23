@@ -16,13 +16,16 @@ export class SistemaENUMFactory {
 
     private static readonly infos = {
         RECURSOS_HUMANOS: {
-            label: 'Recursos Humanos'
+            label: 'RH',
+            descricao: 'Recursos Humanos',
         },
         GERENCIAR_SISTEMA: {
-            label: 'Gerenciar Sistema'
+            label: 'Sistema',
+            descricao: 'Gerenciamento do Sistema'
         },
         CONTABIL: {
-            label: 'Gerenciar Contábil'
+            label: 'Contábil',
+            descricao: 'Gestão Contábil'
         }
     };
 
@@ -38,6 +41,10 @@ export class SistemaENUMFactory {
 
     static getLabel(status: SistemaENUM): string {
         return status ? this.infos[status].label : '';
+    }
+
+    static getDescricao(status: SistemaENUM): string {
+        return status ? this.infos[status].descricao : '';
     }
 
     static getItemByInfo(info: string): TSelectItem | undefined {

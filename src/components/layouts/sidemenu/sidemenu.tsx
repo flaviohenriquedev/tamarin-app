@@ -20,9 +20,8 @@ export function Sidemenu({rotas}: Props) {
     return (
         <ul
             className={`
-                        scrollbar-thumb-base-300
-                        scrollbar-track-transparent
-                        scrollbar-thin
+                        
+                        scrollbar-none
                         overflow-y-scroll
                         overflow-x-hidden
                         h-full

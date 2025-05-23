@@ -109,12 +109,12 @@ export function DualListbox({listaA, listaB, onAddValor}: Props) {
             {/* Botões centrais */}
             <div className="dl-middle flex flex-col items-center justify-center gap-3">
                 <div onClick={addTodos}
-                     className="flex items-center justify-center w-8 h-8 rounded-full bg-success cursor-pointer">
-                    <ChevronsRight size={18}/>
+                     className="flex items-center justify-center w-8 h-8 rounded-full text-success cursor-pointer">
+                    <ChevronsRight size={25}/>
                 </div>
                 <div onClick={removerTodos}
-                     className="flex items-center justify-center w-8 h-8 rounded-full bg-error cursor-pointer">
-                    <ChevronsLeft size={18}/>
+                     className="flex items-center justify-center w-8 h-8 rounded-full text-error cursor-pointer">
+                    <ChevronsLeft size={25}/>
                 </div>
             </div>
 

@@ -15,7 +15,7 @@ import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {LuFile, LuFolderInput, LuFolderTree} from "react-icons/lu";
 import {Building2, Columns3Cog, ListRestart, LogOut, Settings, User} from "lucide-react";
 
-const tamanhoIcone = 13
+const tamanhoIcone = 15
 export const icones = {
     usuario: <User size={tamanhoIcone}/>,
     folhaPagamento: <MdAttachMoney size={tamanhoIcone}/>,

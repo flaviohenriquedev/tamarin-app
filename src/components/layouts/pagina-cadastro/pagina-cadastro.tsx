@@ -30,7 +30,6 @@ export function PaginaCadastro<E extends object>({funcaoAtualizarLista, onCloseM
 
     function handleSubmit() {
         onSubmit();
-        setOpen(false)
     }
 
     function consultarEntidade(entidade: E) {
@@ -81,7 +80,23 @@ export function PaginaCadastro<E extends object>({funcaoAtualizarLista, onCloseM
 
                     <div className="py-3 sm:flex sm:flex-row-reverse">
                         <LineContent justifyContent={`end`}>
-                            <Button buttonSize={`sm`} type={`submit`} buttonStyle={`info`}>Salvar</Button>
+                            <Button
+                                buttonSize={`sm`}
+                                type={`submit`}
+                                buttonStyle={`success`}>Salvar</Button>
+                            <Button
+                                onClick={() => setOpen(false)}
+                                buttonSize={`sm`}
+                                type={`submit`}
+                                buttonStyle={`info`}>Salvar e Fechar</Button>
+                            <Button
+                                buttonSize={`sm`}
+                                type={`button`}
+                                buttonStyle={`warning`}>Editar</Button>
+                            <Button
+                                buttonSize={`sm`}
+                                type={`button`}
+                                buttonStyle={`error`}>Excluir</Button>
                         </LineContent>
                     </div>
                 </Form>
