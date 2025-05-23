@@ -30,13 +30,11 @@ export function InputString<E extends object>({
                                               }: Props<E>) {
 
     const [valorInput, setValorInput] = useState<string>('')
+
     useEffect(() => {
-        let valor = '';
-        if (entidade) {
-            valor = get(entidade, atributo)
-        }
-        setValorInput(valor)
-    }, [atributo, entidade])
+        const valor = get(entidade, atributo) ?? '';
+        setValorInput(valor);
+    }, [atributo, entidade]);
 
     const atribuirValorInput = (valor: string) => {
         setValorInput(valor)

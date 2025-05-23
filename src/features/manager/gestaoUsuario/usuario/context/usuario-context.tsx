@@ -1,40 +1,32 @@
-// contexts/UserContext.tsx
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
+import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
+import {useSession} from "next-auth/react";
 
-interface User {
-    id: string;
-    nome: string;
-    email: string;
-    // outros campos
-}
-
-const UsuarioContext = createContext<User | null>(null);
+const UsuarioContext = createContext<Usuario>(new Usuario());
+const usuarioService = new UsuarioService();
 
 export function useUsuario() {
     return useContext(UsuarioContext);
 }
 
 export function UsuarioProvider({children}: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
+    const session = useSession();
+    const [usuario, setUsuario] = useState<Usuario>(new Usuario());
 
     useEffect(() => {
-        // async function fetchUser() {
-        //     const res = await fetch("/api/auth/user"); // ou outro endpoint que tu tiver
-        //     if (res.ok) {
-        //         const data = await res.json();
-        //         setUser(data);
-        //     }
-        // }
-        //
-        // fetchUser();
-        console.log('TESTANDO')
-        setUser({id: '1', nome: 'Flavio', email: 'teste@teste'})
-    }, []);
+        if (session.data?.user.email) {
+            usuarioService.getUsuario(session.data?.user.email).then(response => {
+                setUsuario(response);
+            })
+        }
 
-    if (!user) return <div>Carregando dados do usuário...</div>;
+    }, [session.data?.user.email, session.data?.user.name])
+
+    if (!usuario) return <div>Carregando dados do usuário...</div>;
 
     return (
-        <UsuarioContext.Provider value={user}>
+        <UsuarioContext.Provider value={usuario}>
             {children}
         </UsuarioContext.Provider>
     );

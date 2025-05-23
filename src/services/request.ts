@@ -6,7 +6,7 @@ export async function request<T>(
     endpoint: string,
     method: MetodoHTTP | undefined,
     body?: unknown,
-): Promise<T | null> {
+): Promise<T> {
     const session = await getSession();
     const token = session?.user?.accessToken;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
@@ -30,6 +30,11 @@ export async function request<T>(
     }
 
     const text = await response.text();
-    return text ? JSON.parse(text) : null;
+
+    try {
+        return JSON.parse(text);
+    } catch (e) {
+        throw new Error(`Erro ao fazer parse do JSON: ${e instanceof Error ? e.message : String(e)} | Resposta: ${text}`);
+    }
 }
 

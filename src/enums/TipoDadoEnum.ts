@@ -1,6 +1,8 @@
 import {formatDateBR, mascararCNPJ} from "@/utils/utils";
 
 export enum TipoDadoEnum {
+    STRING = "STRING",
+    INTEGER = "INTEGER",
     DECIMAL = 'DECIMAL',
     DATA_COMPLETA = 'DATA_COMPLETA',
     DATA_E_HORA = 'DATA_E_HORA',

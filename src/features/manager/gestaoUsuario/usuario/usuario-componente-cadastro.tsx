@@ -28,15 +28,16 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
     const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([])
     const [listaPerfil, setListaPerfil] = useState<Perfil[]>([])
 
-    const [clienteSistemaSelecionado, setClienteSistemaSelecionado] = useState<ClienteSistema>(new ClienteSistema())
-
-    const [abrirModalCadastroPerfil, setAbrirModalCadastroPerfil] = useState<boolean>(false);
-
     useEffect(() => {
         clienteService.listar().then(result => {
-            setListaClientes(result)
-        })
-    }, []);
+            const idsSelecionados = entidade.clientes.map(ec => ec.cliente.id);
+            const clientesAtualizados = result.map(cl => ({
+                ...cl,
+                checked: idsSelecionados.includes(cl.id)
+            }));
+            setListaClientes(clientesAtualizados);
+        });
+    }, [entidade.clientes]);
 
     const selecionarCliente = useCallback((cliente: Cliente) => {
         setListaClienteSistema(cliente.sistemas);
@@ -50,7 +51,6 @@ export function UsuarioComponenteCadastro({entidade}: Props) {
         perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
             setListaPerfil(result);
         })
-        setClienteSistemaSelecionado(clienteSistema)
     }, [])
 
     const checkCliente = (cliente: Cliente, valorCheck: boolean) => {

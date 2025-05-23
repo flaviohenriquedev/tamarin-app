@@ -1,7 +1,10 @@
-export type ResponseAuth = {
-    id: string;
-    name: string;
-    email: string;
-    accessToken: string;
-    refreshToken: string;
+export class ResponseAuth {
+    public id: string;
+    public name: string;
+    public email: string;
+    public accessToken: string;
+    public refreshToken: string;
+
+    constructor() {
+    }
 }

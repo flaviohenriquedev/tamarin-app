@@ -1,8 +1,7 @@
 'use client'
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
-import {Table} from "@/components/ui/table/table";
 import {CidadeService} from "@/features/gerenciamento-sistema/gestao-localidade/cidade/ts/cidade-service";
 import {Cidade} from "@/features/gerenciamento-sistema/gestao-localidade/cidade/ts/cidade";
 import {
@@ -17,8 +16,14 @@ const service = new CidadeService();
 
 export function LocalidadeCidade() {
     const [entidade, setEntidade] = useState<Cidade>(new Cidade());
+
     const [listaEntidade, setListaEntidade] = useState<Cidade[]>([]);
-    const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
+
+    const atualizarLista = useCallback(() => {
+        service.listar().then(result => {
+            setListaEntidade(result)
+        });
+    }, []);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -29,17 +34,18 @@ export function LocalidadeCidade() {
     function handleSalvar() {
         service.salvar(entidade, () => {
             setEntidade(new Cidade());
-            setAtualizarLista(true);
+            atualizarLista();
             toast.success("Registro salvo com sucesso.");
         }).then()
     }
 
     return (
         <PaginaCadastro camposFormulario={<LocalidadeCidadeFormulario />}
-                        onSubmit={handleSalvar}>
-
-            <Table colunas={cidadeColunasListagem}
-                   lista={listaEntidade}/>
-        </PaginaCadastro>
+                        title={`Cadastro de Cidade`}
+                        onCloseModal={() => setEntidade(new Cidade())}
+                        funcaoAtualizarLista={atualizarLista}
+                        colunas={cidadeColunasListagem}
+                        lista={listaEntidade}
+                        onSubmit={handleSalvar}/>
     )
 }

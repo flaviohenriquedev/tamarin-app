@@ -35,6 +35,11 @@ export function UsuarioPaginaInicial() {
         }).then()
     }
 
+    function handleConsultar(usuario: Usuario) {
+        console.log('USUARIO', usuario);
+        setEntidade(usuario);
+    }
+
     return (
         <PaginaCadastro camposFormulario={<UsuarioComponenteCadastro entidade={entidade}/>}
                         funcaoAtualizarLista={atualizarLista}
@@ -42,6 +47,7 @@ export function UsuarioPaginaInicial() {
                         title={`Cadastro de Usuário`}
                         colunas={usuarioColunasListagem}
                         lista={listaEntidade}
+                        acoesTabela={{consultar: handleConsultar}}
                         onCloseModal={() => setEntidade(new Usuario())}/>
     )
 }

@@ -4,9 +4,8 @@ import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadast
 import {
     LocalidadePaisCamposFormulario
 } from "@/features/gerenciamento-sistema/gestao-localidade/pais/localidade-pais-campos-formulario";
-import {Table} from "@/components/ui/table/table";
 import {paisColunasListagem} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais-colunas-listagem";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {PaisService} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais-service";
 import {Pais} from "@/features/gerenciamento-sistema/gestao-localidade/pais/ts/pais";
 import {toast} from "sonner";
@@ -14,10 +13,15 @@ import {toast} from "sonner";
 const service = new PaisService();
 
 export function LocalidadePais() {
-
     const [entidade, setEntidade] = useState<Pais>(new Pais());
+
     const [listaEntidade, setListaEntidade] = useState<Pais[]>([]);
-    const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
+
+    const atualizarLista = useCallback(() => {
+        service.listar().then(result => {
+            setListaEntidade(result)
+        });
+    }, []);
 
     useEffect(() => {
         service.listar().then(result => {
@@ -28,18 +32,18 @@ export function LocalidadePais() {
     function handleSalvar() {
         service.salvar(entidade, () => {
             setEntidade(new Pais());
-            setAtualizarLista(true);
+            atualizarLista();
             toast.success("Registro salvo com sucesso.");
         }).then()
     }
 
     return (
         <PaginaCadastro camposFormulario={<LocalidadePaisCamposFormulario entidade={entidade}/>}
-                        onSubmit={handleSalvar}>
-            <Table funcaoAtualizarLista={() => {
-            }}
-                   colunas={paisColunasListagem}
-                   lista={listaEntidade}/>
-        </PaginaCadastro>
+                        title={`Cadastro de País`}
+                        onCloseModal={() => setEntidade(new Pais())}
+                        funcaoAtualizarLista={atualizarLista}
+                        colunas={paisColunasListagem}
+                        lista={listaEntidade}
+                        onSubmit={handleSalvar}/>
     )
 }

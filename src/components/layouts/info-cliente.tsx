@@ -4,10 +4,12 @@ import {ListTodo} from "lucide-react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {AnimatePresence, motion} from "framer-motion";
+import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 
 const clienteService = new ClienteService();
 
 export function InfoCliente() {
+    const usuario = useUsuario();
     const { cliente, setCliente } = useContext(ClienteContext);
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [showList, setShowList] = useState<boolean>(false)
@@ -41,13 +43,20 @@ export function InfoCliente() {
     function handleShowList() {
         setLoading(!showList)
         if (!showList) {
-            clienteService.listar().then(result => {
-                if (result) {
-                    setLoading(false)
-                    setListaClientes(result)
-                    setShowList(true)
-                }
-            });
+            if (usuario.usuarioMaster) {
+                clienteService.listar().then(result => {
+                    if (result) {
+                        setLoading(false)
+                        setListaClientes(result)
+                        setShowList(true)
+                    }
+                });
+            } else {
+                setListaClientes(usuario.clientes.map(usuarioCliente => usuarioCliente.cliente));
+                setLoading(false)
+                setShowList(true)
+            }
+
         } else {
             setShowList(false);
         }

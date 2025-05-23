@@ -1,9 +1,14 @@
 import {CrudService} from "@/services/crud-service";
 import {Cidade} from "@/features/gerenciamento-sistema/gestao-localidade/cidade/ts/cidade";
 import {cidadeEndPoints} from "@/features/gerenciamento-sistema/gestao-localidade/cidade/ts/cidade-end-points";
+import {EndPointType} from "@/types/_root/EndPointType";
 
 export class CidadeService extends CrudService<Cidade> {
-    constructor() {
-        super(cidadeEndPoints)
+
+    public getBaseURL(): string {
+        return "/cidade";
+    }
+    public getEndpoint(): EndPointType {
+        return cidadeEndPoints;
     }
 }

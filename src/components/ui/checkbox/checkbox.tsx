@@ -24,7 +24,7 @@ export function Checkbox<E>({entidade, atributo, isChecked = false, label, class
     const [valor, setValor] = useState<boolean>(false)
 
     useEffect(() => {
-        const valorEntidade: boolean = get(entidade, atributo);
+        const valorEntidade: boolean = get(entidade, atributo) ?? false;
         setValor(valorEntidade);
     }, [atributo, entidade]);
 
