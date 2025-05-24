@@ -17,7 +17,7 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
         if (onCloseModal) {
             setTimeout(() => {
                 onCloseModal();
-            }, 1000);
+            }, 500);
         }
     }
 

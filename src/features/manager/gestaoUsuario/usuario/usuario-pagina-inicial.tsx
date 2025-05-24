@@ -2,7 +2,6 @@
 
 import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
 import {useCallback, useEffect, useState} from "react";
-import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/button";
 import {Table} from "@/components/ui/table/table";
@@ -15,95 +14,108 @@ import {ComponenteUsuarioCliente} from "@/features/manager/gestaoUsuario/usuario
 import {ComponenteUsuarioSistema} from "@/features/manager/gestaoUsuario/usuarioSistemas/componente-usuario-sistema";
 import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-colunas-listagem";
-import {UsuarioDto} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-dto";
 import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
 
 import './css/style.css'
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
+import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
-const service = new UsuarioService()
+const usuarioService = new UsuarioService()
 const clienteService = new ClienteService();
 const perfilService = new PerfilService();
-const usuarioDto: UsuarioDto = new UsuarioDto();
+
+type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'
 
 export function UsuarioPaginaInicial() {
+    const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
 
-    const [openModal, setOpenModal] = useState(false)
-    const [entidade, setEntidade] = useState<Usuario>(new Usuario());
-    const [listaEntidade, setListaEntidade] = useState<Usuario[]>([]);
-    const [listaClientes, setListaClientes] = useState<Cliente[]>([])
-    const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([])
-    const [listaPerfil, setListaPerfil] = useState<Perfil[]>([])
-    const [clienteSistemaSelecionado, setClienteSistemaSelecionado] = useState<ClienteSistema>(new ClienteSistema())
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [usuario, setUsuario] = useState<Usuario>(new Usuario());
+    const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>();
+    const [usuarioPerfil, setUsuarioPerfil] = useState<UsuarioPerfil>(new UsuarioPerfil());
 
-
-    useEffect(() => {
-        clienteService.listar().then(result => {
-            const idsSelecionados = entidade.clientes.map(ec => ec.cliente.id);
-            const clientesAtualizados = result.map(cl => ({
-                ...cl,
-                checked: idsSelecionados.includes(cl.id)
-            }));
-            setListaClientes(clientesAtualizados);
-        });
-    }, [entidade.clientes]);
+    const [listaUsuario, setListaUsuario] = useState<Usuario[]>([]);
+    const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
+    const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([]);
+    const [listaPerfil, setListaPerfil] = useState<Perfil[]>([]);
 
     const atualizarLista = useCallback(() => {
-        service.listar().then(result => {
-            setListaEntidade(result)
+        usuarioService.listar().then(result => {
+            setListaUsuario(result)
         });
     }, []);
 
     useEffect(() => {
-        service.listar().then(result => {
-            setListaEntidade(result)
+        usuarioService.listar().then(result => {
+            setListaUsuario(result)
         });
     }, [atualizarLista]);
 
-    const handleClick = () => {
-        setOpenModal(true)
+    const handleConsultar = (usuario: Usuario) => {
+        setUsuario(usuario);
+        inicializarListaClientes().then()
+        setOpenModal(true);
     }
 
-    function handleSalvar() {
-        usuarioDto.listaPerfil = listaPerfil.filter(p => p.checked);
-        service.criarUsuario(usuarioDto).then()
+    const handleNovoCadastro = () => {
+        inicializarListaClientes().then();
+        setOpenModal(true);
     }
 
-    function handleConsultar(usuario: Usuario) {
-        console.log('USUARIO', usuario);
-        setEntidade(usuario);
+    const handleSalvar = () => {
     }
 
-    const selecionarCliente = useCallback((cliente: Cliente) => {
+    const onCloseModal = () => {
+        clear();
+    }
+
+    const clear = () => {
+        setUsuario(new Usuario());
+        setUsuarioPerfil(new UsuarioPerfil());
+        setListaClientes([]);
+        setListaClienteSistema([]);
+        setListaPerfil([]);
+    }
+
+    const selecionarCliente = (cliente: Cliente) => {
         setListaClienteSistema(cliente.sistemas);
-        setListaPerfil([])
-    }, [])
+    }
 
-    const selecionarClienteSistema = useCallback((clienteSistema: ClienteSistema) => {
-        setClienteSistemaSelecionado(clienteSistema);
-        perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id).then(result => {
-            setListaPerfil(result);
-        })
-    }, [])
+    const selecionarClienteSistema = (clienteSistema: ClienteSistema) => {
+        perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id)
+            .then(result => {
+                setListaPerfil(result)
+            })
+    }
 
-    function onCloseModal(){
-        setEntidade(new Usuario())
-        setListaClienteSistema([])
-        setListaPerfil([])
+    const inicializarListaClientes = async () => {
+        let lista: Cliente[] = [];
+        if (usuarioLogado.usuarioMaster) {
+            const result = await clienteService.listar();
+            if (result) {
+                lista = result;
+            }
+        } else {
+            lista = clientesUsuarioLogado;
+        }
+        setListaClientes(lista)
     }
 
     return (
         <>
             <PaginaCadastro funcaoAtualizarLista={atualizarLista}
-                            funcaoNovoCadastro={() => setOpenModal(true)}>
+                            funcaoNovoCadastro={handleNovoCadastro}>
                 <Table funcaoAtualizarLista={atualizarLista}
                        colunas={usuarioColunasListagem}
-                       lista={listaEntidade}/>
+                       lista={listaUsuario}
+                       acoesTabela={{consultar: handleConsultar}}/>
             </PaginaCadastro>
 
             <Modal
@@ -117,31 +129,31 @@ export function UsuarioPaginaInicial() {
                     <LineContent>
                         <InputString
                             label={'Nome Completo'}
-                            atributo={`usuario.nome`}
-                            entidade={usuarioDto}
+                            atributo={`nome`}
+                            entidade={usuario}
                             required/>
 
                         <InputString
                             label={'Email'}
-                            atributo={`usuario.email`}
-                            entidade={usuarioDto}
+                            atributo={`email`}
+                            entidade={usuario}
                             required/>
 
                         <InputCPF
                             label={'CPF'}
-                            atributo={`usuario.cpf`}
-                            entidade={usuarioDto}
+                            atributo={`cpf`}
+                            entidade={usuario}
                             required/>
 
                         <InputString
                             label={'Telefone'}
-                            atributo={`usuario.telefone`}
-                            entidade={usuarioDto}/>
+                            atributo={`telefone`}
+                            entidade={usuario}/>
 
                         <Checkbox
                             label={'Usuário Master'}
-                            atributo={'usuario.usuarioMaster'}
-                            entidade={usuarioDto}/>
+                            atributo={'usuarioMaster'}
+                            entidade={usuario}/>
 
                     </LineContent>
 
@@ -164,11 +176,12 @@ export function UsuarioPaginaInicial() {
 
                     <ButtonGroup>
                         <Button
+                            onClick={() => setAcaoSalvar('SAVE')}
                             buttonSize={`sm`}
                             type={`submit`}
                             buttonStyle={`success`}>Salvar</Button>
                         <Button
-                            onClick={() => setOpenModal(false)}
+                            onClick={() => setAcaoSalvar('SAVE_AND_CLOSE')}
                             buttonSize={`sm`}
                             type={`submit`}
                             buttonStyle={`info`}>Salvar e Fechar</Button>

@@ -1,12 +1,14 @@
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
 export class UsuarioPerfil extends EntidadeAuditavel {
     usuario: Usuario;
-    perfilSistema: PerfilSistema;
+    perfil: Perfil;
 
     constructor() {
         super();
+        this.usuario = new Usuario();
+        this.perfil = new Perfil();
     }
 }

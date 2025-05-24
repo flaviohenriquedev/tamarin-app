@@ -4,13 +4,13 @@ import {ListTodo} from "lucide-react";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
 import {AnimatePresence, motion} from "framer-motion";
-import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 
 const clienteService = new ClienteService();
 
 export function InfoCliente() {
-    const usuario = useUsuario();
-    const { cliente, setCliente } = useContext(ClienteContext);
+    const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
+    const {cliente, setCliente} = useContext(ClienteContext);
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [showList, setShowList] = useState<boolean>(false)
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ export function InfoCliente() {
     function handleShowList() {
         setLoading(!showList)
         if (!showList) {
-            if (usuario.usuarioMaster) {
+            if (usuarioLogado.usuarioMaster) {
                 clienteService.listar().then(result => {
                     if (result) {
                         setLoading(false)
@@ -52,7 +52,7 @@ export function InfoCliente() {
                     }
                 });
             } else {
-                setListaClientes(usuario.clientes.map(usuarioCliente => usuarioCliente.cliente));
+                setListaClientes(clientesUsuarioLogado);
                 setLoading(false)
                 setShowList(true)
             }
@@ -67,10 +67,10 @@ export function InfoCliente() {
             return (
                 <motion.ul
                     className="absolute top-0 left-full p-2 ml-2 z-50 bg-base-100 shadow-[-5px_5px_7px_0px_rgba(0,_0,_0,_0.1)] rounded-sm mt-2"
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -20, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{x: -20, opacity: 0}}
+                    animate={{x: 0, opacity: 1}}
+                    exit={{x: -20, opacity: 0}}
+                    transition={{duration: 0.2}}
                 >
                     {listaClientes.map(cl => (
                         <li
@@ -105,14 +105,15 @@ export function InfoCliente() {
 
     return (
         <div ref={refContainer} className="relative flex items-center justify-between">
-            <div className="flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden">
+            <div
+                className="flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden">
                 <label className="font-bold">
                     {cliente && cliente.id ? cliente.nomeFantasia : "Selecione um cliente..."}
                 </label>
             </div>
             <div className="btn btn-sm m-1 rounded-sm" onClick={handleShowList}>
                 {loading ? <span className="loading loading-spinner loading-sm"></span>
-                    : <ListTodo size={15} />}
+                    : <ListTodo size={15}/>}
             </div>
 
             <AnimatePresence initial={false}>

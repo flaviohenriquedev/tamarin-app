@@ -10,6 +10,8 @@ export class PerfilSistema extends EntidadePadrao {
 
     constructor() {
         super();
+        this.perfil = new Perfil();
+        this.clienteSistema = new ClienteSistema();
         this.rotas = [];
     }
 }

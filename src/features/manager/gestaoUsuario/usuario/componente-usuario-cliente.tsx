@@ -42,6 +42,7 @@ export function ComponenteUsuarioCliente({className, listaClientes, selecionarCl
                                 onClick={() => selecionar(cliente)}>
                                 <div className={`flex items-center gap-3`}>
                                     <label>{cliente.nomeFantasia}</label>
+                                    <span>{cliente.checked}</span>
                                 </div>
                             </li>
                         )

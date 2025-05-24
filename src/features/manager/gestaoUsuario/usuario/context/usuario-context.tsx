@@ -2,31 +2,55 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {useSession} from "next-auth/react";
+import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
 
-const UsuarioContext = createContext<Usuario>(new Usuario());
+type Props = {
+    usuarioLogado: Usuario;
+    clientesUsuarioLogado: Cliente[];
+}
+
+const UsuarioContext = createContext<Props>({
+    usuarioLogado: new Usuario(),
+    clientesUsuarioLogado: []
+});
+
 const usuarioService = new UsuarioService();
 
-export function useUsuario() {
+export function useUsuarioLogado() {
     return useContext(UsuarioContext);
 }
 
 export function UsuarioProvider({children}: { children: ReactNode }) {
     const session = useSession();
-    const [usuario, setUsuario] = useState<Usuario>(new Usuario());
+    const [usuarioLogado, setUsuarioLogado] = useState<Usuario>(new Usuario());
+    const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
 
     useEffect(() => {
         if (session.data?.user.email) {
-            usuarioService.getUsuario(session.data?.user.email).then(response => {
-                setUsuario(response);
-            })
+            usuarioService.buscarUsuarioPorEmail(session.data?.user.email)
+                .then(response => {
+                    setUsuarioLogado(response);
+                    getListaCliente(response);
+                })
         }
 
     }, [session.data?.user.email, session.data?.user.name])
 
-    if (!usuario) return <div>Carregando dados do usuário...</div>;
+    const getListaCliente = (usuario: Usuario) => {
+        if (usuario.perfis && usuario.perfis.length > 0) {
+            const clientes: Cliente[] = usuario.perfis.map(
+                lp => lp.perfil.cliente
+            )
+            setListaClientes(clientes);
+        }
+    }
+
+    if (!usuarioLogado) return <div>Carregando dados do usuário...</div>;
 
     return (
-        <UsuarioContext.Provider value={usuario}>
+        <UsuarioContext.Provider value={{
+            usuarioLogado, clientesUsuarioLogado: listaClientes
+        }}>
             {children}
         </UsuarioContext.Provider>
     );

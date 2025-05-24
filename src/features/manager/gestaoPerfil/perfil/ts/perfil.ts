@@ -7,5 +7,6 @@ export class Perfil extends EntidadeCliente {
 
     constructor() {
         super();
+        this.sistemas = [];
     }
 }

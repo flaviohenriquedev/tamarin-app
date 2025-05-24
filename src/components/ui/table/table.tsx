@@ -20,7 +20,6 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     const {cliente} = useContext(ClienteContext)
 
-
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
             return <th key={index}>{coluna.descricao}</th>

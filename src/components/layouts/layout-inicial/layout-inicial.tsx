@@ -12,11 +12,11 @@ import {InputSearch} from "@/components/ui/input/input-search";
 import {SistemaType} from "@/features/sistema/types";
 import {InfoCliente} from "@/components/layouts/info-cliente";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
-    const user = useUsuario();
+    const {usuarioLogado} = useUsuarioLogado();
 
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
@@ -126,8 +126,8 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     }
 
     function filtrarSistemasPorUsuario(sistemas: SistemaType[]) {
-        if (!user.usuarioMaster) {
-            const listaPerfil: UsuarioPerfil[] = user?.listaPerfil ?? [];
+        if (!usuarioLogado.usuarioMaster) {
+            const listaPerfil: UsuarioPerfil[] = usuarioLogado?.listaPerfil ?? [];
             const sistemasPermitidos: SistemaENUM[] = listaPerfil.map(lp => lp.perfilSistema.clienteSistema.keySistema)
             return sistemas.filter(sistema => {
                 sistemasPermitidos.includes(sistema.sistema)

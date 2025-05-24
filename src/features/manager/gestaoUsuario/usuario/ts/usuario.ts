@@ -1,19 +1,18 @@
 import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
-import {UsuarioCliente} from "@/features/manager/gestaoUsuario/usuarioCliente/ts/usuario-cliente";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
+import {StatusUsuarioENUM} from "@/features/manager/gestaoUsuario/usuario/ts/status-usuario-enum";
 
 export class Usuario extends EntidadeAuditavel {
-    nome: string;
-    email: string;
-    cpf: string;
-    usuarioMaster: boolean;
-
-    clientes: UsuarioCliente[];
-    listaPerfil: UsuarioPerfil[];
+    public nome: string;
+    public email: string;
+    public cpf: string;
+    public token: string;
+    public statusUsuario: StatusUsuarioENUM;
+    public usuarioMaster: boolean;
+    public perfis: UsuarioPerfil[];
 
     constructor() {
         super();
-        this.clientes = [];
-        this.listaPerfil = [];
+        this.perfis = [];
     }
 }
