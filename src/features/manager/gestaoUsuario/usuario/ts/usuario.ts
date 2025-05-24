@@ -1,5 +1,6 @@
 import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
 import {UsuarioCliente} from "@/features/manager/gestaoUsuario/usuarioCliente/ts/usuario-cliente";
+import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 
 export class Usuario extends EntidadeAuditavel {
     nome: string;
@@ -7,10 +8,12 @@ export class Usuario extends EntidadeAuditavel {
     cpf: string;
     usuarioMaster: boolean;
 
-    clientes: UsuarioCliente[]
+    clientes: UsuarioCliente[];
+    listaPerfil: UsuarioPerfil[];
 
     constructor() {
         super();
-        this.clientes = []
+        this.clientes = [];
+        this.listaPerfil = [];
     }
 }

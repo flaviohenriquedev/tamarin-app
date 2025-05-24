@@ -1,16 +1,14 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {useCallback, useState} from "react";
-import {ComponenteUsuarioClienteItem} from "@/features/manager/gestaoUsuario/usuario/componente-usuario-cliente-item";
+import React, {useCallback, useState} from "react";
 
 type Props = {
     className: string;
     listaClientes: Cliente[];
     selecionarCliente: (cliente: Cliente) => void;
-    onCheckCliente: (cliente: Cliente, valor: boolean) => void;
 }
 
-export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente, onCheckCliente }: Props) {
+export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente }: Props) {
 
     const [idClienteSelecionado, setIdClienteSelecionado] = useState<string>()
 
@@ -27,12 +25,25 @@ export function ComponenteUsuarioCliente({className, listaClientes, selecionarCl
                 {listaClientes && listaClientes.length > 0
                     ? listaClientes.map(cliente => {
                         return (
-                            <ComponenteUsuarioClienteItem
-                                key={cliente.id}
-                                destacar={idClienteSelecionado === cliente.id}
-                                cliente={cliente}
-                                onCheckCliente={onCheckCliente}
-                                onClick={selecionar}/>
+                            <li key={cliente.id}
+                                className={`
+                                    flex
+                                    items-center
+                                    gap-2
+                                    p-2
+                                    cursor-default
+                                    border-2
+                                    rounded-sm
+                                       ${idClienteSelecionado === cliente.id ? `
+                                            bg-primary/15
+                                            border-primary
+                                            text-base-content
+                                       ` : 'hover:bg-base-100 border-transparent text-gray-400'}`}
+                                onClick={() => selecionar(cliente)}>
+                                <div className={`flex items-center gap-3`}>
+                                    <label>{cliente.nomeFantasia}</label>
+                                </div>
+                            </li>
                         )
                     }) : (
                         <div className="skeleton h-full w-full"></div>

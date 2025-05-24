@@ -13,6 +13,7 @@ import {SistemaType} from "@/features/sistema/types";
 import {InfoCliente} from "@/components/layouts/info-cliente";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {useUsuario} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
     const user = useUsuario();
@@ -89,7 +90,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     }, [sistemaSelecionado?.rotas, searchMenu]);
 
     function renderizarSistemas() {
-        return rotasSistema.filter(rs => rs.sistema !== SistemaENUM.GERENCIAR_SISTEMA).map(sistema => {
+        return filtrarSistemasPorUsuario(rotasSistema).map(sistema => {
             return (
                 <li key={sistema.sistema}
                     onMouseEnter={onMouseEnter}
@@ -102,10 +103,9 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             transition-colors
                             duration-200
                             ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
-                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
-                                bg-base-100
-                                text-primary
-                            ` : 'text-gray-300'}
+                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema
+                                ? aplicarClasseSistemaSelecionado(sistema.sistemaMaster)
+                                : 'text-gray-300'}
                             tooltip-right
                             items-center
                             justify-center
@@ -121,39 +121,19 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         })
     }
 
-    function renderizarSistemasUsuarioMaster() {
-        return rotasSistema.filter(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA).map(sistema => {
-            return (
-                <li key={sistema.sistema}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    onClick={() => handleClick(sistema)}>
+    function aplicarClasseSistemaSelecionado(sistemaMaster: boolean): string {
+        return sistemaMaster ? 'bg-primary text-primary-content' : 'bg-base-100 text-primary'
+    }
 
-                    <div data-tip={SistemaENUMFactory.getDescricao(sistema.sistema)}
-                         className={`
-                            flex
-                            transition-colors
-                            duration-200
-                            ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
-                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema ? `
-                                bg-warning
-                                font-bold
-                                text-warning-content
-                                text-[8pt]
-                            ` : 'text-gray-300 text-[8pt] font-light'}
-                            tooltip-right
-                            items-center
-                            justify-center
-                            p-4
-                            `}>
-                        <div className={`flex gap-[.4rem] flex-col items-center`}>
-                            {sistema.icone}
-                            <label className={`text-center`}>{SistemaENUMFactory.getLabel(sistema.sistema)}</label>
-                        </div>
-                    </div>
-                </li>
-            )
-        })
+    function filtrarSistemasPorUsuario(sistemas: SistemaType[]) {
+        if (!user.usuarioMaster) {
+            const listaPerfil: UsuarioPerfil[] = user?.listaPerfil ?? [];
+            const sistemasPermitidos: SistemaENUM[] = listaPerfil.map(lp => lp.perfilSistema.clienteSistema.keySistema)
+            return sistemas.filter(sistema => {
+                sistemasPermitidos.includes(sistema.sistema)
+            })
+        }
+        return sistemas;
     }
 
     return (
@@ -168,7 +148,6 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
                     <ul className={`flex flex-col gap-2 h-full `}>
                         {renderizarSistemas()}
-                        {user.usuarioMaster && renderizarSistemasUsuarioMaster()}
                     </ul>
 
                 </aside>

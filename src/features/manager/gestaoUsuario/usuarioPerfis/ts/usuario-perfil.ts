@@ -2,7 +2,7 @@ import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/p
 import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 
-export class UsuarioPefil extends EntidadeAuditavel {
+export class UsuarioPerfil extends EntidadeAuditavel {
     usuario: Usuario;
     perfilSistema: PerfilSistema;
 

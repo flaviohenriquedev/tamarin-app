@@ -1,10 +1,12 @@
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
-export class UsuarioDTO {
+export class UsuarioDto {
     usuario: Usuario
-    clientes: Cliente[]
+    listaPerfil: Perfil[]
 
     constructor() {
+        this.usuario = new Usuario();
+        this.listaPerfil = [];
     }
 }

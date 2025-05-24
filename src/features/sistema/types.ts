@@ -4,6 +4,7 @@ import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
 export type SistemaType = {
     sistema: SistemaENUM,
+    sistemaMaster: boolean;
     icone: ReactNode,
     href: string,
     destaque: boolean,

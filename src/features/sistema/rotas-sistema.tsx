@@ -11,6 +11,7 @@ const sizeIcon = 20
 export const rotasSistema: SistemaType[] = [
     {
         sistema: SistemaENUM.RECURSOS_HUMANOS,
+        sistemaMaster: false,
         icone: <HiUsers size={sizeIcon}/>,
         href: '/rh',
         destaque: false,
@@ -18,6 +19,7 @@ export const rotasSistema: SistemaType[] = [
     },
     {
         sistema: SistemaENUM.CONTABIL,
+        sistemaMaster: false,
         icone: <ChartNoAxesCombined size={sizeIcon}/>,
         href: '/contabil',
         destaque: true,
@@ -25,6 +27,7 @@ export const rotasSistema: SistemaType[] = [
     },
     {
         sistema: SistemaENUM.GERENCIAR_SISTEMA,
+        sistemaMaster: true,
         icone: <IoSettingsSharp size={sizeIcon}/>,
         href: '/config',
         destaque: true,
