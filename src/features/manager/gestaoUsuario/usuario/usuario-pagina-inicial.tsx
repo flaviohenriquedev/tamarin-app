@@ -27,6 +27,7 @@ import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 import {AcaoSalvar} from "@/features/sistema/types";
+import {toast} from "sonner";
 
 const usuarioService = new UsuarioService()
 const clienteService = new ClienteService();
@@ -44,6 +45,7 @@ export function UsuarioPaginaInicial() {
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [listaClienteSistema, setListaClienteSistema] = useState<ClienteSistema[]>([]);
     const [listaPerfil, setListaPerfil] = useState<Perfil[]>([]);
+    const [listaPerfilFiltrado, setListaPerfilFiltrado] = useState<Perfil[]>([]);
 
     const atualizarLista = useCallback(() => {
         usuarioService.listar().then(result => {
@@ -65,16 +67,31 @@ export function UsuarioPaginaInicial() {
 
     const handleNovoCadastro = () => {
         perfilService.listar().then(result => {
-
             if (result) {
-                setListaClientes(result.map(p => p.cliente))
+                const clientesUnicos = result
+                    .map(rs => rs.cliente)
+                    .filter((cliente, index, self) =>
+                        index === self.findIndex(c => c.id === cliente.id)
+                    );
+                setListaClientes(clientesUnicos);
+                setListaPerfil(result);
+                setOpenModal(true);
             }
-            setListaPerfil(result)
-            setOpenModal(true);
-        })
-    }
+        });
+    };
 
     const handleSalvar = () => {
+        listaPerfilFiltrado.filter(p => p.checked).forEach(pf => {
+            const usuarioPerfil: UsuarioPerfil = new UsuarioPerfil();
+            usuarioPerfil.usuario.id = usuario.id;
+            usuarioPerfil.perfil = pf;
+            usuario.perfis.push(usuarioPerfil)
+        })
+        usuarioService.salvar(usuario).then(result => {
+            if (result) setListaUsuario(prev => [...prev, result]);
+            setOpenModal(false);
+            toast.success("Registro salvo com sucesso.");
+        })
     }
 
     const onCloseModal = () => {
@@ -94,10 +111,10 @@ export function UsuarioPaginaInicial() {
     }
 
     const selecionarClienteSistema = (clienteSistema: ClienteSistema) => {
-        perfilService.buscarPerfisPorIdClienteSistema(clienteSistema.id)
-            .then(result => {
-                setListaPerfil(result)
-            })
+        const listaPerfilFiltrado: Perfil[] = listaPerfil.filter(lp => {
+            return lp.sistemas.map(p => p.clienteSistema.id).includes(clienteSistema.id);
+        })
+        setListaPerfilFiltrado(listaPerfilFiltrado)
     }
 
     const inicializarListaClientes = async () => {
@@ -176,7 +193,7 @@ export function UsuarioPaginaInicial() {
 
                         <ComponenteUsuarioPerfil
                             className={'cad-user-module'}
-                            listaPerfil={listaPerfil}/>
+                            listaPerfil={listaPerfilFiltrado}/>
                     </div>
 
                     <ButtonGroup>
