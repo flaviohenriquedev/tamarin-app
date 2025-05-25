@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {ClienteContext} from "@/context/cliente-context";
 import {ListTodo} from "lucide-react";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
 import {AnimatePresence, motion} from "framer-motion";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 

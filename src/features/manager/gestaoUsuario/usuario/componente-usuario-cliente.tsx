@@ -1,5 +1,5 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import React, {useCallback, useState} from "react";
 
 type Props = {

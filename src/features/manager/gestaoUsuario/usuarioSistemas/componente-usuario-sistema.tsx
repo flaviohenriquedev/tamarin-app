@@ -1,6 +1,6 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import React, {useCallback, useState} from "react";
-import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
+import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 
 type Props = {

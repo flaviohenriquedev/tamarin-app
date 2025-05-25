@@ -27,36 +27,32 @@ export function ComponentePerfilSistemaModulos({
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [funcionalidadesSelectItens, setFuncionalidadesSelectItens] = useState<TSelectItem[]>([])
 
-    const buscarFuncionalidadesPorModulo = useCallback((
-        (modulo: RouteType) => {
-            const funcionalidades: TSelectItem[] = Object.entries(FuncionalidadeEnumFactory.getFuncionalidadesPadrao()).map(([key, value]) => ({
-                label: value.label,
-                value: key
-            }));
-            if (modulo.funcionalidades) {
-                Object.entries(modulo.funcionalidades).map(([key, value]) => (
-                    funcionalidades.push(
-                        {
-                            label: value.label,
-                            value: key
-                        }
-                    )
-                ));
-            }
-            if (funcionalidades) {
-                return setFuncionalidadesSelectItens(funcionalidades)
-            }
-            return setFuncionalidadesSelectItens([])
+    const buscarFuncionalidadesPorModulo = useCallback((modulo: RouteType) => {
+        const funcionalidades: TSelectItem[] = Object.entries(FuncionalidadeEnumFactory.getFuncionalidadesPadrao()).map(([key, value]) => ({
+            label: value.label,
+            value: key
+        }));
+        if (modulo.funcionalidades) {
+            Object.entries(modulo.funcionalidades).map(([key, value]) => (
+                funcionalidades.push(
+                    {
+                        label: value.label,
+                        value: key
+                    }
+                )
+            ));
         }
-    ), [])
+        if (funcionalidades) {
+            return setFuncionalidadesSelectItens(funcionalidades)
+        }
+        return setFuncionalidadesSelectItens([])
+    }, [])
 
-    const onSelectModulo = useCallback((
-        (modulo: RouteType) => {
-            setModuloSelecionado(modulo)
-            buscarFuncionalidadesPorModulo(modulo)
-            setOpenModal(true)
-        }
-    ), [buscarFuncionalidadesPorModulo])
+    const onSelectModulo = useCallback((modulo: RouteType) => {
+        setModuloSelecionado(modulo)
+        buscarFuncionalidadesPorModulo(modulo)
+        setOpenModal(true)
+    }, [buscarFuncionalidadesPorModulo])
 
     function renderizarModulos(modulos: RouteType[]) {
         return modulos.map(modulo => {
@@ -114,7 +110,7 @@ export function ComponentePerfilSistemaModulos({
                 perfilSistema.rotas.push(novoPerfilSistemaModulo);
             }
         }
-        setOpenModal(false);
+        setOpenModal(false)
     }
 
     const isChecked = (funcionalidade: TSelectItem): boolean => {
@@ -136,7 +132,7 @@ export function ComponentePerfilSistemaModulos({
                                     scrollbar-thumb-base-300
                                     scrollbar-track-transparent
                                     scrollbar-thin`
-                                      }>
+                      }>
                 <div className={`flex flex-col gap-4`}>
                     <ul>
                         {renderizarModulos(listaModulos)}

@@ -1,5 +1,5 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import {ComponentePerfilClienteItem} from "@/features/manager/gestaoPerfil/perfil/componente-perfil-cliente-item";
 import {useCallback, useState} from "react";
 

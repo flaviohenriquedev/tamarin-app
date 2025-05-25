@@ -2,7 +2,8 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {useSession} from "next-auth/react";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
 
 type Props = {
     usuarioLogado: Usuario;
@@ -15,6 +16,7 @@ const UsuarioContext = createContext<Props>({
 });
 
 const usuarioService = new UsuarioService();
+const clienteService = new ClienteService();
 
 export function useUsuarioLogado() {
     return useContext(UsuarioContext);

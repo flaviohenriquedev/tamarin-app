@@ -1,24 +1,21 @@
 import React from "react";
-import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 
 type Props = {
-    clienteSistema: ClienteSistema
-    perfilSistema: PerfilSistema
+    perfilSistema: PerfilSistema,
     onClick: (perfilSistema: PerfilSistema) => void
     destacar?: boolean
 }
 
 export function ComponentePerfilSistemaItens({
-                                          clienteSistema,
                                           perfilSistema,
                                           onClick,
                                           destacar = false
                                       }: Props) {
     return (
-        <li key={clienteSistema.id}>
+        <li key={perfilSistema.id}>
             <div className={`
                     flex
                     items-center
@@ -36,7 +33,7 @@ export function ComponentePerfilSistemaItens({
                 <Checkbox entidade={perfilSistema}
                           atributo={'checked'}/>
                 <label className={`w-full h-full p-2 `} onClick={() => {onClick(perfilSistema)}}
-                >{SistemaENUMFactory.getDescricao(clienteSistema.keySistema)}</label>
+                >{SistemaENUMFactory.getDescricao(perfilSistema.clienteSistema.keySistema)}</label>
             </div>
         </li>
     )

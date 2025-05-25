@@ -10,3 +10,5 @@ export type SistemaType = {
     destaque: boolean,
     rotas: RouteType[],
 }
+
+export type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'

@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useEffect, useState} from "react";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import Cookies from "js-cookie";
-import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
+import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
 
 const clienteService = new ClienteService();
 

@@ -1,4 +1,5 @@
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {icones} from "@/components/common/icones";
 
 type Props = {
     destacar?: boolean
@@ -6,7 +7,7 @@ type Props = {
     onClick: (cliente: Cliente) => void;
 }
 
-export function ComponentePerfilClienteItem({ destacar, cliente, onClick }: Props) {
+export function ComponentePerfilClienteItem({destacar, cliente, onClick}: Props) {
     return (
         <li className={`
                 flex
@@ -23,7 +24,10 @@ export function ComponentePerfilClienteItem({ destacar, cliente, onClick }: Prop
                ` : 'hover:bg-base-100 border-transparent text-gray-400'}
                 `}
             onClick={() => onClick(cliente)}>
-            <label>{cliente.nomeFantasia}</label>
+            <div className={`flex w-full items-center justify-between`}>
+                <label>{cliente.nomeFantasia}</label>
+                <label className={`text-success`}>{cliente.checked && icones.check}</label>
+            </div>
         </li>
     )
 }

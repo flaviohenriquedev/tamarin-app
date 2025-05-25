@@ -15,7 +15,8 @@ export function Form<E extends EntidadePadrao>({children, onSubmit, className}: 
     }
 
     return (
-        <form className={className} onSubmit={handleSubmit}>
+        <form className={`${className} bg-base-100 text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4`}
+              onSubmit={handleSubmit}>
             {children}
         </form>
     )

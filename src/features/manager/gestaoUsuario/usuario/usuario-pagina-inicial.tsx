@@ -15,7 +15,7 @@ import {ComponenteUsuarioSistema} from "@/features/manager/gestaoUsuario/usuario
 import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-colunas-listagem";
 import {ButtonGroup} from "@/components/ui/button/button-group";
-import {ClienteService} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente-service";
+import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
 
 import './css/style.css'
@@ -23,15 +23,14 @@ import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadast
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
-import {Cliente} from "@/features/gerenciamento-sistema/gestao-cliente/cliente/ts/cliente";
-import {ClienteSistema} from "@/features/gerenciamento-sistema/gestao-cliente/cliente-sistema/ts/cliente-sistema";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {AcaoSalvar} from "@/features/sistema/types";
 
 const usuarioService = new UsuarioService()
 const clienteService = new ClienteService();
 const perfilService = new PerfilService();
-
-type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'
 
 export function UsuarioPaginaInicial() {
     const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
@@ -65,8 +64,14 @@ export function UsuarioPaginaInicial() {
     }
 
     const handleNovoCadastro = () => {
-        inicializarListaClientes().then();
-        setOpenModal(true);
+        perfilService.listar().then(result => {
+
+            if (result) {
+                setListaClientes(result.map(p => p.cliente))
+            }
+            setListaPerfil(result)
+            setOpenModal(true);
+        })
     }
 
     const handleSalvar = () => {
