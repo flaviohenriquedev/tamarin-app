@@ -2,6 +2,7 @@ import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 export enum SistemaENUM {
     RECURSOS_HUMANOS = 'RECURSOS_HUMANOS',
+    DEPARTAMENTO_PESSOAL = 'DEPARTAMENTO_PESSOAL',
     GERENCIAR_SISTEMA = 'GERENCIAR_SISTEMA',
     CONTABIL = 'CONTABIL'
 }
@@ -10,6 +11,7 @@ export class SistemaENUMFactory {
 
     private static readonly status: SistemaENUM[] = [
         SistemaENUM.RECURSOS_HUMANOS,
+        SistemaENUM.DEPARTAMENTO_PESSOAL,
         SistemaENUM.GERENCIAR_SISTEMA,
         SistemaENUM.CONTABIL,
     ];
@@ -18,6 +20,10 @@ export class SistemaENUMFactory {
         RECURSOS_HUMANOS: {
             label: 'RH',
             descricao: 'Recursos Humanos',
+        },
+        DEPARTAMENTO_PESSOAL: {
+            label: 'DP',
+            descricao: 'Departamento Pessoal',
         },
         GERENCIAR_SISTEMA: {
             label: 'Sistema',

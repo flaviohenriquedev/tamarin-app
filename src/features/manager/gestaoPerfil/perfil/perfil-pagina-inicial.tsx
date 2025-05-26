@@ -40,6 +40,7 @@ export function PerfilPaginaInicial() {
     const [listaModulos, setListaModulos] = useState<RouteType[]>([])
     const [listaPerfil, setListaPerfil] = useState<Perfil[]>([]);
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
+    const [listaPerfilSistema, setListaPerfilSistema] = useState<PerfilSistema[]>([]);
 
     useEffect(() => {
         perfilService.listar().then(result => setListaPerfil(result))
@@ -90,6 +91,14 @@ export function PerfilPaginaInicial() {
 
     function selecionarCliente(cliente: Cliente) {
         if (cliente.sistemas.length > 0) {
+            cliente.sistemas.forEach(cs => {
+                const perfilSistema: PerfilSistema = new PerfilSistema();
+                perfilSistema.clienteSistema = cs;
+                setListaPerfilSistema(prev => [...prev, perfilSistema]);
+            })
+        }
+
+        if (cliente.sistemas.length > 0) {
             cliente.sistemas.forEach(sistema => {
                 if (!perfil.sistemas.find(s => s.clienteSistema.id === sistema.id)) {
                     const perfilSistema = new PerfilSistema();
@@ -119,6 +128,7 @@ export function PerfilPaginaInicial() {
         setPerfilSistemaSelecionado(new PerfilSistema())
         setListaClientes([])
         setListaModulos([])
+        setListaPerfilSistema([])
     }
 
     return (
@@ -157,7 +167,7 @@ export function PerfilPaginaInicial() {
 
                         <ComponentePerfilSistema
                             className={'cad-perfil-system'}
-                            listaPerfilSistema={perfil.sistemas}
+                            listaPerfilSistema={listaPerfilSistema}
                             selecionarPerfilSistema={selecionarPerfilSistema}/>
 
                         <ComponentePerfilSistemaModulos

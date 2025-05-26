@@ -4,6 +4,8 @@ import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-h
 import {rotasGerenciamentoSistema} from "@/features/manager/rotas-gerenciamento-sistema";
 import {SistemaType} from "@/features/sistema/types";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
+import {rotasDepartamentoPessoal} from "@/features/departamento-pessoal/rotas-departamento-pessoal";
+import {Briefcase} from "lucide-react";
 
 const sizeIcon = 20
 export const rotasSistema: SistemaType[] = [
@@ -14,6 +16,14 @@ export const rotasSistema: SistemaType[] = [
         href: '/rh',
         destaque: false,
         rotas: rotasRecursosHumanos
+    },
+    {
+        sistema: SistemaENUM.DEPARTAMENTO_PESSOAL,
+        sistemaMaster: false,
+        icone: <Briefcase size={sizeIcon}/>,
+        href: '/rh',
+        destaque: false,
+        rotas: rotasDepartamentoPessoal
     },
     {
         sistema: SistemaENUM.GERENCIAR_SISTEMA,

@@ -42,7 +42,6 @@ export function SidemenuItem({rota}: Props) {
                 font-semibold
                 text-sm
                 px-2
-                py-1
                 `}
             key={rota.title}
         >
