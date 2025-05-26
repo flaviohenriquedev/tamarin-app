@@ -39,10 +39,10 @@ export function SidemenuItem({rota}: Props) {
     return (
         <li
             className={`
-                border-b
-                border-base-300
                 font-semibold
                 text-sm
+                px-2
+                py-1
                 `}
             key={rota.title}
         >
@@ -54,7 +54,8 @@ export function SidemenuItem({rota}: Props) {
                     items-center
                     justify-between
                     cursor-default
-                    hover:bg-base-200
+                    hover:bg-base-300
+                    rounded-md
                     ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-400'}
                     font-normal`}
                 onClick={() => handleClick(rota)}
@@ -88,7 +89,7 @@ export function SidemenuItem({rota}: Props) {
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
-                        className={`bg-base-100`}
+                        className={`bg-base-100 rounded-md`}
                         initial={{height: 0, opacity: 0}}
                         animate={{height: 'auto', opacity: 1}}
                         exit={{height: 0, opacity: 0}}

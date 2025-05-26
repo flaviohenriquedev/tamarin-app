@@ -1,6 +1,6 @@
 'use client'
 
-import React, {ReactNode, useEffect, useRef, useState} from "react";
+import React, {ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
@@ -13,10 +13,10 @@ import {SistemaType} from "@/features/sistema/types";
 import {InfoCliente} from "@/components/layouts/info-cliente";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
-import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
-    const {usuarioLogado} = useUsuarioLogado();
+    const {usuarioLogado, listaModulosPermitidos} = useUsuarioLogado();
 
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
     const [mostrarTooltip, setMostrarTooltip] = useState<boolean>();
@@ -53,11 +53,37 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         }
     }, [])
 
+    const filtrarModulosPermitidos = useCallback((modulos: RouteType[]) => {
+        if (!usuarioLogado.usuarioMaster) {
+            return modulos
+                .map(modulo => {
+                    if (modulo.modulo && listaModulosPermitidos.includes(modulo.modulo)) {
+                        return modulo;
+                    }
+
+                    if (modulo.subRoute) {
+                        const subFiltradas = modulo.subRoute.filter(sr =>
+                            listaModulosPermitidos.includes(sr.modulo as string)
+                        );
+                        if (subFiltradas.length > 0) {
+                            return {...modulo, subRoute: subFiltradas};
+                        }
+                    }
+
+                    return null;
+                })
+                .filter(Boolean) as RouteType[];
+        } else {
+            return modulos;
+        }
+    }, [listaModulosPermitidos, usuarioLogado.usuarioMaster]);
+
+
     useEffect(() => {
         const filterMenu = () => {
             const filteredMap: { [key: string]: RouteType } = {};
-            if (sistemaSelecionado?.rotas) {
-                sistemaSelecionado?.rotas.forEach((d) => {
+            if (sistemaSelecionado?.rotas && listaModulosPermitidos) {
+                filtrarModulosPermitidos(sistemaSelecionado?.rotas)?.forEach((d) => {
                     const filteredMenu: RouteType = {...d};
                     if (
                         d.title?.toLowerCase()
@@ -87,12 +113,15 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         };
 
         filterMenu();
-    }, [sistemaSelecionado?.rotas, searchMenu]);
+    }, [sistemaSelecionado?.rotas, searchMenu, listaModulosPermitidos, filtrarModulosPermitidos]);
+
+
 
     function renderizarSistemas() {
         return filtrarSistemasPorUsuario(rotasSistema).map(sistema => {
             return (
                 <li key={sistema.sistema}
+                    className={`p-2`}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     onClick={() => handleClick(sistema)}>
@@ -109,9 +138,10 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             tooltip-right
                             items-center
                             justify-center
-                            p-4
+                            p-2
+                            rounded-md
                             `}>
-                        <div className={`flex gap-[.4rem] flex-col items-center`}>
+                        <div className={`flex gap-[.3rem] flex-col items-center`}>
                         {sistema.icone}
                             <label className={`text-[8pt] text-center font-light`}>{SistemaENUMFactory.getLabel(sistema.sistema)}</label>
                         </div>
@@ -127,10 +157,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
     function filtrarSistemasPorUsuario(sistemas: SistemaType[]) {
         if (!usuarioLogado.usuarioMaster) {
-            const listaPerfil: UsuarioPerfil[] = usuarioLogado?.listaPerfil ?? [];
-            const sistemasPermitidos: SistemaENUM[] = listaPerfil.map(lp => lp.perfilSistema.clienteSistema.keySistema)
+            const listaPerfil: Perfil[] = usuarioLogado.perfis.map(up => up.perfil);
+            const sistemasPermitidos: SistemaENUM[] = listaPerfil.flatMap(lp => {
+                return lp.sistemas.map(sis => sis.clienteSistema.keySistema)
+            })
             return sistemas.filter(sistema => {
-                sistemasPermitidos.includes(sistema.sistema)
+                return sistemasPermitidos.includes(sistema.sistema)
             })
         }
         return sistemas;

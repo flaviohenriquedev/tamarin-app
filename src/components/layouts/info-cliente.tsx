@@ -17,6 +17,12 @@ export function InfoCliente() {
     const refContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (clientesUsuarioLogado.length === 1) {
+            setCliente(clientesUsuarioLogado[0])
+        }
+    }, [clientesUsuarioLogado, setCliente]);
+
+    useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
             if (e.key === "Escape") {
                 setShowList(false);
@@ -74,7 +80,7 @@ export function InfoCliente() {
                 >
                     {listaClientes.map(cl => (
                         <li
-                            key={cliente.id}
+                            key={cl.id}
                             onClick={() => {
                                 setCliente(cl);
                                 setShowList(false);

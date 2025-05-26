@@ -22,7 +22,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
-            return <th key={index}>{coluna.descricao}</th>
+            return <th key={index} className={`py-4 bg-base-200 text-[9pt] font-semibold`}>{coluna.descricao}</th>
         }) : <></>
     }
 
@@ -33,7 +33,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function renderRow() {
         return lista && lista.length > 0 ? lista.map(item => {
             return (
-                <tr key={Math.random()}>
+                <tr key={Math.random()} className={`m-2 font-semibold`}>
                     {renderRowItem(item)}
                     {getAcoes(item)}
                 </tr>
@@ -46,7 +46,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcoes(e: E) {
         if (acoesTabela) {
             return (
-                <td className={`flex items-center gap-4`}>
+                <td className={`flex bg-base-100 rounded-md w-fit ml-2 items-center gap-4`}>
                     {getAcaoConsultar(e)}
                     {getAcaoExcluir(e)}
                 </td>
@@ -57,8 +57,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcaoConsultar(e: E) {
         if (acoesTabela?.consultar) {
             return (
-                <button className={'cursor-pointer text-info'} onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
-                    <IoOpen size={20} />
+                <button className={'cursor-pointer text-info'}
+                        onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
+                    <IoOpen size={20}/>
                 </button>
             )
         }
@@ -67,8 +68,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcaoExcluir(e: E) {
         if (acoesTabela?.excluir) {
             return (
-                <button className={'cursor-pointer text-error'}  onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
-                    <MdDelete size={20} />
+                <button className={'cursor-pointer text-error'}
+                        onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
+                    <MdDelete size={20}/>
                 </button>
             )
         }
@@ -76,12 +78,22 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     function renderRowItem(row: E) {
         return colunas.map((coluna, index) => {
+            const isFirst = index === 0;
+            const isLast = index === colunas.length - 1;
+
+            const tdClasses = [
+                isFirst ? "rounded-l-md" : "",
+                isLast ? "rounded-r-md" : "",
+                "bg-base-100", // Precisa de fundo pra aparecer o arredondado
+                "px-4 py-3" // Estilização básica
+            ].join(" ");
+
             return (
-                <td key={`${index.toString()}-${coluna.descricao}`}>
+                <td key={`${index.toString()}-${coluna.descricao}`} className={tdClasses}>
                     {getValor(row, coluna)}
                 </td>
-            )
-        })
+            );
+        });
     }
 
     function getValor<E>(row: E, coluna: ColumnType) {
@@ -94,14 +106,14 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     return (
         <>
-            <div className="rounded-box border border-base-content/5 bg-base-100 h-screen overflow-x-auto">
-                <table className="table table-pin-rows">
+            <div className="rounded-md border-none h-screen overflow-x-auto">
+                <table className="table table-pin-rows bg-base-200 border-separate border-spacing-y-2">
                     <thead>
                     <tr>
                         {renderHead()}
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={`mt-4`}>
                     {renderRow()}
                     </tbody>
                 </table>

@@ -19,7 +19,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR" suppressHydrationWarning>
         <body
-            className={`antialiased overflow-hidden`}
+            className={`antialiased overflow-hidden bg-base-200`}
         >
         <Providers>
             <Toaster richColors position={`top-center`} icons={{

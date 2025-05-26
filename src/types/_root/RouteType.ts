@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import {FuncionalidadesType, InfosModuloType} from "@/types/_root/ModulosTypes";
+import {FuncionalidadesType} from "@/types/_root/ModulosTypes";
 
 export type RouteType = {
     id?: string;
@@ -9,6 +9,5 @@ export type RouteType = {
     href?: string;
     subRoute?: RouteType[];
     roles?: string[];
-    modulos?: { [key: string]: InfosModuloType };
     funcionalidades?: { [key: string]: FuncionalidadesType; };
 }
