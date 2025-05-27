@@ -1,11 +1,14 @@
 import {ColumnType} from "@/types/_root/ColumnType";
 import {get} from "lodash";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ClienteContext} from "@/context/cliente-context";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
 import {MdDelete} from "react-icons/md";
+import Modal from "@/components/ui/modal/modal";
+import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/button-group";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
@@ -19,6 +22,8 @@ type Props<E> = {
 export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela}: Props<E>) {
 
     const {cliente} = useContext(ClienteContext)
+    const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
+    const [entidadeParaDeletar, setEntidadeParaDeletar] = useState<E>()
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
@@ -57,8 +62,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcaoConsultar(e: E) {
         if (acoesTabela?.consultar) {
             return (
-                <button className={'cursor-pointer text-info'} onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
-                    <IoOpen size={20} />
+                <button className={'cursor-pointer text-info'}
+                        onClick={() => acoesTabela.consultar ? acoesTabela.consultar(e) : null}>
+                    <IoOpen size={20}/>
                 </button>
             )
         }
@@ -67,8 +73,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getAcaoExcluir(e: E) {
         if (acoesTabela?.excluir) {
             return (
-                <button className={'cursor-pointer text-error'}  onClick={() => acoesTabela.excluir ? acoesTabela.excluir(e) : null}>
-                    <MdDelete size={20} />
+                <button className={'cursor-pointer text-error'}
+                        onClick={() => handleOpenModalDelete(e)}>
+                    <MdDelete size={20}/>
                 </button>
             )
         }
@@ -92,6 +99,16 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         return valor;
     }
 
+    function handleOpenModalDelete(e: E) {
+        setEntidadeParaDeletar(e);
+        setOpenModalDelete(true);
+    }
+
+    function excluirEntidade() {
+        if (acoesTabela && acoesTabela.excluir && entidadeParaDeletar) acoesTabela.excluir(entidadeParaDeletar);
+        setOpenModalDelete(false);
+    }
+
     return (
         <>
             <div className="rounded-box border border-base-content/5 bg-base-100 overflow-x-auto">
@@ -106,6 +123,22 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                     </tbody>
                 </table>
             </div>
+
+            {entidadeParaDeletar && acoesTabela && (
+                <Modal
+                    isOpen={openModalDelete}
+                    setIsOpen={setOpenModalDelete}
+                    title={`Atenção`}>
+                    <div className={`p-4 flex flex-col gap-2`}>
+                        <span>Tem certeza que deseja excluir esse registro?</span>
+                        <ButtonGroup>
+                            <Button buttonSize={`sm`} buttonStyle={`success`}
+                                    onClick={() => excluirEntidade()}>Sim</Button>
+                            <Button buttonSize={`sm`} buttonStyle={`warning`} onClick={() => setOpenModalDelete(false)}>Não</Button>
+                        </ButtonGroup>
+                    </div>
+                </Modal>
+            )}
         </>
     )
 }

@@ -26,6 +26,7 @@ import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/p
 import {AcaoSalvar} from "@/features/sistema/types";
 import {perfilColunasListagem} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-colunas-listagem";
 import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
+import {toast} from "sonner";
 
 const perfilService = new PerfilService();
 const clienteService = new ClienteService();
@@ -50,7 +51,11 @@ export function PerfilPaginaInicial() {
     const checkPerfilSistema = useCallback((clienteSistema: ClienteSistema): boolean => {
         return perfil.sistemas.map(ps => ps.clienteSistema.id).some(csid => clienteSistema.id === csid)
     }, [perfil.sistemas]);
-    
+
+    function aplicarRotasFiltradas(clienteSistema: ClienteSistema) {
+        return perfil.sistemas.filter(ps => ps.clienteSistema.id === clienteSistema.id).flatMap(s => s.rotas)
+    }
+
     useEffect(() => {
         if (clienteSelecionado.sistemas && clienteSelecionado.sistemas.length > 0) {
             const listaPS: PerfilSistema[] = [];
@@ -59,6 +64,7 @@ export function PerfilPaginaInicial() {
                 ps.perfil = perfil;
                 ps.clienteSistema = cs;
                 ps.checked = checkPerfilSistema(cs);
+                ps.rotas = aplicarRotasFiltradas(cs)
                 listaPS.push(ps);
             })
             setListaPerfilSistema(listaPS);
@@ -84,8 +90,9 @@ export function PerfilPaginaInicial() {
     function salvar() {
         const perfilFiltrado = new Perfil();
         Object.assign(perfilFiltrado, perfil);
-        perfilFiltrado.sistemas = perfil.sistemas.filter(ps => ps.checked);
+        perfilFiltrado.sistemas = listaPerfilSistema.filter(ps => ps.checked);
         perfilFiltrado.cliente = clienteSelecionado;
+        console.log(perfilFiltrado);
         perfilService.salvar(perfilFiltrado).then(result => {
             if (result) setListaPerfil(prev => [...prev, result])
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -123,6 +130,15 @@ export function PerfilPaginaInicial() {
         setListaPerfilSistema([])
     }
 
+    function deletar(perfil: Perfil) {
+        perfilService.excluir(perfil.id).then((response) => {
+            if (response) {
+                toast.success("Excluido com sucesso.")
+                atualizarLista()
+            }
+        })
+    }
+
     return (
         <>
             <PaginaCadastro funcaoAtualizarLista={atualizarLista}
@@ -130,7 +146,7 @@ export function PerfilPaginaInicial() {
                 <Table funcaoAtualizarLista={atualizarLista}
                        colunas={perfilColunasListagem}
                        lista={listaPerfil}
-                       acoesTabela={{consultar: visualizar}}/>
+                       acoesTabela={{consultar: visualizar, excluir: deletar}}/>
             </PaginaCadastro>
 
             <Modal

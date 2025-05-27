@@ -40,8 +40,8 @@ export abstract class CrudService<E> {
     }
 
     async excluir(id: string | number): Promise<boolean> {
-        if (this.getEndpoint().excluir) {
-            await request<null>(`${this.getURL(this.getBaseURL(), this.getEndpoint().excluir, id)}`, this.getEndpoint().excluir?.metodo);
+        if (this.getEndpoint().deletar) {
+            await request<boolean>(`${this.getURL(this.getBaseURL(), this.getEndpoint().deletar, id)}`, this.getEndpoint().deletar?.metodo);
             return true;
         }
         return false;

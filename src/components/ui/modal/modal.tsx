@@ -79,7 +79,14 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
                         `}
                     >
                         <div className={`flex items-center justify-between px-6 py-4 w-full`}>
-                            {title && (<div><span className={`text-lg`}>{title}</span></div>)} <X onClick={handleCloseModal} className={`hover:text-primary`}/>
+                            {title && (
+                                <div>
+                                    <span className={`text-lg`}>{title}</span>
+                                </div>)
+                            }
+                            <div className={`flex ml-auto`}>
+                                <X onClick={handleCloseModal} className={`hover:text-primary`}/>
+                            </div>
                         </div>
                         {children}
                     </DialogPanel>

@@ -5,7 +5,7 @@ export type EndPointType = {
     buscarPorId?: EndPontDetail;
     salvar?: EndPontDetail;
     editar?: EndPontDetail;
-    excluir?: EndPontDetail;
+    deletar?: EndPontDetail;
 } & {
     [key: string]: EndPontDetail;
 };
