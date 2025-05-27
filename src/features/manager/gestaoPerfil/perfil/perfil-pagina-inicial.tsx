@@ -25,6 +25,7 @@ import {RouteType} from "@/types/_root/RouteType";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {perfilColunasListagem} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-colunas-listagem";
+import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 
 const perfilService = new PerfilService();
 const clienteService = new ClienteService();
@@ -46,13 +47,27 @@ export function PerfilPaginaInicial() {
         perfilService.listar().then(result => setListaPerfil(result))
     }, []);
 
+    const checkPerfilSistema = useCallback((clienteSistema: ClienteSistema): boolean => {
+        return perfil.sistemas.map(ps => ps.clienteSistema.id).some(csid => clienteSistema.id === csid)
+    }, [perfil.sistemas]);
+    
+    useEffect(() => {
+        if (clienteSelecionado.sistemas && clienteSelecionado.sistemas.length > 0) {
+            const listaPS: PerfilSistema[] = [];
+            clienteSelecionado.sistemas.forEach(cs => {
+                const ps: PerfilSistema = new PerfilSistema();
+                ps.perfil = perfil;
+                ps.clienteSistema = cs;
+                ps.checked = checkPerfilSistema(cs);
+                listaPS.push(ps);
+            })
+            setListaPerfilSistema(listaPS);
+        }
+    }, [checkPerfilSistema, clienteSelecionado, perfil]);
+
     const atualizarLista = useCallback(() => {
         perfilService.listar().then(result => setListaPerfil(result))
     }, [])
-
-    useEffect(() => {
-
-    }, [perfilSistemaSelecionado]);
 
     function handleNovoCadastro() {
         clienteService.listar().then(result => {
@@ -60,17 +75,6 @@ export function PerfilPaginaInicial() {
             setListaClientes(result)
             setOpenModal(true);
         })
-    }
-
-    function visualizar(p: Perfil) {
-        setPerfil(p);
-        clienteService.listar().then(result => {
-            result.map(rs => rs.sistemas).forEach(lcs => {
-                lcs.forEach(cs => cs.checked === p.sistemas.map(cl => cl.clienteSistema.id).includes(cs.id))
-            })
-            setListaClientes(result)
-            setOpenModal(true);
-        });
     }
 
     function onCloseModal() {
@@ -89,29 +93,17 @@ export function PerfilPaginaInicial() {
         })
     }
 
-    function selecionarCliente(cliente: Cliente) {
-        if (cliente.sistemas.length > 0) {
-            cliente.sistemas.forEach(cs => {
-                const perfilSistema: PerfilSistema = new PerfilSistema();
-                perfilSistema.clienteSistema = cs;
-                setListaPerfilSistema(prev => [...prev, perfilSistema]);
-            })
-        }
-
-        if (cliente.sistemas.length > 0) {
-            cliente.sistemas.forEach(sistema => {
-                if (!perfil.sistemas.find(s => s.clienteSistema.id === sistema.id)) {
-                    const perfilSistema = new PerfilSistema();
-                    perfilSistema.perfil.id = perfil.id;
-                    perfilSistema.clienteSistema = sistema;
-                    perfil.sistemas.push(perfilSistema);
-                }
-            })
-        }
-        setClienteSelecionado(cliente)
+    function visualizar(p: Perfil) {
+        setPerfil(p);
+        setClienteSelecionado(p.cliente);
+        clienteService.listar().then(result => {
+            result.forEach((c) => c.checked = c.id === p.cliente.id)
+            setListaClientes(result)
+            setOpenModal(true)
+        })
     }
 
-    function selecionarPerfilSistema(perfilSistema: PerfilSistema) {
+    const selecionarPerfilSistema = useCallback((perfilSistema: PerfilSistema) => {
         setPerfilSistemaSelecionado(perfilSistema)
         const rotas = rotasSistema.find(rs => rs.sistema === perfilSistema.clienteSistema.keySistema)?.rotas || [];
         if (rotas && rotas.length > 0) {
@@ -120,7 +112,7 @@ export function PerfilPaginaInicial() {
             setListaModulos([])
         }
         setPerfilSistemaSelecionado(perfilSistema)
-    }
+    }, [])
 
     function clear() {
         setPerfil(new Perfil())
@@ -163,7 +155,7 @@ export function PerfilPaginaInicial() {
                         <ComponentePerfilCliente
                             className={'cad-perfil-clients'}
                             listaClientes={listaClientes}
-                            selecionarCliente={selecionarCliente}/>
+                            selecionarCliente={setClienteSelecionado}/>
 
                         <ComponentePerfilSistema
                             className={'cad-perfil-system'}

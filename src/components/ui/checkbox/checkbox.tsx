@@ -20,21 +20,21 @@ type Props<E> = {
         'checkbox-neutral '
 }
 
-export function Checkbox<E>({entidade, atributo, isChecked = false, label, classWhenChecked, onCheck}: Props<E>) {
+export function Checkbox<E>({entidade, atributo, isChecked, label, classWhenChecked, onCheck}: Props<E>) {
     const [valor, setValor] = useState<boolean>(false)
 
     useEffect(() => {
-        const valorEntidade: boolean = get(entidade, atributo) ?? false;
-        setValor(valorEntidade);
+
+        if (!isChecked) {
+            const valorEntidade: boolean = get(entidade, atributo) ?? false;
+            setValor(valorEntidade);
+        }
+
+        if (isChecked !== undefined) {
+            setValor(isChecked)
+        }
+
     }, [atributo, entidade]);
-
-    useEffect(() => {
-        if (entidade) set(entidade, atributo, valor)
-    }, [atributo, entidade, valor]);
-
-    useEffect(() => {
-        setValor(isChecked)
-    }, [isChecked]);
 
     const atribuirValor = (e: ChangeEvent<HTMLInputElement>) => {
         const novoValor = e.target.checked
