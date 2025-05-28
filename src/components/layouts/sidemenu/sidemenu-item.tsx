@@ -26,7 +26,7 @@ export function SidemenuItem({rota}: Props) {
         return subRotas.map(rota => {
             return (
                 <li key={rota.title}
-                    className={`flex items-center px-2 py-1 ${rota.href === path ? 'text-primary' : ''} gap-2 text-md font-semibold cursor-default text-gray-500 rounded-sm `}
+                    className={`flex items-center px-2 py-1 ${rota.href === path ? 'text-primary' : ''} gap-2 text-md cursor-default rounded-sm `}
                     onClick={() => handleClick(rota)}>
                     <Dot size={26}/>
                     <Link prefetch={true} className={`cursor-default hover:text-base-content w-full border-md`}
@@ -41,7 +41,6 @@ export function SidemenuItem({rota}: Props) {
             className={`
                 font-semibold
                 text-sm
-                px-2
                 `}
             key={rota.title}
         >
@@ -53,10 +52,9 @@ export function SidemenuItem({rota}: Props) {
                     items-center
                     justify-between
                     cursor-default
-                    hover:bg-base-300
-                    rounded-md
-                    ${(openList || path === rota.href) ? 'bg-base-200 text-base-content' : 'text-gray-400'}
-                    font-normal`}
+                    hover:bg-neutral-200
+                    rounded-sm
+                    ${(openList || path === rota.href) ? 'bg-neutral-200 text-neutral-900' : 'text-neutral-800'}`}
                 onClick={() => handleClick(rota)}
             >
                 <div
@@ -88,7 +86,7 @@ export function SidemenuItem({rota}: Props) {
             <AnimatePresence initial={false}>
                 {rota.subRoute && openList && (
                     <motion.ul
-                        className={`bg-base-100 rounded-md`}
+                        className={`bg-neutral-200 text-neutral-800 rounded-sm`}
                         initial={{height: 0, opacity: 0}}
                         animate={{height: 'auto', opacity: 1}}
                         exit={{height: 0, opacity: 0}}

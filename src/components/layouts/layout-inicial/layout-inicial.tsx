@@ -115,13 +115,11 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         filterMenu();
     }, [sistemaSelecionado?.rotas, searchMenu, listaModulosPermitidos, filtrarModulosPermitidos]);
 
-
-
     function renderizarSistemas() {
-        return filtrarSistemasPorUsuario(rotasSistema).map(sistema => {
+        return filtrarSistemasPorUsuario(rotasSistema).map((sistema) => {
             return (
                 <li key={sistema.sistema}
-                    className={`p-2`}
+                    className={`flex items-center justify-center`}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     onClick={() => handleClick(sistema)}>
@@ -129,30 +127,26 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                     <div data-tip={SistemaENUMFactory.getDescricao(sistema.sistema)}
                          className={`
                             flex
-                            transition-colors
-                            duration-200
-                            ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
-                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema
-                                ? aplicarClasseSistemaSelecionado(sistema.sistemaMaster)
-                                : 'text-gray-300'}
-                            tooltip-right
                             items-center
                             justify-center
-                            p-2
-                            rounded-[.2rem]
+                            transition-colors
+                            duration-200
+                            w-full
+                            h-full
+                            border-b
+                            border-neutral-700/50
+                             p-6
+                            ${sistemaSelecionado && sistema.sistema !== sistemaSelecionado.sistema && mostrarTooltip ? 'tooltip' : ''}
+                            ${sistemaSelecionado && sistema.sistema === sistemaSelecionado.sistema
+                             ? 'text-base-content'
+                             : 'text-neutral-700'}
+                            tooltip-right
                             `}>
-                        <div className={`flex gap-[.3rem] flex-col items-center`}>
-                        {sistema.icone}
-                            <label className={`text-[8pt] text-center font-light`}>{SistemaENUMFactory.getLabel(sistema.sistema)}</label>
-                        </div>
+                        <strong>{sistema.icone}</strong>
                     </div>
                 </li>
-        )
+            )
         })
-    }
-
-    function aplicarClasseSistemaSelecionado(sistemaMaster: boolean): string {
-        return sistemaMaster ? 'bg-primary text-primary-content' : 'bg-base-100 text-primary'
     }
 
     function filtrarSistemasPorUsuario(sistemas: SistemaType[]) {
@@ -173,12 +167,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
             <div className={`side-bar flex`}>
                 <aside
-                    className={`flex flex-col gap-4 w-18 shadow-[inset_-7px_1px_7px_-3px_rgba(0,_0,_0,_0.1)] bg-base-300 `}>
+                    className={`bg-gradient-to-t from-base-200 to-base-300 flex flex-col gap-4 w-fit`}>
                     <div className={`flex border-b border-base-200 justify-center items-center h-12`}>
                         <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={30} height={30}/>
                     </div>
 
-                    <ul className={`flex flex-col gap-2 h-full `}>
+                    <ul className={`flex flex-col h-full `}>
                         {renderizarSistemas()}
                     </ul>
 

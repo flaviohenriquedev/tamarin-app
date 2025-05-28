@@ -20,7 +20,7 @@ export function Sidemenu({rotas}: Props) {
     return (
         <ul
             className={`
-                        
+                        bg-neutral-50
                         scrollbar-none
                         overflow-y-scroll
                         overflow-x-hidden

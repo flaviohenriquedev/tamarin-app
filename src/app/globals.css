@@ -21,7 +21,7 @@
     --color-base-100: #202427;
 }
 
-* {
+body {
     border-radius: .2rem;
 }
 
