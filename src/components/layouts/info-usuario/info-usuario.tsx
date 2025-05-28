@@ -20,7 +20,7 @@ export function InfoUsuario() {
     }, [session.data?.user.email, session.data?.user.name])
 
     return (
-        <div className={`flex gap-2 items-center`}>
+        <div className={`flex gap-4 items-center`}>
             <div className={'flex justify-center items-end flex-col font-light'}>
                 <strong className={`text-[9pt]`}>{nomeUsuario}</strong>
                 <span className={`text-[8pt]`}>{emailUsuario}</span>

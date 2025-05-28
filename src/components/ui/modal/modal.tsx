@@ -62,9 +62,10 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
                             transform
                             overflow-hidden
                             rounded-lg
-                            bg-base-100
                             text-left
-                            shadow-xl
+                            border border-base-100
+                            shadow-[0px_4px_4px_4px_rgba(0,_0,_0,_0.1)]
+                            bg-base-100
                             transition-all
                             data-closed:translate-y-4
                             data-closed:opacity-0

@@ -14,13 +14,13 @@ import {InputString} from "@/components/ui/input/input-string";
 import {InputCNPJ} from "@/components/ui/input/input-cnpj";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
-import {Table} from "@/components/ui/table/table";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
+import {Table} from "@/components/ui/table/table";
 
 const service = new ClienteService();
 type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'

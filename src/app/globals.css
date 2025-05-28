@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap') layer(base);
 
 @import "tailwindcss";
+
 @plugin "daisyui";
 @plugin 'tailwind-scrollbar';
 /*noinspection ALL*/
@@ -15,6 +16,13 @@
     name: "dark";
     default: true;
     --color-primary: var(--color-orange-400);
+    --color-base-300: #141517;
+    --color-base-200: #191A1C;
+    --color-base-100: #202427;
+}
+
+* {
+    border-radius: .2rem;
 }
 
 @theme {

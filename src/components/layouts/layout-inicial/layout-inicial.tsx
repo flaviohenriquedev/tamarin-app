@@ -139,7 +139,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             items-center
                             justify-center
                             p-2
-                            rounded-md
+                            rounded-[.2rem]
                             `}>
                         <div className={`flex gap-[.3rem] flex-col items-center`}>
                         {sistema.icone}

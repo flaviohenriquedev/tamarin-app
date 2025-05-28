@@ -154,7 +154,7 @@ export function PerfilPaginaInicial() {
                 onCloseModal={onCloseModal}
                 setIsOpen={setOpenModal}
                 title={'Cadastro de Perfil'}>
-                <Form className="bg-base-100 text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
+                <Form className="text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
                       onSubmit={salvar}>
 
                     <LineContent>
