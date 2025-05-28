@@ -8,7 +8,7 @@ export const inputStyle = `
     min-w-52
     rounded-[.2rem]
     border-base-200
-    shadow-[inset_0px_4px_4px_-3px_rgba(0,_0,_0,_0.1)]
+    shadow-none
     focus:outline-hidden
     focus:border-primary
     transition-colors ease-in-out

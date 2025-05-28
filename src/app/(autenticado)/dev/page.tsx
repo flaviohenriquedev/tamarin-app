@@ -1,40 +1,43 @@
-export default function PaginaDev() {
+'use client'
 
-    const columns = ["#", "Name", "Job", "Favorite Color"];
+import React, {useState} from 'react'
+import {CountryCode} from 'libphonenumber-js'
 
-    const data = [
-        ["1", "Cy Ganderton", "Quality Control Specialist", "Blue"],
-        ["2", "Hart Hagerty", "Desktop Support Technician", "Purple"],
-        ["3", "Brice Swyre", "Tax Accountant", "Red"],
-    ];
+export default function Example(label: string, name: string, required: boolean) {
+    const [country, setCountry] = useState<CountryCode | undefined>('BR')
+    const [value, setValue] = useState<string | undefined>('')
 
     return (
-        // auto-cols-max ---- para que o tamanho das colunas não se extenda automaticamente
-        <div className="border rounded overflow-hidden text-sm">
-            {/* Cabeçalho */}
-            <div className="grid grid-flow-col auto-cols-fr bg-gray-200 font-semibold text-gray-700">
-                {columns.map((col, idx) => (
-                    <div key={idx} className="p-2 border-r last:border-r-0">
-                        {col}
-                    </div>
-                ))}
-            </div>
-
-            {/* Linhas */}
-            {data.map((row, rowIndex) => (
-                <div
-                    key={rowIndex}
-                    className="grid grid-flow-col auto-cols-fr border-t"
-                >
-                    {row.map((cell, cellIndex) => (
-                        <div key={cellIndex} className="p-2 border-r last:border-r-0">
-                            {cell}
-                        </div>
-                    ))}
-                </div>
-            ))}
-        </div>
-
-
+        // <div className={`
+        //     flex-1
+        //     flex
+        //     flex-col
+        //     gap-1`}>
+        //     {label && (
+        //         <label
+        //             htmlFor={name}
+        //             className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
+        //             {required && <span className={`text-error `}><Asterisk size={12}/></span>}
+        //             {label}
+        //         </label>
+        //     )}
+        //     <div className="flex gap-2">
+        //         <SelectPaises
+        //             className={`bg-base-200`}
+        //             labels={ptBR}
+        //             value={country}
+        //             onChange={(c) => setCountry(c as CountryCode)} // força tipo certo
+        //         />
+        //         <PhoneInput
+        //             maxLength={15}
+        //             country={country}
+        //             value={value}
+        //             onChange={setValue}
+        //             placeholder="Enter phone number"
+        //             className={inputStyle}
+        //         />
+        //     </div>
+        // </div>
+        <div>dev</div>
     )
 }

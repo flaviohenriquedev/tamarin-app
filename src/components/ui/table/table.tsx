@@ -21,53 +21,40 @@ type Props<E> = {
 
 export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela}: Props<E>) {
 
-
     const {cliente} = useContext(ClienteContext)
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
     const [entidadeParaDeletar, setEntidadeParaDeletar] = useState<E>()
+
+    function renderHead() {
+        return colunas ? colunas.map((coluna, index) => {
+            return <th key={index}>{coluna.descricao}</th>
+        }) : <></>
+    }
 
     useEffect(() => {
         funcaoAtualizarLista();
     }, [cliente, funcaoAtualizarLista]);
 
-    function renderHead() {
-        return colunas ? colunas.map((col) => (
-            <div key={col.descricao} className="p-2">
-                {col.descricao}
-            </div>
-        )) : <></>
-    }
-
     function renderRow() {
-        return lista && lista.length > 0 ? lista.map((row, rowIndex) => (
-            <div
-                key={rowIndex}
-                className="grid grid-flow-col auto-cols-fr bg-base-100/50 rounded-sm pl-2 py-1 hover:bg-base-100"
-            >
-                {renderRowItem(row)}
-                {getAcoes(row)}
-            </div>
-        )) : <tr>
+        return lista && lista.length > 0 ? lista.map(item => {
+            return (
+                <tr key={Math.random()}>
+                    {renderRowItem(item)}
+                    {getAcoes(item)}
+                </tr>
+            )
+        }) : <tr>
             <td>Nenhum dado encontrado</td>
         </tr>
-    }
-
-    function renderRowItem(row: E) {
-        return colunas.map((cell, index) => (
-            <div key={`${index.toString()}-${cell.descricao}`}
-                 className="p-2 truncate whitespace-nowrap ">
-                {getValor(row, cell)}
-            </div>
-        ))
     }
 
     function getAcoes(e: E) {
         if (acoesTabela) {
             return (
-                <div className="flex gap-3 p-2 truncate whitespace-nowrap ">
+                <td className={`flex items-center gap-4`}>
                     {getAcaoConsultar(e)}
                     {getAcaoExcluir(e)}
-                </div>
+                </td>
             )
         }
     }
@@ -81,6 +68,27 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                 </button>
             )
         }
+    }
+
+    function getAcaoExcluir(e: E) {
+        if (acoesTabela?.excluir) {
+            return (
+                <button className={'cursor-pointer text-error'}
+                        onClick={() => handleOpenModalDelete(e)}>
+                    <MdDelete size={20}/>
+                </button>
+            )
+        }
+    }
+
+    function renderRowItem(row: E) {
+        return colunas.map((coluna, index) => {
+            return (
+                <td key={`${index.toString()}-${coluna.descricao}`}>
+                    {getValor(row, coluna)}
+                </td>
+            )
+        })
     }
 
     function getValor<E>(row: E, coluna: ColumnType) {
@@ -101,31 +109,19 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         setOpenModalDelete(false);
     }
 
-    function getAcaoExcluir(e: E) {
-        if (acoesTabela?.excluir) {
-            return (
-                <button className={'cursor-pointer text-error'}
-                        onClick={() => handleOpenModalDelete(e)}>
-                    <MdDelete size={20}/>
-                </button>
-            )
-        }
-    }
-
     return (
-        // auto-cols-max ---- para que o tamanho das colunas não se extenda automaticamente
         <>
-            <div className="border border-transparent rounded overflow-hidden text-[9pt]">
-                {/* Cabeçalho */}
-                <div className="pl-2 py-2 grid grid-flow-col auto-cols-fr font-semibold text-gray-500">
-                    {renderHead()}
-                    <div className={`p-2`} />
-                </div>
-
-                {/* Linhas */}
-                <div className={`flex flex-col gap-1`}>
+            <div className="rounded-box border border-base-content/5 bg-base-100 overflow-x-auto">
+                <table className="table table-pin-rows">
+                    <thead>
+                    <tr>
+                        {renderHead()}
+                    </tr>
+                    </thead>
+                    <tbody>
                     {renderRow()}
-                </div>
+                    </tbody>
+                </table>
             </div>
 
             {entidadeParaDeletar && acoesTabela && (
@@ -138,8 +134,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                         <ButtonGroup>
                             <Button buttonSize={`sm`} buttonStyle={`success`}
                                     onClick={() => excluirEntidade()}>Sim</Button>
-                            <Button buttonSize={`sm`} buttonStyle={`warning`}
-                                    onClick={() => setOpenModalDelete(false)}>Não</Button>
+                            <Button buttonSize={`sm`} buttonStyle={`warning`} onClick={() => setOpenModalDelete(false)}>Não</Button>
                         </ButtonGroup>
                     </div>
                 </Modal>

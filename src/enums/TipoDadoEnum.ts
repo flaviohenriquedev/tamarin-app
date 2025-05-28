@@ -1,4 +1,5 @@
-import {formatDateBR, mascararCNPJ} from "@/utils/utils";
+import {formatDateBR, mascararCNPJ, mascararCPF} from "@/utils/utils";
+import {formatPhoneNumber} from 'react-phone-number-input'
 
 export enum TipoDadoEnum {
     STRING = "STRING",
@@ -12,7 +13,8 @@ export enum TipoDadoEnum {
     DIA = 'DIA',
     DIA_DA_SEMANA = '',
     CPF = 'CPF',
-    CNPJ = 'CNPJ'
+    CNPJ = 'CNPJ',
+    TELEFONE = 'TELEFONE',
 }
 
 type Valores = string | number | Date;
@@ -22,6 +24,8 @@ export class MascaraTipoDado {
         switch (tipoDado) {
             case TipoDadoEnum.DATA_COMPLETA: return formatDateBR(valor as Date)
             case TipoDadoEnum.CNPJ: return mascararCNPJ(valor as string)
+            case TipoDadoEnum.CPF: return mascararCPF(valor as string)
+            case TipoDadoEnum.TELEFONE: return formatPhoneNumber(valor as string)
             default: return valor
         }
     }

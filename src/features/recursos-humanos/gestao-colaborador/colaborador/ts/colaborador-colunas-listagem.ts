@@ -1,7 +1,7 @@
 import {ColumnType} from "@/types/_root/ColumnType";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const colaboradorConlunasListagem: ColumnType[] = [
+export const colunasColaborador: ColumnType[] = [
     {
         descricao: 'Nome',
         field: 'nomeCompleto',
@@ -10,12 +10,12 @@ export const colaboradorConlunasListagem: ColumnType[] = [
     {
         descricao: 'CPF',
         field: 'cpf',
-        tipoDado: TipoDadoEnum.DECIMAL,
+        tipoDado: TipoDadoEnum.CPF,
     },
     {
         descricao: 'Data de Nascimento',
         field: 'dataNascimento',
-        tipoDado: TipoDadoEnum.STRING,
+        tipoDado: TipoDadoEnum.DATA_COMPLETA,
     },
     {
         descricao: 'Email',
@@ -25,7 +25,7 @@ export const colaboradorConlunasListagem: ColumnType[] = [
     {
         descricao: 'Telefone',
         field: 'telefone',
-        tipoDado: TipoDadoEnum.STRING,
+        tipoDado: TipoDadoEnum.TELEFONE,
     },
     {
         descricao: 'Cargo',

@@ -18,92 +18,49 @@ import {
 } from "@/features/recursos-humanos/gestao-beneficios/vale-alimentacao/modulo-vale-alimentacao";
 import {ModuloPlanoSaude} from "@/features/recursos-humanos/gestao-beneficios/plano-saude/modulo-plano-saude";
 import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/convenios/modulo-convenios";
-import {ModuloCursos} from "@/features/recursos-humanos/gestao-treinamentos/cursos/modulo-cursos";
-import {
-    ModuloAvaliacoesDesempenho
-} from "@/features/recursos-humanos/gestao-treinamentos/avaliacoes-desempenho/modulo-avaliacoes-desempenho";
-import {
-    ModuloPlanoCarreira
-} from "@/features/recursos-humanos/gestao-treinamentos/plano-carreira/modulo-plano-carreira";
-import {ModuloVagas} from "@/features/recursos-humanos/gestao-recrutamento-selecao/vagas/modulo-vagas";
-import {
-    ModuloSelecaoCandidatos
-} from "@/features/recursos-humanos/gestao-recrutamento-selecao/selecao-candidatos/modulo-selecao-candidatos";
-import {
-    ModuloProcessosSeletivos
-} from "@/features/recursos-humanos/gestao-recrutamento-selecao/processos-seletivos/modulo-processos-seletivos";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
-import {ModuloDepartamentos} from "@/features/recursos-humanos/gestao-administracao/departamentos/modulo-departamentos";
-import {ModuloUsuarios} from "@/features/manager/gestaoUsuario/usuario/ts/modulo-usuario";
+import {ModuloColaborador} from "@/features/departamento-pessoal/gestao-colaborador/modulo-colaborador";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
+    ModuloColaborador.infos(),
     {
-        id: 'recursoshumanos-folha-pagamento',
+        id: 'dp-folha-pagamento',
         title: 'Folha de Pagamento',
         icon: icones.folhaPagamento,
         subRoute: [
-            ModuloEventos.infos(),
             ModuloLancamentos.infos(),
+            ModuloEventos.infos(),
             ModuloContraCheque.infos()
         ]
     },
     {
-        id: 'recursoshumanos-ponto-frequencia',
+        id: 'dp-ponto-frequencia',
         title: 'Ponto e Frequência',
         icon: icones.pontoFrequencia,
         subRoute: [
             ModuloRegistroDePonto.infos(),
             ModuloJornadas.infos(),
-            ModuloEscalas.infos()
+            ModuloEscalas.infos(),
         ]
     },
     {
-        id: 'recursoshumanos-beneficios',
+        id: 'dp-beneficios',
         title: 'Benefícios',
         icon: icones.beneficios,
         subRoute: [
             ModuloValeTransporte.infos(),
             ModuloValeAlimentacao.infos(),
             ModuloPlanoSaude.infos(),
-            ModuloConvenios.infos()
+            ModuloConvenios.infos(),
         ]
     },
     {
-        id: 'recursoshumanos-treinamentos',
-        title: 'Treinamentos',
-        icon: icones.treinamentos,
-        subRoute: [
-            ModuloCursos.infos(),
-            ModuloAvaliacoesDesempenho.infos(),
-            ModuloPlanoCarreira.infos()
-        ]
-    },
-    {
-        id: 'recursoshumanos-recrutamento-selecao',
-        title: 'Recrutamento e Seleção',
-        icon: icones.recrutamentoSelecao,
-        subRoute: [
-            ModuloVagas.infos(),
-            ModuloSelecaoCandidatos.infos(),
-            ModuloProcessosSeletivos.infos()
-        ]
-    },
-    {
-        id: 'recursoshumanos-desligamentos',
+        id: 'dp-desligamentos',
         title: 'Desligamentos',
         icon: icones.desligamentos,
         subRoute: [
             ModuloRescisoes.infos()
         ]
-    },
-    {
-        id: 'recursoshumanos-administracao',
-        title: 'Administração',
-        icon: icones.administracao,
-        subRoute: [
-            ModuloDepartamentos.infos(),
-            ModuloUsuarios.infos()
-        ]
-    },
+    }
 ];
 

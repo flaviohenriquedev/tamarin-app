@@ -1,17 +1,18 @@
 import {useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
-import {inputStyle} from "@/components/ui/input/style";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 type Props = {
-    values: TSelectItem[]
-    onSelect: (value: TSelectItem) => void
+    values: TSelectItem[];
+    onSelect: (value: TSelectItem) => void;
+    widthClass?: string;
+    valorPadrao?: TSelectItem;
 }
 
-export function SelectItem({values, onSelect}: Props) {
+export function SelectItem({values, widthClass, onSelect, valorPadrao}: Props) {
     const [showList, setShowList] = useState(false);
-    const [itemSelecionado, setItemSelecionado] = useState<TSelectItem>();
+    const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
 
     function handleShowList() {
         setShowList(!showList);
@@ -31,11 +32,30 @@ export function SelectItem({values, onSelect}: Props) {
         })
     }
 
+    function getLabel(item: TSelectItem | undefined): string {
+        if (item) {
+            return item.labelWhenSelected ? item.labelWhenSelected : item.label;
+        }
+        return 'Selecione';
+    }
+
     return (
-        <div className="relative min-w-52">
+        <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
             <div
                 className={`
-                    ${inputStyle}
+                    input
+                    bg-transparent
+                    input-sm
+                    px-3
+                    py-4
+                    ${widthClass ? widthClass : 'min-w-52 w-full'}
+                    rounded-[.2rem]
+                    border-base-200
+                    shadow-none
+                    focus:outline-hidden
+                    focus:border-primary
+                    transition-colors ease-in-out
+                    duration-200
                     flex
                     items-center
                     justify-between
@@ -43,15 +63,16 @@ export function SelectItem({values, onSelect}: Props) {
                 `}
                 onClick={handleShowList}
             >
-                <label>{itemSelecionado ? itemSelecionado.label : 'Selecione'}</label>
+                <label>{getLabel(itemSelecionado)}</label>
                 <IoIosArrowDown
                     className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
                 />
             </div>
 
-            <ul
-                className={`
-                    z-10
+            {showList && (
+                <ul
+                    className={`
+                    z-50
                     border
                     border-base-300
                     bg-base-100
@@ -60,17 +81,21 @@ export function SelectItem({values, onSelect}: Props) {
                     left-0
                     top-full
                     mt-1
-                    overflow-hidden
+                    max-h-44
+                    overflow-y-scroll
                     transition-all
                     duration-300
-                    w-full
+                    shadow-md
+                    p-2
+                    ${widthClass ? 'truncate' : 'w-full'}
                     rounded-sm
                     text-[9pt]
                     ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}
                 `}
-            >
-                {renderItens()}
-            </ul>
+                >
+                    {renderItens()}
+                </ul>
+            )}
         </div>
     )
 }
