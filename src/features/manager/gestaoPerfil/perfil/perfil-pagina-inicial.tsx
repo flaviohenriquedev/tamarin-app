@@ -52,9 +52,9 @@ export function PerfilPaginaInicial() {
         return perfil.sistemas.map(ps => ps.clienteSistema.id).some(csid => clienteSistema.id === csid)
     }, [perfil.sistemas]);
 
-    function aplicarRotasFiltradas(clienteSistema: ClienteSistema) {
+    const aplicarRotasFiltradas = useCallback((clienteSistema: ClienteSistema) => {
         return perfil.sistemas.filter(ps => ps.clienteSistema.id === clienteSistema.id).flatMap(s => s.rotas)
-    }
+    }, [perfil.sistemas]);
 
     useEffect(() => {
         if (clienteSelecionado.sistemas && clienteSelecionado.sistemas.length > 0) {
@@ -69,7 +69,7 @@ export function PerfilPaginaInicial() {
             })
             setListaPerfilSistema(listaPS);
         }
-    }, [checkPerfilSistema, clienteSelecionado, perfil]);
+    }, [aplicarRotasFiltradas, checkPerfilSistema, clienteSelecionado, perfil]);
 
     const atualizarLista = useCallback(() => {
         perfilService.listar().then(result => setListaPerfil(result))

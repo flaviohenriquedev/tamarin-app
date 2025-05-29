@@ -5,7 +5,7 @@ import ptBR from 'react-phone-number-input/locale/pt-BR'
 import React, {InputHTMLAttributes, useEffect, useState} from 'react'
 import {CountryCode} from 'libphonenumber-js'
 import {inputStyle} from "@/components/ui/input/style";
-import {SelectPaises} from "@/app/(autenticado)/dev/select-paises";
+import {SelectPaises} from "@/app/(desenvolvimento)/dev/select-paises";
 import {Asterisk} from "lucide-react";
 import {get, set} from "lodash";
 

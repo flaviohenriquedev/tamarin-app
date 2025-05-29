@@ -267,3 +267,16 @@
     --color-black: #000;
     --color-white: #fff;
 }
+
+@layer utilities {
+    .bg-grain::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAvUlEQVR4Ae3RwQ2AIBAF0YQ3sL/v2VykGak7M16rDCv8pkECBAgQIDAn4IsTSABhyiF9AZX8QSVsUJSUwEBZ0sAEKpCEIQyrXEosRwFmvDQSSTCtEkKxDFIEZ9lDsQxSFGPZQzEElMQ2mUSJSHqVZwlJUCxDEpXzEklMGavHRSUxzqgRJWFCEkYJyiC6F0A9zzrSM5gAAQIECBAg8J+2AEMqHhsJrXgAAAAASUVORK5CYII=');
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: 0;
+        mix-blend-mode: multiply;
+    }
+}
