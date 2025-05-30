@@ -2,10 +2,12 @@
 
 import React from 'react'
 import {Montserrat} from "next/font/google";
-import {Users} from "lucide-react";
+import {Briefcase, Users} from "lucide-react";
 import {motion} from "framer-motion";
 import Image from "next/image";
 import {icones} from "@/components/common/icones";
+import {IoSettingsSharp} from "react-icons/io5";
+import {useRouter} from "next/navigation";
 
 const inter = Montserrat({
     subsets: ['latin'],
@@ -13,6 +15,9 @@ const inter = Montserrat({
 });
 
 export default function DevPage() {
+
+    const route = useRouter();
+
     return (
         <main className={`
               relative flex flex-col w-screen h-screen gap-20
@@ -55,61 +60,115 @@ export default function DevPage() {
                         Olá, Flavio.
                     </label>
 
-                    <div className={`flex gap-4 p-10 rounded-xl bg-white/30 backdrop-blur-sm border border-white`}>
+                    <motion.div
+                        initial={{opacity: 0, y: 30}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{
+                            duration: 0.5,
+                            ease: 'easeOut'
+                        }}
+                        className={`flex gap-4 p-10 rounded-xl bg-white/30 backdrop-blur-sm border border-white`}
+                    >
                         <motion.div
+                            onClick={() => route.push("/dev/pagina-inicial")}
+                            initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
+                            animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
+                            transition={{
+                                duration: 0.3,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                                delay: 0.1
+                            }}
                             whileHover={{scale: 1.05}}
-                            transition={{type: "spring", stiffness: 300, damping: 20}}
                             className={`
-                                bg-white
-                                text-[15pt]
-                                flex flex-col
-                                justify-center
-                                gap-2 
-                                text-neutral-400
-                                w-[20rem]
-                                h-[10rem]
-                                cursor-pointer
-                                font-normal
-                                px-5
-                                py-8
-                                rounded-lg
-                                shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
-                                transition-colors
-                                duration-200
-                                hover:text-orange-400
-                            `}
+                                    bg-white
+                                    text-[15pt]
+                                    flex flex-col
+                                    justify-center
+                                    gap-2 
+                                    text-neutral-400
+                                    w-[20rem]
+                                    h-[10rem]
+                                    cursor-pointer
+                                    font-normal
+                                    px-5
+                                    py-8
+                                    rounded-lg
+                                    shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
+                                    transition-colors
+                                    duration-200
+                                    hover:text-orange-300
+                                `}
                         >
                             <Users size={25}/>
                             <span>Recursos Humanos</span>
                         </motion.div>
 
                         <motion.div
+                            initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
+                            animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
+                            transition={{
+                                duration: 0.3,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                                delay: 0.1
+                            }}
                             whileHover={{scale: 1.05}}
-                            transition={{type: "spring", stiffness: 300, damping: 20}}
                             className={`
-                                bg-white
-                                text-[15pt]
-                                flex flex-col
-                                justify-center
-                                gap-2 
-                                text-neutral-400
-                                w-[20rem]
-                                h-[10rem]
-                                cursor-pointer
-                                font-normal
-                                px-5
-                                py-8
-                                rounded-lg
-                                shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
-                                transition-colors
-                                duration-200
-                                hover:text-blue-300
-                            `}
+                                    bg-white
+                                    text-[15pt]
+                                    flex flex-col
+                                    justify-center
+                                    gap-2 
+                                    text-neutral-400
+                                    w-[20rem]
+                                    h-[10rem]
+                                    cursor-pointer
+                                    font-normal
+                                    px-5
+                                    py-8
+                                    rounded-lg
+                                    shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
+                                    transition-colors
+                                    duration-200
+                                    hover:text-violet-300
+                                `}
                         >
-                            <Users size={25}/>
-                            <span>Recursos Humanos</span>
+                            <Briefcase size={25}/>
+                            <span>Departamento Pessoal</span>
                         </motion.div>
-                    </div>
+
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
+                            animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
+                            transition={{
+                                duration: 0.3,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                                delay: 0.1
+                            }}
+                            whileHover={{scale: 1.05}}
+                            className={`
+                                    bg-white
+                                    text-[15pt]
+                                    flex flex-col
+                                    justify-center
+                                    gap-2 
+                                    text-neutral-400
+                                    w-[20rem]
+                                    h-[10rem]
+                                    cursor-pointer
+                                    font-normal
+                                    px-5
+                                    py-8
+                                    rounded-lg
+                                    shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
+                                    transition-colors
+                                    duration-200
+                                    hover:text-blue-300
+                                `}
+                        >
+                            <IoSettingsSharp size={25}/>
+                            <span>Administração</span>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div>
         </main>

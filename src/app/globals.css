@@ -280,3 +280,7 @@
         mix-blend-mode: multiply;
     }
 }
+
+.arcano-container {
+    @apply bg-white shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)] rounded-lg border border-white backdrop-blur-sm
+}

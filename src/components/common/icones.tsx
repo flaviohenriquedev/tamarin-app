@@ -1,31 +1,37 @@
 // icones.ts
-import {
-    MdAttachMoney,
-    MdCardGiftcard,
-    MdExitToApp,
-    MdHowToReg,
-    MdOutlineAccessTime,
-    MdOutlineAdminPanelSettings,
-    MdSchool
-} from "react-icons/md";
-import {BsPersonPlus} from "react-icons/bs";
+import {MdOutlineAdminPanelSettings} from "react-icons/md";
 import {IoIosArrowForward} from "react-icons/io";
 import {PiDotsThreeFill} from "react-icons/pi";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
 import {LuFile, LuFolderInput, LuFolderTree} from "react-icons/lu";
-import {Building2, Check, Columns3Cog, ListRestart, LogOut, Settings, User} from "lucide-react";
+import {
+    Building2,
+    CalendarClock,
+    Check,
+    Columns3Cog,
+    Gift,
+    GraduationCap,
+    HandCoins,
+    ListRestart,
+    LogOut,
+    PinOff,
+    Settings,
+    User,
+    UserCog,
+    UserRoundSearch
+} from "lucide-react";
 
-const tamanhoIcone = 15
+const tamanhoIcone = 22
 export const icones = {
     usuario: <User size={tamanhoIcone}/>,
-    folhaPagamento: <MdAttachMoney size={tamanhoIcone}/>,
-    pontoFrequencia: <MdOutlineAccessTime size={tamanhoIcone}/>,
-    beneficios: <MdCardGiftcard size={tamanhoIcone}/>,
-    treinamentos: <MdSchool size={tamanhoIcone}/>,
-    recrutamentoSelecao: <MdHowToReg size={tamanhoIcone}/>,
-    desligamentos: <MdExitToApp size={tamanhoIcone}/>,
+    folhaPagamento: <HandCoins strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone} />,
+    pontoFrequencia: <CalendarClock strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
+    beneficios: <Gift strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
+    treinamentos: <GraduationCap strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
+    recrutamentoSelecao: <UserRoundSearch strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
+    desligamentos: <PinOff strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
     administracao: <MdOutlineAdminPanelSettings size={tamanhoIcone}/>,
-    colaboradores: <BsPersonPlus size={tamanhoIcone}/>,
+    colaboradores: <UserCog strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
     setaParaDireita: <IoIosArrowForward size={tamanhoIcone}/>,
     tresPontos: <PiDotsThreeFill size={tamanhoIcone}/>,
     tresPontosCirculado: <HiOutlineDotsCircleHorizontal size={tamanhoIcone}/>,
