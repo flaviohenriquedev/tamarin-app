@@ -50,7 +50,6 @@ export function ComponenteSelecionarSistema() {
               w-screen
               h-screen
               gap-20
-              bg-gradient-to-br from-blue-200 via-violet-100 to-white
             `}>
             <div className={`w-[70%] h-[50%] mt-30`}>
                 {usuarioLogado && (
@@ -99,30 +98,6 @@ export function ComponenteSelecionarSistema() {
                     </>
                 )}
             </div>
-
-            {/*{usuarioLogado && (*/}
-            {/*    <div id={`content`} className={`flex flex-col justify-start mt-40 w-[50%] h-full items-center gap-4 `}>*/}
-            {/*        <label className={`text-neutral-400 font-light text-[30pt] ${inter.className}`}>*/}
-            {/*            Olá, {nomeUsuario}.*/}
-            {/*        </label>*/}
-
-            {/*        <div className={`flex justify-center w-full`}>*/}
-            {/*            <motion.div*/}
-            {/*                initial={{opacity: 0, y: 30}}*/}
-            {/*                animate={{opacity: 1, y: 0}}*/}
-            {/*                transition={{*/}
-            {/*                    duration: 0.5,*/}
-            {/*                    ease: 'easeOut'*/}
-            {/*                }}*/}
-            {/*                className={`flex gap-4 p-10 rounded-xl bg-white/30 backdrop-blur-sm border border-white`}*/}
-            {/*            >*/}
-            {/*                {listaSistemasPermitidos.map(sistema => (*/}
-            {/*                    <CardSistema key={sistema} sistema={sistema}/>*/}
-            {/*                ))}*/}
-            {/*            </motion.div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*)}*/}
         </main>
     )
 

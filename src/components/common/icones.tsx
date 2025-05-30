@@ -21,7 +21,7 @@ import {
     UserRoundSearch
 } from "lucide-react";
 
-const tamanhoIcone = 22
+const tamanhoIcone = 20
 export const icones = {
     usuario: <User size={tamanhoIcone}/>,
     folhaPagamento: <HandCoins strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone} />,

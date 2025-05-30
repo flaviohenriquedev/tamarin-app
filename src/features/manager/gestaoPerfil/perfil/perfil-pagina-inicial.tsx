@@ -92,7 +92,6 @@ export function PerfilPaginaInicial() {
         Object.assign(perfilFiltrado, perfil);
         perfilFiltrado.sistemas = listaPerfilSistema.filter(ps => ps.checked);
         perfilFiltrado.cliente = clienteSelecionado;
-        console.log(perfilFiltrado);
         perfilService.salvar(perfilFiltrado).then(result => {
             if (result) setListaPerfil(prev => [...prev, result])
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);

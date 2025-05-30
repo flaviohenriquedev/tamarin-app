@@ -7,9 +7,10 @@ export default function InitLayout({children}: { children: ReactNode }) {
 
     const status = useAuthRedirect();
 
+    if (status === "loading") return <></>;
     if (status === "unauthenticated") return null;
 
-    console.log('Dentro do InitLayout', status);
-
-    return (<>{children}</>)
+    return (
+        <main className={`p-2`}>{children}</main>
+    )
 }

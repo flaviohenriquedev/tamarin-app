@@ -28,7 +28,12 @@ export default function RootLayout({
     return (
         <html lang="pt-BR" suppressHydrationWarning>
         <body
-            className={`antialiased overflow-hidden bg-base-200 ${inter.className}`}
+            className={`
+            antialiased
+            overflow-hidden
+            bg-system
+            text-neutral-700
+             ${inter.className}`}
         >
         <Providers>
             <Toaster richColors position={`top-center`} icons={{

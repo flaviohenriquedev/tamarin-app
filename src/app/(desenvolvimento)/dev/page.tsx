@@ -18,10 +18,22 @@ export default function DevPage() {
 
     const route = useRouter();
 
+
+
     return (
         <main className={`
-              relative flex flex-col w-screen h-screen gap-20
-              bg-gradient-to-br from-blue-200 via-violet-100 to-white
+              relative
+              flex
+              flex-col
+              w-screen
+              h-screen
+              gap-20
+              text-neutral-800
+              bg-gradient-to-br
+              from-white 
+              via-blue-100 to-violet-200
+              overflow-hidden
+              backdrop-blur-2xln
             `}>
             <header className={`flex px-4 py-2`}>
                 <div className={`w-fit ml-auto px-8`}>

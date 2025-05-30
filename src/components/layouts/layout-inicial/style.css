@@ -7,7 +7,6 @@
 
 .side-bar {
     grid-area: side-bar;
-    height: 100%;
 }
 
 .content {

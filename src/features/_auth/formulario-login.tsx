@@ -8,6 +8,13 @@ import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";
 import {Feather} from "lucide-react";
+import {Inter} from "next/font/google";
+import Link from "next/link";
+
+const fontLogin = Inter({
+    subsets: ['latin'],
+    weight: ['500'], // ou outros pesos que tu for usar
+});
 
 export function FormularioLogin() {
     const router = useRouter();
@@ -28,29 +35,65 @@ export function FormularioLogin() {
     }
 
     return (
-        <div className={'bg-white/20 border-2 border-white rounded-lg p-30 backdrop-blor-md shadow-lg'}>
-            <form className={'flex flex-col gap-5 w-96'} onSubmit={handleSubmit}>
-                <div className={`flex items-center justify-center gap-3 text-neutral-900 text-center p-4 text-[30pt] font-semibold`}>
-                    <Feather size={30}/>
-                    <label>Arcano</label>
+        <div className={'bg-white/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
+            <form className={'flex flex-col gap-8 w-96'} onSubmit={handleSubmit}>
+
+                <div className={`flex items-center justify-between`}>
+                    <div className={`${fontLogin.className} text-semibold text-[24pt]`}>
+                        Login
+                    </div>
+
+                    <div
+                        className={`flex items-center justify-center gap-3 text-center p-4 text-[15pt] font-semibold`}>
+                        <Feather size={15}/>
+                        <label>Arcano</label>
+                    </div>
                 </div>
 
-                <LineContentFill>
-                    <InputString entidade={autenticacao}
-                                 placeholder={`Email`}
-                                 atributo={`email`}
-                                 name={`email`}
-                                 type={"email"}/>
-                </LineContentFill>
+                <div className={`flex flex-col gap-2`}>
+                    <LineContentFill>
+                        <InputString label={`Email`}
+                                     entidade={autenticacao}
+                                     atributo={`email`}
+                                     name={`email`}
+                                     type={"email"}/>
+                    </LineContentFill>
 
-                <LineContentFill>
-                    <InputString entidade={autenticacao}
-                                 placeholder={`Senha`}
-                                 atributo={`senha`}
-                                 name={`senha`}
-                                 type={`password`}/>
-                </LineContentFill>
+                    <LineContentFill>
+                        <InputString label={`Senha`}
+                                     entidade={autenticacao}
+                                     atributo={`senha`}
+                                     name={`senha`}
+                                     type={`password`}/>
+                    </LineContentFill>
 
+                    <LineContentFill justifyContent={`end`}>
+                        <Link href={``}
+                              className={`
+                                  relative
+                                  p-1
+                                  text-sm
+                                  text-indigo-600
+                                  before:content-['']
+                                  before:absolute
+                                  before:bottom-0
+                                  before:left-1/2
+                                  before:w-0
+                                  before:h-[1px]
+                                  before:bg-indigo-600
+                                  before:transition-all
+                                  before:duration-300
+                                  before:ease-in-out
+                                  hover:before:left-0
+                                  hover:before:w-full
+                                `}>
+                              <span>
+                                Esqueci minha senha!
+                              </span>
+                        </Link>
+
+                    </LineContentFill>
+                </div>
                 <Button buttonSize={`md`} type={'submit'}>Entrar</Button>
             </form>
         </div>

@@ -17,7 +17,7 @@ export function Header({sistema}: Props) {
     const router = useRouter();
 
     return (
-        <header className={`content-header rounded-sm bg-base-200 flex items-center justify-between pl-3 pr-4 w-full h-14 border-b border-base-300/50`}>
+        <header className={`content-header rounded-sm bg-base-200 flex items-center justify-between pl-3 pr-4 w-full h-16 border-b border-base-300/50`}>
             <div className={`flex items-center gap-2`}>
                 <label className={`cursor-pointer text-sm text-base-content/60 hover:text-base-content`}
                        onClick={() => sistema && router.push(sistema.href)}>{sistema && SistemaENUMFactory.getDescricao(sistema.sistema)}</label>

@@ -1,4 +1,3 @@
-import {icones} from "@/components/common/icones";
 import {ModulosType} from "@/types/_root/ModulosTypes";
 
 type Modulos = 'COLABORADOR'
@@ -8,8 +7,7 @@ export const ModuloColaborador: ModulosType<Modulos> = {
         return {
             id: 'recursoshumanos-colaborador',
             modulo: 'COLABORADOR',
-            title: 'Colaborador',
-            icon: icones.colaboradores,
+            title: 'Cadastro',
             href: '/rh/colaborador',
             funcionalidades: this.funcionalidades!()
         };

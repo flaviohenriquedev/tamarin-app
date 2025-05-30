@@ -22,7 +22,14 @@ import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/
 import {ModuloColaborador} from "@/features/departamento-pessoal/gestao-colaborador/modulo-colaborador";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
-    ModuloColaborador.infos(),
+    {
+        id: 'dp-colaborador',
+        title: 'Colaborador',
+        icon: icones.colaboradores,
+        subRoute: [
+            ModuloColaborador.infos(),
+        ]
+    },
     {
         id: 'dp-folha-pagamento',
         title: 'Folha de Pagamento',
