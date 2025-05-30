@@ -8,7 +8,7 @@ export const ModuloPlanoCarreira: ModulosType<Modulo> = {
             id: 'treinamentos-plano-carreira',
             modulo: 'PLANO_CARREIRA',
             title: 'Plano de Carreira',
-            href: '/rh/treinamentos/plano-carreira'
+            href: '/app/rh/treinamentos/plano-carreira'
         }
     }
 }

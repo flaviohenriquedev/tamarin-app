@@ -8,7 +8,7 @@ export const ModuloJornadas: ModulosType<Modulos> = {
             id: 'ponto-frequencia-jornadas',
             modulo: 'JORNADAS',
             title: 'Jornadas',
-            href: '/rh/ponto/registro'
+            href: '/app/rh/ponto/registro'
         };
     }
 }

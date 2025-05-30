@@ -8,7 +8,7 @@ export const ModuloGestoPerfil: ModulosType<Modulos> = {
             id: 'gerenciar-sistema-controle-acesso-perfis',
             title: 'Perfis',
             modulo: 'GESTAO_PERFIL',
-            href: '/manager/perfis'
+            href: '/app/manager/perfis'
         };
     }
 }

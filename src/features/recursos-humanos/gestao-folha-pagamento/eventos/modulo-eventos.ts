@@ -8,7 +8,7 @@ export const ModuloEventos: ModulosType<Modulos> = {
             id: 'eventos',
             modulo: 'EVENTOS',
             title: 'Eventos',
-            href: '/rh/folha-pagamento/eventos',
+            href: '/app/rh/folha-pagamento/eventos',
             funcionalidades: this.funcionalidades!()
         };
     },

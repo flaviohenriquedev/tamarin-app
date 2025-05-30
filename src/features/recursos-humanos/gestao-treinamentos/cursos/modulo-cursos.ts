@@ -8,7 +8,7 @@ export const ModuloCursos: ModulosType<Modulo> = {
             id: 'treinamentos-cursos',
             modulo: 'CURSOS',
             title: 'Cursos',
-            href: '/rh/treinamentos/cursos'
+            href: '/app/rh/treinamentos/cursos'
         }
     }
 }

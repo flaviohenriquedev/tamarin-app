@@ -8,7 +8,7 @@ export const ModuloRescisoes: ModulosType<Modulo> = {
             id: 'recursoshumanos-desligamentos-rescisoes',
             modulo: 'RESCISOES',
             title: 'Rescisões',
-            href: '/rh/desligamento/rescisoes'
+            href: '/app/rh/desligamento/rescisoes'
         }
     }
 }

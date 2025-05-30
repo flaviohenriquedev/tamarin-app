@@ -8,7 +8,7 @@ export const ModuloConvenios: ModulosType<Modulo> = {
             id: 'beneficios-convenios',
             modulo: 'CONVENIOS',
             title: 'Convênios',
-            href: '/rh/beneficios/convenios'
+            href: '/app/rh/beneficios/convenios'
         }
     }
 }

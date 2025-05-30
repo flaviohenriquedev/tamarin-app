@@ -8,7 +8,7 @@ export const ModuloAvaliacoesDesempenho: ModulosType<Modulo> = {
             id: 'treinamentos-avaliacoes-desempenho',
             modulo: 'AVALIACOES_DESEMPENHO',
             title: 'Avaliações de Desempenho',
-            href: '/rh/treinamentos/avaliacoes'
+            href: '/app/rh/treinamentos/avaliacoes'
         }
     }
 }

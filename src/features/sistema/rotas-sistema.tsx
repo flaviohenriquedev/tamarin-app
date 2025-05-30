@@ -13,7 +13,7 @@ export const rotasSistema: SistemaType[] = [
         sistema: SistemaENUM.RECURSOS_HUMANOS,
         sistemaMaster: false,
         icone: <HiUsers size={sizeIcon}/>,
-        href: '/rh',
+        href: '/app/rh',
         destaque: false,
         rotas: rotasRecursosHumanos
     },
@@ -21,7 +21,7 @@ export const rotasSistema: SistemaType[] = [
         sistema: SistemaENUM.DEPARTAMENTO_PESSOAL,
         sistemaMaster: false,
         icone: <Briefcase size={sizeIcon}/>,
-        href: '/rh',
+        href: '/app/rh',
         destaque: false,
         rotas: rotasDepartamentoPessoal
     },
@@ -29,7 +29,7 @@ export const rotasSistema: SistemaType[] = [
         sistema: SistemaENUM.GERENCIAR_SISTEMA,
         sistemaMaster: true,
         icone: <IoSettingsSharp size={sizeIcon}/>,
-        href: '/config',
+        href: '/app/config',
         destaque: true,
         rotas: rotasGerenciamentoSistema
     }

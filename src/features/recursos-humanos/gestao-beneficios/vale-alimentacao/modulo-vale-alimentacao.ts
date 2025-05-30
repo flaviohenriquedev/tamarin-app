@@ -8,7 +8,7 @@ export const ModuloValeAlimentacao: ModulosType<Modulo> = {
             id: 'beneficios-vale-alimentacao',
             modulo: 'VALE_ALIMENTACAO',
             title: 'Vale Alimentação',
-            href: '/rh/beneficios/vale-alimentacao'
+            href: '/app/rh/beneficios/vale-alimentacao'
         }
     }
 }

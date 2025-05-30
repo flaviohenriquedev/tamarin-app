@@ -57,3 +57,7 @@ export function parseDateBR(value: string): Date | undefined {
 export function formatDateBR(date: Date): string {
     return format(date, FORMAT_BR);
 }
+
+export function getPrimeiroNome(nomeCompleto: string) {
+    return nomeCompleto.trim().split(/\s+/)[0];
+}

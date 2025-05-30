@@ -1,13 +1,13 @@
 'use client'
 
 import React, {FormEvent} from 'react';
-import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/input-string";
 import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";
+import {Feather} from "lucide-react";
 
 export function FormularioLogin() {
     const router = useRouter();
@@ -28,30 +28,31 @@ export function FormularioLogin() {
     }
 
     return (
-        <form className={'flex flex-col gap-5 w-96'} onSubmit={handleSubmit}>
+        <div className={'bg-white/20 border-2 border-white rounded-lg p-30 backdrop-blor-md shadow-lg'}>
+            <form className={'flex flex-col gap-5 w-96'} onSubmit={handleSubmit}>
+                <div className={`flex items-center justify-center gap-3 text-neutral-900 text-center p-4 text-[30pt] font-semibold`}>
+                    <Feather size={30}/>
+                    <label>Arcano</label>
+                </div>
 
-            <div className={`flex flex-col items-center pb-5`}>
-                <Image src={"/assets/img/logo-tamarin.png"} alt={"logo"} width={50} height={50}/>
-                <span className={`text-xl mt-1`}>tamar<strong>in</strong></span>
-            </div>
-            
-            <LineContentFill>
-                <InputString entidade={autenticacao}
-                             placeholder={`Email`}
-                             atributo={`email`}
-                             name={`email`}
-                             type={"email"}/>
-            </LineContentFill>
+                <LineContentFill>
+                    <InputString entidade={autenticacao}
+                                 placeholder={`Email`}
+                                 atributo={`email`}
+                                 name={`email`}
+                                 type={"email"}/>
+                </LineContentFill>
 
-            <LineContentFill>
-                <InputString entidade={autenticacao}
-                             placeholder={`Senha`}
-                             atributo={`senha`}
-                             name={`senha`}
-                             type={`password`}/>
-            </LineContentFill>
+                <LineContentFill>
+                    <InputString entidade={autenticacao}
+                                 placeholder={`Senha`}
+                                 atributo={`senha`}
+                                 name={`senha`}
+                                 type={`password`}/>
+                </LineContentFill>
 
-            <Button buttonSize={`sm`} type={'submit'}>Entrar</Button>
-        </form>
+                <Button buttonSize={`md`} type={'submit'}>Entrar</Button>
+            </form>
+        </div>
     );
 }

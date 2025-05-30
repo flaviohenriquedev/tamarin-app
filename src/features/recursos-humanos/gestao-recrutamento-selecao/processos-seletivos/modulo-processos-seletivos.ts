@@ -8,7 +8,7 @@ export const ModuloProcessosSeletivos: ModulosType<Modulo> = {
             id: 'recrutamento-selecao-processos-seletivos',
             modulo: 'PROCESSOS_SELETIVOS',
             title: 'Processos Seletivos',
-            href: '/rh/recrutamento/processos'
+            href: '/app/rh/recrutamento/processos'
         }
     }
 }

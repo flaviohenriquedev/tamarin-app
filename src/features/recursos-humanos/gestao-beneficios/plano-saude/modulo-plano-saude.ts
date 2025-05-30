@@ -8,7 +8,7 @@ export const ModuloPlanoSaude: ModulosType<Modulo> = {
             id: 'beneficios-plano-saude',
             modulo: 'PLANO_SAUDE',
             title: 'Plano de Saúde',
-            href: '/rh/beneficios/plano-saude'
+            href: '/app/rh/beneficios/plano-saude'
         }
     }
 }

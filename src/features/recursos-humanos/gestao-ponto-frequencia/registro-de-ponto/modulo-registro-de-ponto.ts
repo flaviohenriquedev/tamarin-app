@@ -8,7 +8,7 @@ export const ModuloRegistroDePonto: ModulosType<Modulos> = {
             id: 'ponto-frequencia-registro-ponto',
             modulo: 'REGISTRO_DE_PONTO',
             title: 'Registro de Ponto',
-            href: '/rh/ponto/registro'
+            href: '/app/rh/ponto/registro'
         };
     }
 }

@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 import {FormularioLogin} from "@/features/_auth/formulario-login";
 
 export default function PaginaLogin() {
-    const { theme, systemTheme } = useTheme();
+    const {theme, systemTheme} = useTheme();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -24,25 +24,16 @@ export default function PaginaLogin() {
             />
         );
     }
-
-    const backgroundImage = currentTheme === 'dark'
-        ? "url('/assets/img/bg-dark.jpg')"
-        : "url('/assets/img/bg-light.jpg')";
+    //
+    // const backgroundImage = currentTheme === 'dark'
+    //     ? "url('/assets/img/bg-dark.jpg')"
+    //     : "url('/assets/img/bg-light.jpg')";
 
     return (
         <div
-            className="relative min-h-screen bg-center bg-cover bg-no-repeat"
-            style={{
-                backgroundImage: backgroundImage,
-            }}
+            className="flex items-center justify-center min-h-screen bg-system"
         >
-            {/* Capa preta semi-transparente */}
-            <div className="absolute inset-0 bg-base-200 opacity-80" />
-
-            {/* Conteúdo da página */}
-            <div className="flex items-center justify-center p-20 relative z-10">
-                <FormularioLogin />
-            </div>
+            <FormularioLogin/>
         </div>
     );
 }

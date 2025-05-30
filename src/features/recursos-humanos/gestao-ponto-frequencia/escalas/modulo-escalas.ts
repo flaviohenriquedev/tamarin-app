@@ -8,7 +8,7 @@ export const ModuloEscalas: ModulosType<Modulos> = {
             id: 'ponto-frequencia-escalas',
             modulo: 'ESCALAS',
             title: 'Escalas',
-            href: '/rh/ponto/escalas'
+            href: '/app/rh/ponto/escalas'
         };
     }
 }

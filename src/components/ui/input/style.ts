@@ -1,13 +1,13 @@
 export const inputStyle = `
     input
-    bg-transparent
-    input-sm
+    bg-base-100
+    input-md
     px-3
     py-4
     w-full
     min-w-52
-    rounded-[.2rem]
-    border-base-200
+    rounded-lg
+    border-base-300
     shadow-none
     focus:outline-hidden
     focus:border-primary

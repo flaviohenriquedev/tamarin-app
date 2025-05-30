@@ -8,7 +8,7 @@ export const ModuloValeTransporte: ModulosType<Modulos> = {
             id: 'beneficios-vale-transporte',
             modulo: 'VALE_TRANSPORTE',
             title: 'Vale Transporte',
-            href: '/rh/beneficios/vale-transporte'
+            href: '/app/rh/beneficios/vale-transporte'
         };
     }
 }

@@ -8,7 +8,7 @@ export const ModuloSelecaoCandidatos: ModulosType<Modulo> = {
             id: 'recrutamento-selecao-candidatos',
             modulo: 'SELECAO_CANDIDATOS',
             title: 'Candidatos',
-            href: '/rh/recrutamento/candidatos'
+            href: '/app/rh/recrutamento/candidatos'
         }
     }
 }

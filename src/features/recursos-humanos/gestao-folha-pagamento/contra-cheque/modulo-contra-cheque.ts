@@ -8,7 +8,7 @@ export const ModuloContraCheque: ModulosType<Modulos> = {
             id: 'contra-cheque',
             modulo: 'CONTRA_CHEQUE',
             title: 'Contra-cheque',
-            href: '/rh/folha-pagamento/lancamentos'
+            href: '/app/rh/folha-pagamento/lancamentos'
         };
     }
 }

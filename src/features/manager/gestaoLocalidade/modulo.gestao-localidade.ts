@@ -8,7 +8,7 @@ export const ModuloGestaoLocalidade: ModulosType<Modulos> = {
             id: 'gerenciar-sistema-dominio-localidade',
             title: 'Localidade',
             modulo: 'GESTAO_LOCALIDADE',
-            href: '/config/localidade',
+            href: '/app/config/localidade',
         };
     }
 }

@@ -8,7 +8,14 @@
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
-    --color-primary: var(--color-orange-400);
+    --color-primary: var(--color-indigo-500);
+    --color-primary-content: white;
+}
+
+[data-theme="light"] {
+    .bg-system {
+        @apply bg-gradient-to-br from-blue-200 via-violet-100 to-white;
+    }
 }
 
 /*noinspection ALL*/

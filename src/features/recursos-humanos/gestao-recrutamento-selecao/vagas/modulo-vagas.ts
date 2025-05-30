@@ -8,7 +8,7 @@ export const ModuloVagas: ModulosType<Modulo> = {
             id: 'recrutamento-selecao-vagas',
             modulo: 'VAGAS',
             title: 'Vagas',
-            href: '/rh/recrutamento/vagas'
+            href: '/app/rh/recrutamento/vagas'
         }
     }
 }

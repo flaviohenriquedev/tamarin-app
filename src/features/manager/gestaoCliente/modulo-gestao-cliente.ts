@@ -10,7 +10,7 @@ export const ModuloGestaoCliente: ModulosType<Modulos> = {
             title: 'Clientes',
             modulo: 'GESTAO_CLIENTE',
             icon: icones.empresa,
-            href: '/config/clientes'
+            href: '/app/config/clientes'
         };
     }
 }

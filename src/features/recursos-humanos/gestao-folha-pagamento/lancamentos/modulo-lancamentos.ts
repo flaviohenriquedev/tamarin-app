@@ -8,7 +8,7 @@ export const ModuloLancamentos: ModulosType<Modulos> = {
             id: 'lancamentos',
             modulo: 'LANCAMENTOS',
             title: 'Lançamentos',
-            href: '/rh/folha-pagamento/lancamentos',
+            href: '/app/rh/folha-pagamento/lancamentos',
             funcionalidades: this.funcionalidades!()
         };
     },

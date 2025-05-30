@@ -1,7 +1,9 @@
-export default function PaginaInicial() {
+import {
+    ComponenteSelecionarSistema
+} from "@/components/layouts/pagina-selecionar-sistema/componente-selecionar-sistema";
+
+export default function Page() {
     return (
-        <div>
-            Página Inicial
-        </div>
+        <ComponenteSelecionarSistema />
     )
 }

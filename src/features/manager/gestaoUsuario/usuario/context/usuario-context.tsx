@@ -57,15 +57,16 @@ export function UsuarioProvider({children}: { children: ReactNode }) {
     }
 
     function getListaSistemasPermitidos(response: Usuario) {
-        setListaSistemasPermitidos(response.perfis.flatMap(p => p.perfil.cliente.sistemas.map(s => s.keySistema)))
+        if (response.usuarioMaster) {
+            return setListaSistemasPermitidos(Object.values(SistemaENUM))
+        }
+        return setListaSistemasPermitidos(response.perfis.flatMap(p => p.perfil.sistemas.map(s => s.clienteSistema.keySistema)))
     }
 
     function getListaModulosPermitidos(response: Usuario) {
         const listaPerfilSistema: PerfilSistema[] = response.perfis.flatMap(p => p.perfil.sistemas)
         setListaModulosPermitidos(listaPerfilSistema.flatMap(ps => ps.rotas.map(r => r.modulo)))
     }
-
-    if (loading) return <div>Carregando dados do usuário...</div>;
 
     return (
         <UsuarioContext.Provider value={{
