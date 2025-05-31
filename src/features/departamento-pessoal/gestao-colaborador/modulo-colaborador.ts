@@ -1,14 +1,14 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
 
-type Modulos = 'COLABORADOR'
+type Modulos = 'ADMISSAO'
 
 export const ModuloColaborador: ModulosType<Modulos> = {
     infos() {
         return {
             id: 'recursoshumanos-colaborador',
-            modulo: 'COLABORADOR',
-            title: 'Cadastro',
-            href: '/rh/colaborador',
+            modulo: 'ADMISSAO',
+            title: 'Admissão',
+            href: 'rh/colaborador',
             funcionalidades: this.funcionalidades!()
         };
     },

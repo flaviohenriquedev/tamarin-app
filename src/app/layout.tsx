@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import {ReactNode} from "react";
 
 import "./globals.css";
-import Providers from "@/providers/providers";
+import ProvidersDefault from "@/providers/providers-default";
 import {Toaster} from "sonner";
 import {CircleCheckBig} from "lucide-react";
 import {Inter} from "next/font/google";
@@ -35,13 +35,13 @@ export default function RootLayout({
             text-neutral-700
              ${inter.className}`}
         >
-        <Providers>
+        <ProvidersDefault>
             <Toaster richColors position={`top-center`} icons={{
                 success: <CircleCheckBig />,
                 error: <CircleCheckBig />
             }}/>
             {children}
-        </Providers>
+        </ProvidersDefault>
         </body>
 
         </html>

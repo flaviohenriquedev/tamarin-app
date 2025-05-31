@@ -2,6 +2,7 @@
 
 import {ReactNode} from "react";
 import {useAuthRedirect} from "@/hooks/useAuthRedirect";
+import ProvidersAuthenticated from "@/providers/providers-authenticated";
 
 export default function InitLayout({children}: { children: ReactNode }) {
 
@@ -11,6 +12,10 @@ export default function InitLayout({children}: { children: ReactNode }) {
     if (status === "unauthenticated") return null;
 
     return (
-        <main className={`p-2`}>{children}</main>
+        <main className={`p-2`}>
+            <ProvidersAuthenticated>
+                {children}
+            </ProvidersAuthenticated>
+        </main>
     )
 }

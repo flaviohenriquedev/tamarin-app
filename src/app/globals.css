@@ -8,13 +8,16 @@
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
-    --color-primary: var(--color-indigo-500);
+    --color-primary: var(--color-violet-500);
     --color-primary-content: white;
 }
 
 [data-theme="light"] {
     .bg-system {
         @apply bg-gradient-to-br from-blue-200 via-violet-100 to-white;
+    }
+    .container-glass {
+        @apply bg-white/30 backdrop-blur-sm border border-white;
     }
 }
 

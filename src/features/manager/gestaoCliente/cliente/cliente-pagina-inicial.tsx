@@ -37,6 +37,7 @@ export function ClientePaginaInicial() {
     const [listaSistemaClienteDualList, setListaSistemaClienteDualList] = useState<DualListboxType[]>([]);
 
     useEffect(() => {
+        console.log('RODOU')
         setListaSistemaDualList(
             rotasSistema.map(item => ({
                 label: SistemaENUMFactory.getDescricao(item.sistema),
