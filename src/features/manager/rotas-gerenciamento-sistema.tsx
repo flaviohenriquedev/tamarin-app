@@ -6,7 +6,14 @@ import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gesta
 import {ModuloGestaoLocalidade} from "@/features/manager/gestaoLocalidade/modulo.gestao-localidade";
 
 export const rotasGerenciamentoSistema: RouteType[] = [
-    ModuloGestaoCliente.infos(),
+    {
+        id: 'gerenciar-sistema-clientes',
+        title: 'Clientes',
+        icon: icones.empresa,
+        subRoute: [
+            ModuloGestaoCliente.infos(),
+        ]
+    },
     {
         id: 'gerenciar-sistema-controle-acesso',
         title: 'Controle de Acesso',

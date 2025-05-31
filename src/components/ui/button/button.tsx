@@ -1,7 +1,7 @@
 import {ButtonHTMLAttributes, ReactNode} from 'react';
 
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ButtonStyle = 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonStyle = 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode,

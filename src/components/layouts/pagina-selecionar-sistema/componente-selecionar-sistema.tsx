@@ -10,6 +10,7 @@ import {getPrimeiroNome} from "@/utils/utils";
 import {frases} from "@/components/layouts/pagina-selecionar-sistema/ts/frases";
 import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/saudacoes";
 import {signOut} from "next-auth/react";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
@@ -17,7 +18,8 @@ const fonteNomeUsuario = Poppins({
 });
 
 export function ComponenteSelecionarSistema() {
-    const {listaSistemasPermitidos, usuarioLogado} = useUsuarioLogado();
+    const { listaSistemasUsuarioLogado } = useSistemaContext();
+    const { usuarioLogado} = useUsuarioLogado();
 
     const [nomeUsuario, setNomeUsuario] = useState('');
 
@@ -73,7 +75,7 @@ export function ComponenteSelecionarSistema() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 whileHover={{ scale: 1.05, backgroundColor: '#2563eb', color: '#fff' }}
                                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                                className="rounded-2xl text-primary-content bg-primary flex items-center gap-5 ml-auto p-4 text-neutral-400"
+                                className="rounded-2xl bg-primary flex items-center gap-5 ml-auto p-4 text-neutral-400"
                             >
                                 <LogOut size={30} />
                             </motion.button>
@@ -89,8 +91,9 @@ export function ComponenteSelecionarSistema() {
                                     }}
                                     className={`flex gap-4 px-20 py-14 rounded-xl bg-white/30 backdrop-blur-sm border border-white`}
                                 >
-                                    {listaSistemasPermitidos.map(sistema => (
-                                        <CardSistema key={sistema} sistema={sistema}/>
+                                    {listaSistemasUsuarioLogado.map(sistema => (
+                                        <CardSistema key={sistema.sistema}
+                                                     sistema={sistema}/>
                                     ))}
                                 </motion.div>
                             </div>

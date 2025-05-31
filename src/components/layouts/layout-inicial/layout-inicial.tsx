@@ -5,20 +5,19 @@ import './style.css'
 import {Header} from "@/components/layouts/header/header";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {RouteType} from "@/types/_root/RouteType";
-import {SistemaType} from "@/features/sistema/types";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {ChevronLeft, Feather, Search} from "lucide-react";
 import {ListaMenu} from "@/components/layouts/layout-inicial/lista-menu";
 import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-lista-menu";
 import {motion} from "framer-motion";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
+    const { sistemaSelecionado, selecionarSistema } = useSistemaContext();
+
     const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
-
     const {usuarioLogado, listaModulosPermitidos} = useUsuarioLogado();
-
-    const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>();
 
     const [searchMenu, setSearchMenu] = useState("");
     const [filteredData, setFilteredData] = useState<RouteType[]>();
@@ -32,7 +31,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         if (sistemaSelecionadoStorage) {
             const sistemaEncontrado = rotasSistema.find(s => s.sistema === sistemaSelecionadoStorage);
             if (sistemaEncontrado) {
-                setSistemaSelecionado(sistemaEncontrado);
+                selecionarSistema(sistemaEncontrado);
             }
         }
     }, [])
@@ -158,6 +157,8 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             >
                                 {sideBarExpandido && (
                                     <input
+                                        value={searchMenu}
+                                        onChange={(e) => setSearchMenu(e.target.value)}
                                         className="w-full h-full border-none outline-none bg-transparent transition-all duration-300"
                                         placeholder="Buscar..."
                                     />

@@ -9,6 +9,7 @@ import {MdDelete} from "react-icons/md";
 import Modal from "@/components/ui/modal/modal";
 import {Button} from "@/components/ui/button/button";
 import {ButtonGroup} from "@/components/ui/button/button-group";
+import {Checkbox} from "@/components/ui/checkbox/checkbox";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
@@ -17,9 +18,10 @@ type Props<E> = {
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
     acoesTabela?: AcoesTabela<E>
+    ocultarCheckbox?: boolean;
 }
 
-export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela}: Props<E>) {
+export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela, ocultarCheckbox = false}: Props<E>) {
 
     const {cliente} = useContext(ClienteContext)
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
@@ -27,7 +29,9 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     function renderHead() {
         return colunas ? colunas.map((coluna, index) => {
-            return <th key={index}>{coluna.descricao}</th>
+            return (
+                <th key={index}>{coluna.descricao}</th>
+            )
         }) : <></>
     }
 
@@ -39,6 +43,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         return lista && lista.length > 0 ? lista.map(item => {
             return (
                 <tr key={Math.random()}>
+                    {getColunaCheck(item)}
                     {renderRowItem(item)}
                     {getAcoes(item)}
                 </tr>
@@ -46,6 +51,14 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         }) : <tr>
             <td>Nenhum dado encontrado</td>
         </tr>
+    }
+
+    function getColunaCheck(e: E) {
+        return !ocultarCheckbox && (
+            <td>
+                <Checkbox entidade={e} atributo={'checked'} />
+            </td>
+        )
     }
 
     function getAcoes(e: E) {
@@ -115,6 +128,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                 <table className="table table-pin-rows">
                     <thead>
                     <tr>
+                        {!ocultarCheckbox && <th><input type="checkbox"/></th>}
                         {renderHead()}
                     </tr>
                     </thead>
@@ -134,7 +148,8 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                         <ButtonGroup>
                             <Button buttonSize={`sm`} buttonStyle={`success`}
                                     onClick={() => excluirEntidade()}>Sim</Button>
-                            <Button buttonSize={`sm`} buttonStyle={`warning`} onClick={() => setOpenModalDelete(false)}>Não</Button>
+                            <Button buttonSize={`sm`} buttonStyle={`warning`}
+                                    onClick={() => setOpenModalDelete(false)}>Não</Button>
                         </ButtonGroup>
                     </div>
                 </Modal>

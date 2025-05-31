@@ -1,35 +1,21 @@
 import {motion} from "framer-motion";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {SistemaType} from "@/features/sistema/types";
-import {useRouter} from "next/navigation";
-import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 type Props = {
-    sistema: SistemaENUM
+    sistema: SistemaType
 }
 
 export function CardSistema({sistema}: Props) {
-
-    const [infosSistema, setInfosSistema] = useState<SistemaType>()
-
-    const router = useRouter();
-
-    useEffect(() => {
-        const rotasSistemaEncontradas = rotasSistema.find(rs => rs.sistema === sistema);
-        setInfosSistema(rotasSistemaEncontradas)
-    }, [sistema])
-
-    function handleNavigate(infoSistema: SistemaType) {
-        localStorage.setItem("sistemaSelecionado", infoSistema.sistema)
-        router.push(infoSistema.href)
-    }
+    const { selecionarSistema } = useSistemaContext();
 
     return (
         <>
-            {infosSistema && (
+            {sistema && (
                 <motion.div
-                    onClick={() => handleNavigate(infosSistema)}
+                    onClick={() => selecionarSistema(sistema, true)}
                     initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
                     animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
                     transition={{
@@ -58,8 +44,8 @@ export function CardSistema({sistema}: Props) {
                                     hover:text-indigo-400
                                 `}
                 >
-                    {infosSistema.icone}
-                    <span>{SistemaENUMFactory.getDescricao(infosSistema.sistema)}</span>
+                    {sistema.icone}
+                    <span>{SistemaENUMFactory.getDescricao(sistema.sistema)}</span>
                 </motion.div>
             )}
         </>
