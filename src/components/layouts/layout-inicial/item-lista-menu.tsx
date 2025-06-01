@@ -104,12 +104,11 @@ export function ItemListaMenu({rota}: Props) {
                             {rota.subRoute.map((subRota) => (
                                 <li key={subRota.id}>
                                     <div className={`
-                                                px-6
+                                                px-10
                                                 overflow-x-hidden
                                                 truncate
                                                 flex
                                                 items-center
-                                                gap-2
                                                 rounded-lg
                                                 h-8
                                                 transition-all
@@ -122,6 +121,9 @@ export function ItemListaMenu({rota}: Props) {
                                                         flex
                                                         items-center
                                                         w-full
+                                                        h-full
+                                                        border-l
+                                                        border-neutral-300
                                                         gap-2
                                                         transition-all
                                                         duration-200

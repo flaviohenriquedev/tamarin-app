@@ -20,6 +20,7 @@ import {Button} from "@/components/ui/button/button";
 import {InputCPF} from "@/components/ui/input/input-cpf";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {InputTelefone} from "@/components/ui/input/input-telefone";
+import {FotoPerfilUploader} from "@/components/ui/foto-perfil-uploader/foto-perfil-uploader";
 
 const colaboradorService = new ColaboradorService();
 
@@ -86,87 +87,97 @@ export function ColaboradorPaginaInicial() {
                 setIsOpen={setOpenModal}
                 onCloseModal={onCloseModal}>
                 <Form onSubmit={salvar}>
-                    <LineContent>
+                    <div className={'flex gap-4'}>
+                        <div className={`flex flex-col`}>
+                            <LineContent>
+                                <InputString
+                                    id={`colaborador_nome_completo`}
+                                    label={'Nome Completo'}
+                                    atributo={'nomeCompleto'}
+                                    entidade={colaborador}/>
 
-                        <InputString
-                            id={`colaborador_nome_completo`}
-                            label={'Nome Completo'}
-                            atributo={'nomeCompleto'}
-                            entidade={colaborador}/>
+                                <InputCPF
+                                    label={'CPF'}
+                                    atributo={'cpf'}
+                                    entidade={colaborador}/>
 
-                        <InputCPF
-                            label={'CPF'}
-                            atributo={'cpf'}
-                            entidade={colaborador}/>
+                                <InputDataCompleta
+                                    label={'Data de Nascimento'}
+                                    atributo={'dataNascimento'}
+                                    entidade={colaborador}/>
 
-                        <InputDataCompleta
-                            label={'Data de Nascimento'}
-                            atributo={'dataNascimento'}
-                            entidade={colaborador}/>
+                                <InputString
+                                    label={'Sexo'}
+                                    atributo={'sexo'}
+                                    entidade={colaborador}/>
 
-                        <InputString
-                            label={'Sexo'}
-                            atributo={'sexo'}
-                            entidade={colaborador}/>
+                            </LineContent>
 
-                    </LineContent>
+                            <LineContent>
 
-                    <LineContent>
+                                <InputString
+                                    id={`colaborador_email`}
+                                    label={'Email'}
+                                    atributo={'email'}
+                                    entidade={colaborador}
+                                    type={'email'}/>
 
-                        <InputString
-                            id={`colaborador_email`}
-                            label={'Email'}
-                            atributo={'email'}
-                            entidade={colaborador}
-                            type={'email'}/>
+                                <InputTelefone
+                                    label={`Telefone`}
+                                    atributo={'telefone'}
+                                    entidade={colaborador}/>
+                            </LineContent>
+                            <LineContent>
+                                <InputDataCompleta
+                                    label={'Data de Admissão'}
+                                    atributo={'dataAdmissao'}
+                                    entidade={colaborador}/>
+                                <InputDataCompleta
+                                    label={'Data de Demissão'}
+                                    atributo={'dataDemissao'}
+                                    entidade={colaborador}/>
+                                <InputNumerico
+                                    label={'Salário'}
+                                    atributo={'salario'}
+                                    entidade={colaborador}/>
+                                <InputString
+                                    label={'Tipo de Contrato'}
+                                    atributo={'tipoContrato'}
+                                    entidade={colaborador}/>
+                            </LineContent>
 
-                        <InputTelefone
-                            label={`Telefone`}
-                            atributo={'telefone'}
-                            entidade={colaborador} />
-                    </LineContent>
-                    <LineContent>
-                        <InputDataCompleta
-                            label={'Data de Admissão'}
-                            atributo={'dataAdmissao'}
-                            entidade={colaborador}/>
-                        <InputDataCompleta
-                            label={'Data de Demissão'}
-                            atributo={'dataDemissao'}
-                            entidade={colaborador}/>
-                        <InputNumerico
-                            label={'Salário'}
-                            atributo={'salario'}
-                            entidade={colaborador}/>
-                        <InputString
-                            label={'Tipo de Contrato'}
-                            atributo={'tipoContrato'}
-                            entidade={colaborador}/>
-                    </LineContent>
+                            <LineContent>
+                                <InputString
+                                    label={'Endereço'}
+                                    atributo={'endereco'}
+                                    entidade={colaborador}/>
 
-                    <LineContent>
-                        <InputString
-                            label={'Endereço'}
-                            atributo={'endereco'}
-                            entidade={colaborador}/>
+                                <InputString
+                                    label={'Cargo'}
+                                    atributo={'cargo'}
+                                    entidade={colaborador}/>
 
-                        <InputString
-                            label={'Cargo'}
-                            atributo={'cargo'}
-                            entidade={colaborador}/>
+                                <InputString
+                                    label={'Departamento'}
+                                    atributo={'departamento'}
+                                    entidade={colaborador}/>
+                            </LineContent>
 
-                        <InputString
-                            label={'Departamento'}
-                            atributo={'departamento'}
-                            entidade={colaborador}/>
-                    </LineContent>
+                            <LineContent>
+                                <InputString
+                                    label={'Observações'}
+                                    atributo={'observacoes'}
+                                    entidade={colaborador}/>
+                            </LineContent>
+                        </div>
 
-                    <LineContent>
-                        <InputString
-                            label={'Observações'}
-                            atributo={'observacoes'}
-                            entidade={colaborador}/>
-                    </LineContent>
+
+                        <div>
+                            <LineContent>
+                                <FotoPerfilUploader/>
+                            </LineContent>
+                        </div>
+                    </div>
 
                     <ButtonGroup>
                         <Button

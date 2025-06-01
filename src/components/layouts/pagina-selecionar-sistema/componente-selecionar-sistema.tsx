@@ -73,9 +73,9 @@ export function ComponenteSelecionarSistema() {
                                 onClick={logout}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                whileHover={{ scale: 1.05, backgroundColor: '#2563eb', color: '#fff' }}
+                                whileHover={{ scale: 1.05}}
                                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                                className="rounded-2xl bg-primary flex items-center gap-5 ml-auto p-4 text-neutral-400"
+                                className="rounded-2xl bg-primary flex items-center gap-5 ml-auto p-4 text-white"
                             >
                                 <LogOut size={30} />
                             </motion.button>

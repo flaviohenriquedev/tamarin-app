@@ -41,7 +41,7 @@ export function CardSistema({sistema}: Props) {
                                     shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
                                     transition-colors
                                     duration-200
-                                    hover:text-indigo-400
+                                    hover:text-violet-400
                                 `}
                 >
                     {sistema.icone}

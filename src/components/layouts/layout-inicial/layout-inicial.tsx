@@ -142,7 +142,6 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                                         hover:text-blue-400
                                         bg-white
                                         backdrop-blur
-                                        ${!sideBarExpandido && 'rotate-180'}
                                     `}
                             >
                                 <ChevronLeft size={15}/>
