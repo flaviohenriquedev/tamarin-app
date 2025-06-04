@@ -19,15 +19,37 @@ import {
 import {ModuloPlanoSaude} from "@/features/recursos-humanos/gestao-beneficios/plano-saude/modulo-plano-saude";
 import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/convenios/modulo-convenios";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
-import {ModuloColaborador} from "@/features/departamento-pessoal/gestao-colaborador/modulo-colaborador";
+import {ModuloAdmissao} from "@/features/departamento-pessoal/gestao-admissao/modulo-admissao";
+import {ModuloFerias} from "@/features/departamento-pessoal/gestao-ferias/modulo-ferias";
+import {ModuloAfastamento} from "@/features/departamento-pessoal/gestao-afastamento/modulo-afastamento";
+import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/modulo-desligamento";
+import {
+    ModuloColaboradoresInativos
+} from "@/features/departamento-pessoal/gestao-colaboradores-inativos/modulo-colaboradores-inativos";
+import {
+    ModuloColaboradoresAtivos
+} from "@/features/departamento-pessoal/gestao-colaboradores-ativos/modulo-colaboradores-ativos";
+import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao/departamento/ts/modulo-departamentos";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {
-        id: 'dp-colaborador',
-        title: 'Colaborador',
+        id: 'dp-gestao',
+        title: 'Gestão',
         icon: icones.colaboradores,
         subRoute: [
-            ModuloColaborador.infos(),
+            ModuloAdmissao.infos(),
+            ModuloFerias.infos(),
+            ModuloAfastamento.infos(),
+            ModuloDesligamento.infos(),
+        ]
+    },
+    {
+        id: 'dp-colaboradores',
+        title: 'Colaboradores',
+        icon: icones.colaboradores,
+        subRoute: [
+            ModuloColaboradoresAtivos.infos(),
+            ModuloColaboradoresInativos.infos(),
         ]
     },
     {
@@ -67,6 +89,14 @@ export const rotasDepartamentoPessoal: RouteType[] = [
         icon: icones.desligamentos,
         subRoute: [
             ModuloRescisoes.infos()
+        ]
+    },
+    {
+        id: 'dp-administracao',
+        title: 'Administração',
+        icon: icones.administracao,
+        subRoute: [
+            ModuloDepartamentos.infos()
         ]
     }
 ];

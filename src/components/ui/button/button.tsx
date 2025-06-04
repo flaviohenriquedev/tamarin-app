@@ -11,7 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({
                            children,
-                           buttonSize = 'xs',
+                           buttonSize = 'md',
                            buttonStyle = 'primary',
                            type = 'button',
                            onClick,

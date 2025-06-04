@@ -8,7 +8,7 @@
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
-    --color-primary: var(--color-violet-500);
+    --color-primary: var(--color-blue-400);
     --color-primary-content: white;
 }
 

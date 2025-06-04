@@ -4,7 +4,7 @@ import {RouteType} from "@/types/_root/RouteType";
 const baseRoute = '/contabil'
 export const rotasContabil: RouteType[] = [
     {
-        id: 'contabil-cadastro',
+        id: 'contabil-[id]',
         title: 'Cadastro',
         icon: icones.colaboradores,
         href: `${baseRoute}/cadastro`,

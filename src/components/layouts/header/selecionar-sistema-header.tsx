@@ -1,5 +1,5 @@
 import {Grip} from "lucide-react";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {CardSistemaHeader} from "@/components/layouts/header/card-sistema-header";
 import {SistemaType} from "@/features/sistema/types";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
@@ -7,6 +7,31 @@ import {useSistemaContext} from "@/features/sistema/sistema-context";
 export function SelecionarSistemaHeader() {
     const { selecionarSistema, listaSistemasUsuarioLogado } = useSistemaContext();
     const [abrirListaDeSistemas, setAbrirListaDeSistemas] = useState<boolean>(false);
+    const refContainer = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleKeyDown(e: KeyboardEvent) {
+            if (e.key === "Escape") {
+                setAbrirListaDeSistemas(false);
+            }
+        }
+
+        function handleClickOutside(e: MouseEvent) {
+            if (refContainer.current && !refContainer.current.contains(e.target as Node)) {
+                setAbrirListaDeSistemas(false);
+            }
+        }
+
+        if (abrirListaDeSistemas) {
+            document.addEventListener("keydown", handleKeyDown);
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [abrirListaDeSistemas]);
 
     function onClick() {
         setAbrirListaDeSistemas(!abrirListaDeSistemas);
@@ -34,7 +59,7 @@ export function SelecionarSistemaHeader() {
     }
 
     return (
-        <div className={`relative`}>
+        <div className={`relative`} ref={refContainer}>
             <button
                 className={`p-2 cursor-pointer transition-transform duration-200 active:scale-90 border border-neutral-200 shadow-md rounded-lg`}
                 onClick={onClick}>

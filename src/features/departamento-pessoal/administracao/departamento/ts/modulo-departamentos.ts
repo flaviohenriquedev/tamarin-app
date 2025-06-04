@@ -1,14 +1,14 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
 
-type Modulo = 'DEPARTAMENTOS'
+type Modulo = 'DP-ADM-DEPARTAMENTOS'
 
 export const ModuloDepartamentos: ModulosType<Modulo> = {
     infos() {
         return {
-            id: 'recursoshumanos-administracao-dp-departamentos',
-            modulo: 'DEPARTAMENTOS',
+            id: 'recursoshumanos-desligamentos-rescisoes',
+            modulo: 'DP-ADM-DEPARTAMENTOS',
             title: 'Departamentos',
-            href: '/rh/adm/departamento'
+            href: '/app/dp/departamento'
         }
     }
 }
