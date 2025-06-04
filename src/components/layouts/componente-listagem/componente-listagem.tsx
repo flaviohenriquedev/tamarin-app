@@ -3,7 +3,7 @@
 import {usePathname, useRouter} from "next/navigation";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
-import {CirclePlus} from "lucide-react";
+import {Plus} from "lucide-react";
 import {ReactNode} from "react";
 
 type Props = {
@@ -18,7 +18,7 @@ export function ComponenteListagem({children}: Props) {
         <div>
             <ButtonGroup>
                 <Button onClick={() => route.push(`${path}/cadastro`)}>
-                    <CirclePlus/> <span>Novo Cadastro</span>
+                    <Plus /> <span>Novo Cadastro</span>
                 </Button>
             </ButtonGroup>
             {children}

@@ -1,4 +1,4 @@
-import {ColumnType} from "@/types/_root/ColumnType";
+import {ColunaType} from "@/types/_root/ColunaType";
 import {get} from "lodash";
 import {useContext, useEffect, useState} from "react";
 import {ClienteContext} from "@/context/cliente-context";
@@ -14,7 +14,7 @@ import {Checkbox} from "@/components/ui/checkbox/checkbox";
 type Props<E> = {
     funcaoAtualizarLista: () => void;
     lista: E[];
-    colunas: ColumnType[];
+    colunas: ColunaType[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
     acoesTabela?: AcoesTabela<E>
@@ -104,7 +104,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
         })
     }
 
-    function getValor<E>(row: E, coluna: ColumnType) {
+    function getValor<E>(row: E, coluna: ColunaType) {
         let valor = get(row, coluna.field);
         if (coluna.tipoDado) {
             valor = MascaraTipoDado.executar(valor, coluna.tipoDado);

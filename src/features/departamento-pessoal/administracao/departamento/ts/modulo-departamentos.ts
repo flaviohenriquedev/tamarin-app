@@ -5,7 +5,7 @@ type Modulo = 'DP-ADM-DEPARTAMENTOS'
 export const ModuloDepartamentos: ModulosType<Modulo> = {
     infos() {
         return {
-            id: 'recursoshumanos-desligamentos-rescisoes',
+            id: 'dp-adm-departamentos',
             modulo: 'DP-ADM-DEPARTAMENTOS',
             title: 'Departamentos',
             href: '/app/dp/departamento'

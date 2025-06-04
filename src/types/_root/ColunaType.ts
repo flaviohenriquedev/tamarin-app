@@ -1,6 +1,6 @@
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export type ColumnType = {
+export type ColunaType = {
     descricao: string;
     field: string;
     urlFotoPerfil?: string;

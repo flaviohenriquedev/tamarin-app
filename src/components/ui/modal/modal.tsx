@@ -22,7 +22,10 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
     }
 
     return (
-        <Dialog open={isOpen} onClose={handleCloseModal} className="relative z-10">
+        <Dialog
+            open={isOpen}
+            onClose={handleCloseModal}
+            className="relative z-10">
             <DialogBackdrop
                 transition
                 className={`
@@ -37,15 +40,8 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
                     data-leave:ease-in
                 `}
             />
-
+            <div className="fixed inset-0 z-10 w-screen h-screen overflow-y-auto">
             <div className={`
-                fixed
-                inset-0
-                z-10
-                w-screen
-                overflow-y-auto
-            `}>
-                <div className={`
                     flex
                     min-h-full
                     items-end
@@ -79,7 +75,7 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
                             data-closed:sm:scale-95
                         `}
                     >
-                        <div className={`flex items-center justify-between px-6 py-4 w-full`}>
+                        <div className={`flex items-center justify-between px-6 py-4 w-full h-full`}>
                             {title && (
                                 <div>
                                     <span className={`text-lg`}>{title}</span>

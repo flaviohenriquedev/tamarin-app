@@ -1,21 +1,20 @@
 import {FormEvent, ReactNode} from "react";
-import {EntidadePadrao} from "@/class/EntidadePadrao";
 
-type Props<E extends EntidadePadrao> = {
+type Props = {
     children: ReactNode
-    onSubmit: (entidade: E) => void;
+    onSubmit: () => void;
     className?: string;
 }
 
-export function Form<E extends EntidadePadrao>({children, onSubmit, className}: Props<E>, entidade: E) {
+export function Form({children, onSubmit, className}: Props) {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        onSubmit(entidade)
+        onSubmit()
     }
 
     return (
-        <form className={`${className} text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4`}
+        <form className={`${className} text-base-content px-4 pb-4`}
               onSubmit={handleSubmit}>
             {children}
         </form>

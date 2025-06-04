@@ -19,7 +19,7 @@ import {
 import {ModuloPlanoSaude} from "@/features/recursos-humanos/gestao-beneficios/plano-saude/modulo-plano-saude";
 import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/convenios/modulo-convenios";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
-import {ModuloAdmissao} from "@/features/departamento-pessoal/gestao-admissao/modulo-admissao";
+import {ModuloAdmissao} from "@/features/departamento-pessoal/gestao/admissao/ts/modulo-admissao";
 import {ModuloFerias} from "@/features/departamento-pessoal/gestao-ferias/modulo-ferias";
 import {ModuloAfastamento} from "@/features/departamento-pessoal/gestao-afastamento/modulo-afastamento";
 import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/modulo-desligamento";
@@ -30,6 +30,8 @@ import {
     ModuloColaboradoresAtivos
 } from "@/features/departamento-pessoal/gestao-colaboradores-ativos/modulo-colaboradores-ativos";
 import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao/departamento/ts/modulo-departamentos";
+import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setores/ts/modulo-setores";
+import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {
@@ -96,7 +98,9 @@ export const rotasDepartamentoPessoal: RouteType[] = [
         title: 'Administração',
         icon: icones.administracao,
         subRoute: [
-            ModuloDepartamentos.infos()
+            ModuloCargos.infos(),
+            ModuloDepartamentos.infos(),
+            ModuloSetores.infos(),
         ]
     }
 ];

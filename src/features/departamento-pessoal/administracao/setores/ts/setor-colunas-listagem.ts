@@ -1,7 +1,7 @@
-import {ColumnType} from "@/types/_root/ColumnType";
+import {ColunaType} from "@/types/_root/ColunaType";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const departamentoColunasListagem: ColumnType[] = [
+export const setorColunasListagem: ColunaType[] = [
     {
         descricao: 'Descrição',
         field: 'descricao',

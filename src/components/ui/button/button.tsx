@@ -11,10 +11,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({
                            children,
-                           buttonSize = 'md',
+                           buttonSize = 'sm',
                            buttonStyle = 'primary',
                            type = 'button',
                            onClick,
+                           disabled = false,
                        }: Props) {
     return (
         <button className={`
@@ -39,7 +40,8 @@ export function Button({
                                 `
         }
                 type={type}
-                onClick={onClick}>
+                onClick={onClick}
+                disabled={disabled}>
             {children}
         </button>
     )

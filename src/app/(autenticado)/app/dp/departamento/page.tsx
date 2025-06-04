@@ -1,10 +1,10 @@
 import {
-    DepartamentoListagem
-} from "@/features/departamento-pessoal/administracao/departamento/listar/departamento-listagem";
+    DepartamentoPaginaInicial
+} from "@/features/departamento-pessoal/administracao/departamento/departamento-pagina-inicial";
 
 
-export default function DP_Departamentos() {
+export default function PaginaDepartamento() {
     return (
-        <DepartamentoListagem/>
+        <DepartamentoPaginaInicial/>
     )
 }

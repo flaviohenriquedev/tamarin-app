@@ -1,10 +1,10 @@
-import {ColumnType} from "@/types/_root/ColumnType";
+import {ColunaType} from "@/types/_root/ColunaType";
 import {AcoesTabela} from "@/components/ui/table/ts/types";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
     lista: E[];
-    colunas: ColumnType[];
+    colunas: ColunaType[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
     acoesTabela?: AcoesTabela<E>

@@ -1,9 +1,7 @@
-import {ComponenteListagem} from "@/components/layouts/componente-listagem/componente-listagem";
+import {AdmissaoPaginaInicial} from "@/features/departamento-pessoal/gestao/admissao/admissao-pagina-inicial";
 
-export default function DP_PaginaAdmissaoListagem() {
+export default function PaginaAdmissao() {
     return (
-        <ComponenteListagem>
-            <div>Listar Admissao</div>
-        </ComponenteListagem>
+        <AdmissaoPaginaInicial />
     )
 }
