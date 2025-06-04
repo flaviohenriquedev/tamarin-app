@@ -1,16 +1,20 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {Asterisk} from "lucide-react";
 
 type Props = {
     values: TSelectItem[];
     onSelect: (value: TSelectItem) => void;
     widthClass?: string;
     valorPadrao?: TSelectItem;
+    label?: string;
+    name?: string;
+    required?: boolean;
 }
 
-export function SelectItem({values, widthClass, onSelect, valorPadrao}: Props) {
+export function SelectItem({values, widthClass, onSelect, valorPadrao, label, name, required}: Props) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
 
@@ -40,9 +44,23 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao}: Props) {
     }
 
     return (
-        <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
-            <div
-                className={`
+
+        <div className={`
+            flex-1
+            flex
+            flex-col
+            gap-1`}>
+            {label && (
+                <label
+                    htmlFor={name}
+                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
+                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
+                    {label}
+                </label>
+            )}
+            <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
+                <div
+                    className={`
                     input
                     bg-transparent
                     input-sm
@@ -61,41 +79,41 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao}: Props) {
                     justify-between
                     cursor-default
                 `}
-                onClick={handleShowList}
-            >
-                <label>{getLabel(itemSelecionado)}</label>
-                <IoIosArrowDown
-                    className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
-                />
-            </div>
-
-            {showList && (
-                <ul
-                    className={`
-                    z-50
-                    border
-                    border-base-300
-                    bg-base-100
-                    text-base-content
-                    absolute
-                    left-0
-                    top-full
-                    mt-1
-                    max-h-44
-                    overflow-y-scroll
-                    transition-all
-                    duration-300
-                    shadow-md
-                    p-2
-                    ${widthClass ? 'truncate' : 'w-full'}
-                    rounded-sm
-                    text-[9pt]
-                    ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}
-                `}
+                    onClick={handleShowList}
                 >
-                    {renderItens()}
-                </ul>
-            )}
+                    <label>{getLabel(itemSelecionado)}</label>
+                    <IoIosArrowDown
+                        className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
+                    />
+                </div>
+
+                {showList && (
+                    <ul
+                        className={`
+                                    z-50
+                                    border
+                                    border-base-300
+                                    bg-base-100
+                                    text-base-content
+                                    absolute
+                                    left-0
+                                    top-full
+                                    mt-1
+                                    max-h-44
+                                    overflow-y-scroll
+                                    transition-all
+                                    duration-300
+                                    shadow-md
+                                    p-2
+                                    ${widthClass ? 'truncate' : 'w-full'}
+                                    rounded-sm
+                                    text-[9pt]
+                                    ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}
+                    >
+                        {renderItens()}
+                    </ul>
+                )}
+            </div>
         </div>
     )
 }
