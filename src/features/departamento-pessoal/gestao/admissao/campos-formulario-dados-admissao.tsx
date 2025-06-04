@@ -12,6 +12,9 @@ import {
     TipoContratoService
 } from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato-service";
 import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
+import {
+    CargaHorariaService
+} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
 
 type Props = {
     admissaoCargo: AdmissaoCargo;
@@ -19,11 +22,13 @@ type Props = {
 
 const cargoService = new CargoService();
 const tipoContratoService = new TipoContratoService();
+const cargaHorariaService = new CargaHorariaService();
 
 export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
 
     const [selectItensCargos, setSelectItensCargos] = useState<TSelectItem[]>([]);
     const [selectItensTiposDeContrato, setSelectItensTiposDeContrato] = useState<TSelectItem[]>([]);
+    const [selectItensCargaHoraria, setSelectItensCargaHoraria] = useState<TSelectItem[]>([]);
 
     useEffect(() => {
         const selectItens: TSelectItem[] = [];
@@ -53,6 +58,20 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
         })
     }, [])
 
+    useEffect(() => {
+        const selectItens: TSelectItem[] = [];
+        cargaHorariaService.listar().then(result => {
+            result.map(cargaHoraria => {
+                const item: TSelectItem = {
+                    label: cargaHoraria.descricao,
+                    value: cargaHoraria.id as string
+                }
+                selectItens.push(item)
+            })
+            setSelectItensCargaHoraria(selectItens)
+        })
+    }, [])
+
     const onSelectItemCargo = (item: TSelectItem) => {
         const cargoSelecionado = new Cargo();
         cargoSelecionado.id = item.value as string;
@@ -63,6 +82,12 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
         const tipoContratoSelecionado = new TipoContrato();
         tipoContratoSelecionado.id = item.value as string;
         set(admissaoCargo, 'tipoContrato', tipoContratoSelecionado)
+    }
+
+    const onSelectItemCargaHoraria = (item: TSelectItem) => {
+        const cargaHorariaSelecionada = new TipoContrato();
+        cargaHorariaSelecionada.id = item.value as string;
+        set(admissaoCargo, 'cargaHoraria', cargaHorariaSelecionada)
     }
 
     return (
@@ -79,11 +104,22 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
                     required
                     values={selectItensTiposDeContrato}
                     onSelect={onSelectItemTipoContrato}/>
+
+                <SelectItem
+                    label={`Carga Horária`}
+                    required
+                    values={selectItensCargaHoraria}
+                    onSelect={onSelectItemCargaHoraria}/>
+            </LineContent>
+
+            <LineContent>
+
                 <InputString
                     label={`Salário`}
                     atributo={`salario`}
                     entidade={admissaoCargo}
                     required/>
+
                 <InputDataCompleta
                     label={`Data de Admissão`}
                     atributo={`dataAdmissao`}

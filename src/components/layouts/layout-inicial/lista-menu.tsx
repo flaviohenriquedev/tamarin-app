@@ -8,7 +8,21 @@ type Props = {
 
 export function ListaMenu({rotas}: Props) {
     return (
-        <ul className="flex flex-col gap-2 border-t border-neutral-200 pt-2 overflow-x-hidden overflow-y-scrool truncate">
+        <ul className={`
+            flex
+            max-h-[90vh]
+            overflow-y-scroll
+            flex-col
+            gap-2
+            border-t
+            border-neutral-200
+            pt-2
+            overflow-x-hidden
+            scrollbar-none
+            overflow-y-scroll
+            overflow-x-hidden
+            truncate pb-32
+        `}>
             {rotas.map((rota) => (
                 <ItemListaMenu rota={rota} key={rota.id}/>
             ))}

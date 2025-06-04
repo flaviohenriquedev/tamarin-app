@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
@@ -17,6 +17,31 @@ type Props = {
 export function SelectItem({values, widthClass, onSelect, valorPadrao, label, name, required}: Props) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
+    const refContainer = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleKeyDown(e: KeyboardEvent) {
+            if (e.key === "Escape") {
+                setShowList(false);
+            }
+        }
+
+        function handleClickOutside(e: MouseEvent) {
+            if (refContainer.current && !refContainer.current.contains(e.target as Node)) {
+                setShowList(false);
+            }
+        }
+
+        if (showList) {
+            document.addEventListener("keydown", handleKeyDown);
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showList]);
 
     function handleShowList() {
         setShowList(!showList);
@@ -45,7 +70,8 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao, label, na
 
     return (
 
-        <div className={`
+        <div ref={refContainer}
+            className={`
             flex-1
             flex
             flex-col
@@ -63,11 +89,11 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao, label, na
                     className={`
                     input
                     bg-transparent
-                    input-sm
+                    input-md
                     px-3
                     py-4
                     ${widthClass ? widthClass : 'min-w-52 w-full'}
-                    rounded-[.2rem]
+                    rounded-lg
                     border-base-200
                     shadow-none
                     focus:outline-hidden

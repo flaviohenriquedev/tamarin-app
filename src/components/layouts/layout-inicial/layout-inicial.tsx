@@ -14,7 +14,7 @@ import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
-    const { sistemaSelecionado, selecionarSistema } = useSistemaContext();
+    const {sistemaSelecionado, selecionarSistema} = useSistemaContext();
 
     const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
     const {usuarioLogado, listaModulosPermitidos} = useUsuarioLogado();

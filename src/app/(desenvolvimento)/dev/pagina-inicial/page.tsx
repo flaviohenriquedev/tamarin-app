@@ -55,10 +55,6 @@ export default function PaginaInicialDev() {
                         className={`arcano-container px-4 text-neutral-600 text-lg py-2 flex items-center w-fit h-14 ${fontNomeSistema.className}`}>
                         <span>Recursos Humanos</span>
                     </div>
-
-                    <div className={`bg-white rounded-full shadow-md ml-auto px-4 py-2 flex items-center w-14 h-14`}>
-
-                    </div>
                 </header>
 
                 <div className={`arcano-container  px-4 py-2 w-full h-full`}>

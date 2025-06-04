@@ -33,6 +33,7 @@ import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao
 import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setores/ts/modulo-setores";
 import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
 import {ModuloTipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/modulo-tipo-contrato";
+import {ModuloCargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/modulo-carga-horaria";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {
@@ -103,6 +104,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
             ModuloDepartamentos.infos(),
             ModuloSetores.infos(),
             ModuloTipoContrato.infos(),
+            ModuloCargaHoraria.infos()
         ]
     }
 ];

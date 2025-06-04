@@ -102,7 +102,7 @@ export function AdmissaoPaginaInicial() {
                             onClick={() => setAcaoSalvar('SAVE_AND_CLOSE')}
                             buttonSize={`sm`}
                             type={`submit`}
-                            buttonStyle={`info`}>Salvar e Fechar</Button>
+                            buttonStyle={`info`}>Salvar e Finalizar</Button>
                         <Button
                             buttonSize={`sm`}
                             type={`button`}
