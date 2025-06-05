@@ -6,11 +6,12 @@ import {Header} from "@/components/layouts/header/header";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {RouteType} from "@/types/_root/RouteType";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
-import {ChevronLeft, Feather, Search} from "lucide-react";
+import {ChevronLeft, Search} from "lucide-react";
 import {ListaMenu} from "@/components/layouts/layout-inicial/lista-menu";
 import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-lista-menu";
 import {motion} from "framer-motion";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
+import LogoSistema from "@/features/sistema/logo-sistema";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
@@ -117,12 +118,9 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 >
                     <div className={`flex flex-col items-center`}>
                         <div
-                            className={`flex items-center gap-3 text-neutral-900 h-16 text-2xl font-semibold `}>
-                            <div className={`flex items-center gap-3 pl-3 `}>
-                                <Feather size={25}/>
-                                {sideBarExpandido && (
-                                    <label>Arcano</label>
-                                )}
+                            className={`flex items-center px-5 text-neutral-900 h-16 font-semibold w-full`}>
+                            <div className={`flex justify-start items-center w-fit`}>
+                                <LogoSistema width={110} height={40} sidebarExpandido={sideBarExpandido}/>
                             </div>
                             <motion.button
                                 onClick={expandirRetrairSidebar}
