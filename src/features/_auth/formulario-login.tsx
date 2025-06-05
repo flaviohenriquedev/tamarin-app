@@ -7,9 +7,9 @@ import {InputString} from "@/components/ui/input/input-string";
 import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";
-import {Feather} from "lucide-react";
 import {Inter} from "next/font/google";
 import Link from "next/link";
+import LogoSistema from "@/features/sistema/logo-sistema";
 
 const fontLogin = Inter({
     subsets: ['latin'],
@@ -45,8 +45,7 @@ export function FormularioLogin() {
 
                     <div
                         className={`flex items-center justify-center gap-3 text-center p-4 text-[15pt] font-semibold`}>
-                        <Feather size={15}/>
-                        <label>Arcano</label>
+                        <LogoSistema width={100} height={50}/>
                     </div>
                 </div>
 

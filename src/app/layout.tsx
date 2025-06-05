@@ -9,8 +9,8 @@ import {Inter} from "next/font/google";
 
 
 export const metadata: Metadata = {
-    title: "Tamarin",
-    description: "Tamarin",
+    title: "Gommo",
+    description: "Gommo",
 };
 
 

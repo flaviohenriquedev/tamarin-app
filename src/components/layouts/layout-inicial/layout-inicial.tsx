@@ -6,7 +6,7 @@ import {Header} from "@/components/layouts/header/header";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {RouteType} from "@/types/_root/RouteType";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
-import {ChevronLeft, Search} from "lucide-react";
+import {ChevronLeft} from "lucide-react";
 import {ListaMenu} from "@/components/layouts/layout-inicial/lista-menu";
 import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-lista-menu";
 import {motion} from "framer-motion";
@@ -120,7 +120,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                         <div
                             className={`flex items-center px-5 text-neutral-900 h-16 font-semibold w-full`}>
                             <div className={`flex justify-start items-center w-fit`}>
-                                <LogoSistema width={110} height={40} sidebarExpandido={sideBarExpandido}/>
+                                <LogoSistema width={100} height={50} sidebarExpandido={sideBarExpandido}/>
                             </div>
                             <motion.button
                                 onClick={expandirRetrairSidebar}
@@ -146,27 +146,27 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                             </motion.button>
                         </div>
 
-                        <div className="flex items-center justify-start w-full">
-                            <div
-                                className={`flex items-center w-full h-10 rounded-lg px-3 bg-neutral-100 transition-all duration-300 ${
-                                    sideBarExpandido ? 'justify-between' : 'justify-center'
-                                }`}
-                            >
-                                {sideBarExpandido && (
-                                    <input
-                                        value={searchMenu}
-                                        onChange={(e) => setSearchMenu(e.target.value)}
-                                        className="w-full h-full border-none outline-none bg-transparent transition-all duration-300"
-                                        placeholder="Buscar..."
-                                    />
-                                )}
-                                <span
-                                    className={`text-violet-400 transition-all duration-300 ${
-                                        !sideBarExpandido ? 'mx-auto' : 'ml-auto'
-                                    }`}
-                                ><Search/></span>
-                            </div>
-                        </div>
+                        {/*{sideBarExpandido && (*/}
+                        {/*    <div className="flex items-center justify-start w-full">*/}
+                        {/*        <div*/}
+                        {/*            className={`flex items-center w-full h-10 rounded-lg px-3 bg-neutral-100 transition-all duration-300 ${*/}
+                        {/*                sideBarExpandido ? 'justify-between' : 'justify-center'*/}
+                        {/*            }`}*/}
+                        {/*        >*/}
+                        {/*            <input*/}
+                        {/*                value={searchMenu}*/}
+                        {/*                onChange={(e) => setSearchMenu(e.target.value)}*/}
+                        {/*                className="w-full h-full border-none outline-none bg-transparent transition-all duration-300"*/}
+                        {/*                placeholder="Buscar..."*/}
+                        {/*            />*/}
+                        {/*            <span*/}
+                        {/*                className={`text-violet-400 transition-all duration-300 ${*/}
+                        {/*                    !sideBarExpandido ? 'mx-auto' : 'ml-auto'*/}
+                        {/*                }`}*/}
+                        {/*            ><Search/></span>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
 
                     </div>
                     {filteredData && (

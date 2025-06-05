@@ -29,7 +29,7 @@ export function CardSistema({sistema}: Props) {
                                     text-[15pt]
                                     flex flex-col
                                     justify-center
-                                    gap-2 
+                                    gap-2
                                     text-neutral-400
                                     w-[20rem]
                                     h-[10rem]
@@ -41,7 +41,7 @@ export function CardSistema({sistema}: Props) {
                                     shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
                                     transition-colors
                                     duration-200
-                                    hover:text-violet-400
+                                    hover:text-blue-400
                                 `}
                 >
                     {sistema.icone}
