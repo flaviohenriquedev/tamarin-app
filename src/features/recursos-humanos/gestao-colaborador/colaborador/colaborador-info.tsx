@@ -1,16 +1,16 @@
-import {ColaboradorMockado} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/dados-mocados";
 import {IoClose} from "react-icons/io5";
 import {
     StatusColaboradorFactory
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador";
+} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
 import Image from "next/image";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador";
 
 
 type Props = {
-    colaborador: ColaboradorMockado
-    setColaborador: (colaborador: ColaboradorMockado) => void
+    colaborador: Colaborador
+    setColaborador: (colaborador: Colaborador) => void
 }
 
 export function ColaboradorInfo({colaborador, setColaborador}: Props) {
@@ -70,16 +70,16 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
         >
             <div
                 className="flex w-full justify-end"
-                onClick={() => setColaborador(new ColaboradorMockado())}
+                onClick={() => setColaborador(new Colaborador())}
             >
                 <IoClose/>
             </div>
             <div className={`flex gap-2`}>
                 <div className={`
-                                relative w-30 h-30 border-3 rounded-sm ${StatusColaboradorFactory.getInfo(colaborador.status).borderColor}
+                                relative w-30 h-30 border-3 rounded-sm ${StatusColaboradorFactory.getInfo(colaborador.statusColaborador).borderColor}
                             `}>
                     <Image
-                        src={colaborador.fotoPerfil}
+                        src={'https://img.daisyui.com/images/profile/demo/2@94.webp'}
                         alt="foto"
                         fill
                         className="object-cover rounded-sm"
@@ -108,15 +108,15 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                                                 px-2
                                                 items-center
                                                 flex h-fit gap-1
-                                                ${StatusColaboradorFactory.getInfo(colaborador.status).bg}
+                                                ${StatusColaboradorFactory.getInfo(colaborador.statusColaborador).bg}
                                                 `}>
-                        {StatusColaboradorFactory.getLabel(colaborador.status)}
+                        {StatusColaboradorFactory.getLabel(colaborador.statusColaborador)}
                     </div>
                 </div>
             </div>
 
             <div className={`flex flex-col py-6`}>
-                <span className={`font-bold text-[15pt]`}>{colaborador.nome}</span>
+                <span className={`font-bold text-[15pt]`}>{colaborador.nomeCompleto}</span>
 
                 <ul className={`flex flex-col gap-4 mt-5`}>
                     <li>
@@ -140,16 +140,12 @@ export function ColaboradorInfo({colaborador, setColaborador}: Props) {
                               className={`font-semibold text-sm text-primary hover:underline`}>Dados Admissão</Link>
                         <ul className={`pl-4`}>
                             <li>
-                                <label className={`font-light text-[9pt]`}>Data admissão: </label>
-                                <span className={`font-light text-[9pt]`}>{colaborador.cargo.dataAdmissao}</span>
-                            </li>
-                            <li>
                                 <label className={`font-light text-[9pt]`}>Departamento: </label>
-                                <span className={`font-light text-[9pt]`}>{colaborador.cargo.departamento}</span>
+                                <span className={`font-light text-[9pt]`}>{colaborador.cargoAtivo.departamento.descricao}</span>
                             </li>
                             <li>
                                 <label className={`font-light text-[9pt]`}>Cargo: </label>
-                                <span className={`font-light text-[9pt]`}>{colaborador.cargo.profissao}</span>
+                                <span className={`font-light text-[9pt]`}>{colaborador.cargoAtivo.cargo.descricao}</span>
                             </li>
                         </ul>
                     </li>

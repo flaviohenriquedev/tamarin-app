@@ -2,7 +2,7 @@
 
 import {
     StatusColaboradorFactory
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador";
+} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
 import {useState} from "react";
 import {AnimatePresence} from "framer-motion";
 import {

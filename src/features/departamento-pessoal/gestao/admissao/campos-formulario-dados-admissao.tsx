@@ -117,16 +117,22 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
         <>
             <LineContent>
                 <SelectItem
+                    entidade={admissao}
+                    field={'cargo.id'}
                     label={`Cargo`}
                     values={selectItensCargos}
                     onSelect={onSelectItemCargo}/>
 
                 <SelectItem
+                    entidade={admissao}
+                    field={'departamento.id'}
                     label={`Departamento`}
                     values={selectItensDepartamentos}
                     onSelect={onSelectItemDepartamento}/>
 
                 <SelectItem
+                    entidade={admissao}
+                    field={'tipoContrato.id'}
                     label={`Tipo Contrato`}
                     values={selectItensTiposDeContrato}
                     onSelect={onSelectItemTipoContrato}/>
@@ -135,6 +141,8 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
 
             <LineContent>
                 <SelectItem
+                    entidade={admissao}
+                    field={'cargaHoraria.id'}
                     label={`Carga Horária`}
                     values={selectItensCargaHoraria}
                     onSelect={onSelectItemCargaHoraria}/>

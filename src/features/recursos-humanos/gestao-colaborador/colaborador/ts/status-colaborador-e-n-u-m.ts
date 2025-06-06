@@ -1,6 +1,6 @@
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
-export enum StatusColaborador {
+export enum StatusColaboradorENUM {
     ATIVO = "ATIVO",
     FERIAS = "FERIAS",
     AFASTADO = "AFASTADO",
@@ -9,11 +9,11 @@ export enum StatusColaborador {
 
 export class StatusColaboradorFactory {
 
-    private static readonly status: StatusColaborador[] = [
-        StatusColaborador.ATIVO,
-        StatusColaborador.FERIAS,
-        StatusColaborador.AFASTADO,
-        StatusColaborador.DESLIGADO
+    private static readonly status: StatusColaboradorENUM[] = [
+        StatusColaboradorENUM.ATIVO,
+        StatusColaboradorENUM.FERIAS,
+        StatusColaboradorENUM.AFASTADO,
+        StatusColaboradorENUM.DESLIGADO
     ];
 
     private static readonly infos = {
@@ -40,7 +40,7 @@ export class StatusColaboradorFactory {
         }
     };
 
-    static getStatus(): StatusColaborador[] {
+    static getStatus(): StatusColaboradorENUM[] {
         return this.status;
     }
 
@@ -50,7 +50,7 @@ export class StatusColaboradorFactory {
         });
     }
 
-    static getLabel(status: StatusColaborador): string {
+    static getLabel(status: StatusColaboradorENUM): string {
         return status ? this.infos[status].label : '';
     }
 
@@ -67,7 +67,7 @@ export class StatusColaboradorFactory {
         }
     }
 
-    static getInfo(status: StatusColaborador) {
+    static getInfo(status: StatusColaboradorENUM) {
         return this.infos[status]
     }
 }

@@ -117,6 +117,8 @@ export function CamposFormularioDadosBasicos({admissao}: Props) {
                         />
 
                     <SelectItem
+                        entidade={admissao}
+                        field={'cidade.id'}
                         label={`Cidade`}
                         values={selectItensCidades}
                         onSelect={onSelectItemCidade}/>

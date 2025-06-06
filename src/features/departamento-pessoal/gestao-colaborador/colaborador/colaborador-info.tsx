@@ -2,7 +2,7 @@ import {ColaboradorMockado} from "@/features/recursos-humanos/gestao-colaborador
 import {IoClose} from "react-icons/io5";
 import {
     StatusColaboradorFactory
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador";
+} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
 import Image from "next/image";
 import {motion} from "framer-motion";
 import Link from "next/link";

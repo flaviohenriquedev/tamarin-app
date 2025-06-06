@@ -73,7 +73,7 @@ export function AdmissaoPaginaInicial() {
                 <Table funcaoAtualizarLista={atualizar}
                        lista={listaAdmissoes}
                        colunas={admissaoColunasListagem}
-                       acoesTabela={{consultar: consultar, excluir: excluir}}/>
+                       acoesTabela={{consultar: consultar}}/>
             </PaginaCadastro>
             <Modal title={'Cadastro de Admissão'}
                    isOpen={openModal}

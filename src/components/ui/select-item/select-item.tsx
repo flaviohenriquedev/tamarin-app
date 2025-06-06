@@ -3,8 +3,11 @@ import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
 import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Asterisk} from "lucide-react";
+import {get} from "lodash";
 
-type Props = {
+type Props<E> = {
+    entidade: E;
+    field: string;
     values: TSelectItem[];
     onSelect: (value: TSelectItem) => void;
     widthClass?: string;
@@ -14,10 +17,27 @@ type Props = {
     required?: boolean;
 }
 
-export function SelectItem({values, widthClass, onSelect, valorPadrao, label, name, required}: Props) {
+export function SelectItem<E extends object>({
+                                                 entidade,
+                                                 field,
+                                                 values,
+                                                 widthClass,
+                                                 onSelect,
+                                                 valorPadrao,
+                                                 label,
+                                                 name,
+                                                 required
+                                             }: Props<E>) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
     const refContainer = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (values && values.length > 0) {
+            const valorEntidade = get(entidade, field)
+            if (valorEntidade) setItemSelecionado(values.find(v => v.value === valorEntidade));
+        }
+    }, [entidade, field, values]);
 
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
@@ -61,17 +81,17 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao, label, na
         })
     }
 
-    function getLabel(item: TSelectItem | undefined): string {
+    function getLabel(item: TSelectItem | undefined) {
         if (item) {
-            return item.labelWhenSelected ? item.labelWhenSelected : item.label;
+            return (<label>{item.labelWhenSelected ? item.labelWhenSelected : item.label}</label>)
         }
-        return 'Selecione';
+        return <label className={`text-neutral-400`}>Selecione</label>;
     }
 
     return (
 
         <div ref={refContainer}
-            className={`
+             className={`
             flex-1
             flex
             flex-col
@@ -94,7 +114,7 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao, label, na
                     py-4
                     ${widthClass ? widthClass : 'min-w-52 w-full'}
                     rounded-lg
-                    border-base-200
+                    border-base-300
                     shadow-none
                     focus:outline-hidden
                     focus:border-primary
@@ -107,7 +127,7 @@ export function SelectItem({values, widthClass, onSelect, valorPadrao, label, na
                 `}
                     onClick={handleShowList}
                 >
-                    <label>{getLabel(itemSelecionado)}</label>
+                    {getLabel(itemSelecionado)}
                     <IoIosArrowDown
                         className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
                     />

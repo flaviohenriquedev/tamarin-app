@@ -8,7 +8,7 @@ export const ModuloColaboradoresAtivos: ModulosType<Modulos> = {
             id: 'gestao-colaboradores-ativos',
             modulo: 'GESTAO_COLABORADORES_ATIVOS',
             title: 'Colaboradores Ativos',
-            href: 'rh/colaborador',
+            href: '/app/dp/colaborador/colaborador-ativo',
             funcionalidades: this.funcionalidades!()
         };
     },
