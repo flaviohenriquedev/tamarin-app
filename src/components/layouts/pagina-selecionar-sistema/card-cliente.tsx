@@ -1,21 +1,19 @@
 import {motion} from "framer-motion";
 import React from "react";
-import {SistemaType} from "@/features/sistema/types";
-import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 
 type Props = {
-    sistema: SistemaType
+    cliente: Cliente,
+    listarSistemas: (cliente: Cliente) => void;
 }
 
-export function CardSistema({sistema}: Props) {
-    const { selecionarSistema } = useSistemaContext();
+export function CardCliente({cliente, listarSistemas}: Props) {
 
     return (
         <>
-            {sistema && (
+            {cliente && (
                 <motion.li
-                    onClick={() => selecionarSistema(sistema, true)}
+                    onClick={() => listarSistemas(cliente)}
                     initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
                     animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
                     transition={{
@@ -42,8 +40,7 @@ export function CardSistema({sistema}: Props) {
                                     hover:text-blue-400
                                 `}
                 >
-                    {sistema.icone}
-                    <span>{SistemaENUMFactory.getDescricao(sistema.sistema)}</span>
+                    <span>{cliente.nomeFantasia}</span>
                 </motion.li>
             )}
         </>

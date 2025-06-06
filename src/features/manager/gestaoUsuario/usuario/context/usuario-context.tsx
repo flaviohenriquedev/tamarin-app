@@ -5,6 +5,7 @@ import {useSession} from "next-auth/react";
 import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
+import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
 
 type Props = {
     usuarioLogado: Usuario;
@@ -21,6 +22,7 @@ const UsuarioContext = createContext<Props>({
 });
 
 const usuarioService = new UsuarioService();
+const clienteService = new ClienteService();
 
 export function useUsuarioLogado() {
     return useContext(UsuarioContext);
@@ -48,6 +50,12 @@ export function UsuarioProvider({children}: { children: ReactNode }) {
     }, [session.data?.user.email]);
 
     const getListaCliente = (usuario: Usuario) => {
+
+        if (usuario.usuarioMaster) {
+            clienteService.listar().then(result => setListaClientes(result));
+            return;
+        }
+
         if (usuario.perfis && usuario.perfis.length > 0) {
             const clientes: Cliente[] = usuario.perfis.map(
                 lp => lp.perfil.cliente
