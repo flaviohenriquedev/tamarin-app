@@ -5,7 +5,7 @@ import {Poppins} from "next/font/google";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {motion} from 'framer-motion'
 import {CardSistema} from "@/components/layouts/pagina-selecionar-sistema/card-sistema";
-import {LogOut} from "lucide-react";
+import {LogOut, ShieldEllipsis} from "lucide-react";
 import {getPrimeiroNome} from "@/utils/utils";
 import {frases} from "@/components/layouts/pagina-selecionar-sistema/ts/frases";
 import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/saudacoes";
@@ -14,6 +14,8 @@ import {CardCliente} from "@/components/layouts/pagina-selecionar-sistema/card-c
 import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import {SistemaType} from "@/features/sistema/types";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
@@ -21,10 +23,11 @@ const fonteNomeUsuario = Poppins({
 });
 
 export function ComponenteSelecionarSistema() {
+
+    const { selecionarSistema } = useSistemaContext();
+
     const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
-
     const [nomeUsuario, setNomeUsuario] = useState('');
-
     const [frase, setFrase] = useState('');
     const [saudacao, setSaudacao] = useState('');
     const [listaClientesPossuemSistema, setListaClientesPossuemSistema] = useState<Cliente[]>([]);
@@ -49,6 +52,11 @@ export function ComponenteSelecionarSistema() {
 
     async function logout() {
         await signOut({redirect: false})
+    }
+
+    function navigateToAdminSystem() {
+        const sistemaAdmin = rotasSistema.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
+        if(sistemaAdmin) selecionarSistema(sistemaAdmin, true)
     }
 
     function listarSistemas(cliente: Cliente) {
@@ -83,16 +91,31 @@ export function ComponenteSelecionarSistema() {
                             </motion.label>
 
                             {/* Botão com animação de entrada e efeito hover animado */}
-                            <motion.button
-                                onClick={logout}
-                                initial={{opacity: 0, scale: 0.9}}
-                                animate={{opacity: 1, scale: 1}}
-                                whileHover={{scale: 1.05}}
-                                transition={{type: 'spring', stiffness: 200, damping: 15}}
-                                className="rounded-2xl bg-primary flex items-center gap-5 ml-auto p-4 text-white"
-                            >
-                                <LogOut size={30}/>
-                            </motion.button>
+                            <div className={`flex items-center gap-2 ml-auto`}>
+                                {usuarioLogado.usuarioMaster && (
+                                    <motion.button
+                                        onClick={navigateToAdminSystem}
+                                        initial={{opacity: 0, scale: 0.9}}
+                                        animate={{opacity: 1, scale: 1}}
+                                        whileHover={{scale: 1.05}}
+                                        transition={{type: 'spring', stiffness: 200, damping: 15}}
+                                        className="rounded-2xl bg-warning flex items-center gap-5  p-4 text-white"
+                                    >
+                                        <ShieldEllipsis size={30}/>
+                                    </motion.button>
+                                )}
+
+                                <motion.button
+                                    onClick={logout}
+                                    initial={{opacity: 0, scale: 0.9}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    whileHover={{scale: 1.05}}
+                                    transition={{type: 'spring', stiffness: 200, damping: 15}}
+                                    className="rounded-2xl bg-primary flex items-center gap-5  p-4 text-white"
+                                >
+                                    <LogOut size={30}/>
+                                </motion.button>
+                            </div>
                         </div>
                         <div className={`flex items-center justify-center w-full h-full`}>
                             <div className={`flex justify-center w-full`}>
