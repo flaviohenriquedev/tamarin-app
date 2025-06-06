@@ -1,9 +1,9 @@
 import {EntidadeCliente} from "@/class/EntidadeCliente";
-import {AdmissaoEndereco} from "@/features/departamento-pessoal/gestao/admissao/admissao-endereco/ts/admissao-endereco";
-import {
-    AdmissaoDepartamento
-} from "@/features/departamento-pessoal/gestao/admissao/admissao-departamento/ts/admissao-departamento";
-import {AdmissaoCargo} from "@/features/departamento-pessoal/gestao/admissao/admissao-cargo/ts/admissao-cargo";
+import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
+import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
+import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
+import {CargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria";
+import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
 
 export class Admissao extends EntidadeCliente {
     public nomeCompleto: string;
@@ -12,9 +12,19 @@ export class Admissao extends EntidadeCliente {
     public nascionalidade: string;
     public nomeMae: string;
 
-    public admissaoEndereco: AdmissaoEndereco;
-    public admissaoDepartamento: AdmissaoDepartamento;
-    public admissaoCargo: AdmissaoCargo;
+    public rua: string;
+    public quadra: string;
+    public lote: string;
+    public numero: string;
+    public bairro: string;
+    public cidade: Cidade;
+
+    public salario: number;
+    public dataAdmissao: Date;
+    public cargo: Cargo;
+    public tipoContrato: TipoContrato;
+    public cargaHoraria: CargaHoraria;
+    public departamento: Departamento;
 
     constructor() {
         super();

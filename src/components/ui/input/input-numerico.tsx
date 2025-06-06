@@ -37,7 +37,7 @@ export function InputNumerico<E extends EntidadePadrao>({
             gap-1`}>
             {label && (
                 <label
-                    htmlFor={name}
+                    htmlFor={name ? name : ''}
                     className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
                     {required && <span className={`text-error `}><Asterisk size={12}/></span>}
                     {label}

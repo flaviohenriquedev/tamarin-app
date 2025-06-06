@@ -12,11 +12,6 @@ import {Button} from "@/components/ui/button/button";
 import Modal from "@/components/ui/modal/modal";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {
-    AdmissaoDepartamento
-} from "@/features/departamento-pessoal/gestao/admissao/admissao-departamento/ts/admissao-departamento";
-import {AdmissaoCargo} from "@/features/departamento-pessoal/gestao/admissao/admissao-cargo/ts/admissao-cargo";
-import {AdmissaoEndereco} from "@/features/departamento-pessoal/gestao/admissao/admissao-endereco/ts/admissao-endereco";
 import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/admissao-tabs";
 
 const service = new AdmissaoService();
@@ -27,10 +22,6 @@ export function AdmissaoPaginaInicial() {
 
     const [listaAdmissoes, setListaAdmissoes] = useState<Admissao[]>([]);
     const [admissao, setAdmissao] = useState<Admissao>(new Admissao());
-
-    const [admissaoDepartamento, setAdmissaoDepartamento] = useState<AdmissaoDepartamento>(new AdmissaoDepartamento());
-    const [admissaoCargo, setAdmissaoCargo] = useState<AdmissaoCargo>(new AdmissaoCargo());
-    const [admissaoEndereco, setAdmissaoEndereco] = useState<AdmissaoEndereco>(new AdmissaoEndereco());
 
     useEffect(() => {
         service.listar().then(result => {
@@ -63,6 +54,7 @@ export function AdmissaoPaginaInicial() {
     }
 
     function consultar(entidade: Admissao) {
+        console.log('entidade selecionada ->', entidade);
         setAdmissao(entidade);
         setOpenModal(true);
     }
@@ -89,9 +81,7 @@ export function AdmissaoPaginaInicial() {
                    onCloseModal={clear}>
                 <Form onSubmit={salvar} className={`min-h-[90%]`}>
                     <AdmissaoTabs
-                        admissao={admissao}
-                        admissaoEndereco={admissaoEndereco}
-                        admissaoCargo={admissaoCargo}/>
+                        admissao={admissao}/>
                     <ButtonGroup>
                         <Button
                             onClick={() => setAcaoSalvar('SAVE')}

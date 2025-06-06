@@ -1,8 +1,8 @@
-import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador";
 
-export class AdmissaoEndereco {
-    public admissao: Admissao;
+export class ColaboradorEndereco {
+    public colaborador: Colaborador;
     public rua: string;
     public quadra: string;
     public lote: string;
@@ -11,6 +11,6 @@ export class AdmissaoEndereco {
     public cidade: Cidade;
 
     constructor() {
-        this.admissao = new Admissao();
+        this.colaborador = new Colaborador();
     }
 }

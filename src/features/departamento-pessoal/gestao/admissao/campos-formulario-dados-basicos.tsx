@@ -4,40 +4,74 @@ import {InputString} from "@/components/ui/input/input-string";
 import {InputCPF} from "@/components/ui/input/input-cpf";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
-import {AdmissaoEndereco} from "@/features/departamento-pessoal/gestao/admissao/admissao-endereco/ts/admissao-endereco";
+import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade-service";
+import {useEffect, useState} from "react";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {set} from "lodash";
+import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
+import {SelectItem} from "@/components/ui/select-item/select-item";
 
 type Props = {
     admissao: Admissao;
-    admissaoEndereco: AdmissaoEndereco;
 }
 
-export function CamposFormularioDadosBasicos({admissao, admissaoEndereco}: Props) {
+const cidadeService = new CidadeService()
+
+export function CamposFormularioDadosBasicos({admissao}: Props) {
+
+    const [selectItensCidades, setSelectItensCidades] = useState<TSelectItem[]>([]);
+
+    useEffect(() => {
+        const selectItens: TSelectItem[] = [];
+        cidadeService.listar().then(result => {
+            result.map(cidade => {
+                const item: TSelectItem = {
+                    label: cidade.nome,
+                    value: cidade.id as string
+                }
+                selectItens.push(item)
+            })
+            setSelectItensCidades(selectItens)
+        })
+    }, [])
+
+    const onSelectItemCidade = (item: TSelectItem) => {
+        const cidadeSelecionada = new Cidade();
+        cidadeSelecionada.id = item.value as string;
+        set(admissao, 'cidade', cidadeSelecionada)
+    }
+
     return (
         <>
             <Fieldset label={`Dados Pessoais`} largura={`w-full`}>
                 <LineContent>
                     <InputString
+                        name={'nomecompleto'}
                         label={`Nome Completo`}
                         entidade={admissao}
                         atributo={`nomeCompleto`}
-                        required/>
+                        />
                     <InputCPF
+                        name={'cpf'}
                         label={`CPF`}
                         atributo={`cpf`}
                         entidade={admissao}
-                        required/>
+                        />
                     <InputDataCompleta
+                        name={'datanascimento'}
                         label={`Data de Nascimento`}
                         atributo={`dataNascimento`}
                         entidade={admissao}
-                        required/>
+                        />
                 </LineContent>
                 <LineContent>
                     <InputString
+                        name={'nascionalidade'}
                         label={`Nascionalidade`}
                         atributo={`nascionalidade`}
                         entidade={admissao}/>
                     <InputString
+                        name={'nomemae'}
                         label={`Nome da Mãe`}
                         atributo={`nomeMae`}
                         entidade={admissao}/>
@@ -47,41 +81,45 @@ export function CamposFormularioDadosBasicos({admissao, admissaoEndereco}: Props
             <Fieldset label={`Endereço`} largura={`w-full`}>
                 <LineContent>
                     <InputString
+                        name={'rua'}
                         label={`Rua`}
-                        entidade={admissaoEndereco}
+                        entidade={admissao}
                         atributo={`rua`}
-                        required/>
+                        />
 
                     <InputString
+                        name={'quadra'}
                         label={`Quadra`}
-                        entidade={admissaoEndereco}
+                        entidade={admissao}
                         atributo={`quadra`}
-                        required/>
+                        />
 
                     <InputString
+                        name={'lote'}
                         label={`Lote`}
-                        entidade={admissaoEndereco}
+                        entidade={admissao}
                         atributo={`lote`}
-                        required/>
+                        />
                 </LineContent>
                 <LineContent>
                     <InputString
+                        name={'numero'}
                         label={`Numero`}
-                        entidade={admissaoEndereco}
+                        entidade={admissao}
                         atributo={`numero`}
-                        required/>
+                        />
 
                     <InputString
+                        name={'bairro'}
                         label={`Bairro`}
-                        entidade={admissaoEndereco}
+                        entidade={admissao}
                         atributo={`bairro`}
-                        required/>
+                        />
 
-                    <InputString
+                    <SelectItem
                         label={`Cidade`}
-                        entidade={admissaoEndereco}
-                        atributo={`cidade`}
-                        required/>
+                        values={selectItensCidades}
+                        onSelect={onSelectItemCidade}/>
                 </LineContent>
             </Fieldset>
         </>

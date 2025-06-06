@@ -1,4 +1,3 @@
-import {AdmissaoCargo} from "@/features/departamento-pessoal/gestao/admissao/admissao-cargo/ts/admissao-cargo";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/input-string";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
@@ -15,18 +14,22 @@ import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-c
 import {
     CargaHorariaService
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
+import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
+import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 
 type Props = {
-    admissaoCargo: AdmissaoCargo;
+    admissao: Admissao;
 }
 
 const cargoService = new CargoService();
+const departamentoService = new DepartamentoService();
 const tipoContratoService = new TipoContratoService();
 const cargaHorariaService = new CargaHorariaService();
 
-export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
+export function CamposFormularioDadosAdmissao({admissao}: Props) {
 
     const [selectItensCargos, setSelectItensCargos] = useState<TSelectItem[]>([]);
+    const [selectItensDepartamentos, setSelectItensDepartamentos] = useState<TSelectItem[]>([]);
     const [selectItensTiposDeContrato, setSelectItensTiposDeContrato] = useState<TSelectItem[]>([]);
     const [selectItensCargaHoraria, setSelectItensCargaHoraria] = useState<TSelectItem[]>([]);
 
@@ -41,6 +44,20 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
                 selectItens.push(item)
             })
             setSelectItensCargos(selectItens)
+        })
+    }, [])
+
+    useEffect(() => {
+        const selectItens: TSelectItem[] = [];
+        departamentoService.listar().then(result => {
+            result.map(departamento => {
+                const item: TSelectItem = {
+                    label: departamento.descricao,
+                    value: departamento.id as string
+                }
+                selectItens.push(item)
+            })
+            setSelectItensDepartamentos(selectItens)
         })
     }, [])
 
@@ -75,19 +92,25 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
     const onSelectItemCargo = (item: TSelectItem) => {
         const cargoSelecionado = new Cargo();
         cargoSelecionado.id = item.value as string;
-        set(admissaoCargo, 'cargo', cargoSelecionado)
+        set(admissao, 'cargo', cargoSelecionado)
+    }
+
+    const onSelectItemDepartamento = (item: TSelectItem) => {
+        const departamentoSelecionado = new Cargo();
+        departamentoSelecionado.id = item.value as string;
+        set(admissao, 'departamento', departamentoSelecionado)
     }
 
     const onSelectItemTipoContrato = (item: TSelectItem) => {
         const tipoContratoSelecionado = new TipoContrato();
         tipoContratoSelecionado.id = item.value as string;
-        set(admissaoCargo, 'tipoContrato', tipoContratoSelecionado)
+        set(admissao, 'tipoContrato', tipoContratoSelecionado)
     }
 
     const onSelectItemCargaHoraria = (item: TSelectItem) => {
         const cargaHorariaSelecionada = new TipoContrato();
         cargaHorariaSelecionada.id = item.value as string;
-        set(admissaoCargo, 'cargaHoraria', cargaHorariaSelecionada)
+        set(admissao, 'cargaHoraria', cargaHorariaSelecionada)
     }
 
     return (
@@ -95,36 +118,38 @@ export function CamposFormularioDadosAdmissao({admissaoCargo}: Props) {
             <LineContent>
                 <SelectItem
                     label={`Cargo`}
-                    required
                     values={selectItensCargos}
                     onSelect={onSelectItemCargo}/>
 
                 <SelectItem
+                    label={`Departamento`}
+                    values={selectItensDepartamentos}
+                    onSelect={onSelectItemDepartamento}/>
+
+                <SelectItem
                     label={`Tipo Contrato`}
-                    required
                     values={selectItensTiposDeContrato}
                     onSelect={onSelectItemTipoContrato}/>
 
-                <SelectItem
-                    label={`Carga Horária`}
-                    required
-                    values={selectItensCargaHoraria}
-                    onSelect={onSelectItemCargaHoraria}/>
             </LineContent>
 
             <LineContent>
+                <SelectItem
+                    label={`Carga Horária`}
+                    values={selectItensCargaHoraria}
+                    onSelect={onSelectItemCargaHoraria}/>
 
                 <InputString
                     label={`Salário`}
                     atributo={`salario`}
-                    entidade={admissaoCargo}
-                    required/>
+                    entidade={admissao}
+                    />
 
                 <InputDataCompleta
                     label={`Data de Admissão`}
                     atributo={`dataAdmissao`}
-                    entidade={admissaoCargo}
-                    required/>
+                    entidade={admissao}
+                    />
             </LineContent>
         </>
     )
