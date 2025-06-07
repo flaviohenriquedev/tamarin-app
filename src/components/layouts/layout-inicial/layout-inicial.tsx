@@ -16,7 +16,6 @@ import LogoSistema from "@/features/sistema/logo-sistema";
 export function LayoutInicial({children}: { children: ReactNode }) {
 
     const {sistemaSelecionado, selecionarSistema} = useSistemaContext();
-
     const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
     const {usuarioLogado, listaModulosPermitidos} = useUsuarioLogado();
 

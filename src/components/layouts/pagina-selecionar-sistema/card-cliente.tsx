@@ -3,11 +3,12 @@ import React from "react";
 import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 
 type Props = {
-    cliente: Cliente,
+    cliente: Cliente;
+    destacar: boolean;
     listarSistemas: (cliente: Cliente) => void;
 }
 
-export function CardCliente({cliente, listarSistemas}: Props) {
+export function CardCliente({cliente, destacar, listarSistemas}: Props) {
 
     return (
         <>
@@ -25,6 +26,8 @@ export function CardCliente({cliente, listarSistemas}: Props) {
                     className={`
                                     bg-white
                                     text-md
+                                    border-2
+                                    ${destacar ? 'border-blue-400' : 'border-transparent'}
                                     flex
                                     items-center
                                     gap-4

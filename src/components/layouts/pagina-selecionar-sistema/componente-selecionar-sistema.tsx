@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Poppins} from "next/font/google";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {motion} from 'framer-motion'
@@ -9,13 +9,14 @@ import {LogOut, ShieldEllipsis} from "lucide-react";
 import {getPrimeiroNome} from "@/utils/utils";
 import {frases} from "@/components/layouts/pagina-selecionar-sistema/ts/frases";
 import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/saudacoes";
-import {signOut} from "next-auth/react";
 import {CardCliente} from "@/components/layouts/pagina-selecionar-sistema/card-cliente";
 import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
 import {SistemaType} from "@/features/sistema/types";
 import {rotasSistema} from "@/features/sistema/rotas-sistema";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {ClienteContext} from "@/context/cliente-context";
+import {logout} from "@/features/sistema/functions";
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
@@ -25,6 +26,7 @@ const fonteNomeUsuario = Poppins({
 export function ComponenteSelecionarSistema() {
 
     const { selecionarSistema } = useSistemaContext();
+    const { cliente, setCliente } = useContext(ClienteContext)
 
     const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
     const [nomeUsuario, setNomeUsuario] = useState('');
@@ -50,16 +52,13 @@ export function ComponenteSelecionarSistema() {
         setListaClientesPossuemSistema(clientesUsuarioLogado.filter(cl => cl.sistemas && cl.sistemas.length > 0));
     }, [clientesUsuarioLogado]);
 
-    async function logout() {
-        await signOut({redirect: false})
-    }
-
     function navigateToAdminSystem() {
         const sistemaAdmin = rotasSistema.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
         if(sistemaAdmin) selecionarSistema(sistemaAdmin, true)
     }
 
     function listarSistemas(cliente: Cliente) {
+        setCliente(cliente)
         const sistemas = cliente.sistemas.map(cs => cs.keySistema);
         setListaSistemasCliente(rotasSistema.filter(rs => sistemas.includes(rs.sistema)))
     }
@@ -99,7 +98,7 @@ export function ComponenteSelecionarSistema() {
                                         animate={{opacity: 1, scale: 1}}
                                         whileHover={{scale: 1.05}}
                                         transition={{type: 'spring', stiffness: 200, damping: 15}}
-                                        className="rounded-2xl bg-warning flex items-center gap-5  p-4 text-white"
+                                        className="cursor-pointer rounded-2xl bg-warning flex items-center gap-5  p-4 text-white"
                                     >
                                         <ShieldEllipsis size={30}/>
                                     </motion.button>
@@ -111,7 +110,7 @@ export function ComponenteSelecionarSistema() {
                                     animate={{opacity: 1, scale: 1}}
                                     whileHover={{scale: 1.05}}
                                     transition={{type: 'spring', stiffness: 200, damping: 15}}
-                                    className="rounded-2xl bg-primary flex items-center gap-5  p-4 text-white"
+                                    className="cursor-pointer rounded-2xl bg-primary flex items-center gap-5  p-4 text-white"
                                 >
                                     <LogOut size={30}/>
                                 </motion.button>
@@ -129,9 +128,10 @@ export function ComponenteSelecionarSistema() {
                                     className={`flex justify-center gap-4 px-20 py-14 w-full rounded-xl bg-white/30 backdrop-blur-sm border border-white`}
                                 >
                                     <ul className={`flex w-[50%] flex-col gap-2 max-h-80 overflow-y-auto p-4`}>
-                                        {listaClientesPossuemSistema && listaClientesPossuemSistema.map(cliente => (
-                                            <CardCliente key={cliente.id}
-                                                         cliente={cliente}
+                                        {listaClientesPossuemSistema && listaClientesPossuemSistema.map(cl => (
+                                            <CardCliente key={cl.id}
+                                                         cliente={cl}
+                                                         destacar={cl.id === cliente.id}
                                                          listarSistemas={listarSistemas}/>
                                         ))}
                                     </ul>

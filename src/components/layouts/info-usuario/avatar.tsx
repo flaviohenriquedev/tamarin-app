@@ -1,15 +1,10 @@
 'use client'
 
-import {signOut} from "next-auth/react";
 import Image from "next/image";
 import {icones} from "@/components/common/icones";
+import {logout} from "@/features/sistema/functions";
 
 export function Avatar() {
-
-    async function logout() {
-        await signOut({redirect: false})
-    }
-
     return (
         <div className="dropdown dropdown-end">
             <div className="avatar" tabIndex={0} role="button" >
