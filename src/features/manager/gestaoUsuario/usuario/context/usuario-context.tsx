@@ -50,8 +50,14 @@ export function UsuarioProvider({children}: { children: ReactNode }) {
             setModulosEnumUsuarioLogado(Object.values(ModuloENUM))
             return;
         }
+        const perfisUsuarioLogado = usuarioLogado.perfis.map(up => up.perfil)
+        const perfisSistemasUsuarioLogado = perfisUsuarioLogado.flatMap(pul => pul.sistemas)
+        const keys = perfisSistemasUsuarioLogado.map(psu => psu.keySistema)
 
-    }, [dadosSistemas, usuarioLogado.usuarioMaster]);
+        setEmpresasUsuarioLogado(usuarioLogado.empresas)
+        setSistemasEnumUsuarioLogado(keys)
+
+    }, [usuarioLogado]);
 
     useEffect(() => {
         if (session.data?.user.email) {

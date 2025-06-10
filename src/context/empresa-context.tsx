@@ -2,7 +2,7 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import Cookies from "js-cookie";
 import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
-import {dadosSistemas, useDadosSistemas} from "@/features/sistema/useDadosSistemas";
+import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {SistemaType} from "@/features/sistema/types";
 
 const empresaService = new EmpresaService();

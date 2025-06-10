@@ -11,12 +11,12 @@ export async function request<T>(
     const token = session?.user?.accessToken;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-    const clienteId = Cookies.get('cliente_id');
+    const empresaId = Cookies.get('empresa_id');
 
     const headers: HeadersInit = {
         "Content-Type": "application/json",
         ...(token ? { "Authorization": `Bearer ${token}` } : {}),
-        ...(clienteId ? { "X-Cliente-Id": clienteId } : {}),
+        ...(empresaId ? { "X-Empresa-Id": empresaId } : {}),
     };
 
     const response = await fetch(`${baseUrl}${endpoint}`, {

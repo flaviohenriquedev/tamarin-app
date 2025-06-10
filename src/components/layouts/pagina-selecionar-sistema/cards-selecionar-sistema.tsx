@@ -22,7 +22,7 @@ export function CardsSelecionarSistema({className}: Props) {
     useEffect(() => {
         const sistemas = empresa.sistemas.map(es => es.keySistema);
         setListaSistemas(dadosSistemas.filter(rs => sistemas.includes(rs.sistema)))
-    }, [dadosSistemas, empresa, sistemasEnumUsuarioLogado]);
+    }, [empresa, sistemasEnumUsuarioLogado]);
 
     return (
         <div className={`${className} flex justify-center w-full`}>
