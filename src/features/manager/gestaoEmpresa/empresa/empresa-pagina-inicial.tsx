@@ -1,11 +1,11 @@
 'use client'
 
 import {useCallback, useEffect, useState} from "react";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
-import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
+import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
+import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {toast} from "sonner";
-import {clienteColunasListagem} from "@/features/manager/gestaoCliente/cliente/ts/cliente-colunas-listagem";
+import {empresaColunasListagem} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-colunas-listagem";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
@@ -15,31 +15,32 @@ import {InputCNPJ} from "@/components/ui/input/input-cnpj";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
-import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
+import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
 import {Table} from "@/components/ui/table/table";
 
-const service = new ClienteService();
+const service = new EmpresaService();
 type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'
 
-export function ClientePaginaInicial() {
+export function EmpresaPaginaInicial() {
+    const dadosSistemas = useDadosSistemas();
+
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [cliente, setCliente] = useState<Cliente>(new Cliente());
+    const [cliente, setCliente] = useState<Empresa>(new Empresa());
 
     const [sistemasSelecionados, setSistemasSelecionados] = useState<DualListboxValue[]>([]);
-    const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
+    const [listaClientes, setListaClientes] = useState<Empresa[]>([]);
     const [listaSistemaDualList, setListaSistemaDualList] = useState<DualListboxType[]>([]);
     const [listaSistemaClienteDualList, setListaSistemaClienteDualList] = useState<DualListboxType[]>([]);
 
     useEffect(() => {
-        console.log('RODOU')
         setListaSistemaDualList(
-            rotasSistema.map(item => ({
+            dadosSistemas.map(item => ({
                 label: SistemaENUMFactory.getDescricao(item.sistema),
                 value: item.sistema
             }))
@@ -67,7 +68,7 @@ export function ClientePaginaInicial() {
 
     function salvar() {
         service.salvar(cliente, () => {
-            setCliente(new Cliente());
+            setCliente(new Empresa());
             atualizarLista();
             toast.success("Registro salvo com sucesso.");
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -75,10 +76,10 @@ export function ClientePaginaInicial() {
     }
 
     const clear = () => {
-        setCliente(new Cliente())
+        setCliente(new Empresa())
     }
 
-    function consultar(cl: Cliente) {
+    function consultar(cl: Empresa) {
         setCliente(cl);
         setOpenModal(true);
     }
@@ -88,12 +89,12 @@ export function ClientePaginaInicial() {
     }
 
     function handleNovoCadastro() {
-        setCliente(new Cliente())
+        setCliente(new Empresa())
         setOpenModal(true);
     }
 
     function addSistema(valor: DualListboxType) {
-        const clienteSistema: ClienteSistema = new ClienteSistema();
+        const clienteSistema: EmpresaSistema = new EmpresaSistema();
         clienteSistema.keySistema = valor.value as SistemaENUM;
         cliente.sistemas.push(clienteSistema);
     }
@@ -105,7 +106,7 @@ export function ClientePaginaInicial() {
                 <Table
                     funcaoAtualizarLista={atualizarLista}
                     lista={listaClientes}
-                    colunas={clienteColunasListagem}
+                    colunas={empresaColunasListagem}
                     acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
             <Modal title={'Cadastro de Clientes'}

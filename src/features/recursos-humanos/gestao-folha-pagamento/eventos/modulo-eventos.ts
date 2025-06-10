@@ -1,22 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'EVENTOS'
-
-export const ModuloEventos: ModulosType<Modulos> = {
+export const ModuloEventos: ModulosType = {
     infos() {
         return {
             id: 'eventos',
-            modulo: 'EVENTOS',
+            modulo: ModuloENUM.GESTAO_EVENTOS,
             title: 'Eventos',
             href: '/app/rh/folha-pagamento/eventos',
-            funcionalidades: this.funcionalidades!()
+            funcionalidades: this.funcionalidades()
         };
     },
-    funcionalidades(){
-        return {
-            CONSULTAR_SERASA: {
-                label: 'Consultar o Serasa'
-            }
-        }
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

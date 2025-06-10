@@ -1,13 +1,14 @@
 import {ReactNode} from "react";
-import {FuncionalidadesType} from "@/types/_root/ModulosTypes";
+import {FuncionalidadeEnum, FuncionalidadeInfo} from "@/enums/FuncionalidadeEnum";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export type RouteType = {
     id?: string;
     title?: string;
-    modulo?: string;
+    modulo?: ModuloENUM;
     icon?: ReactNode;
     href?: string;
-    subRoute?: RouteType[];
     roles?: string[];
-    funcionalidades?: { [key: string]: FuncionalidadesType; };
+    funcionalidades?: Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>>;
+    subRoute?: RouteType[];
 }

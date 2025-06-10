@@ -1,84 +1,80 @@
-import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import {createContext, ReactNode, useCallback, useContext, useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
 import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
-import {useSession} from "next-auth/react";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
+import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
-import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
+import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 
 type Props = {
     usuarioLogado: Usuario;
-    clientesUsuarioLogado: Cliente[];
-    listaSistemasPermitidos: SistemaENUM[];
-    listaModulosPermitidos: string[];
+    empresasUsuarioLogado: Empresa[];
+    sistemasEnumUsuarioLogado: SistemaENUM[];
+    modulosEnumUsuarioLogado: ModuloENUM[];
 }
+
+const usuarioService = new UsuarioService();
+const empresaService = new EmpresaService();
 
 const UsuarioContext = createContext<Props>({
     usuarioLogado: new Usuario(),
-    clientesUsuarioLogado: [],
-    listaSistemasPermitidos: [],
-    listaModulosPermitidos: []
+    empresasUsuarioLogado: [],
+    sistemasEnumUsuarioLogado: [],
+    modulosEnumUsuarioLogado: [],
 });
-
-const usuarioService = new UsuarioService();
-const clienteService = new ClienteService();
 
 export function useUsuarioLogado() {
     return useContext(UsuarioContext);
 }
 
 export function UsuarioProvider({children}: { children: ReactNode }) {
+
+    const dadosSistemas = useDadosSistemas();
+
+
     const session = useSession();
-    const [loading, setLoading] = useState(true);
+
     const [usuarioLogado, setUsuarioLogado] = useState<Usuario>(new Usuario());
-    const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
-    const [listaSistemasPermitidos, setListaSistemasPermitidos] = useState<SistemaENUM[]>([]);
-    const [listaModulosPermitidos, setListaModulosPermitidos] = useState<string[]>([]);
+
+    const [empresasUsuarioLogado, setEmpresasUsuarioLogado] = useState<Empresa[]>([]);
+    const [sistemasEnumUsuarioLogado, setSistemasEnumUsuarioLogado] = useState<SistemaENUM[]>([]);
+    const [modulosEnumUsuarioLogado, setModulosEnumUsuarioLogado] = useState<ModuloENUM[]>([]);
+
+    const getClientesUsuarioLogado = useCallback(async () => {
+        if (usuarioLogado.usuarioMaster) {
+            const response = await empresaService.listar();
+            setEmpresasUsuarioLogado(response);
+            setSistemasEnumUsuarioLogado(dadosSistemas.map(ds => ds.sistema));
+            setModulosEnumUsuarioLogado(Object.values(ModuloENUM))
+            return;
+        }
+
+    }, [dadosSistemas, usuarioLogado.usuarioMaster]);
 
     useEffect(() => {
         if (session.data?.user.email) {
             usuarioService.buscarUsuarioPorEmail(session.data?.user.email)
-                .then(response => {
-                    setUsuarioLogado(response);
-                    getListaCliente(response);
-                    getListaSistemasPermitidos(response);
-                    getListaModulosPermitidos(response);
-                    setLoading(false);
+                .then(setUsuarioLogado)
+                .catch(error => {
+                    console.error("Erro ao buscar usuário:", error);
                 });
         }
     }, [session.data?.user.email]);
 
-    const getListaCliente = (usuario: Usuario) => {
-
-        if (usuario.usuarioMaster) {
-            clienteService.listar().then(result => setListaClientes(result));
-            return;
+    useEffect(() => {
+        if (usuarioLogado.id) {
+            getClientesUsuarioLogado().then();
         }
-
-        if (usuario.perfis && usuario.perfis.length > 0) {
-            const clientes: Cliente[] = usuario.perfis.map(
-                lp => lp.perfil.cliente
-            )
-            setListaClientes(clientes);
-        }
-    }
-
-    function getListaSistemasPermitidos(response: Usuario) {
-        if (response.usuarioMaster) {
-            return setListaSistemasPermitidos(Object.values(SistemaENUM))
-        }
-        return setListaSistemasPermitidos(response.perfis.flatMap(p => p.perfil.sistemas.map(s => s.clienteSistema.keySistema)))
-    }
-
-    function getListaModulosPermitidos(response: Usuario) {
-        const listaPerfilSistema: PerfilSistema[] = response.perfis.flatMap(p => p.perfil.sistemas)
-        setListaModulosPermitidos(listaPerfilSistema.flatMap(ps => ps.rotas.map(r => r.modulo)))
-    }
+    }, [getClientesUsuarioLogado, usuarioLogado.id]);
 
     return (
         <UsuarioContext.Provider value={{
-            usuarioLogado, clientesUsuarioLogado: listaClientes, listaSistemasPermitidos, listaModulosPermitidos
+            usuarioLogado,
+            empresasUsuarioLogado,
+            sistemasEnumUsuarioLogado,
+            modulosEnumUsuarioLogado
         }}>
             {children}
         </UsuarioContext.Provider>

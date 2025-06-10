@@ -3,7 +3,7 @@
 import React, {ReactNode, useCallback, useContext, useEffect, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
-import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {dadosSistemas, useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {RouteType} from "@/types/_root/RouteType";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {ChevronLeft} from "lucide-react";
@@ -12,12 +12,14 @@ import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-list
 import {motion} from "framer-motion";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import LogoSistema from "@/features/sistema/logo-sistema";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
+    const dadosSistemas = useDadosSistemas();
 
+    const {modulosEnumUsuarioLogado} = useUsuarioLogado();
     const {sistemaSelecionado, selecionarSistema} = useSistemaContext();
     const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
-    const {usuarioLogado, listaModulosPermitidos} = useUsuarioLogado();
 
     const [searchMenu, setSearchMenu] = useState("");
     const [filteredData, setFilteredData] = useState<RouteType[]>();
@@ -29,40 +31,35 @@ export function LayoutInicial({children}: { children: ReactNode }) {
     useEffect(() => {
         const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
         if (sistemaSelecionadoStorage) {
-            const sistemaEncontrado = rotasSistema.find(s => s.sistema === sistemaSelecionadoStorage);
+            const sistemaEncontrado = dadosSistemas.find(s => s.sistema === sistemaSelecionadoStorage);
             if (sistemaEncontrado) {
                 selecionarSistema(sistemaEncontrado);
             }
         }
-    }, [])
+    }, [selecionarSistema])
 
     const filtrarModulosPermitidos = useCallback((modulos: RouteType[]) => {
-        if (!usuarioLogado.usuarioMaster) {
-            return modulos
-                .map(modulo => {
-                    if (modulo.modulo && listaModulosPermitidos.includes(modulo.modulo)) {
-                        return modulo;
-                    }
-                    if (modulo.subRoute) {
-                        const subFiltradas = modulo.subRoute.filter(sr =>
-                            listaModulosPermitidos.includes(sr.modulo as string)
-                        );
-                        if (subFiltradas.length > 0) {
-                            return {...modulo, subRoute: subFiltradas};
-                        }
-                    }
-                    return null;
-                })
-                .filter(Boolean) as RouteType[];
-        } else {
-            return modulos;
-        }
-    }, [listaModulosPermitidos, usuarioLogado.usuarioMaster]);
+        return modulos.map(modulo => {
+            if (modulo.modulo && modulosEnumUsuarioLogado.includes(modulo.modulo)) {
+                return modulo;
+            }
+            if (modulo.subRoute) {
+                const subFiltradas = modulo.subRoute.filter(sr =>
+                    modulosEnumUsuarioLogado.includes(sr.modulo as ModuloENUM)
+                );
+                if (subFiltradas.length > 0) {
+                    return {...modulo, subRoute: subFiltradas};
+                }
+            }
+            return null;
+        })
+            .filter(Boolean) as RouteType[];
+    }, [modulosEnumUsuarioLogado]);
 
     useEffect(() => {
         const filterMenu = () => {
             const filteredMap: { [key: string]: RouteType } = {};
-            if (sistemaSelecionado?.rotas && listaModulosPermitidos) {
+            if (sistemaSelecionado?.rotas && modulosEnumUsuarioLogado) {
                 filtrarModulosPermitidos(sistemaSelecionado?.rotas)?.forEach((d) => {
                     const filteredMenu: RouteType = {...d};
                     if (
@@ -93,7 +90,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
         };
 
         filterMenu();
-    }, [sistemaSelecionado?.rotas, searchMenu, listaModulosPermitidos, filtrarModulosPermitidos]);
+    }, [sistemaSelecionado?.rotas, searchMenu, filtrarModulosPermitidos, modulosEnumUsuarioLogado]);
     return (
         <div className={`container-sistema`}>
             <div className={`side-bar flex`}>

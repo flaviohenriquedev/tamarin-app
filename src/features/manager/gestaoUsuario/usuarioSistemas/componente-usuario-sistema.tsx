@@ -1,12 +1,12 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import React, {useCallback, useState} from "react";
-import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
+import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 
 type Props = {
     className: string;
-    listaClienteSistema: ClienteSistema[];
-    selecionarClienteSistema: (clienteSistema: ClienteSistema) => void;
+    listaClienteSistema: EmpresaSistema[];
+    selecionarClienteSistema: (clienteSistema: EmpresaSistema) => void;
 }
 
 export function ComponenteUsuarioSistema({
@@ -17,7 +17,7 @@ export function ComponenteUsuarioSistema({
 
     const [idClienteSistema, setIdClienteSistema] = useState<string>('')
 
-    const selectClienteSistema = useCallback((clienteSistema: ClienteSistema) => {
+    const selectClienteSistema = useCallback((clienteSistema: EmpresaSistema) => {
         setIdClienteSistema(clienteSistema.id)
         selecionarClienteSistema(clienteSistema)
     }, [selecionarClienteSistema])

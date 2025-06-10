@@ -1,6 +1,6 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 
-export class Setor extends EntidadeCliente {
+export class Setor extends EntidadeTenant {
     public descricao: string;
 
     constructor() {

@@ -1,14 +1,20 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'DEPARTAMENTOS'
-
-export const ModuloDepartamentos: ModulosType<Modulo> = {
+export const ModuloDepartamentos: ModulosType = {
     infos() {
         return {
             id: 'recursoshumanos-administracao-dp-departamentos',
-            modulo: 'DEPARTAMENTOS',
+            modulo: ModuloENUM.GESTAO_DEPARTAMENTO,
             title: 'Departamentos',
-            href: '/rh/adm/departamento'
+            href: '/rh/adm/departamento',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([
+            ...FuncionalidadeFactory.funcionalidadesPadrao()
+        ]);
     }
 }

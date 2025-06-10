@@ -1,17 +1,16 @@
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
-import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
 import {PerfilSistemaModulo} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/ts/pefil-sistema-modulo";
+import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 
 export class PerfilSistema extends EntidadePadrao {
     public perfil: Perfil;
-    public clienteSistema: ClienteSistema;
+    public keySistema: SistemaENUM;
     public rotas: PerfilSistemaModulo[];
 
     constructor() {
         super();
         this.perfil = new Perfil();
-        this.clienteSistema = new ClienteSistema();
         this.rotas = [];
     }
 }

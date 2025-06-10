@@ -1,29 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'GESTAO_COLABORADORES_ATIVOS'
-
-export const ModuloColaboradoresAtivos: ModulosType<Modulos> = {
+export const ModuloColaboradoresAtivos: ModulosType = {
     infos() {
         return {
             id: 'gestao-colaboradores-ativos',
-            modulo: 'GESTAO_COLABORADORES_ATIVOS',
+            modulo: ModuloENUM.GESTAO_COLABORADORES_ATIVOS,
             title: 'Colaboradores Ativos',
             href: '/app/dp/colaborador/colaborador-ativo',
-            funcionalidades: this.funcionalidades!()
+            funcionalidades: this.funcionalidades()
         };
     },
     funcionalidades() {
-        return {
-            CONSULTAR_TESTE: { label: 'Aplicar Deconto' },
-            CONSULTAR_TESTE2: { label: 'Cancelar Atribuições' },
-            CONSULTAR_TESTE3: { label: 'Fazer uns trem fora da lei' },
-            CONSULTAR_TESTE4: { label: 'Deixar de vir' },
-            CONSULTAR_TESTE5: { label: 'Falar algo' },
-            CONSULTAR_TESTE6: { label: 'Cuspir na pia' },
-            CONSULTAR_TESTE7: { label: 'Rome Ofise' },
-            CONSULTAR_TESTE8: { label: '3 hora de comida' },
-            CONSULTAR_TESTE9: { label: 'Tudo pode' },
-            CONSULTAR_TESTE10: { label: 'Pode nada' },
-        };
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()]);
     }
 }

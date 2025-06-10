@@ -1,11 +1,11 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
 import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
 import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
 import {CargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria";
 import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
 
-export class Admissao extends EntidadeCliente {
+export class Admissao extends EntidadeTenant {
     public nomeCompleto: string;
     public cpf: string;
     public dataNascimento: Date;

@@ -1,7 +1,7 @@
 import {ColunaType} from "@/types/_root/ColunaType";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const clienteColunasListagem: ColunaType[] = [
+export const empresaColunasListagem: ColunaType[] = [
     {
         descricao: 'Nome Fantasia',
         field: 'nomeFantasia'

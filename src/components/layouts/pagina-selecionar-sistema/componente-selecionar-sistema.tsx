@@ -1,22 +1,18 @@
 'use client'
 
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Poppins} from "next/font/google";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {motion} from 'framer-motion'
-import {CardSistema} from "@/components/layouts/pagina-selecionar-sistema/card-sistema";
 import {LogOut, ShieldEllipsis} from "lucide-react";
 import {getPrimeiroNome} from "@/utils/utils";
 import {frases} from "@/components/layouts/pagina-selecionar-sistema/ts/frases";
 import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/saudacoes";
-import {CardCliente} from "@/components/layouts/pagina-selecionar-sistema/card-cliente";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
-import {SistemaType} from "@/features/sistema/types";
-import {rotasSistema} from "@/features/sistema/rotas-sistema";
+import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
-import {ClienteContext} from "@/context/cliente-context";
 import {logout} from "@/features/sistema/functions";
+import {CardsSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/cards-selecionar-sistema";
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
@@ -24,16 +20,13 @@ const fonteNomeUsuario = Poppins({
 });
 
 export function ComponenteSelecionarSistema() {
+    const dadosSistemas = useDadosSistemas();
+    const {usuarioLogado} = useUsuarioLogado();
+    const {selecionarSistema} = useSistemaContext();
 
-    const { selecionarSistema } = useSistemaContext();
-    const { cliente, setCliente } = useContext(ClienteContext)
-
-    const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
     const [nomeUsuario, setNomeUsuario] = useState('');
     const [frase, setFrase] = useState('');
     const [saudacao, setSaudacao] = useState('');
-    const [listaClientesPossuemSistema, setListaClientesPossuemSistema] = useState<Cliente[]>([]);
-    const [listaSistemasCliente, setListaSistemasCliente] = useState<SistemaType[]>([]);
 
     useEffect(() => {
         const randomFrase = frases[Math.floor(Math.random() * frases.length)];
@@ -48,19 +41,9 @@ export function ComponenteSelecionarSistema() {
         }
     }, [usuarioLogado.nome])
 
-    useEffect(() => {
-        setListaClientesPossuemSistema(clientesUsuarioLogado.filter(cl => cl.sistemas && cl.sistemas.length > 0));
-    }, [clientesUsuarioLogado]);
-
     function navigateToAdminSystem() {
-        const sistemaAdmin = rotasSistema.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
-        if(sistemaAdmin) selecionarSistema(sistemaAdmin, true)
-    }
-
-    function listarSistemas(cliente: Cliente) {
-        setCliente(cliente)
-        const sistemas = cliente.sistemas.map(cs => cs.keySistema);
-        setListaSistemasCliente(rotasSistema.filter(rs => sistemas.includes(rs.sistema)))
+        const sistemaAdmin = dadosSistemas.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
+        if (sistemaAdmin) selecionarSistema(sistemaAdmin, true)
     }
 
     return (
@@ -117,32 +100,7 @@ export function ComponenteSelecionarSistema() {
                             </div>
                         </div>
                         <div className={`flex items-center justify-center w-full h-full`}>
-                            <div className={`flex justify-center w-full`}>
-                                <motion.div
-                                    initial={{opacity: 0, y: 30}}
-                                    animate={{opacity: 1, y: 0}}
-                                    transition={{
-                                        duration: 0.5,
-                                        ease: 'easeOut'
-                                    }}
-                                    className={`flex justify-center gap-4 px-20 py-14 w-full rounded-xl bg-white/30 backdrop-blur-sm border border-white`}
-                                >
-                                    <ul className={`flex w-[50%] flex-col gap-2 max-h-80 overflow-y-auto p-4`}>
-                                        {listaClientesPossuemSistema && listaClientesPossuemSistema.map(cl => (
-                                            <CardCliente key={cl.id}
-                                                         cliente={cl}
-                                                         destacar={cl.id === cliente.id}
-                                                         listarSistemas={listarSistemas}/>
-                                        ))}
-                                    </ul>
-                                    <ul className={`flex w-[50%] flex-col gap-2 max-h-80 overflow-y-auto p-4`}>
-                                        {listaSistemasCliente && listaSistemasCliente.map(sistema => (
-                                            <CardSistema key={sistema.sistema}
-                                                         sistema={sistema}/>
-                                        ))}
-                                    </ul>
-                                </motion.div>
-                            </div>
+                            <CardsSelecionarSistema/>
                         </div>
                     </div>
                 )}

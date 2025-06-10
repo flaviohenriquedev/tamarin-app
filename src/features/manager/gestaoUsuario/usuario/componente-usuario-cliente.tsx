@@ -1,11 +1,11 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import React, {useCallback, useState} from "react";
 
 type Props = {
     className: string;
-    listaClientes: Cliente[];
-    selecionarCliente: (cliente: Cliente) => void;
+    listaClientes: Empresa[];
+    selecionarCliente: (cliente: Empresa) => void;
 }
 
 export function ComponenteUsuarioCliente({className, listaClientes, selecionarCliente }: Props) {
@@ -13,7 +13,7 @@ export function ComponenteUsuarioCliente({className, listaClientes, selecionarCl
     const [idClienteSelecionado, setIdClienteSelecionado] = useState<string>()
 
     const selecionar = useCallback((
-        (cliente: Cliente) => {
+        (cliente: Empresa) => {
             setIdClienteSelecionado(cliente.id)
             selecionarCliente(cliente)
         }

@@ -7,23 +7,34 @@ import {ThemeChanger} from "@/components/ui/theme-changer/theme-changer";
 import {SistemaType} from "@/features/sistema/types";
 import {useRouter} from "next/navigation";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {SelecionarSistemaHeader} from "@/components/layouts/header/selecionar-sistema-header";
-import {ClienteContext} from "@/context/cliente-context";
+import {EmpresaContext} from "@/context/empresa-context";
+import {Grip} from "lucide-react";
+import Cookies from "js-cookie";
 
 type Props = {
     sistema?: SistemaType;
 }
 
 export function Header({sistema}: Props) {
-    const {cliente} = useContext(ClienteContext)
+    const {empresa} = useContext(EmpresaContext)
     const router = useRouter();
+
+    function onClick() {
+        localStorage.removeItem("sistemaSelecionado")
+        Cookies.remove("cliente_id")
+        router.push("/");
+    }
 
     return (
         <header
             className={`content-header rounded-lg bg-base-100 flex items-center justify-between pl-3 pr-4 w-full h-16 border-b border-base-300/50`}>
             <div className={`flex items-center gap-2`}>
-                <SelecionarSistemaHeader/>
-                <label>{cliente.nomeFantasia}</label>
+                <button
+                    className={`p-2 cursor-pointer transition-transform duration-200 active:scale-90 shadow-md rounded-lg`}
+                    onClick={onClick}>
+                    <Grip/>
+                </button>
+                <label>{empresa.nomeFantasia}</label>
 
                 <div className={`flex items-center gap-2`}>
                     <label className={`cursor-pointer text-sm text-base-content/60 hover:text-base-content`}

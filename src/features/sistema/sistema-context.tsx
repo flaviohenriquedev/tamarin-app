@@ -2,8 +2,7 @@
 
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {SistemaType} from "@/features/sistema/types";
-import {rotasSistema} from "@/features/sistema/rotas-sistema";
-import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {dadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {useRouter} from "next/navigation";
 
 type Props = {
@@ -30,7 +29,6 @@ type Options = {
 
 export function SistemaContextProvider({children}: Options) {
     const route = useRouter();
-    const {listaSistemasPermitidos} = useUsuarioLogado();
 
     const [listaSistemas, setListaSistemas] = useState<SistemaType[]>([]);
     const [listaSistemasUsuarioLogado, setListaSistemasUsuarioLogado] = useState<SistemaType[]>([]);
@@ -38,12 +36,7 @@ export function SistemaContextProvider({children}: Options) {
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>()
 
     useEffect(() => {
-        const sistemas = rotasSistema.filter(rs => listaSistemasPermitidos.includes(rs.sistema));
-        setListaSistemasUsuarioLogado(sistemas);
-    }, [listaSistemasPermitidos]);
-
-    useEffect(() => {
-        setListaSistemas(rotasSistema);
+        setListaSistemas(dadosSistemas);
     }, []);
 
     function selecionarSistema(sistema: SistemaType, redirectOnSelect = false) {

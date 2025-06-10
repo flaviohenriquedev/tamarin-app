@@ -1,7 +1,7 @@
 import {ColunaType} from "@/types/_root/ColunaType";
 import {get} from "lodash";
 import {useContext, useEffect, useState} from "react";
-import {ClienteContext} from "@/context/cliente-context";
+import {EmpresaContext} from "@/context/empresa-context";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
@@ -23,7 +23,7 @@ type Props<E> = {
 
 export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela, ocultarCheckbox = false}: Props<E>) {
 
-    const {cliente} = useContext(ClienteContext)
+    const {empresa} = useContext(EmpresaContext)
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
     const [entidadeParaDeletar, setEntidadeParaDeletar] = useState<E>()
 
@@ -37,7 +37,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
 
     useEffect(() => {
         funcaoAtualizarLista();
-    }, [cliente, funcaoAtualizarLista]);
+    }, [empresa, funcaoAtualizarLista]);
 
     function renderRow() {
         return lista && lista.length > 0 ? lista.map(item => {

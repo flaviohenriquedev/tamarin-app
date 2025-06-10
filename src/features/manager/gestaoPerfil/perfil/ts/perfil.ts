@@ -1,7 +1,7 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 
-export class Perfil extends EntidadeCliente {
+export class Perfil extends EntidadeTenant {
     descricao: string;
     sistemas: PerfilSistema[];
 

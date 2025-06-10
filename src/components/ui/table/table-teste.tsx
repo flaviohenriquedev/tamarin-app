@@ -13,13 +13,13 @@ type Props<E> = {
 
 export function TableTeste<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela}: Props<E>) {
 
-    // const {cliente} = useContext(ClienteContext)
+    // const {empresa} = useContext(ClienteContext)
     // const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
     // const [entidadeParaDeletar, setEntidadeParaDeletar] = useState<E>()
     //
     // useEffect(() => {
     //     funcaoAtualizarLista();
-    // }, [cliente, funcaoAtualizarLista]);
+    // }, [empresa, funcaoAtualizarLista]);
     //
     // function renderHead() {
     //     return colunas ? colunas.map((col) => (

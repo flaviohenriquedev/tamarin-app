@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'DP-ADM-TIPO-CONTRATO'
-
-export const ModuloTipoContrato: ModulosType<Modulo> = {
+export const ModuloTipoContrato: ModulosType = {
     infos() {
         return {
             id: 'dp-adm-setores',
-            modulo: 'DP-ADM-TIPO-CONTRATO',
+            modulo: ModuloENUM.GESTAO_CONTRATO,
             title: 'Tipo Contrato',
-            href: '/app/dp/tipo-contrato'
+            href: '/app/dp/tipo-contrato',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

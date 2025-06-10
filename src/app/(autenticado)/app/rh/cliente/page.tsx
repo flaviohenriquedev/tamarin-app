@@ -1,5 +1,5 @@
-import {ClientePaginaInicial} from "@/features/manager/gestaoCliente/cliente/cliente-pagina-inicial";
+import {EmpresaPaginaInicial} from "@/features/manager/gestaoEmpresa/empresa/empresa-pagina-inicial";
 
 export default function PaginaCliente() {
-    return <ClientePaginaInicial/>
+    return <EmpresaPaginaInicial/>
 }

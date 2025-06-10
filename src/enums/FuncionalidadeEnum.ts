@@ -2,43 +2,58 @@ import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 
 export enum FuncionalidadeEnum {
     SOMENTE_LEITURA = "SOMENTE_LEITURA",
-    EDITAR = "EDITAR",
+    MANIPULAR_CADASTRO = "MANIPULAR_CADASTRO",
+    CONSULTAR_TESTE = "CONSULTAR_TESTE"
 }
 
-export class FuncionalidadeEnumFactory {
+export type FuncionalidadeInfo = {
+    label: string;
+    isFuncionalidadePadrao?: boolean;
+    styleClass?: string
+}
+
+export class FuncionalidadeFactory {
 
     private static readonly funcionalidade: FuncionalidadeEnum[] = [
         FuncionalidadeEnum.SOMENTE_LEITURA,
-        FuncionalidadeEnum.EDITAR
+        FuncionalidadeEnum.MANIPULAR_CADASTRO,
+        FuncionalidadeEnum.CONSULTAR_TESTE
     ];
 
-    private static readonly infos = {
+    private static readonly infos: {[key in FuncionalidadeEnum]: FuncionalidadeInfo} = {
         SOMENTE_LEITURA: {
             label: 'Somente Leitura',
-            styleClass: 'text-info'
+            isFuncionalidadePadrao: true
         },
-        EDITAR: {
-            label: 'Editar',
-            styleClass: 'text-warning'
+        MANIPULAR_CADASTRO: {
+            label: 'Manipular Cadastro',
+            isFuncionalidadePadrao: true
+        },
+        CONSULTAR_TESTE: {
+            label: 'Teste',
         }
     };
 
-    private static readonly funcionalidadesPadrao = {
-        SOMENTE_LEITURA: {
-            label: "Somente Leitura",
-        },
-        MANIPULAR_CADASTRO: {
-            label: 'Manipular Cadastro'
-        },
-    };
-
-
-    static getFuncionalidade(): FuncionalidadeEnum[] {
-        return this.funcionalidade;
+    static funcionalidadesPadrao() {
+        return [
+            FuncionalidadeEnum.SOMENTE_LEITURA,
+            FuncionalidadeEnum.MANIPULAR_CADASTRO
+        ];
     }
 
-    static getFuncionalidadesPadrao() {
-        return this.funcionalidadesPadrao;
+    static getFuncionalidades(funcionalidades: FuncionalidadeEnum[]): Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>> {
+        const map: Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>> = {};
+         Object.values(funcionalidades).forEach(f => {
+            const info = this.get(f);
+            if (info) {
+                map[f] = info;
+            }
+        });
+        return map;
+    }
+
+    static get(funcionalidade: FuncionalidadeEnum) {
+        return this.infos[funcionalidade];
     }
 
     static getSelectItens(): TSelectItem[] {
@@ -52,17 +67,21 @@ export class FuncionalidadeEnumFactory {
     }
 
     static getLabel(funcionalidade: FuncionalidadeEnum): string {
-        return funcionalidade ? this.infos[funcionalidade].label : '';
+        return funcionalidade && this.infos[funcionalidade] ? this.infos[funcionalidade].label : '';
     }
 
     static getStyleClass(funcionalidade: FuncionalidadeEnum): string {
-        return funcionalidade ? this.infos[funcionalidade].styleClass : '';
+        if (this.infos[funcionalidade]) {
+            const sc: string | undefined = this.infos[funcionalidade].styleClass
+            return funcionalidade && sc ? sc : '';
+        }
+        return ''
     }
 
     static getItemByInfo(info: string): TSelectItem | undefined {
         const status = this.funcionalidade.find(item => item === info);
 
-        if (status) {
+        if (status && this.infos[status]) {
             return {
                 label: this.infos[status].label,
                 value: info
@@ -70,5 +89,9 @@ export class FuncionalidadeEnumFactory {
         } else {
             return undefined;
         }
+    }
+
+    private static getInfo(funcionalidadeEnum: FuncionalidadeEnum) {
+        return this.infos[funcionalidadeEnum];
     }
 }

@@ -1,25 +1,17 @@
 import {ReactNode} from "react";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeEnum, FuncionalidadeInfo} from "@/enums/FuncionalidadeEnum";
 
-export type ModulosType<M extends string = string> = {
-    infos(): InfosModuloType<M>;
-    funcionalidades?(): { [key: string]: FuncionalidadesType };
+export type ModulosType = {
+    infos(): InfosModuloType;
+    funcionalidades(): Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>>;
 }
 
-export type FuncionalidadesType = {
-    label: string;
-};
-
-export type InfosModuloType<M extends string = string> = {
+export type InfosModuloType = {
     id: string,
-    modulo: M,
+    modulo: ModuloENUM,
     title: string,
     icon?: ReactNode,
     href: string,
-    funcionalidades?: { [key: string]: FuncionalidadesType; };
+    funcionalidades: Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>>;
 }
-
-export type ModuloFuncionalidade = {
-    funcionalidades: {
-        [key: string]: FuncionalidadesType;
-    };
-};

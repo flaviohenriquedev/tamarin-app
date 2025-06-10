@@ -1,26 +1,26 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {ClienteContext} from "@/context/cliente-context";
+import {EmpresaContext} from "@/context/empresa-context";
 import {ListTodo} from "lucide-react";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
-import {ClienteService} from "@/features/manager/gestaoCliente/cliente/ts/cliente-service";
+import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
+import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
 import {AnimatePresence, motion} from "framer-motion";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 
-const clienteService = new ClienteService();
+const clienteService = new EmpresaService();
 
 export function InfoCliente() {
     const {usuarioLogado, clientesUsuarioLogado} = useUsuarioLogado();
-    const {cliente, setCliente} = useContext(ClienteContext);
-    const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
+    const {empresa, setEmpresa} = useContext(EmpresaContext);
+    const [listaClientes, setListaClientes] = useState<Empresa[]>([]);
     const [showList, setShowList] = useState<boolean>(false)
     const [loading, setLoading] = useState(false);
     const refContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (clientesUsuarioLogado.length === 1) {
-            setCliente(clientesUsuarioLogado[0])
+            setEmpresa(clientesUsuarioLogado[0])
         }
-    }, [clientesUsuarioLogado, setCliente]);
+    }, [clientesUsuarioLogado, setEmpresa]);
 
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
@@ -82,13 +82,13 @@ export function InfoCliente() {
                         <li
                             key={cl.id}
                             onClick={() => {
-                                setCliente(cl);
+                                setEmpresa(cl);
                                 setShowList(false);
                             }}
                             className={`
                                 p-2
                                 border-2
-                                ${cliente && cliente.id === cl.id ? `
+                                ${empresa && empresa.id === cl.id ? `
                                         bg-primary/15
                                         border-primary
                                         text-base-content
@@ -114,7 +114,7 @@ export function InfoCliente() {
             <div
                 className="flex border-b border-base-200 pl-3 items-center min-h-14 flex-nowrap truncate overflow-y-hidden">
                 <label className="font-bold">
-                    {cliente && cliente.id ? cliente.nomeFantasia : "Selecione um cliente..."}
+                    {empresa && empresa.id ? empresa.nomeFantasia : "Selecione um empresa..."}
                 </label>
             </div>
             <div className="btn btn-sm m-1 rounded-sm" onClick={handleShowList}>

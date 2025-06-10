@@ -8,7 +8,6 @@ import {useCallback, useState} from "react";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {FuncionalidadeEnumFactory} from "@/enums/FuncionalidadeEnum";
 import {Button} from "@/components/ui/button/button";
 
 type Props = {
@@ -28,10 +27,7 @@ export function ComponentePerfilSistemaModulos({
     const [funcionalidadesSelectItens, setFuncionalidadesSelectItens] = useState<TSelectItem[]>([])
 
     const buscarFuncionalidadesPorModulo = useCallback((modulo: RouteType) => {
-        const funcionalidades: TSelectItem[] = Object.entries(FuncionalidadeEnumFactory.getFuncionalidadesPadrao()).map(([key, value]) => ({
-            label: value.label,
-            value: key
-        }));
+        const funcionalidades: TSelectItem[] = [];
         if (modulo.funcionalidades) {
             Object.entries(modulo.funcionalidades).map(([key, value]) => (
                 funcionalidades.push(

@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'GESTAO_PERFIL'
-
-export const ModuloGestoPerfil: ModulosType<Modulos> = {
+export const ModuloGestoPerfil: ModulosType = {
     infos() {
         return {
             id: 'gerenciar-sistema-controle-acesso-perfis',
             title: 'Perfis',
-            modulo: 'GESTAO_PERFIL',
-            href: '/app/manager/perfis'
+            modulo: ModuloENUM.GESTAO_PERFIL,
+            href: '/app/manager/perfis',
+            funcionalidades: this.funcionalidades()
         };
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades({...FuncionalidadeFactory.funcionalidadesPadrao()})
     }
 }

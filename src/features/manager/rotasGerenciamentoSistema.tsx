@@ -1,17 +1,17 @@
 import {icones} from "@/components/common/icones";
 import {RouteType} from "@/types/_root/RouteType";
-import {ModuloGestaoCliente} from "@/features/manager/gestaoCliente/modulo-gestao-cliente";
+import {ModuloGestaoEmpresa} from "@/features/manager/gestaoEmpresa/modulo-gestao-empresa";
 import {ModuloGestoPerfil} from "@/features/manager/gestaoPerfil/modulo-gestao-perfil";
 import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gestao-usuario";
 import {ModuloGestaoLocalidade} from "@/features/manager/gestaoLocalidade/modulo.gestao-localidade";
 
 export const rotasGerenciamentoSistema: RouteType[] = [
     {
-        id: 'gerenciar-sistema-clientes',
-        title: 'Clientes',
+        id: 'gerenciar-sistema-empresas',
+        title: 'Empresas',
         icon: icones.empresa,
         subRoute: [
-            ModuloGestaoCliente.infos(),
+            ModuloGestaoEmpresa.infos(),
         ]
     },
     {

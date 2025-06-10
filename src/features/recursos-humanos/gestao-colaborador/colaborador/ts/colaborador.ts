@@ -1,6 +1,6 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 
-export class Colaborador extends EntidadeCliente {
+export class Colaborador extends EntidadeTenant {
     nomeCompleto: string;
     cpf: string;
     dataNascimento: Date;

@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'JORNADAS'
-
-export const ModuloJornadas: ModulosType<Modulos> = {
+export const ModuloJornadas: ModulosType = {
     infos() {
         return {
             id: 'ponto-frequencia-jornadas',
-            modulo: 'JORNADAS',
+            modulo: ModuloENUM.GESTAO_JORNADAS,
             title: 'Jornadas',
-            href: '/app/rh/ponto/registro'
+            href: '/app/rh/ponto/registro',
+            funcionalidades: this.funcionalidades()
         };
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

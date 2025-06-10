@@ -1,11 +1,11 @@
 import {motion} from "framer-motion";
 import React from "react";
-import {Cliente} from "@/features/manager/gestaoCliente/cliente/ts/cliente";
+import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 
 type Props = {
-    cliente: Cliente;
+    cliente: Empresa;
     destacar: boolean;
-    listarSistemas: (cliente: Cliente) => void;
+    listarSistemas: (cliente: Empresa) => void;
 }
 
 export function CardCliente({cliente, destacar, listarSistemas}: Props) {

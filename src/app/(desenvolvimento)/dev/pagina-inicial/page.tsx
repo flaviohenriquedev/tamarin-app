@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {rotasDepartamentoPessoal} from "@/features/departamento-pessoal/rotas-departamento-pessoal";
+import {rotasDepartamentoPessoal} from "@/features/departamento-pessoal/rotasDepartamentoPessoal";
 import {RouteType} from "@/types/_root/RouteType";
 import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
 import {Feather} from "lucide-react";

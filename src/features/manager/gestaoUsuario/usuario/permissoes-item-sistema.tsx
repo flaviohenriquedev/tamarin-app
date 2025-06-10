@@ -2,13 +2,13 @@ import {RadioGroup} from "@/components/ui/radio-group/radio-group";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import React from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
+import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 
 type Props = {
-    clienteSistema: ClienteSistema
+    clienteSistema: EmpresaSistema
     perfilSistema: PerfilSistema
     onClick: (perfilSistema: PerfilSistema) => void
     valuesRadioGroup?: TSelectItem[]

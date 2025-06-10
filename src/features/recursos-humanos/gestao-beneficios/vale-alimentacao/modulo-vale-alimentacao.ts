@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'VALE_ALIMENTACAO'
-
-export const ModuloValeAlimentacao: ModulosType<Modulo> = {
+export const ModuloValeAlimentacao: ModulosType = {
     infos() {
         return {
             id: 'beneficios-vale-alimentacao',
-            modulo: 'VALE_ALIMENTACAO',
+            modulo: ModuloENUM.GESTAO_VALE_ALIMENTACAO,
             title: 'Vale Alimentação',
-            href: '/app/rh/beneficios/vale-alimentacao'
+            href: '/app/rh/beneficios/vale-alimentacao',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

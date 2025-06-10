@@ -1,12 +1,8 @@
 .cad-perfil-container {
     display: grid;
     grid-template-areas:
-            "cad-perfil-clients cad-perfil-system cad-perfil-module";
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.cad-perfil-clients {
-    grid-area: cad-perfil-clients;
+            "cad-perfil-system cad-perfil-module";
+    grid-template-columns: 1fr 1fr;
 }
 
 .cad-perfil-system {

@@ -1,6 +1,6 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 
-export class CargaHoraria extends EntidadeCliente {
+export class CargaHoraria extends EntidadeTenant {
     public horaInicial: number;
     public horaFinal: number;
     public horaAlmoco: number;

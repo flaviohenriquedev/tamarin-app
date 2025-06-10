@@ -1,22 +1,18 @@
-import {FuncionalidadesType, ModulosType} from "@/types/_root/ModulosTypes";
+import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'LANCAMENTOS'
-
-export const ModuloLancamentos: ModulosType<Modulos> = {
+export const ModuloLancamentos: ModulosType = {
     infos() {
         return {
             id: 'lancamentos',
-            modulo: 'LANCAMENTOS',
+            modulo: ModuloENUM.GESTAO_LANCAMENTOS,
             title: 'Lançamentos',
             href: '/app/rh/folha-pagamento/lancamentos',
-            funcionalidades: this.funcionalidades!()
+            funcionalidades: this.funcionalidades()
         };
     },
-    funcionalidades(): { [key: string]: FuncionalidadesType } {
-        return {
-            CONSULTAR_LANCAMENTOS: {
-                label: 'Consultar Lançamentos'
-            }
-        }
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

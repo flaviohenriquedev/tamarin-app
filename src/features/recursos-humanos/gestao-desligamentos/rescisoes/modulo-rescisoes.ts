@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'RESCISOES'
-
-export const ModuloRescisoes: ModulosType<Modulo> = {
+export const ModuloRescisoes: ModulosType = {
     infos() {
         return {
             id: 'recursoshumanos-desligamentos-rescisoes',
-            modulo: 'RESCISOES',
+            modulo: ModuloENUM.GESTAO_RESCISOES,
             title: 'Rescisões',
-            href: '/app/rh/desligamento/rescisoes'
+            href: '/app/rh/desligamento/rescisoes',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

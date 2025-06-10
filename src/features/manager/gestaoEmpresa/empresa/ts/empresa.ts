@@ -1,7 +1,7 @@
 import {EntidadeAuditavel} from "@/class/EntidadeAuditavel";
-import {ClienteSistema} from "@/features/manager/gestaoCliente/clienteSistema/ts/cliente-sistema";
+import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 
-export class Cliente extends EntidadeAuditavel {
+export class Empresa extends EntidadeAuditavel {
     nomeFantasia: string;
     razaoSocial: string;
     cnpj: string;
@@ -17,7 +17,7 @@ export class Cliente extends EntidadeAuditavel {
     cidade: string;
     uf: string;
     cep: string;
-    sistemas: ClienteSistema[];
+    sistemas: EmpresaSistema[];
 
     constructor() {
         super();

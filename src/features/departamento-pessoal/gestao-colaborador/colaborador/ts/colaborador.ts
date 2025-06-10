@@ -1,4 +1,4 @@
-import {EntidadeCliente} from "@/class/EntidadeCliente";
+import {EntidadeTenant} from "@/class/EntidadeTenant";
 import {
     StatusColaboradorENUM
 } from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
@@ -9,7 +9,7 @@ import {
     ColaboradorCargo
 } from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/colaborador-cargo";
 
-export class Colaborador extends EntidadeCliente {
+export class Colaborador extends EntidadeTenant {
     public nomeCompleto: string;
     public cpf: string;
     public dataNascimento: Date;

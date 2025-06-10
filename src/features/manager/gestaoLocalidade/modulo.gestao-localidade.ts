@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulos = 'GESTAO_LOCALIDADE'
-
-export const ModuloGestaoLocalidade: ModulosType<Modulos> = {
+export const ModuloGestaoLocalidade: ModulosType = {
     infos() {
         return {
             id: 'gerenciar-sistema-dominio-localidade',
             title: 'Localidade',
-            modulo: 'GESTAO_LOCALIDADE',
-            href: '/app/config/localidade',
+            modulo: ModuloENUM.GESTAO_LOCALIDADE,
+            href: '/app/manager/localidade',
+            funcionalidades: this.funcionalidades()
         };
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }
