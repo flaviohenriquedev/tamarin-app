@@ -58,6 +58,13 @@ export function UsuarioPaginaInicial() {
         });
     }, [atualizarLista]);
 
+    const handleEmailBlur = async () => {
+        if (!usuario.email) return;
+        usuarioService.buscarUsuarioPorEmail(usuario.email).then(result => {
+            setUsuario(result)
+        });
+    };
+
     const handleConsultar = (usuario: Usuario) => {
         setUsuario(usuario);
         setOpenModal(true);
@@ -120,15 +127,17 @@ export function UsuarioPaginaInicial() {
                       onSubmit={handleSalvar}>
 
                     <LineContent>
-                        <InputString
-                            label={'Nome Completo'}
-                            atributo={`nome`}
-                            entidade={usuario}
-                            required/>
 
                         <InputString
                             label={'Email'}
                             atributo={`email`}
+                            entidade={usuario}
+                            required
+                            onBlur={handleEmailBlur}/>
+
+                        <InputString
+                            label={'Nome Completo'}
+                            atributo={`nome`}
                             entidade={usuario}
                             required/>
 
