@@ -34,6 +34,8 @@ import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setor
 import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
 import {ModuloTipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/modulo-tipo-contrato";
 import {ModuloCargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/modulo-carga-horaria";
+import {ModuloGestoPerfil} from "@/features/manager/gestaoPerfil/modulo-gestao-perfil";
+import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gestao-usuario";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {
@@ -106,6 +108,15 @@ export const rotasDepartamentoPessoal: RouteType[] = [
             ModuloTipoContrato.infos(),
             ModuloCargaHoraria.infos()
         ]
-    }
+    },
+    {
+        id: 'dp-controle-acesso',
+        title: 'Controle de Acesso',
+        icon: icones.usuario,
+        subRoute: [
+            ModuloGestoPerfil.infos(),
+            ModuloGestaoUsuario.infos()
+        ]
+    },
 ];
 

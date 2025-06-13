@@ -1,18 +1,13 @@
 .cad-user-container {
     display: grid;
     grid-template-areas:
-            "cad-user-clients cad-user-system cad-user-module";
-    grid-template-columns: 1fr 1fr 1fr;
+            "cad-user-module cad-perfil-module";
+    grid-template-columns: 1fr 1fr;
 }
-
-.cad-user-clients {
-    grid-area: cad-user-clients;
-}
-
-.cad-user-system {
-    grid-area: cad-user-system;
-}
-
 .cad-user-module {
     grid-area: cad-user-module;
+}
+
+.cad-perfil-module {
+    grid-area: cad-perfil-module;
 }

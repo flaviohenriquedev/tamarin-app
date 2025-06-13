@@ -9,9 +9,9 @@ import {ListaMenu} from "@/components/layouts/layout-inicial/ListaMenu";
 import {motion} from "framer-motion";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import LogoSistema from "@/features/sistema/logo-sistema";
-import {getRotasPorSistema, usuarioPossuiAcesso} from "@/components/layouts/layout-inicial/ts/functions";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
 import {ContextListaMenu} from "@/components/layouts/layout-inicial/ContextListaMenu";
+import {getRotasPorSistema, usuarioPossuiAcessoAoModulo} from "@/features/sistema/functions";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
@@ -32,11 +32,11 @@ export function LayoutInicial({children}: { children: ReactNode }) {
 
             if (sistemaSelecionado) {
                 getRotasPorSistema(sistemaSelecionado).forEach((d) => {
-                    if (d.modulo && !usuarioPossuiAcesso(d.modulo, usuarioLogado)) return;
+                    if (d.modulo && !usuarioPossuiAcessoAoModulo(d, usuarioLogado)) return;
                     const filteredMenu: RouteType = { ...d };
                     if (d.subRoute) {
                         const filteredSubmenu = d.subRoute.filter((sub) => {
-                            const temAcesso = !sub.modulo || usuarioPossuiAcesso(sub.modulo, usuarioLogado);
+                            const temAcesso = !sub.modulo || usuarioPossuiAcessoAoModulo(sub, usuarioLogado);
                             const bateBusca = sub.title?.toLowerCase().includes(searchMenu.toLowerCase());
                             return temAcesso && bateBusca;
                         });

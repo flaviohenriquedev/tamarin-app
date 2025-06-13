@@ -1,13 +1,14 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 
 type Props = {
     className: string;
     listaPerfil: Perfil[];
+    onSelectPerfil: (perfil: Perfil) => void;
 }
 
-export function ComponenteUsuarioPerfil({className, listaPerfil}: Props) {
+export function ComponenteUsuarioPerfil({className, listaPerfil, onSelectPerfil}: Props) {
     return (
         <Fieldset label={`Perfis`}
                   className={`
@@ -23,7 +24,8 @@ export function ComponenteUsuarioPerfil({className, listaPerfil}: Props) {
                 <ul>
                     {listaPerfil && listaPerfil.length > 0 && (
                         listaPerfil.map(perfil => {
-                            return <li key={perfil.id}>
+                            return <li key={perfil.id}
+                                       onClick={() => onSelectPerfil(perfil)}>
                                 <div>
                                     <Checkbox entidade={perfil}
                                               label={`${perfil.descricao}`}

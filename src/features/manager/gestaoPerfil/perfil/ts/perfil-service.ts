@@ -1,5 +1,5 @@
 import {CrudService} from "@/services/crud-service";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {perfilEndPoints} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-endpoint";
 import {EndPointType} from "@/types/_root/EndPointType";
 import {request} from "@/services/request";

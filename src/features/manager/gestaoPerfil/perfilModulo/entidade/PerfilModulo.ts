@@ -1,5 +1,5 @@
 import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {ModuloENUM} from "@/enums/ModuloEnum";
 import {FuncionalidadeEnum} from "@/enums/FuncionalidadeEnum";
 

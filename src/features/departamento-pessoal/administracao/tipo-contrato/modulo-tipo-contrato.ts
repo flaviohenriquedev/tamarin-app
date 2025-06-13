@@ -5,7 +5,7 @@ import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 export const ModuloTipoContrato: ModulosType = {
     infos() {
         return {
-            id: 'dp-adm-setores',
+            id: 'gestao-contrato',
             modulo: ModuloENUM.GESTAO_CONTRATO,
             title: 'Tipo Contrato',
             href: '/app/dp/tipo-contrato',

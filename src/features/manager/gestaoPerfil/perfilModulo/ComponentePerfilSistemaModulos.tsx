@@ -1,16 +1,18 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {RouteType} from "@/types/_root/RouteType";
+import {useCallback, useState} from "react";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 import {ListChecks} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
-import {useCallback, useState} from "react";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/button";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
-import {ModuloENUM} from "@/enums/ModuloEnum";
 import {FuncionalidadeEnum} from "@/enums/FuncionalidadeEnum";
 import {PerfilModulo} from "@/features/manager/gestaoPerfil/perfilModulo/entidade/PerfilModulo";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
+import {usuarioPossuiAcessoAoModulo} from "@/features/sistema/functions";
 
 type Props = {
     perfil: Perfil;
@@ -23,6 +25,7 @@ export function ComponentePerfilSistemaModulos({
                                                    className,
                                                    listaModulos
                                                }: Props) {
+    const { usuarioLogado } = useUsuarioLogado();
 
     const [moduloSelecionado, setModuloSelecionado] = useState<RouteType>()
     const [openModal, setOpenModal] = useState<boolean>(false)
@@ -55,28 +58,30 @@ export function ComponentePerfilSistemaModulos({
     function renderizarModulos(modulos: RouteType[]) {
         return modulos.map(modulo => {
             return (
-                <li key={modulo.id}>
-                    <div className={`
+                usuarioPossuiAcessoAoModulo(modulo, usuarioLogado) && (
+                    <li key={modulo.id}>
+                        <div className={`
                         flex
                         items-center
                         gap-1.5
                         ${moduloAdicionado(modulo) ? 'text-primary font-semibold' : ''}
                     `}>
-                        {modulo.subRoute ? '' : getItemOpenModal(modulo)}
-                        {modulo.title}
-                    </div>
-                    {modulo.subRoute && (
-                        <ul className={'pl-4'}>
-                            {renderizarModulos(modulo.subRoute)}
-                        </ul>
-                    )}
-                </li>
+                            {modulo.subRoute ? '' : getItemOpenModal(modulo)}
+                            {modulo.title}
+                        </div>
+                        {modulo.subRoute && (
+                            <ul className={'pl-4'}>
+                                {renderizarModulos(modulo.subRoute)}
+                            </ul>
+                        )}
+                    </li>
+                    )
             )
         })
     }
 
     const moduloAdicionado = (modulo: RouteType) => {
-        return perfil.perfilModulos.map(r => r.modulo).includes(modulo.modulo as ModuloENUM);
+        return perfil.perfilModulos?.map(pm => pm.modulo).includes(modulo.modulo as ModuloENUM);
     }
 
     function getItemOpenModal(modulo: RouteType) {
@@ -97,7 +102,7 @@ export function ComponentePerfilSistemaModulos({
         if (funcionalidadesSelecionadas.length > 0 && moduloSelecionado?.modulo && perfil) {
             const funcArray = funcionalidadesSelecionadas.map(func => func.value as FuncionalidadeEnum);
             const moduloExistente = perfil.perfilModulos.find(
-                modulo => modulo.modulo === moduloSelecionado.modulo
+                rota => rota.modulo === moduloSelecionado.modulo
             );
             if (moduloExistente) {
                 moduloExistente.funcionalidades = funcArray;
@@ -113,9 +118,9 @@ export function ComponentePerfilSistemaModulos({
 
     const isChecked = (funcionalidade: TSelectItem): boolean => {
         return perfil.perfilModulos.some(
-            perfilModulo =>
-                perfilModulo.modulo === moduloSelecionado?.modulo as string &&
-                perfilModulo.funcionalidades.includes(funcionalidade.value as FuncionalidadeEnum)
+            modulo =>
+                modulo.modulo === moduloSelecionado?.modulo as string &&
+                modulo.funcionalidades.includes(funcionalidade.value as FuncionalidadeEnum)
         ) ?? false;
     };
 

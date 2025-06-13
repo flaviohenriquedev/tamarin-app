@@ -3,7 +3,7 @@ import {FuncionalidadeEnum, FuncionalidadeInfo} from "@/enums/FuncionalidadeEnum
 import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export type RouteType = {
-    id?: string;
+    id: string;
     title?: string;
     modulo?: ModuloENUM;
     icon?: ReactNode;

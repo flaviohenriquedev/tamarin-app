@@ -10,7 +10,6 @@ import {Form} from "@/components/ui/form/form";
 import {InputString} from "@/components/ui/input/input-string";
 import {InputCPF} from "@/components/ui/input/input-cpf";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
-import {ComponenteUsuarioSistema} from "@/features/manager/gestaoUsuario/usuarioSistemas/componente-usuario-sistema";
 import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-colunas-listagem";
 import {ButtonGroup} from "@/components/ui/button/button-group";
@@ -19,24 +18,33 @@ import './css/style.css'
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
-import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
-import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {toast} from "sonner";
+import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
+import {
+    ComponentePerfilSistemaModulos
+} from "@/features/manager/gestaoPerfil/perfilModulo/ComponentePerfilSistemaModulos";
+import {RouteType} from "@/types/_root/RouteType";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {getRotasPorSistema} from "@/features/sistema/functions";
 
 const usuarioService = new UsuarioService()
+const perfilService = new PerfilService()
 
 export function UsuarioPaginaInicial() {
+    const {sistemaSelecionado} = useSistemaContext();
 
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [usuario, setUsuario] = useState<Usuario>(new Usuario());
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>();
     const [usuarioPerfil, setUsuarioPerfil] = useState<UsuarioPerfil>(new UsuarioPerfil());
 
+    const [perfil, setPerfil] = useState<Perfil>(new Perfil());
+
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([]);
-    const [listaClienteSistema, setListaClienteSistema] = useState<EmpresaSistema[]>([]);
     const [listaPerfil, setListaPerfil] = useState<Perfil[]>([]);
-    const [listaPerfilFiltrado, setListaPerfilFiltrado] = useState<Perfil[]>([]);
+    const [listaModulos, setListaModulos] = useState<RouteType[]>([])
 
     const atualizarLista = useCallback(() => {
         usuarioService.listar().then(result => {
@@ -56,11 +64,20 @@ export function UsuarioPaginaInicial() {
     }
 
     const handleNovoCadastro = () => {
-        setOpenModal(true);
+        perfilService.listar().then(result => {
+            console.log('PERFIS -----> ', result);
+            setListaPerfil(result);
+            setOpenModal(true);
+        })
     };
 
+    function onSelectPerfil(p: Perfil) {
+        setPerfil(p);
+        if (sistemaSelecionado) setListaModulos(getRotasPorSistema(sistemaSelecionado))
+    }
+
     const handleSalvar = () => {
-        listaPerfilFiltrado.filter(p => p.checked).forEach(pf => {
+        listaPerfil.filter(p => p.checked).forEach(pf => {
             const usuarioPerfil: UsuarioPerfil = new UsuarioPerfil();
             usuarioPerfil.usuario.id = usuario.id;
             usuarioPerfil.perfil = pf;
@@ -80,7 +97,6 @@ export function UsuarioPaginaInicial() {
     const clear = () => {
         setUsuario(new Usuario());
         setUsuarioPerfil(new UsuarioPerfil());
-        setListaClienteSistema([]);
         setListaPerfil([]);
     }
 
@@ -134,15 +150,16 @@ export function UsuarioPaginaInicial() {
                     </LineContent>
 
                     <div className={`relative cad-user-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
-
-                        <ComponenteUsuarioSistema
-                            className={'cad-user-system'}
-                            listaClienteSistema={[]}
-                            selecionarClienteSistema={() => {}}/>
-
                         <ComponenteUsuarioPerfil
+                            onSelectPerfil={onSelectPerfil}
                             className={'cad-user-module'}
-                            listaPerfil={listaPerfilFiltrado}/>
+                            listaPerfil={listaPerfil}/>
+
+                        <ComponentePerfilSistemaModulos
+                            perfil={perfil}
+                            className={'cad-perfil-module'}
+                            listaModulos={listaModulos}/>
+
                     </div>
 
                     <ButtonGroup>
