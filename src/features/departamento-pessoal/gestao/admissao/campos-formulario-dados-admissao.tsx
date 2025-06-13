@@ -1,5 +1,4 @@
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {InputString} from "@/components/ui/input/input-string";
 import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
 import {CargoService} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-service";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
@@ -16,6 +15,7 @@ import {
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
+import {InputNumerico} from "@/components/ui/input/input-numerico";
 
 type Props = {
     admissao: Admissao;
@@ -147,7 +147,7 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                     values={selectItensCargaHoraria}
                     onSelect={onSelectItemCargaHoraria}/>
 
-                <InputString
+                <InputNumerico
                     label={`Salário`}
                     atributo={`salario`}
                     entidade={admissao}

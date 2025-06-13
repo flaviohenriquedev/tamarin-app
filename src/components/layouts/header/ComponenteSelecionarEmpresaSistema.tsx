@@ -56,7 +56,7 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
 
             <div className={`relative w-48`}>
                 <div className={`flex items-center`}>
-                    <label><strong>{`${empresa.nomeFantasia ? empresa.nomeFantasia : 'Selecione uma empresa'}`}</strong></label>
+                    <label className={`truncate`}><strong>{`${empresa.nomeFantasia ? empresa.nomeFantasia : 'Selecione uma empresa'}`}</strong></label>
                     <button
                         className={`h-full ml-auto w-fit p-1 border-2 border-neutral-200 rounded-lg cursor-pointer transition-transform duration-200 active:scale-90`}
                         onClick={() => setMostrarListaEmpresas(!mostrarListaEmpresas)}>

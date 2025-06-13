@@ -61,7 +61,7 @@ export function UsuarioPaginaInicial() {
     const handleEmailBlur = async () => {
         if (!usuario.email) return;
         usuarioService.buscarUsuarioPorEmail(usuario.email).then(result => {
-            setUsuario(result)
+            if(result && result.id) setUsuario(result)
         });
     };
 
