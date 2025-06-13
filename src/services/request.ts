@@ -1,6 +1,5 @@
 import {getSession} from "next-auth/react";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
-import Cookies from "js-cookie";
 
 export async function request<T>(
     endpoint: string,
@@ -11,12 +10,18 @@ export async function request<T>(
     const token = session?.user?.accessToken;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-    const empresaId = Cookies.get('empresa_id');
+    const empresaId = localStorage.getItem('empresaId');
+    const sistemaSelecionado = localStorage.getItem('sistemaSelecionado');
 
     const headers: HeadersInit = {
         "Content-Type": "application/json",
-        ...(token ? { "Authorization": `Bearer ${token}` } : {}),
-        ...(empresaId ? { "X-Empresa-Id": empresaId } : {}),
+        ...(token ? {"Authorization": `Bearer ${token}`} : {}),
+        ...(empresaId ? {
+            "X-Filters-Data": JSON.stringify({
+                empresaId: empresaId,
+                sistemaSelecionado: sistemaSelecionado
+            })
+        } : {}),
     };
 
     const response = await fetch(`${baseUrl}${endpoint}`, {

@@ -29,7 +29,7 @@ export function ColaboradorPaginaInicial() {
         return listaColaboradoresAtivos.map((colaborador) => {
             return (
                 <tr key={colaborador.id}
-                    className={`${colaborador === colaboradorSelecionado ? 'bg-base-200 text-base-content' : 'hover:bg-base-300'}`}
+                    className={`bg-base-100 ${colaborador === colaboradorSelecionado ? 'bg-base-200 text-base-content' : 'hover:bg-base-300'}`}
                     onDoubleClick={() => setColaboradorSelecionado(colaborador)}>
                     <th className={`text-center`}>
                         <label>

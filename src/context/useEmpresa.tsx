@@ -27,9 +27,11 @@ export function EmpresaContextProvider({ children }: { children: ReactNode }) {
 
     function removeCookieEmpresaId() {
         Cookies.remove('empresa_id');
+        localStorage.removeItem('empresaId');
     }
 
     function selecionarEmpresa(emp: Empresa) {
+        localStorage.setItem('empresaId', emp.id);
         Cookies.set('empresa_id', emp.id, { path: '/' });
         setEmpresa(emp);
     }

@@ -83,7 +83,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                 >
                     <div className={`flex flex-col items-center`}>
                         <div
-                            className={`flex items-center px-5 text-neutral-900 h-16 font-semibold w-full`}>
+                            className={`flex items-center px-5 text-neutral-900 h-12 font-semibold w-full`}>
                             <div className={`flex justify-start items-center w-fit`}>
                                 <LogoSistema width={100} height={50} sidebarExpandido={sideBarExpandido}/>
                             </div>

@@ -1,10 +1,8 @@
-import {EntidadeTenant} from "@/class/EntidadeTenant";
-import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {PerfilModulo} from "@/features/manager/gestaoPerfil/perfilModulo/entidade/PerfilModulo";
+import {EntidadeSistema} from "@/class/EntidadeSistema";
 
-export class Perfil extends EntidadeTenant {
+export class Perfil extends EntidadeSistema {
     public descricao: string;
-    public sistema: SistemaENUM;
     public perfilModulos: PerfilModulo[];
 
     constructor() {

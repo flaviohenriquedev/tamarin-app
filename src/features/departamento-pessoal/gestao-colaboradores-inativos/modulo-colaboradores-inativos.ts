@@ -5,7 +5,7 @@ import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 export const ModuloColaboradoresInativos: ModulosType = {
     infos() {
         return {
-            id: 'gestao-colaboradores-ativos',
+            id: 'gestao-colaboradores-inativos',
             modulo: ModuloENUM.GESTAO_COLABORADORES_INATIVOS,
             title: 'Colaboradores Inativos',
             href: 'rh/colaborador',

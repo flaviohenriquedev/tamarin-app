@@ -58,22 +58,19 @@ export function PerfilPaginaInicial() {
         const perfilFiltrado = new Perfil();
         perfilFiltrado.sistema = sistemaSelecionado?.sistema as SistemaENUM;
         Object.assign(perfilFiltrado, perfil);
-        perfilService.salvar(perfilFiltrado).then(result => {
-            if (result) setListaPerfil(prev => [...prev, result])
+        perfilService.salvar(perfilFiltrado).then(() => {
+            atualizarLista();
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
             clear()
         })
     }
 
     function inicializarListaModulos() {
-        console.log('Rotas filtradas ---->', sistemasModulos.filter(sm => sm.sistema === sistemaSelecionado?.sistema))
-        console.log('Sistema Selecionado ---->', sistemaSelecionado)
         const sistemaModuloFiltrado = sistemasModulos.find(sm => sm.sistema === sistemaSelecionado?.sistema)
         if (sistemaModuloFiltrado) setListaModulos(sistemaModuloFiltrado.rotas)
     }
 
     function consultar(p: Perfil) {
-        console.log('PEFIL EM CONSULTA ---> ', p)
         setPerfil(p);
         inicializarListaModulos();
         setOpenModal(true)

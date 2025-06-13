@@ -98,6 +98,7 @@ export function UsuarioPaginaInicial() {
         setUsuario(new Usuario());
         setUsuarioPerfil(new UsuarioPerfil());
         setListaPerfil([]);
+        setListaModulos([]);
     }
 
     return (

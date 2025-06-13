@@ -8,6 +8,7 @@ import {DadosAcesso, Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/
 export async function logout() {
     await signOut({redirect: false}).then(() => {
         localStorage.removeItem("sistemaSelecionado")
+        localStorage.removeItem("empresaId")
         Cookies.remove("empresa_id")
     })
 }

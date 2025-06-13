@@ -14,6 +14,8 @@ import {
 import {
     ModuloProcessosSeletivos
 } from "@/features/recursos-humanos/gestao-recrutamento-selecao/processos-seletivos/modulo-processos-seletivos";
+import {ModuloGestoPerfil} from "@/features/manager/gestaoPerfil/modulo-gestao-perfil";
+import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gestao-usuario";
 
 export const rotasRecursosHumanos: RouteType[] = [
     {
@@ -35,6 +37,15 @@ export const rotasRecursosHumanos: RouteType[] = [
             ModuloSelecaoCandidatos.infos(),
             ModuloProcessosSeletivos.infos(),
         ]
-    }
+    },
+    {
+        id: 'rh-controle-acesso',
+        title: 'Controle de Acesso',
+        icon: icones.usuario,
+        subRoute: [
+            ModuloGestoPerfil.infos(),
+            ModuloGestaoUsuario.infos()
+        ]
+    },
 ];
 

@@ -1,4 +1,4 @@
-import {AdmissaoPaginaInicial} from "@/features/departamento-pessoal/gestao/admissao/admissao-pagina-inicial";
+import {AdmissaoPaginaInicial} from "@/features/departamento-pessoal/gestao/admissao/AdmissaoPaginaInicial";
 
 export default function PaginaAdmissao() {
     return (
