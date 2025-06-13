@@ -1,21 +1,24 @@
 'use client'
 
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {SistemaType} from "@/features/sistema/types";
 import {useRouter} from "next/navigation";
 import {sistemasModulos} from "@/features/sistema/sistemasModulos";
 
 type Props = {
-    listaSistemas: SistemaType[],
-    selecionarSistema: (sistema: SistemaType, redirect?: boolean) => void,
-    sistemaSelecionado: SistemaType | undefined,
+    listaSistemas: SistemaType[];
+    selecionarSistema: (sistema: SistemaType, redirect?: boolean) => void;
+    sistemaSelecionado: SistemaType | undefined;
+    limparSistemaSelecionado: () => void;
 }
 
 const SistemaContext = createContext<Props>({
     listaSistemas: [],
     selecionarSistema: () => {
     },
-    sistemaSelecionado: undefined
+    sistemaSelecionado: undefined,
+    limparSistemaSelecionado: () => {
+    }
 });
 
 export function useSistemaContext() {
@@ -31,14 +34,15 @@ export function SistemaContextProvider({children}: Options) {
     const [listaSistemas, setListaSistemas] = useState<SistemaType[]>([]);
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>()
 
-    function selecionarSistema(sistema: SistemaType, redirectOnSelect = false) {
-
+    useEffect(() => {
         const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
         if (sistemaSelecionadoStorage) {
             setSistemaSelecionado(sistemasModulos.find(sm => sm.sistema === sistemaSelecionadoStorage));
             return;
         }
+    }, [])
 
+    function selecionarSistema(sistema: SistemaType, redirectOnSelect = false) {
         setSistemaSelecionado(sistema);
         localStorage.setItem("sistemaSelecionado", sistema.sistema);
         if (redirectOnSelect) {
@@ -46,11 +50,17 @@ export function SistemaContextProvider({children}: Options) {
         }
     }
 
+    function limparSistemaSelecionado() {
+        localStorage.removeItem("sistemaSelecionado");
+        setSistemaSelecionado(undefined);
+    }
+
     return (
         <SistemaContext.Provider value={{
             listaSistemas,
             selecionarSistema,
-            sistemaSelecionado
+            sistemaSelecionado,
+            limparSistemaSelecionado
         }}>
             {children}
         </SistemaContext.Provider>

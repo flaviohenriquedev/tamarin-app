@@ -1,28 +1,26 @@
 'use client'
 
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {ReactNode, useContext, useEffect, useState} from "react";
 import './style.css'
-import {Header} from "@/components/layouts/header/header";
+import {Header} from "@/components/layouts/header/Header";
 import {RouteType} from "@/types/_root/RouteType";
 import {ChevronLeft} from "lucide-react";
-import {ListaMenu} from "@/components/layouts/layout-inicial/lista-menu";
+import {ListaMenu} from "@/components/layouts/layout-inicial/ListaMenu";
 import {motion} from "framer-motion";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import LogoSistema from "@/features/sistema/logo-sistema";
 import {getRotasPorSistema, usuarioPossuiAcesso} from "@/components/layouts/layout-inicial/ts/functions";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
+import {ContextListaMenu} from "@/components/layouts/layout-inicial/ContextListaMenu";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
 
     const {usuarioLogado} = useUsuarioLogado();
     const {sistemaSelecionado} = useSistemaContext();
+    const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
 
     const [searchMenu, setSearchMenu] = useState("");
-
     const [filteredData, setFilteredData] = useState<RouteType[]>();
-
-    const [sideBarExpandido, setSideBarExpandido] = useState<boolean>(true);
-
 
     function expandirRetrairSidebar() {
         setSideBarExpandido(!sideBarExpandido);

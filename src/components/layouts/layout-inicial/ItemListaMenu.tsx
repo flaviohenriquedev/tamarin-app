@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {RouteType} from "@/types/_root/RouteType";
 import {AnimatePresence, motion} from 'framer-motion';
 import {ChevronDown, Dot} from "lucide-react";
-import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-lista-menu";
+import {ContextListaMenu} from "@/components/layouts/layout-inicial/ContextListaMenu";
 import {useRouter} from "next/navigation";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export function ItemListaMenu({rota}: Props) {
 
-    const { sideBarExpandido} = useContext(ContextListaMenu);
+    const {sideBarExpandido} = useContext(ContextListaMenu);
     const [submenusVisiveis, setSubmenusVisiveis] = useState<Record<string, boolean>>({});
     const mostrarSubMenu = submenusVisiveis[rota.id as string] ?? false;
     const estadoAnterior = useRef(false);

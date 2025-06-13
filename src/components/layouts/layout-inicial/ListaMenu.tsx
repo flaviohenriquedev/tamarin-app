@@ -1,6 +1,6 @@
 import React from "react";
 import {RouteType} from "@/types/_root/RouteType";
-import {ItemListaMenu} from "@/components/layouts/layout-inicial/item-lista-menu";
+import {ItemListaMenu} from "@/components/layouts/layout-inicial/ItemListaMenu";
 
 type Props = {
     rotas: RouteType[];
