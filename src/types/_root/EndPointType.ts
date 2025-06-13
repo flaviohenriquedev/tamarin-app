@@ -6,7 +6,7 @@ export type EndPointType = {
     salvar: EndPontDetail;
     editar: EndPontDetail;
     deletar: EndPontDetail;
-}
+} & {[k: string]: EndPontDetail}
 
 export type EndPontDetail = {
     caminho?: string;

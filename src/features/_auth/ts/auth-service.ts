@@ -10,7 +10,9 @@ export class AuthService {
     }
 
     async login(email?: string, senha?: string): Promise<ResponseAuth | null> {
+        console.log('dentro do método de login')
         if (this.endpoint.login) {
+            console.log(this.endpoint)
             const response = await fetch(`${this.baseUrl}${this.endpoint.login.caminho}`, {
                 method: this.endpoint.login.metodo,
                 headers: {
