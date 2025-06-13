@@ -8,6 +8,10 @@ export const perfilEndPoints: EndPointType = {
     salvar: {
         metodo: MetodoHTTP.POST
     },
+    buscarPorId: {
+        caminho: '/:id',
+        metodo: MetodoHTTP.GET
+    },
     editar: {
         caminho: '/:id',
         metodo: MetodoHTTP.PUT
