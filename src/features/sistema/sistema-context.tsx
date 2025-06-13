@@ -1,21 +1,20 @@
 'use client'
 
-import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import {createContext, ReactNode, useContext, useState} from "react";
 import {SistemaType} from "@/features/sistema/types";
-import {dadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {useRouter} from "next/navigation";
+import {sistemasModulos} from "@/features/sistema/sistemasModulos";
 
 type Props = {
-    listaSistemasUsuarioLogado: SistemaType[],
     listaSistemas: SistemaType[],
     selecionarSistema: (sistema: SistemaType, redirect?: boolean) => void,
-    sistemaSelecionado: SistemaType | undefined
+    sistemaSelecionado: SistemaType | undefined,
 }
 
 const SistemaContext = createContext<Props>({
-    listaSistemasUsuarioLogado: [],
     listaSistemas: [],
-    selecionarSistema: () => {},
+    selecionarSistema: () => {
+    },
     sistemaSelecionado: undefined
 });
 
@@ -29,28 +28,26 @@ type Options = {
 
 export function SistemaContextProvider({children}: Options) {
     const route = useRouter();
-
     const [listaSistemas, setListaSistemas] = useState<SistemaType[]>([]);
-    const [listaSistemasUsuarioLogado, setListaSistemasUsuarioLogado] = useState<SistemaType[]>([]);
-
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>()
 
-    useEffect(() => {
-        setListaSistemas(dadosSistemas);
-    }, []);
-
     function selecionarSistema(sistema: SistemaType, redirectOnSelect = false) {
+
+        const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
+        if (sistemaSelecionadoStorage) {
+            setSistemaSelecionado(sistemasModulos.find(sm => sm.sistema === sistemaSelecionadoStorage));
+            return;
+        }
+
         setSistemaSelecionado(sistema);
         localStorage.setItem("sistemaSelecionado", sistema.sistema);
         if (redirectOnSelect) {
-            console.log("Redirecionando para:", sistema.href);
             route.push(sistema.href);
         }
     }
 
     return (
         <SistemaContext.Provider value={{
-            listaSistemasUsuarioLogado,
             listaSistemas,
             selecionarSistema,
             sistemaSelecionado

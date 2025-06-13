@@ -1,6 +1,4 @@
-import {
-    ComponenteSelecionarSistema
-} from "@/components/layouts/pagina-selecionar-sistema/componente-selecionar-sistema";
+import {ComponenteSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/ComponenteSelecionarSistema";
 
 export default function Page() {
     return (

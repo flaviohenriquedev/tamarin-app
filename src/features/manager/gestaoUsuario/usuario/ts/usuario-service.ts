@@ -15,7 +15,6 @@ export class UsuarioService extends CrudService<Usuario> {
     }
 
     async buscarUsuarioPorEmail(email: string): Promise<Usuario> {
-        console.log(`Buscando Usuario ${email}`);
         return await request<Usuario>(`${this.getBaseURL()}/buscarUsuarioPorEmail/${email}`, MetodoHTTP.GET);
     }
 }

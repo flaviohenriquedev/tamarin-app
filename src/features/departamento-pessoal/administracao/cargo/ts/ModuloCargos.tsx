@@ -3,7 +3,7 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
 import {ModuloENUM} from "@/enums/ModuloEnum";
 import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
-import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
 
 const ModuloCargos: ModulosType = {
     infos() {

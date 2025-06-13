@@ -28,7 +28,7 @@ export function ItemListaMenu({rota}: Props) {
                 setSubmenusVisiveis({ ...submenusVisiveis, [rota.id as string]: true });
             }
         }
-    }, [sideBarExpandido]);
+    }, [mostrarSubMenu, rota.id, sideBarExpandido, submenusVisiveis]);
 
 
     const toggleSubMenu = () => {
@@ -39,7 +39,7 @@ export function ItemListaMenu({rota}: Props) {
     };
 
     const navigate = (rota: RouteType) => {
-        if (rota.subRoute) {
+        if (rota.subRoute && rota.subRoute.length > 0) {
             setSubmenusVisiveis({
                 ...submenusVisiveis,
                 [rota.id as string]: !mostrarSubMenu
@@ -84,7 +84,7 @@ export function ItemListaMenu({rota}: Props) {
                             )}
                         </AnimatePresence>
                     </div>
-                    {sideBarExpandido && (
+                    {sideBarExpandido && rota.subRoute && (
                         <div className={`transition-transform group-hover:text-blue-500 duration-300 px-2 ${mostrarSubMenu && 'rotate-180'}`}>
                             <ChevronDown size={18}/>
                         </div>

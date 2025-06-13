@@ -19,8 +19,6 @@ export function ListaMenu({rotas}: Props) {
             pt-2
             overflow-x-hidden
             scrollbar-none
-            overflow-y-scroll
-            overflow-x-hidden
             truncate pb-32
         `}>
             {rotas.map((rota) => (

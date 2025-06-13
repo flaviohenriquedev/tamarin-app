@@ -1,7 +1,7 @@
 import {ColunaType} from "@/types/_root/ColunaType";
 import {get} from "lodash";
 import {useContext, useEffect, useState} from "react";
-import {EmpresaContext} from "@/context/empresa-context";
+import {EmpresaContext} from "@/context/useEmpresa";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";

@@ -1,96 +1,67 @@
 'use client'
 
-import React, {ReactNode, useCallback, useContext, useEffect, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import './style.css'
 import {Header} from "@/components/layouts/header/header";
-import {dadosSistemas, useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {RouteType} from "@/types/_root/RouteType";
-import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
 import {ChevronLeft} from "lucide-react";
 import {ListaMenu} from "@/components/layouts/layout-inicial/lista-menu";
-import {ContextListaMenu} from "@/components/layouts/layout-inicial/context-lista-menu";
 import {motion} from "framer-motion";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import LogoSistema from "@/features/sistema/logo-sistema";
-import {ModuloENUM} from "@/enums/ModuloEnum";
+import {getRotasPorSistema, usuarioPossuiAcesso} from "@/components/layouts/layout-inicial/ts/functions";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
 
 export function LayoutInicial({children}: { children: ReactNode }) {
-    const dadosSistemas = useDadosSistemas();
 
-    const {modulosEnumUsuarioLogado} = useUsuarioLogado();
-    const {sistemaSelecionado, selecionarSistema} = useSistemaContext();
-    const {sideBarExpandido, setSideBarExpandido} = useContext(ContextListaMenu)
+    const {usuarioLogado} = useUsuarioLogado();
+    const {sistemaSelecionado} = useSistemaContext();
 
     const [searchMenu, setSearchMenu] = useState("");
+
     const [filteredData, setFilteredData] = useState<RouteType[]>();
+
+    const [sideBarExpandido, setSideBarExpandido] = useState<boolean>(true);
+
 
     function expandirRetrairSidebar() {
         setSideBarExpandido(!sideBarExpandido);
     }
 
     useEffect(() => {
-        const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
-        if (sistemaSelecionadoStorage) {
-            const sistemaEncontrado = dadosSistemas.find(s => s.sistema === sistemaSelecionadoStorage);
-            if (sistemaEncontrado) {
-                selecionarSistema(sistemaEncontrado);
-            }
-        }
-    }, [selecionarSistema])
-
-    const filtrarModulosPermitidos = useCallback((modulos: RouteType[]) => {
-        return modulos.map(modulo => {
-            if (modulo.modulo && modulosEnumUsuarioLogado.includes(modulo.modulo)) {
-                return modulo;
-            }
-            if (modulo.subRoute) {
-                const subFiltradas = modulo.subRoute.filter(sr =>
-                    modulosEnumUsuarioLogado.includes(sr.modulo as ModuloENUM)
-                );
-                if (subFiltradas.length > 0) {
-                    return {...modulo, subRoute: subFiltradas};
-                }
-            }
-            return null;
-        })
-            .filter(Boolean) as RouteType[];
-    }, [modulosEnumUsuarioLogado]);
-
-    useEffect(() => {
         const filterMenu = () => {
             const filteredMap: { [key: string]: RouteType } = {};
-            if (sistemaSelecionado?.rotas && modulosEnumUsuarioLogado) {
-                filtrarModulosPermitidos(sistemaSelecionado?.rotas)?.forEach((d) => {
-                    const filteredMenu: RouteType = {...d};
-                    if (
-                        d.title?.toLowerCase()
-                            .includes(searchMenu.toLowerCase()) ||
-                        (d.subRoute && d.subRoute.some((sub) =>
-                            sub.title?.toLowerCase()
-                                .includes(searchMenu.toLowerCase())
-                        ))
-                    ) {
-                        if (d.title) filteredMap[d.title] = filteredMenu;
-                    }
 
+            if (sistemaSelecionado) {
+                getRotasPorSistema(sistemaSelecionado).forEach((d) => {
+                    if (d.modulo && !usuarioPossuiAcesso(d.modulo, usuarioLogado)) return;
+                    const filteredMenu: RouteType = { ...d };
                     if (d.subRoute) {
-                        const filteredSubmenu = d.subRoute.filter((sub) =>
-                            sub.title?.toLowerCase()
-                                .includes(searchMenu.toLowerCase())
-                        );
+                        const filteredSubmenu = d.subRoute.filter((sub) => {
+                            const temAcesso = !sub.modulo || usuarioPossuiAcesso(sub.modulo, usuarioLogado);
+                            const bateBusca = sub.title?.toLowerCase().includes(searchMenu.toLowerCase());
+                            return temAcesso && bateBusca;
+                        });
+
                         if (filteredSubmenu.length > 0) {
                             filteredMenu.subRoute = filteredSubmenu;
                             if (d.title) filteredMap[d.title] = filteredMenu;
                         }
+                    } else if (
+                        d.title?.toLowerCase().includes(searchMenu.toLowerCase())
+                    ) {
+                        if (d.title) filteredMap[d.title] = filteredMenu;
                     }
-                })
+                });
             }
+
             const filtered: RouteType[] = Object.values(filteredMap);
             setFilteredData(filtered);
         };
 
         filterMenu();
-    }, [sistemaSelecionado?.rotas, searchMenu, filtrarModulosPermitidos, modulosEnumUsuarioLogado]);
+    }, [searchMenu, sistemaSelecionado, usuarioLogado, usuarioLogado.dadosAcesso]);
+
     return (
         <div className={`container-sistema`}>
             <div className={`side-bar flex`}>

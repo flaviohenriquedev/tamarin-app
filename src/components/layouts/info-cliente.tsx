@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {EmpresaContext} from "@/context/empresa-context";
+import {EmpresaContext} from "@/context/useEmpresa";
 import {ListTodo} from "lucide-react";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
 import {AnimatePresence, motion} from "framer-motion";
-import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
 
 const clienteService = new EmpresaService();
 

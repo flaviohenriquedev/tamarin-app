@@ -2,17 +2,17 @@
 
 import React, {useEffect, useState} from 'react'
 import {Poppins} from "next/font/google";
-import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuario-context";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
 import {motion} from 'framer-motion'
 import {LogOut, ShieldEllipsis} from "lucide-react";
 import {getPrimeiroNome} from "@/utils/utils";
 import {frases} from "@/components/layouts/pagina-selecionar-sistema/ts/frases";
 import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/saudacoes";
-import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import {logout} from "@/features/sistema/functions";
-import {CardsSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/cards-selecionar-sistema";
+import {CardsSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/CardsSelecionarSistema";
+import {sistemasModulosMaster} from "@/features/sistema/sistemasModulos";
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
@@ -20,7 +20,6 @@ const fonteNomeUsuario = Poppins({
 });
 
 export function ComponenteSelecionarSistema() {
-    const dadosSistemas = useDadosSistemas();
     const {usuarioLogado} = useUsuarioLogado();
     const {selecionarSistema} = useSistemaContext();
 
@@ -42,7 +41,7 @@ export function ComponenteSelecionarSistema() {
     }, [usuarioLogado.nome])
 
     function navigateToAdminSystem() {
-        const sistemaAdmin = dadosSistemas.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
+        const sistemaAdmin = sistemasModulosMaster.find(rs => rs.sistema === SistemaENUM.GERENCIAR_SISTEMA);
         if (sistemaAdmin) selecionarSistema(sistemaAdmin, true)
     }
 
@@ -60,7 +59,6 @@ export function ComponenteSelecionarSistema() {
                 {usuarioLogado && (
                     <div className={`flex flex-col gap-4 w-full`}>
                         <div className="flex items-center">
-                            {/* Label com fade e slide da esquerda */}
                             <motion.label
                                 initial={{opacity: 0, x: -20}}
                                 animate={{opacity: 1, x: 0}}

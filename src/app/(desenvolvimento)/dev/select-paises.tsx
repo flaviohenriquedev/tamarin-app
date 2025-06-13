@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react'
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {SelectItem} from "@/components/ui/select-item/select-item";
 import {CountryCode} from "libphonenumber-js";
+import {EntidadePadrao} from "@/class/EntidadePadrao";
 
 type Labels = Record<string, string>;
 
@@ -15,7 +16,7 @@ type Props = {
     className: string;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
-export function SelectPaises({value, onChange, labels, className}: Props) {
+export function SelectPaises({onChange, labels}: Props) {
 
     const [selectItemPaises, setSelectItemPaises] = useState<TSelectItem[]>([]);
     const [valorPadrao] = useState<TSelectItem>({
@@ -48,6 +49,8 @@ export function SelectPaises({value, onChange, labels, className}: Props) {
             values={selectItemPaises}
             onSelect={onSelectItem}
             valorPadrao={valorPadrao}
-            widthClass={`w-fit`}/>
+            widthClass={`w-fit`}
+            entidade={new EntidadePadrao()}
+            field={''}/>
     )
 }

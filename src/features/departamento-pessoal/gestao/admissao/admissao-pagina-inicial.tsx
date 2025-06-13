@@ -54,7 +54,6 @@ export function AdmissaoPaginaInicial() {
     }
 
     function consultar(entidade: Admissao) {
-        console.log('entidade selecionada ->', entidade);
         setAdmissao(entidade);
         setOpenModal(true);
     }

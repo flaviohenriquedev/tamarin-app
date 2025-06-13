@@ -17,18 +17,16 @@ import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {useDadosSistemas} from "@/features/sistema/useDadosSistemas";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
 import {Table} from "@/components/ui/table/table";
+import {sistemasModulos} from "@/features/sistema/sistemasModulos";
 
 const service = new EmpresaService();
 type AcaoSalvar = 'SAVE' | 'SAVE_AND_CLOSE'
 
 export function EmpresaPaginaInicial() {
-    const dadosSistemas = useDadosSistemas();
-
-    const [openModal, setOpenModal] = useState<boolean>(false);
+       const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
     const [cliente, setCliente] = useState<Empresa>(new Empresa());
@@ -40,7 +38,7 @@ export function EmpresaPaginaInicial() {
 
     useEffect(() => {
         setListaSistemaDualList(
-            dadosSistemas.map(item => ({
+            sistemasModulos.map(item => ({
                 label: SistemaENUMFactory.getDescricao(item.sistema),
                 value: item.sistema
             }))

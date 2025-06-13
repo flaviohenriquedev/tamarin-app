@@ -1,20 +1,21 @@
 import {motion} from "framer-motion";
 import React from "react";
-import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
+import {SistemaType} from "@/features/sistema/types";
+import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 type Props = {
-    cliente: Empresa;
-    destacar: boolean;
-    listarSistemas: (cliente: Empresa) => void;
+    sistema: SistemaType;
 }
 
-export function CardCliente({cliente, destacar, listarSistemas}: Props) {
+export function CardSistema({sistema}: Props) {
+    const { selecionarSistema } = useSistemaContext();
 
     return (
         <>
-            {cliente && (
+            {sistema && (
                 <motion.li
-                    onClick={() => listarSistemas(cliente)}
+                    onClick={() => selecionarSistema(sistema, true)}
                     initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
                     animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
                     transition={{
@@ -26,8 +27,6 @@ export function CardCliente({cliente, destacar, listarSistemas}: Props) {
                     className={`
                                     bg-white
                                     text-md
-                                    border-2
-                                    ${destacar ? 'border-blue-400' : 'border-transparent'}
                                     flex
                                     items-center
                                     gap-4
@@ -43,7 +42,8 @@ export function CardCliente({cliente, destacar, listarSistemas}: Props) {
                                     hover:text-blue-400
                                 `}
                 >
-                    <span>{cliente.nomeFantasia}</span>
+                    {sistema.icone}
+                    <span>{SistemaENUMFactory.getDescricao(sistema.sistema)}</span>
                 </motion.li>
             )}
         </>

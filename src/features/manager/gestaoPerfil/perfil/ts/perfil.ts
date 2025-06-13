@@ -1,12 +1,14 @@
 import {EntidadeTenant} from "@/class/EntidadeTenant";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
+import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
+import {PerfilModulo} from "@/features/manager/gestaoPerfil/perfilModulo/entidade/PerfilModulo";
 
 export class Perfil extends EntidadeTenant {
-    descricao: string;
-    sistemas: PerfilSistema[];
+    public descricao: string;
+    public sistema: SistemaENUM;
+    public perfilModulos: PerfilModulo[];
 
     constructor() {
         super();
-        this.sistemas = [];
+        this.perfilModulos = [];
     }
 }

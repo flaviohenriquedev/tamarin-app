@@ -10,7 +10,7 @@ export function ProfileImageUploader() {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
-    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<unknown>(null);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -20,7 +20,7 @@ export function ProfileImageUploader() {
         }
     };
 
-    const onCropComplete = (croppedArea: any, croppedPixels: any) => {
+    const onCropComplete = (croppedArea: unknown, croppedPixels: unknown) => {
         setCroppedAreaPixels(croppedPixels);
     };
 

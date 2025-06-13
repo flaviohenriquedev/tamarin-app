@@ -1,7 +1,5 @@
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
-import {PerfilSistemaModulo} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/ts/pefil-sistema-modulo";
 import {RouteType} from "@/types/_root/RouteType";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {ListChecks} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
 import {useCallback, useState} from "react";
@@ -9,15 +7,19 @@ import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/button";
+import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/perfil";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeEnum} from "@/enums/FuncionalidadeEnum";
+import {PerfilModulo} from "@/features/manager/gestaoPerfil/perfilModulo/entidade/PerfilModulo";
 
 type Props = {
-    perfilSistema?: PerfilSistema;
-    className: string
-    listaModulos: RouteType[]
+    perfil: Perfil;
+    className: string;
+    listaModulos: RouteType[];
 }
 
 export function ComponentePerfilSistemaModulos({
-                                                   perfilSistema,
+                                                   perfil,
                                                    className,
                                                    listaModulos
                                                }: Props) {
@@ -74,7 +76,7 @@ export function ComponentePerfilSistemaModulos({
     }
 
     const moduloAdicionado = (modulo: RouteType) => {
-        return perfilSistema?.rotas.map(r => r.modulo).includes(modulo.modulo as string);
+        return perfil.perfilModulos.map(r => r.modulo).includes(modulo.modulo as ModuloENUM);
     }
 
     function getItemOpenModal(modulo: RouteType) {
@@ -92,28 +94,28 @@ export function ComponentePerfilSistemaModulos({
     function aplicarFuncionalidades() {
         const funcionalidadesSelecionadas = funcionalidadesSelectItens.filter(f => f.checked);
 
-        if (funcionalidadesSelecionadas.length > 0 && moduloSelecionado?.modulo && perfilSistema) {
-            const funcArray = funcionalidadesSelecionadas.map(func => func.value as string);
-            const moduloExistente = perfilSistema.rotas.find(
-                rota => rota.modulo === moduloSelecionado.modulo
+        if (funcionalidadesSelecionadas.length > 0 && moduloSelecionado?.modulo && perfil) {
+            const funcArray = funcionalidadesSelecionadas.map(func => func.value as FuncionalidadeEnum);
+            const moduloExistente = perfil.perfilModulos.find(
+                modulo => modulo.modulo === moduloSelecionado.modulo
             );
             if (moduloExistente) {
-                moduloExistente.roles = funcArray;
+                moduloExistente.funcionalidades = funcArray;
             } else {
-                const novoPerfilSistemaModulo = new PerfilSistemaModulo();
-                novoPerfilSistemaModulo.modulo = moduloSelecionado.modulo;
-                novoPerfilSistemaModulo.roles = funcArray;
-                perfilSistema.rotas.push(novoPerfilSistemaModulo);
+                const novoPerfilModulo = new PerfilModulo();
+                novoPerfilModulo.modulo = moduloSelecionado.modulo;
+                novoPerfilModulo.funcionalidades = funcArray;
+                perfil.perfilModulos.push(novoPerfilModulo);
             }
         }
         setOpenModal(false)
     }
 
     const isChecked = (funcionalidade: TSelectItem): boolean => {
-        return perfilSistema?.rotas.some(
-            rota =>
-                rota.modulo === moduloSelecionado?.modulo as string &&
-                rota.roles.includes(funcionalidade.value as string)
+        return perfil.perfilModulos.some(
+            perfilModulo =>
+                perfilModulo.modulo === moduloSelecionado?.modulo as string &&
+                perfilModulo.funcionalidades.includes(funcionalidade.value as FuncionalidadeEnum)
         ) ?? false;
     };
 

@@ -1,21 +1,20 @@
 import {motion} from "framer-motion";
 import React from "react";
-import {SistemaType} from "@/features/sistema/types";
-import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {DadosAcesso} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 
 type Props = {
-    sistema: SistemaType
+    dadosAcesso: DadosAcesso;
+    destacar: boolean;
+    selecionarDadosAcesso: (dadosAcesso: DadosAcesso) => void;
 }
 
-export function CardSistema({sistema}: Props) {
-    const { selecionarSistema } = useSistemaContext();
+export function CardEmpresa({dadosAcesso, destacar, selecionarDadosAcesso}: Props) {
 
     return (
         <>
-            {sistema && (
+            {dadosAcesso && (
                 <motion.li
-                    onClick={() => selecionarSistema(sistema, true)}
+                    onClick={() => selecionarDadosAcesso(dadosAcesso)}
                     initial={{opacity: 0, scale: 0.9, filter: 'blur(10px)'}}
                     animate={{opacity: 1, scale: 1, filter: 'blur(0px)'}}
                     transition={{
@@ -27,6 +26,8 @@ export function CardSistema({sistema}: Props) {
                     className={`
                                     bg-white
                                     text-md
+                                    border-2
+                                    ${destacar ? 'border-blue-400' : 'border-transparent'}
                                     flex
                                     items-center
                                     gap-4
@@ -42,8 +43,7 @@ export function CardSistema({sistema}: Props) {
                                     hover:text-blue-400
                                 `}
                 >
-                    {sistema.icone}
-                    <span>{SistemaENUMFactory.getDescricao(sistema.sistema)}</span>
+                    <span>{dadosAcesso.empresa.nomeFantasia}</span>
                 </motion.li>
             )}
         </>

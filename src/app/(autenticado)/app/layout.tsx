@@ -1,4 +1,4 @@
-import {LayoutInicial} from "@/components/layouts/layout-inicial/layout-inicial";
+import {LayoutInicial} from "@/components/layouts/layout-inicial/LayoutInicial";
 import {ReactNode} from "react";
 import {ContextListaMenuProvider} from "@/components/layouts/layout-inicial/context-lista-menu";
 

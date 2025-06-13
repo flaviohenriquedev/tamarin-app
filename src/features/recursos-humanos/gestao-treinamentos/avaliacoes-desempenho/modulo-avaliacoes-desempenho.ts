@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'AVALIACOES_DESEMPENHO'
-
-export const ModuloAvaliacoesDesempenho: ModulosType<Modulo> = {
+export const ModuloAvaliacoesDesempenho: ModulosType = {
     infos() {
         return {
             id: 'treinamentos-avaliacoes-desempenho',
-            modulo: 'AVALIACOES_DESEMPENHO',
+            modulo: ModuloENUM.GESTAO_AVALIACOES_DESEMPENHO,
             title: 'Avaliações de Desempenho',
-            href: '/app/rh/treinamentos/avaliacoes'
+            href: '/app/rh/treinamentos/avaliacoes',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

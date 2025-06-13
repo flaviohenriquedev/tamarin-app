@@ -1,14 +1,18 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
 
-type Modulo = 'VAGAS'
-
-export const ModuloVagas: ModulosType<Modulo> = {
+export const ModuloVagas: ModulosType = {
     infos() {
         return {
             id: 'recrutamento-selecao-vagas',
-            modulo: 'VAGAS',
+            modulo: ModuloENUM.GESTAO_VAGAS,
             title: 'Vagas',
-            href: '/app/rh/recrutamento/vagas'
+            href: '/app/rh/recrutamento/vagas',
+            funcionalidades: this.funcionalidades()
         }
+    },
+    funcionalidades() {
+        return FuncionalidadeFactory.getFuncionalidades([...FuncionalidadeFactory.funcionalidadesPadrao()])
     }
 }

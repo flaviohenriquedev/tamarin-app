@@ -1,18 +1,14 @@
 'use client';
 
-import {useTheme} from 'next-themes';
 import {useEffect, useState} from 'react';
 import {FormularioLogin} from "@/features/_auth/formulario-login";
 
 export default function PaginaLogin() {
-    const {theme, systemTheme} = useTheme();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
-
-    const currentTheme = theme === 'system' ? systemTheme : theme;
 
     if (!mounted) {
         return (

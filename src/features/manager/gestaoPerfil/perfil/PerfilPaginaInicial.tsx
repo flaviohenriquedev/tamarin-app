@@ -14,31 +14,31 @@ import {Button} from "@/components/ui/button/button";
 
 import './css/style.css'
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
-import {ComponentePerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ComponentePerfilSistema";
 import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
-import {
-    ComponentePerfilSistemaModulos
-} from "@/features/manager/gestaoPerfil/perfilSistemasRotas/componente-perfil-sistema-modulos";
 import {RouteType} from "@/types/_root/RouteType";
-import {PerfilSistema} from "@/features/manager/gestaoPerfil/perfilSistemas/ts/perfil-sistema";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {perfilColunasListagem} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-colunas-listagem";
 import {toast} from "sonner";
-import {useEmpresa} from "@/context/empresa-context";
+import {
+    ComponentePerfilSistemaModulos
+} from "@/features/manager/gestaoPerfil/perfilModulo/ComponentePerfilSistemaModulos";
+import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
 
 const perfilService = new PerfilService();
 const empresaService = new EmpresaService();
 
 export function PerfilPaginaInicial() {
-    const {empresa} = useEmpresa();
+    const { sistemasModulosFiltrados } = useUsuarioLogado();
+    const { sistemaSelecionado } = useSistemaContext();
+
     const [openModal, setOpenModal] = useState<boolean>(false)
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
     const [perfil, setPerfil] = useState<Perfil>(new Perfil())
-    const [perfilSistemaSelecionado, setPerfilSistemaSelecionado] = useState<PerfilSistema>(new PerfilSistema())
+
     const [clienteSelecionado, setClienteSelecionado] = useState<Empresa>(new Empresa())
 
-    const [listaPerfilSistema, setListaPerfilSistema] = useState<PerfilSistema[]>([])
     const [listaModulos, setListaModulos] = useState<RouteType[]>([])
     const [listaPerfil, setListaPerfil] = useState<Perfil[]>([]);
     const [listaClientes, setListaClientes] = useState<Empresa[]>([]);
@@ -52,13 +52,7 @@ export function PerfilPaginaInicial() {
     }, [])
 
     function handleNovoCadastro() {
-        const novaLista: PerfilSistema[] = []
-        empresa.sistemas.forEach(sistema => {
-            const perfilSistema: PerfilSistema = new PerfilSistema()
-            perfilSistema.keySistema = sistema.keySistema
-            novaLista.push(perfilSistema)
-        })
-        setListaPerfilSistema(novaLista)
+        setListaModulos(sistemasModulosFiltrados.filter(sm => sm.sistema === sistemaSelecionado?.sistema))
         setOpenModal(true);
     }
 
@@ -71,16 +65,15 @@ export function PerfilPaginaInicial() {
     }
 
     function consultar(p: Perfil) {
-
+        setPerfil(p)
+        setOpenModal(true);
     }
 
     function clear() {
         setPerfil(new Perfil())
         setClienteSelecionado(new Empresa())
-        setPerfilSistemaSelecionado(new PerfilSistema())
         setListaClientes([])
         setListaModulos([])
-        setListaPerfilSistema([])
     }
 
     function deletar(perfil: Perfil) {
@@ -120,14 +113,8 @@ export function PerfilPaginaInicial() {
                     </LineContent>
 
                     <div className={`relative cad-perfil-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
-
-                        <ComponentePerfilSistema
-                            className={'cad-perfil-system'}
-                            sistemas={listaPerfilSistema}
-                            selecionarSistema={() => {}}/>
-
                         <ComponentePerfilSistemaModulos
-                            perfilSistema={perfilSistemaSelecionado}
+                            perfil={perfil}
                             className={'cad-perfil-module'}
                             listaModulos={listaModulos}/>
                     </div>
