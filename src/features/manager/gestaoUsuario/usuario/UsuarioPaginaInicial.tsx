@@ -15,7 +15,7 @@ import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/t
 import {ButtonGroup} from "@/components/ui/button/button-group";
 
 import './css/style.css'
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";

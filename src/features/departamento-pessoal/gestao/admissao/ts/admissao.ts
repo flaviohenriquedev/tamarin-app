@@ -8,6 +8,7 @@ import {Departamento} from "@/features/departamento-pessoal/administracao/depart
 export class Admissao extends EntidadeTenant {
     public nomeCompleto: string;
     public cpf: string;
+    public rg: string;
     public dataNascimento: Date;
     public nascionalidade: string;
     public nomeMae: string;

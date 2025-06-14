@@ -1,7 +1,7 @@
 'use client'
 
 import {ColaboradorService} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/colaborador-service";
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {useCallback, useEffect, useState} from "react";
 import {Colaborador} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/colaborador";
 import {Table} from "@/components/ui/table/table";
@@ -12,7 +12,7 @@ import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {toast} from "sonner";
 import {InputString} from "@/components/ui/input/input-string";
-import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
+import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {InputNumerico} from "@/components/ui/input/input-numerico";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {ButtonGroup} from "@/components/ui/button/button-group";

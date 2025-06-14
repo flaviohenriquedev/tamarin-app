@@ -13,6 +13,11 @@ export const admissaoColunasListagem: ColunaType[] = [
         tipoDado: TipoDadoEnum.STRING,
     },
     {
+        descricao: 'RG',
+        field: 'rg',
+        tipoDado: TipoDadoEnum.STRING,
+    },
+    {
         descricao: 'Data Admissão',
         field: 'dataAdmissao',
         tipoDado: TipoDadoEnum.DATA_COMPLETA,

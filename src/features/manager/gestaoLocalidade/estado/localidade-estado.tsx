@@ -1,7 +1,7 @@
 'use client'
 
 import {useCallback, useEffect, useState} from "react";
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {EstadoService} from "@/features/manager/gestaoLocalidade/estado/ts/estado-service";
 import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/estado";
 import {estadoColunasListagem} from "@/features/manager/gestaoLocalidade/estado/ts/estado-colunas-listagem";

@@ -1,12 +1,8 @@
 'use client'
 
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {paisColunasListagem} from "@/features/manager/gestaoLocalidade/pais/ts/pais-colunas-listagem";
-import {useCallback, useEffect, useState} from "react";
 import {PaisService} from "@/features/manager/gestaoLocalidade/pais/ts/pais-service";
-import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/pais";
-import {toast} from "sonner";
-import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
@@ -16,57 +12,27 @@ import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
 import {Label} from "@/components/ui/label/label";
 import {InputString} from "@/components/ui/input/input-string";
-
-const service = new PaisService();
+import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
+import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/pais";
 
 export function LocalidadePais() {
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [entidade, setEntidade] = useState<Pais>(new Pais());
-    const [listaEntidades, setListaEntidades] = useState<Pais[]>([]);
-
-    useEffect(() => {
-        service.listar().then(result => {
-            setListaEntidades(result)
-        });
-    }, []);
-
-    const atualizarLista = useCallback(() => {
-        service.listar().then(result => {
-            setListaEntidades(result)
-        });
-    }, []);
-
-    function salvar() {
-        service.salvar(entidade, () => {
-            setEntidade(new Pais());
-            atualizarLista();
-            toast.success("Registro salvo com sucesso.");
-            if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
-        }).then()
-    }
-
-    const clear = () => {
-        setEntidade(new Pais())
-    }
-
-    function consultar(entidade: Pais) {
-        setEntidade(entidade);
-        setOpenModal(true);
-    }
-
-    function excluir(entidade: Pais) {
-        service.excluir(entidade.id).then(() => {
-            atualizarLista();
-            toast.success("Cadastro deletado.")
-        })
-    }
-
-    function handleNovoCadastro() {
-        setEntidade(new Pais())
-        setOpenModal(true);
-    }
+    const {
+        openModal,
+        setOpenModal,
+        entidadeCadastro,
+        listaEntidades,
+        salvar,
+        excluir,
+        consultar,
+        handleNovoCadastro,
+        atualizarLista,
+        setAcaoSalvar,
+        clear
+    } = usePaginaCadastro<Pais, PaisService>({
+        service: new PaisService(),
+        novaEntidade: () => new Pais()
+    });
 
     return (
         <>
@@ -85,18 +51,18 @@ export function LocalidadePais() {
                 <Form onSubmit={salvar}>
                     <LineContent>
                         <Label title={`Nome`}>
-                            <InputString entidade={entidade} atributo={`nomePt`}/>
+                            <InputString entidade={entidadeCadastro} atributo={`nomePt`}/>
                         </Label>
                         <Label title={`Sigla`}>
-                            <InputString entidade={entidade} atributo={`sigla`}/>
+                            <InputString entidade={entidadeCadastro} atributo={`sigla`}/>
                         </Label>
                     </LineContent>
                     <LineContent>
                         <Label title={`Bacen`}>
-                            <InputNumerico entidade={entidade} atributo={`bacen`}/>
+                            <InputNumerico entidade={entidadeCadastro} atributo={`bacen`}/>
                         </Label>
                         <Label title={`DDI`}>
-                            <InputNumerico entidade={entidade} atributo={`ddi`}/>
+                            <InputNumerico entidade={entidadeCadastro} atributo={`ddi`}/>
                         </Label>
                     </LineContent>
 

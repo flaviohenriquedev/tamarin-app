@@ -1,5 +1,5 @@
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
+import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {CargoService} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-service";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {useEffect, useState} from "react";
@@ -16,6 +16,8 @@ import {
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {InputNumerico} from "@/components/ui/input/input-numerico";
+import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {EntidadePadrao} from "@/class/EntidadePadrao";
 
 type Props = {
     admissao: Admissao;
@@ -32,6 +34,8 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
     const [selectItensDepartamentos, setSelectItensDepartamentos] = useState<TSelectItem[]>([]);
     const [selectItensTiposDeContrato, setSelectItensTiposDeContrato] = useState<TSelectItem[]>([]);
     const [selectItensCargaHoraria, setSelectItensCargaHoraria] = useState<TSelectItem[]>([]);
+
+    const [dataDeAdmissao, setDataDeAdmissao] = useState<Date>(new Date());
 
     useEffect(() => {
         const selectItens: TSelectItem[] = [];
@@ -138,7 +142,6 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                     onSelect={onSelectItemTipoContrato}/>
 
             </LineContent>
-
             <LineContent>
                 <SelectItem
                     entidade={admissao}
@@ -151,14 +154,34 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                     label={`Salário`}
                     atributo={`salario`}
                     entidade={admissao}
-                    />
+                />
 
                 <InputDataCompleta
                     label={`Data de Admissão`}
                     atributo={`dataAdmissao`}
+                    dataPadrao={dataDeAdmissao}
                     entidade={admissao}
-                    />
+                />
             </LineContent>
+
+            <Fieldset label={`Contrado de Experiência`}
+                      largura={`w-full`}>
+                <div className={`flex w-[50%]`}>
+                    <LineContent>
+                        <InputNumerico
+                            label={`Contrato de Experiência`}
+                            atributo={``}
+                            entidade={new EntidadePadrao()}/>
+                        <InputNumerico
+                            label={`Prorrogação`}
+                            atributo={``}
+                            entidade={new EntidadePadrao()}/>
+                    </LineContent>
+                </div>
+                <div className={`flex w-[50%] rounded-lg shadow-sm p-2`}>
+                    Prazo de tantos dias
+                </div>
+            </Fieldset>
         </>
     )
 }

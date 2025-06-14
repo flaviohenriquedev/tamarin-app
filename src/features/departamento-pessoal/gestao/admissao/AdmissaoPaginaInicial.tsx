@@ -1,6 +1,6 @@
 'use client'
 
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {AdmissaoService} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao-service";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {useCallback, useEffect, useState} from "react";
@@ -12,7 +12,7 @@ import {Button} from "@/components/ui/button/button";
 import Modal from "@/components/ui/modal/modal";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/admissao-tabs";
+import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/AdmissaoTabs";
 
 const service = new AdmissaoService();
 
@@ -45,6 +45,7 @@ export function AdmissaoPaginaInicial() {
     }
 
     function salvar() {
+        console.log("dataAdmissao:", admissao.dataAdmissao);
         service.salvar(admissao, () => {
             setAdmissao(new Admissao());
             atualizar();
@@ -72,7 +73,7 @@ export function AdmissaoPaginaInicial() {
                 <Table funcaoAtualizarLista={atualizar}
                        lista={listaAdmissoes}
                        colunas={admissaoColunasListagem}
-                       acoesTabela={{consultar: consultar}}/>
+                       acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
             <Modal title={'Cadastro de Admissão'}
                    isOpen={openModal}

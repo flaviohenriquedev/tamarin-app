@@ -1,12 +1,12 @@
 import {TabType} from "@/components/ui/tab/ts/TabType";
-import {TabGroup} from "@/components/ui/tab/tab-group";
+import {TabGroup} from "@/components/ui/tab/TabGroup";
 import {
     CamposFormularioDadosBasicos
-} from "@/features/departamento-pessoal/gestao/admissao/campos-formulario-dados-basicos";
+} from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosBasicos";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {
     CamposFormularioDadosAdmissao
-} from "@/features/departamento-pessoal/gestao/admissao/campos-formulario-dados-admissao";
+} from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosAdmissao";
 
 type Props = {
     admissao: Admissao;

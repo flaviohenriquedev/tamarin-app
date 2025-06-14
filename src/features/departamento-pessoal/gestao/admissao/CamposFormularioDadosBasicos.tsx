@@ -2,7 +2,7 @@ import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/input-string";
 import {InputCPF} from "@/components/ui/input/input-cpf";
-import {InputDataCompleta} from "@/components/ui/input/input-data-completa";
+import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade-service";
 import {useEffect, useState} from "react";
@@ -57,14 +57,21 @@ export function CamposFormularioDadosBasicos({admissao}: Props) {
                         atributo={`cpf`}
                         entidade={admissao}
                         />
+                    <InputString
+                        label={`RG`}
+                        name={'rg'}
+                        atributo={`rg`}
+                        entidade={admissao}
+                    />
+
+                </LineContent>
+                <LineContent>
                     <InputDataCompleta
                         name={'datanascimento'}
                         label={`Data de Nascimento`}
                         atributo={`dataNascimento`}
                         entidade={admissao}
-                        />
-                </LineContent>
-                <LineContent>
+                    />
                     <InputString
                         name={'nascionalidade'}
                         label={`Nascionalidade`}

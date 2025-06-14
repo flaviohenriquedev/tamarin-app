@@ -1,7 +1,7 @@
 'use client'
 
 import {TabType} from "@/components/ui/tab/ts/TabType";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import {ChevronsLeft, ChevronsRight} from "lucide-react";
 import {Button} from "@/components/ui/button/button";
 
@@ -29,9 +29,8 @@ export function TabGroup({tabs, classNameChildren}: Props) {
         <div className="w-full">
             <div className="flex gap-2 tabs tabs-xs tabs-box">
                 {tabs.map((tab: TabType, index: number) => (
-                    <>
+                    <Fragment key={tab.label}>
                         <input
-                            key={index}
                             type="radio"
                             name="my_tabs_1"
                             className="tab cursor-default px-3"
@@ -46,7 +45,7 @@ export function TabGroup({tabs, classNameChildren}: Props) {
                             p-2 ${classNameChildren ? classNameChildren : ''}`}>
                             {tab.children}
                         </div>
-                    </>
+                    </Fragment>
                 ))}
             </div>
 

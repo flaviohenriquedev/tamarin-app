@@ -1,6 +1,6 @@
 'use client'
 
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
 import {Table} from "@/components/ui/table/table";
 import {useCallback, useEffect, useState} from "react";
