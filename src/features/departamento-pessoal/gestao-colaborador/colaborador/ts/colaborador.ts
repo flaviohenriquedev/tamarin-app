@@ -10,6 +10,7 @@ import {
 } from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/colaborador-cargo";
 
 export class Colaborador extends EntidadeTenant {
+    public matricula: number;
     public nomeCompleto: string;
     public cpf: string;
     public dataNascimento: Date;

@@ -48,7 +48,7 @@ export function ColaboradorPaginaInicial() {
                                 </div>
                             </div>
                             <div className={'flex flex-col gap-1'}>
-                                <div>{colaborador.nomeCompleto}</div>
+                                <div>{colaborador.nomeCompleto + ' - Mat. ' + colaborador.matricula}</div>
                                 <div className={`
                                     text-[8pt]
                                     font-light

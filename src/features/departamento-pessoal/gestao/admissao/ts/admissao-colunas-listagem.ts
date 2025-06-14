@@ -8,6 +8,11 @@ export const admissaoColunasListagem: ColunaType[] = [
         tipoDado: TipoDadoEnum.STRING,
     },
     {
+        descricao: 'Matricula',
+        field: 'colaborador.matricula',
+        tipoDado: TipoDadoEnum.INTEGER,
+    },
+    {
         descricao: 'CPF',
         field: 'cpf',
         tipoDado: TipoDadoEnum.STRING,
