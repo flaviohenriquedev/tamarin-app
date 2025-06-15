@@ -3,7 +3,7 @@
 import React, {FormEvent} from 'react';
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
-import {InputString} from "@/components/ui/input/input-string";
+import {InputString} from "@/components/ui/input/InputString";
 import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";

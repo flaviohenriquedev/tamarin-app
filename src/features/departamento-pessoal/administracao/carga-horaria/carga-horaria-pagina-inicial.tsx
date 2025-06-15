@@ -17,7 +17,7 @@ import {CargaHoraria} from "@/features/departamento-pessoal/administracao/carga-
 import {
     cargaHorariaColunasListagem
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-colunas-listagem";
-import {InputNumerico} from "@/components/ui/input/input-numerico";
+import {InputNumerico} from "@/components/ui/input/InputNumerico";
 
 const service = new CargaHorariaService();
 

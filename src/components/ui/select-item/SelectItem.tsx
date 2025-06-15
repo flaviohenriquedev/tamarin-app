@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {SelectItemValue} from "@/components/ui/select-item/select-item-value";
+import {SelectItemValue} from "@/components/ui/select-item/SelectItemValue";
 import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Asterisk} from "lucide-react";

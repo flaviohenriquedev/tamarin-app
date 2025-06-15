@@ -3,7 +3,7 @@ import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {CargoService} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-service";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {useCallback, useEffect, useState} from "react";
-import {SelectItem} from "@/components/ui/select-item/select-item";
+import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {get, set} from "lodash";
 import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
 import {

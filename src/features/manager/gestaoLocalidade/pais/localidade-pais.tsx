@@ -7,11 +7,11 @@ import {Table} from "@/components/ui/table/table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {InputNumerico} from "@/components/ui/input/input-numerico";
+import {InputNumerico} from "@/components/ui/input/InputNumerico";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
 import {Label} from "@/components/ui/label/label";
-import {InputString} from "@/components/ui/input/input-string";
+import {InputString} from "@/components/ui/input/InputString";
 import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
 import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/pais";
 

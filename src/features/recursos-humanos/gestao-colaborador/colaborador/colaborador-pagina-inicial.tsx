@@ -11,15 +11,15 @@ import {
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {toast} from "sonner";
-import {InputString} from "@/components/ui/input/input-string";
+import {InputString} from "@/components/ui/input/InputString";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
-import {InputNumerico} from "@/components/ui/input/input-numerico";
+import {InputNumerico} from "@/components/ui/input/InputNumerico";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
-import {InputCPF} from "@/components/ui/input/input-cpf";
+import {InputCPF} from "@/components/ui/input/InputCPF";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {InputTelefone} from "@/components/ui/input/input-telefone";
+import {InputTelefone} from "@/components/ui/input/InputTelefone";
 import {FotoPerfilUploader} from "@/components/ui/foto-perfil-uploader/foto-perfil-uploader";
 
 const colaboradorService = new ColaboradorService();
