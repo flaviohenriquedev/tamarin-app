@@ -15,12 +15,13 @@ import {
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
 import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
-import {InputNumerico} from "@/components/ui/input/input-numerico";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {formatDateBR} from "@/utils/utils";
 import {inputStyle} from "@/components/ui/input/style";
 import {Label} from "@/components/ui/label/label";
 import {addDays} from 'date-fns';
+import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
+import {InputMoeda} from "@/components/ui/input/InputMoeda";
 
 type Props = {
     admissao: Admissao;
@@ -32,10 +33,30 @@ const tipoContratoService = new TipoContratoService();
 const cargaHorariaService = new CargaHorariaService();
 
 export function CamposFormularioDadosAdmissao({admissao}: Props) {
-    const [selectItensCargos, setSelectItensCargos] = useState<TSelectItem[]>([]);
-    const [selectItensDepartamentos, setSelectItensDepartamentos] = useState<TSelectItem[]>([]);
-    const [selectItensTiposDeContrato, setSelectItensTiposDeContrato] = useState<TSelectItem[]>([]);
-    const [selectItensCargaHoraria, setSelectItensCargaHoraria] = useState<TSelectItem[]>([]);
+
+    const {selectItens: selectItensCargos} = useSelectItem({
+        service: cargoService,
+        fieldDescricao: 'descricao',
+        fieldValor: 'id'
+    })
+
+    const {selectItens: selectItensDepartamentos} = useSelectItem({
+        service: departamentoService,
+        fieldDescricao: 'descricao',
+        fieldValor: 'id'
+    })
+
+    const {selectItens: selectItensTiposDeContrato} = useSelectItem({
+        service: tipoContratoService,
+        fieldDescricao: 'descricao',
+        fieldValor: 'id'
+    })
+
+    const {selectItens: selectItensCargaHoraria} = useSelectItem({
+        service: cargaHorariaService,
+        fieldDescricao: 'descricao',
+        fieldValor: 'id'
+    })
 
     const [dataAdmissao, setDataAdmissao] = useState<Date>(new Date());
     const [quantidadeDiasExperiencia, setQuantidadeDiasExperiencia] = useState<number>();
@@ -83,62 +104,6 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
             setQuantidadeDiasProrrogacao(0)
         }
     }, [admissao, dataAdmissao, quantidadeDiasProrrogacao]);
-
-    useEffect(() => {
-        const selectItens: TSelectItem[] = [];
-        cargoService.listar().then(result => {
-            result.map(cargo => {
-                const item: TSelectItem = {
-                    label: cargo.descricao,
-                    value: cargo.id as string
-                }
-                selectItens.push(item)
-            })
-            setSelectItensCargos(selectItens)
-        })
-    }, [])
-
-    useEffect(() => {
-        const selectItens: TSelectItem[] = [];
-        departamentoService.listar().then(result => {
-            result.map(departamento => {
-                const item: TSelectItem = {
-                    label: departamento.descricao,
-                    value: departamento.id as string
-                }
-                selectItens.push(item)
-            })
-            setSelectItensDepartamentos(selectItens)
-        })
-    }, [])
-
-    useEffect(() => {
-        const selectItens: TSelectItem[] = [];
-        tipoContratoService.listar().then(result => {
-            result.map(tipoContrato => {
-                const item: TSelectItem = {
-                    label: tipoContrato.descricao,
-                    value: tipoContrato.id as string
-                }
-                selectItens.push(item)
-            })
-            setSelectItensTiposDeContrato(selectItens)
-        })
-    }, [])
-
-    useEffect(() => {
-        const selectItens: TSelectItem[] = [];
-        cargaHorariaService.listar().then(result => {
-            result.map(cargaHoraria => {
-                const item: TSelectItem = {
-                    label: cargaHoraria.descricao,
-                    value: cargaHoraria.id as string
-                }
-                selectItens.push(item)
-            })
-            setSelectItensCargaHoraria(selectItens)
-        })
-    }, [])
 
     const onSelectItemCargo = (item: TSelectItem) => {
         const cargoSelecionado = new Cargo();
@@ -197,11 +162,10 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                     values={selectItensCargaHoraria}
                     onSelect={onSelectItemCargaHoraria}/>
 
-                <InputNumerico
+                <InputMoeda
                     label={`Salário`}
-                    atributo={`salario`}
                     entidade={admissao}
-                />
+                    atributo={'salario'}/>
 
                 <InputDataCompleta
                     label={`Data de Admissão`}
@@ -212,8 +176,8 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                 />
             </LineContent>
 
-            <Fieldset label={`Contrato de Experiência`} largura={`w-full`}>
-                <div className="grid [grid-template-columns:1fr_1fr] gap-4">
+            <LineContent>
+                <Fieldset label={`Experiência`} largura={`w-full`}>
                     <LineContent>
                         <Label title={`Prazo Experiência (dias)`}>
                             <input
@@ -222,7 +186,18 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                                 value={quantidadeDiasExperiencia}
                                 onChange={(e) => setQuantidadeDiasExperiencia(parseInt(e.target.value))}/>
                         </Label>
+                        <div
+                            className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
+                            <div className={`flex gap-3`}>
+                                <label><strong>Experiência até:</strong></label>
+                                <label>{`${quantidadeDiasExperiencia && dataAdmissaoExperiencia ? formatDateBR(dataAdmissaoExperiencia) : '---/---/---'}`}</label>
+                            </div>
+                        </div>
+                    </LineContent>
+                </Fieldset>
 
+                <Fieldset label={`Prorrogação`} largura={`w-full`}>
+                    <LineContent>
                         <Label title={`Prazo Prorrogação (dias)`}>
                             <input
                                 className={inputStyle}
@@ -230,23 +205,16 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                                 value={quantidadeDiasProrrogacao}
                                 onChange={(e) => setQuantidadeDiasProrrogacao(parseInt(e.target.value))}/>
                         </Label>
-                    </LineContent>
-                    <LineContent>
                         <div
-                            className={`flex shadow-sm rounded-lg h-full items-center w-full justify-around text-sm bg-neutral-100 text-neutral-600`}>
-                            <div className={`flex gap-3`}>
-                                <label><strong>Experiência até:</strong></label>
-                                <label>{`${quantidadeDiasExperiencia && dataAdmissaoExperiencia ? formatDateBR(dataAdmissaoExperiencia) : '---/---/---'}`}</label>
-                            </div>
-                            <div className="divider divider-horizontal"/>
+                            className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
                             <div className={`flex gap-3`}>
                                 <label><strong>Prorrogado até:</strong></label>
                                 <label>{`${quantidadeDiasProrrogacao && dataAdmissaoProrrogacao ? formatDateBR(dataAdmissaoProrrogacao) : '---/---/---'}`}</label>
                             </div>
                         </div>
                     </LineContent>
-                </div>
-            </Fieldset>
+                </Fieldset>
+            </LineContent>
         </>
     )
 }

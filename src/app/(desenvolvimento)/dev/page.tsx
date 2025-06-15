@@ -1,12 +1,25 @@
 'use client'
 
-import React from 'react'
-import {ProfileImageUploader} from "@/app/(desenvolvimento)/dev/ProfileImageUploader";
+import {NumericFormat} from 'react-number-format';
+import {useState} from 'react';
+import {inputStyle} from "@/components/ui/input/style";
 
-export default function DevPage() {
+export default function InputMoeda() {
+    const [valor, setValor] = useState<string | undefined>();
 
     return (
-        <ProfileImageUploader />
-    )
-
+        <NumericFormat
+            value={valor}
+            thousandSeparator="."
+            decimalSeparator=","
+            decimalScale={2}
+            fixedDecimalScale
+            prefix="R$ "
+            allowNegative={false}
+            onValueChange={(values) => {
+                setValor(values.value); // valor numérico puro: '1234.56'
+            }}
+            className={inputStyle}
+        />
+    );
 }

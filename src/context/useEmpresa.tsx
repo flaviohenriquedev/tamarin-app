@@ -1,6 +1,5 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
-import Cookies from "js-cookie";
 import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
 
 const empresaService = new EmpresaService();
@@ -25,14 +24,17 @@ export function EmpresaContextProvider({ children }: { children: ReactNode }) {
 
     const [empresa, setEmpresa] = useState<Empresa>(new Empresa());
 
+    useEffect(() => {
+        const idEmpresaLocalStorage = localStorage.getItem("empresaId");
+        if (idEmpresaLocalStorage) empresaService.buscarPorId(idEmpresaLocalStorage).then(result => setEmpresa(result ? result : new Empresa()))
+    }, []);
+
     function removeCookieEmpresaId() {
-        Cookies.remove('empresa_id');
         localStorage.removeItem('empresaId');
     }
 
     function selecionarEmpresa(emp: Empresa) {
         localStorage.setItem('empresaId', emp.id);
-        Cookies.set('empresa_id', emp.id, { path: '/' });
         setEmpresa(emp);
     }
 

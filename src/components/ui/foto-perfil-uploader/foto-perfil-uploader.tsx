@@ -55,7 +55,7 @@ export function FotoPerfilUploader() {
 
             {imageSrc && (
                 <Modal isOpen={openModal} setIsOpen={setOpenModal}>
-                    <div className="flex flex-col items-center justify-center gap-4 p-4 bg-white rounded-lg w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
+                    <div className="flex flex-col items-center justify-center gap-4 p-4 bg-base-100 rounded-lg w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
                         <div className="relative w-full h-full">
                             <Cropper
                                 image={imageSrc}

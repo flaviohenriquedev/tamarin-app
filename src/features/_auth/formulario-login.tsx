@@ -35,7 +35,7 @@ export function FormularioLogin() {
     }
 
     return (
-        <div className={'bg-white/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
+        <div className={'bg-base-100/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
             <form className={'flex flex-col gap-8 w-96'} onSubmit={handleSubmit}>
 
                 <div className={`flex items-center justify-between`}>

@@ -292,5 +292,5 @@
 }
 
 .arcano-container {
-    @apply bg-white shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)] rounded-lg border border-white backdrop-blur-sm
+    @apply bg-base-100 shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)] rounded-lg border border-base-200 backdrop-blur-sm
 }

@@ -10,7 +10,7 @@ export const admissaoColunasListagem: ColunaType[] = [
     {
         descricao: 'CPF',
         field: 'cpf',
-        tipoDado: TipoDadoEnum.STRING,
+        tipoDado: TipoDadoEnum.CPF,
     },
     {
         descricao: 'RG',

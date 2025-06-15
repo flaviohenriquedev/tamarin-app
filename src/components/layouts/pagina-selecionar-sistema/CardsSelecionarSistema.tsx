@@ -35,7 +35,7 @@ export function CardsSelecionarSistema({className}: Props) {
                     duration: 0.5,
                     ease: 'easeOut'
                 }}
-                className={`flex justify-center gap-4 px-20 py-14 w-full rounded-xl bg-white/30 backdrop-blur-sm border border-white`}
+                className={`flex justify-center gap-4 px-20 py-14 w-full rounded-xl bg-base-100/30 backdrop-blur-sm border border-white`}
             >
                 <ul className={`flex w-[50%] flex-col gap-2 max-h-80 overflow-y-auto p-4`}>
                     {usuarioLogado && usuarioLogado.dadosAcesso.map(da => (
