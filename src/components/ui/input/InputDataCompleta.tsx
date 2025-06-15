@@ -12,10 +12,11 @@ import {aplicarMascaraData, formatDateBR, parseDateBR} from "@/utils/utils";
 import {isValid, parse} from "date-fns";
 
 interface Props<E> extends InputProps<E> {
-    dataPadrao?: Date
+    dataPadrao?: Date;
+    onChangeDate?: (date: Date) => void;
 }
 
-export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao}: Props<E>) {
+export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao, onChangeDate}: Props<E>) {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const [date, setDate] = useState<Date | undefined>();
@@ -34,9 +35,8 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
         } else if (!valorEntidade && dataPadrao) {
             setDate(dataPadrao);
             setInputValue(formatDateBR(dataPadrao));
-            if(entidade) set(entidade, atributo, dataPadrao);
+            if (entidade) set(entidade, atributo, dataPadrao);
         }
-
         initializedRef.current = true;
     }, [atributo, entidade, dataPadrao]);
 
@@ -57,6 +57,10 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
             setDate(undefined); // reseta caso o usuário apague algo
         }
     };
+
+    useEffect(() => {
+        if (onChangeDate && date) onChangeDate(date);
+    }, [date, onChangeDate]);
 
     const handleSelect = (dataSelecionada: Date | undefined) => {
         if (dataSelecionada) {

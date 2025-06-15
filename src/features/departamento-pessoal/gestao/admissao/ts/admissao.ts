@@ -27,6 +27,11 @@ export class Admissao extends EntidadeTenant {
     public cargaHoraria: CargaHoraria;
     public departamento: Departamento;
 
+    public quantidadeDiasExperiencia: number;
+    public dataExperiencia: Date;
+    public quantidadeDiasProrrogacao: number;
+    public dataProrrogacao: Date;
+
     constructor() {
         super();
     }
