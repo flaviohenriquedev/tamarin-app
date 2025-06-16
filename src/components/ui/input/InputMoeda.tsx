@@ -1,7 +1,6 @@
 import {NumberFormatValues, NumericFormat} from "react-number-format";
 import {inputStyle} from "@/components/ui/input/style";
 import React, {InputHTMLAttributes, useEffect, useState} from "react";
-import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {Asterisk} from "lucide-react";
 import {get, set} from "lodash";
 
@@ -11,7 +10,7 @@ interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
 }
 
-export function InputMoeda<E extends EntidadePadrao>({
+export function InputMoeda<E>({
                                                             id,
                                                             placeholder,
                                                             name,

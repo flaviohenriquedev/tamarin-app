@@ -1,6 +1,6 @@
 import {CrudService} from "@/services/crud-service";
-import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/estado";
-import {estadoEndPoints} from "@/features/manager/gestaoLocalidade/estado/ts/estado-end-points";
+import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
+import {estadoEndPoints} from "@/features/manager/gestaoLocalidade/estado/ts/estadoEndPoints";
 import {EndPointType} from "@/types/_root/EndPointType";
 
 export class EstadoService extends CrudService<Estado> {

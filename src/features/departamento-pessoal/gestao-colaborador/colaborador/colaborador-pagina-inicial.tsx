@@ -1,16 +1,14 @@
 'use client'
 
-import {
-    StatusColaboradorFactory
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
 import {useEffect, useState} from "react";
-import {AnimatePresence} from "framer-motion";
-import {ColaboradorInfo} from "@/features/recursos-humanos/gestao-colaborador/colaborador/colaborador-info";
 import Image from "next/image";
 import {
     ColaboradorService
 } from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador-service";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+import {
+    StatusColaboradorFactory
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/StatusColaboradorENUM";
 
 const colaboradorService = new ColaboradorService();
 
@@ -100,13 +98,13 @@ export function ColaboradorPaginaInicial() {
                         </tbody>
                     </table>
                 </div>
-                <AnimatePresence>
-                    {colaboradorSelecionado.nomeCompleto && (
-                        <ColaboradorInfo
-                            colaborador={colaboradorSelecionado}
-                            setColaborador={setColaboradorSelecionado}/>
-                    )}
-                </AnimatePresence>
+                {/*<AnimatePresence>*/}
+                {/*    {colaboradorSelecionado.nomeCompleto && (*/}
+                {/*        <ColaboradorInfo*/}
+                {/*            colaborador={colaboradorSelecionado}*/}
+                {/*            setColaborador={setColaboradorSelecionado}/>*/}
+                {/*    )}*/}
+                {/*</AnimatePresence>*/}
             </div>
         </>
     )

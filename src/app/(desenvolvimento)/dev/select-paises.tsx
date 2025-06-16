@@ -51,6 +51,6 @@ export function SelectPaises({onChange, labels}: Props) {
             valorPadrao={valorPadrao}
             widthClass={`w-fit`}
             entidade={new EntidadePadrao()}
-            field={''}/>
+            fieldValor={''}/>
     )
 }

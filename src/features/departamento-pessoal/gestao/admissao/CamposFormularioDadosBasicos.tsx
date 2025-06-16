@@ -3,42 +3,36 @@ import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputCPF} from "@/components/ui/input/InputCPF";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
-import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
-import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade-service";
-import {useEffect, useState} from "react";
+import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/CidadeService";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {set} from "lodash";
-import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
+import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
+import {
+    ColaboradorEndereco
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
 
 type Props = {
-    admissao: Admissao;
+    colaborador: Colaborador;
+    colaboradorEndereco: ColaboradorEndereco;
 }
 
 const cidadeService = new CidadeService()
 
-export function CamposFormularioDadosBasicos({admissao}: Props) {
+export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco}: Props) {
 
-    const [selectItensCidades, setSelectItensCidades] = useState<TSelectItem[]>([]);
-
-    useEffect(() => {
-        const selectItens: TSelectItem[] = [];
-        cidadeService.listar().then(result => {
-            result.map(cidade => {
-                const item: TSelectItem = {
-                    label: cidade.nome,
-                    value: cidade.id as string
-                }
-                selectItens.push(item)
-            })
-            setSelectItensCidades(selectItens)
-        })
-    }, [])
+    const {selectItens: selectItensCidades} = useSelectItem({
+        service: cidadeService,
+        fieldDescricao: 'nome',
+        fieldValor: 'id'
+    })
 
     const onSelectItemCidade = (item: TSelectItem) => {
         const cidadeSelecionada = new Cidade();
         cidadeSelecionada.id = item.value as string;
-        set(admissao, 'cidade', cidadeSelecionada)
+        set(colaboradorEndereco, 'cidade', cidadeSelecionada)
     }
 
     return (
@@ -48,20 +42,20 @@ export function CamposFormularioDadosBasicos({admissao}: Props) {
                     <InputString
                         name={'nomecompleto'}
                         label={`Nome Completo`}
-                        entidade={admissao}
+                        entidade={colaborador}
                         atributo={`nomeCompleto`}
-                        />
+                    />
                     <InputCPF
                         name={'cpf'}
                         label={`CPF`}
                         atributo={`cpf`}
-                        entidade={admissao}
-                        />
+                        entidade={colaborador}
+                    />
                     <InputString
                         label={`RG`}
                         name={'rg'}
                         atributo={`rg`}
-                        entidade={admissao}
+                        entidade={colaborador}
                     />
 
                 </LineContent>
@@ -70,18 +64,18 @@ export function CamposFormularioDadosBasicos({admissao}: Props) {
                         name={'datanascimento'}
                         label={`Data de Nascimento`}
                         atributo={`dataNascimento`}
-                        entidade={admissao}
+                        entidade={colaborador}
                     />
                     <InputString
                         name={'nascionalidade'}
                         label={`Nascionalidade`}
                         atributo={`nascionalidade`}
-                        entidade={admissao}/>
+                        entidade={colaborador}/>
                     <InputString
                         name={'nomemae'}
                         label={`Nome da Mãe`}
                         atributo={`nomeMae`}
-                        entidade={admissao}/>
+                        entidade={colaborador}/>
                 </LineContent>
             </Fieldset>
 
@@ -90,42 +84,43 @@ export function CamposFormularioDadosBasicos({admissao}: Props) {
                     <InputString
                         name={'rua'}
                         label={`Rua`}
-                        entidade={admissao}
+                        entidade={colaboradorEndereco}
                         atributo={`rua`}
-                        />
+                    />
 
                     <InputString
                         name={'quadra'}
                         label={`Quadra`}
-                        entidade={admissao}
+                        entidade={colaboradorEndereco}
                         atributo={`quadra`}
-                        />
+                    />
 
                     <InputString
                         name={'lote'}
                         label={`Lote`}
-                        entidade={admissao}
+                        entidade={colaboradorEndereco}
                         atributo={`lote`}
-                        />
+                    />
                 </LineContent>
                 <LineContent>
                     <InputString
                         name={'numero'}
                         label={`Numero`}
-                        entidade={admissao}
+                        entidade={colaboradorEndereco}
                         atributo={`numero`}
-                        />
+                    />
 
                     <InputString
                         name={'bairro'}
                         label={`Bairro`}
-                        entidade={admissao}
+                        entidade={colaboradorEndereco}
                         atributo={`bairro`}
-                        />
+                    />
 
                     <SelectItem
-                        entidade={admissao}
-                        field={'cidade.id'}
+                        tabIndex={0}
+                        entidade={colaboradorEndereco}
+                        fieldValor={'cidade.id'}
                         label={`Cidade`}
                         values={selectItensCidades}
                         onSelect={onSelectItemCidade}/>

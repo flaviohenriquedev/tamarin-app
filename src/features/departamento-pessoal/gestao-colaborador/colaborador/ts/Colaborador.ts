@@ -1,13 +1,14 @@
 import {EntidadeTenant} from "@/class/EntidadeTenant";
-import {
-    StatusColaboradorENUM
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
+
 import {
     ColaboradorEndereco
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/colaborador-endereco";
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
 import {
     ColaboradorCargo
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/colaborador-cargo";
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
+import {
+    StatusColaboradorENUM
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/StatusColaboradorENUM";
 
 export class Colaborador extends EntidadeTenant {
     public nomeCompleto: string;

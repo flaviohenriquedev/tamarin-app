@@ -32,7 +32,7 @@ const usePaginaCadastro = <E extends EntidadePadrao, S extends CrudService<E>>({
     }, [service]);
 
     useEffect(() => {
-        listar();
+        listar().then();
     }, [listar]);
 
     const salvar = useCallback(async () => {

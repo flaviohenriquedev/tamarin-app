@@ -1,5 +1,5 @@
 import {EntidadePadrao} from "@/class/EntidadePadrao";
-import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/estado";
+import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
 
 export class Cidade extends EntidadePadrao {
     nome: string;
@@ -7,4 +7,9 @@ export class Cidade extends EntidadePadrao {
     ibge: number;
     latLon: string;
     codTom: number
+
+    constructor() {
+        super();
+        this.estado = new Estado();
+    }
 }

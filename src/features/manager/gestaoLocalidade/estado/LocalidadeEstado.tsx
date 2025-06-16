@@ -2,9 +2,9 @@
 
 import {useCallback, useEffect, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade-service";
-import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade";
-import {cidadeColunasListagem} from "@/features/manager/gestaoLocalidade/cidade/ts/cidade-colunas-listagem";
+import {EstadoService} from "@/features/manager/gestaoLocalidade/estado/ts/EstadoService";
+import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
+import {estadoColunasListagem} from "@/features/manager/gestaoLocalidade/estado/ts/estadoColunasListagem";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/table";
@@ -15,21 +15,41 @@ import {InputString} from "@/components/ui/input/InputString";
 import {InputNumerico} from "@/components/ui/input/InputNumerico";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
+import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
+import {SelectItem} from "@/components/ui/select-item/SelectItem";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/Pais";
+import {set} from "lodash";
+import {PaisService} from "@/features/manager/gestaoLocalidade/pais/ts/PaisService";
 
-const service = new CidadeService();
+const service = new EstadoService();
+const paisService = new PaisService();
 
-export function LocalidadeCidade() {
+export function LocalidadeEstado() {
+    
+    const { selectItens: selectItensPais } = useSelectItem({
+        service: paisService,
+        fieldDescricao: 'nomePt',
+        fieldValor: 'id'
+    })
+    
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [entidade, setEntidade] = useState<Cidade>(new Cidade());
-    const [listaEntidades, setListaEntidades] = useState<Cidade[]>([]);
+    const [entidade, setEntidade] = useState<Estado>(new Estado());
+    const [listaEntidades, setListaEntidades] = useState<Estado[]>([]);
 
     useEffect(() => {
         service.listar().then(result => {
             setListaEntidades(result)
         });
     }, []);
+    
+    const onSelectPais = useCallback((item: TSelectItem) => {
+        const pais: Pais = new Pais();
+        pais.id = item.value as string;
+        set(entidade, 'pais', pais);
+    }, [entidade])
 
     const atualizarLista = useCallback(() => {
         service.listar().then(result => {
@@ -39,7 +59,7 @@ export function LocalidadeCidade() {
 
     function salvar() {
         service.salvar(entidade, () => {
-            setEntidade(new Cidade());
+            setEntidade(new Estado());
             atualizarLista();
             toast.success("Registro salvo com sucesso.");
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -47,15 +67,15 @@ export function LocalidadeCidade() {
     }
 
     const clear = () => {
-        setEntidade(new Cidade())
+        setEntidade(new Estado())
     }
 
-    function consultar(entidade: Cidade) {
+    function consultar(entidade: Estado) {
         setEntidade(entidade);
         setOpenModal(true);
     }
 
-    function excluir(entidade: Cidade) {
+    function excluir(entidade: Estado) {
         service.excluir(entidade.id).then(() => {
             atualizarLista();
             toast.success("Cadastro deletado.")
@@ -63,7 +83,7 @@ export function LocalidadeCidade() {
     }
 
     function handleNovoCadastro() {
-        setEntidade(new Cidade())
+        setEntidade(new Estado())
         setOpenModal(true);
     }
 
@@ -74,10 +94,10 @@ export function LocalidadeCidade() {
                 <Table
                     funcaoAtualizarLista={atualizarLista}
                     lista={listaEntidades}
-                    colunas={cidadeColunasListagem}
+                    colunas={estadoColunasListagem}
                     acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
-            <Modal title={'Cadastro de Cidade'}
+            <Modal title={'Cadastro de Estado'}
                    isOpen={openModal}
                    setIsOpen={setOpenModal}
                    onCloseModal={clear}>
@@ -99,6 +119,13 @@ export function LocalidadeCidade() {
                             atributo={`ibge`}
                             entidade={entidade}
                         />
+                        
+                        <SelectItem
+                            label={`Pais`}
+                            entidade={entidade}
+                            fieldValor={'pais.id'}
+                            values={selectItensPais}
+                            onSelect={onSelectPais} />
 
                     </LineContent>
 

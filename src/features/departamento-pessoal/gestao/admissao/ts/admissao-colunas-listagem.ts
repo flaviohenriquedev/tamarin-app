@@ -19,22 +19,22 @@ export const admissaoColunasListagem: ColunaType[] = [
     },
     {
         descricao: 'Data Admissão',
-        field: 'dataAdmissao',
+        field: 'cargoAtivo.dataAdmissao',
         tipoDado: TipoDadoEnum.DATA_COMPLETA,
     },
     {
         descricao: 'Cargo',
-        field: 'cargo.descricao',
+        field: 'cargoAtivo.cargo.descricao',
         tipoDado: TipoDadoEnum.STRING,
     },
     {
         descricao: 'Tipo Contrato',
-        field: 'tipoContrato.descricao',
+        field: 'cargoAtivo.tipoContrato.descricao',
         tipoDado: TipoDadoEnum.STRING,
     },
     {
         descricao: 'Departamento',
-        field: 'departamento.descricao',
+        field: 'cargoAtivo.departamento.descricao',
         tipoDado: TipoDadoEnum.STRING,
     },
 

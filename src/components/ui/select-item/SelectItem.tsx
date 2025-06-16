@@ -7,7 +7,7 @@ import {get} from "lodash";
 
 type Props<E> = {
     entidade: E;
-    field: string;
+    fieldValor: string;
     values: TSelectItem[];
     onSelect: (value: TSelectItem) => void;
     widthClass?: string;
@@ -15,18 +15,20 @@ type Props<E> = {
     label?: string;
     name?: string;
     required?: boolean;
+    tabIndex?: number;
 }
 
 export function SelectItem<E extends object>({
                                                  entidade,
-                                                 field,
+                                                 fieldValor,
                                                  values,
                                                  widthClass,
                                                  onSelect,
                                                  valorPadrao,
                                                  label,
                                                  name,
-                                                 required
+                                                 required,
+                                                 tabIndex
                                              }: Props<E>) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
@@ -34,10 +36,10 @@ export function SelectItem<E extends object>({
 
     useEffect(() => {
         if (values && values.length > 0) {
-            const valorEntidade = get(entidade, field)
+            const valorEntidade = get(entidade, fieldValor)
             if (valorEntidade) setItemSelecionado(values.find(v => v.value === valorEntidade));
         }
-    }, [entidade, field, values]);
+    }, [entidade, fieldValor, values]);
 
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
@@ -106,6 +108,7 @@ export function SelectItem<E extends object>({
             )}
             <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
                 <div
+                    tabIndex={tabIndex}
                     className={`
                     input
                     bg-transparent

@@ -1,15 +1,15 @@
 import {ColunaType} from "@/types/_root/ColunaType";
 import {TipoDadoEnum} from "@/enums/TipoDadoEnum";
 
-export const cidadeColunasListagem: ColunaType[] = [
+export const estadoColunasListagem: ColunaType[] = [
     {
         descricao: 'Nome',
         field: 'nome',
         tipoDado: TipoDadoEnum.STRING,
     },
     {
-        descricao: 'Estado',
-        field: 'estado.nome',
+        descricao: 'Sigla',
+        field: 'sigla',
         tipoDado: TipoDadoEnum.STRING,
     },
     {
@@ -18,8 +18,8 @@ export const cidadeColunasListagem: ColunaType[] = [
         tipoDado: TipoDadoEnum.INTEGER,
     },
     {
-        descricao: 'Código TOM',
-        field: 'codTom',
+        descricao: 'País',
+        field: 'pais.nomePt',
         tipoDado: TipoDadoEnum.INTEGER,
-    },
+    }
 ]

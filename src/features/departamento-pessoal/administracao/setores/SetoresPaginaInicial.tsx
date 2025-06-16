@@ -2,44 +2,63 @@
 
 import {useCallback, useEffect, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {EstadoService} from "@/features/manager/gestaoLocalidade/estado/ts/estado-service";
-import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/estado";
-import {estadoColunasListagem} from "@/features/manager/gestaoLocalidade/estado/ts/estado-colunas-listagem";
 import {toast} from "sonner";
-import {AcaoSalvar} from "@/features/sistema/types";
-import {Table} from "@/components/ui/table/table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
-import {InputNumerico} from "@/components/ui/input/InputNumerico";
+import {Table} from "@/components/ui/table/table";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
+import {AcaoSalvar} from "@/features/sistema/types";
+import {SetoresService} from "@/features/departamento-pessoal/administracao/setores/ts/setores-service";
+import {Setor} from "@/features/departamento-pessoal/administracao/setores/ts/setor";
+import {setorColunasListagem} from "@/features/departamento-pessoal/administracao/setores/ts/setor-colunas-listagem";
+import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
+import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
+import {SelectItem} from "@/components/ui/select-item/SelectItem";
+import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
+import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
+import {set} from "lodash";
 
-const service = new EstadoService();
+const service = new SetoresService();
+const departamentoService = new DepartamentoService();
 
-export function LocalidadeEstado() {
+export function SetoresPaginaInicial() {
+
+    const {selectItens: selectItensDepartamentos} = useSelectItem({
+        service: departamentoService,
+        fieldDescricao: 'descricao',
+        fieldValor: 'id',
+    })
+
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [entidade, setEntidade] = useState<Estado>(new Estado());
-    const [listaEntidades, setListaEntidades] = useState<Estado[]>([]);
+    const [setor, setSetor] = useState<Setor>(new Setor());
+    const [listaSetores, setListaSetores] = useState<Setor[]>([]);
 
     useEffect(() => {
         service.listar().then(result => {
-            setListaEntidades(result)
+            setListaSetores(result)
         });
     }, []);
 
     const atualizarLista = useCallback(() => {
         service.listar().then(result => {
-            setListaEntidades(result)
+            setListaSetores(result)
         });
     }, []);
 
+    const onSelectDepartamento = useCallback((item: TSelectItem) => {
+        const departamento: Departamento = new Departamento();
+        departamento.id = item.value as string;
+        set(setor, 'departamento', departamento);
+    }, [setor])
+
     function salvar() {
-        service.salvar(entidade, () => {
-            setEntidade(new Estado());
+        service.salvar(setor, () => {
+            setSetor(new Setor());
             atualizarLista();
             toast.success("Registro salvo com sucesso.");
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -47,23 +66,24 @@ export function LocalidadeEstado() {
     }
 
     const clear = () => {
-        setEntidade(new Estado())
+        setSetor(new Setor())
     }
 
-    function consultar(entidade: Estado) {
-        setEntidade(entidade);
+    function consultar(entidade: Setor) {
+        console.log('SETOR --->', entidade);
+        setSetor(entidade);
         setOpenModal(true);
     }
 
-    function excluir(entidade: Estado) {
-        service.excluir(entidade.id).then(() => {
+    function excluir(setor: Setor) {
+        service.excluir(setor.id).then(() => {
             atualizarLista();
             toast.success("Cadastro deletado.")
         })
     }
 
     function handleNovoCadastro() {
-        setEntidade(new Estado())
+        setSetor(new Setor())
         setOpenModal(true);
     }
 
@@ -73,32 +93,27 @@ export function LocalidadeEstado() {
                             funcaoNovoCadastro={handleNovoCadastro}>
                 <Table
                     funcaoAtualizarLista={atualizarLista}
-                    lista={listaEntidades}
-                    colunas={estadoColunasListagem}
+                    lista={listaSetores}
+                    colunas={setorColunasListagem}
                     acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
-            <Modal title={'Cadastro de Estado'}
+            <Modal title={'Cadastro de Setor'}
                    isOpen={openModal}
                    setIsOpen={setOpenModal}
                    onCloseModal={clear}>
                 <Form onSubmit={salvar}>
-
                     <LineContent>
                         <InputString
-                            label={`Nome`}
-                            atributo={`nome`}
-                            entidade={entidade} />
+                            label={`Descrição`}
+                            entidade={setor}
+                            atributo={`descricao`}
+                            required/>
 
-                        <InputString
-                            label={`Sigla`}
-                            atributo={`sigla`}
-                            entidade={entidade} />
-
-                        <InputNumerico
-                            label={`IBGE`}
-                            atributo={`ibge`}
-                            entidade={entidade}
-                        />
+                        <SelectItem
+                            entidade={setor}
+                            fieldValor={'departamento.id'}
+                            values={selectItensDepartamentos}
+                            onSelect={onSelectDepartamento}/>
 
                     </LineContent>
 

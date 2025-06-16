@@ -1,44 +1,46 @@
 'use client'
 
+import {paisColunasListagem} from "@/features/manager/gestaoLocalidade/pais/ts/paisColunasListagem";
 import {useCallback, useEffect, useState} from "react";
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
+import {PaisService} from "@/features/manager/gestaoLocalidade/pais/ts/PaisService";
+import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/Pais";
 import {toast} from "sonner";
+import {AcaoSalvar} from "@/features/sistema/types";
+import {Table} from "@/components/ui/table/table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {InputString} from "@/components/ui/input/InputString";
-import {Table} from "@/components/ui/table/table";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
-import {AcaoSalvar} from "@/features/sistema/types";
-import {SetoresService} from "@/features/departamento-pessoal/administracao/setores/ts/setores-service";
-import {Setor} from "@/features/departamento-pessoal/administracao/setores/ts/setor";
-import {setorColunasListagem} from "@/features/departamento-pessoal/administracao/setores/ts/setor-colunas-listagem";
+import {Label} from "@/components/ui/label/label";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
+import {InputString} from "@/components/ui/input/InputString";
+import {InputNumerico} from "@/components/ui/input/InputNumerico";
 
-const service = new SetoresService();
+const service = new PaisService();
 
-export function SetoresPaginaInicial() {
+export function LocalidadePais() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [setor, setSetor] = useState<Setor>(new Setor());
-    const [listaSetores, setListaSetores] = useState<Setor[]>([]);
+    const [entidade, setEntidade] = useState<Pais>(new Pais());
+    const [listaEntidades, setListaEntidades] = useState<Pais[]>([]);
 
     useEffect(() => {
         service.listar().then(result => {
-            setListaSetores(result)
+            setListaEntidades(result)
         });
     }, []);
 
     const atualizarLista = useCallback(() => {
         service.listar().then(result => {
-            setListaSetores(result)
+            setListaEntidades(result)
         });
     }, []);
 
     function salvar() {
-        service.salvar(setor, () => {
-            setSetor(new Setor());
+        service.salvar(entidade, () => {
+            setEntidade(new Pais());
             atualizarLista();
             toast.success("Registro salvo com sucesso.");
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -46,23 +48,23 @@ export function SetoresPaginaInicial() {
     }
 
     const clear = () => {
-        setSetor(new Setor())
+        setEntidade(new Pais())
     }
 
-    function consultar(entidade: Setor) {
-        setSetor(entidade);
+    function consultar(entidade: Pais) {
+        setEntidade(entidade);
         setOpenModal(true);
     }
 
-    function excluir(setor: Setor) {
-        service.excluir(setor.id).then(() => {
+    function excluir(entidade: Pais) {
+        service.excluir(entidade.id).then(() => {
             atualizarLista();
             toast.success("Cadastro deletado.")
         })
     }
 
     function handleNovoCadastro() {
-        setSetor(new Setor())
+        setEntidade(new Pais())
         setOpenModal(true);
     }
 
@@ -72,23 +74,31 @@ export function SetoresPaginaInicial() {
                             funcaoNovoCadastro={handleNovoCadastro}>
                 <Table
                     funcaoAtualizarLista={atualizarLista}
-                    lista={listaSetores}
-                    colunas={setorColunasListagem}
+                    lista={listaEntidades}
+                    colunas={paisColunasListagem}
                     acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
-            <Modal title={'Cadastro de Setor'}
+            <Modal title={'Cadastro de País'}
                    isOpen={openModal}
                    setIsOpen={setOpenModal}
                    onCloseModal={clear}>
                 <Form onSubmit={salvar}>
                     <LineContent>
-                        <InputString
-                            label={`Descrição`}
-                            entidade={setor}
-                            atributo={`descricao`}
-                            required/>
+                        <Label title={`Nome`}>
+                            <InputString entidade={entidade} atributo={`nomePt`}/>
+                        </Label>
+                        <Label title={`Sigla`}>
+                            <InputString entidade={entidade} atributo={`sigla`}/>
+                        </Label>
                     </LineContent>
-
+                    <LineContent>
+                        <Label title={`Bacen`}>
+                            <InputNumerico entidade={entidade} atributo={`bacen`}/>
+                        </Label>
+                        <Label title={`DDI`}>
+                            <InputNumerico entidade={entidade} atributo={`ddi`}/>
+                        </Label>
+                    </LineContent>
 
                     <ButtonGroup>
                         <Button

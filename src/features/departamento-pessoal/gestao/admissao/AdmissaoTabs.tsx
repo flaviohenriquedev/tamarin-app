@@ -3,32 +3,41 @@ import {TabGroup} from "@/components/ui/tab/TabGroup";
 import {
     CamposFormularioDadosBasicos
 } from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosBasicos";
-import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {
     CamposFormularioDadosAdmissao
 } from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosAdmissao";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+import {
+    ColaboradorEndereco
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
+import {
+    ColaboradorCargo
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
 
 type Props = {
-    admissao: Admissao;
+    colaborador: Colaborador;
+    colaboradorEndereco: ColaboradorEndereco;
+    colaboradorCargo: ColaboradorCargo;
 }
 
-export function AdmissaoTabs({admissao}: Props) {
+export function AdmissaoTabs({colaborador, colaboradorEndereco, colaboradorCargo}: Props) {
     const tabs: TabType[] = [
         {
             label: 'Dados Básicos',
             children: <CamposFormularioDadosBasicos
-                admissao={admissao}/>
+                colaborador={colaborador}
+                colaboradorEndereco={colaboradorEndereco}/>
         },
         {
             label: 'Dados Admissão',
             children: <CamposFormularioDadosAdmissao
-                admissao={admissao}/>
+                colaboradorCargo={colaboradorCargo}/>
         },
     ]
 
     return (
         <TabGroup
             tabs={tabs}
-            classNameChildren={`min-h-[60vh] min-w-[60vw]`}/>
+            classNameChildren={`min-h-[60vh] min-w-[70vw]`}/>
     )
 }

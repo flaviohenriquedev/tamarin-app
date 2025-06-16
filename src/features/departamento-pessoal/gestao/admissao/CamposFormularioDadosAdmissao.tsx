@@ -14,7 +14,6 @@ import {
     CargaHorariaService
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
-import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
 import {Fieldset} from "@/components/ui/fieldset/fieldset";
 import {formatDateBR} from "@/utils/utils";
 import {inputStyle} from "@/components/ui/input/style";
@@ -22,9 +21,12 @@ import {Label} from "@/components/ui/label/label";
 import {addDays} from 'date-fns';
 import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {InputMoeda} from "@/components/ui/input/InputMoeda";
+import {
+    ColaboradorCargo
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
 
 type Props = {
-    admissao: Admissao;
+    colaboradorCargo: ColaboradorCargo;
 }
 
 const cargoService = new CargoService();
@@ -32,7 +34,7 @@ const departamentoService = new DepartamentoService();
 const tipoContratoService = new TipoContratoService();
 const cargaHorariaService = new CargaHorariaService();
 
-export function CamposFormularioDadosAdmissao({admissao}: Props) {
+export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
 
     const {selectItens: selectItensCargos} = useSelectItem({
         service: cargoService,
@@ -70,85 +72,85 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
     }, [])
 
     useEffect(() => {
-        const quantidadeDiasExperienciaAdmissao = get(admissao, 'quantidadeDiasExperiencia');
-        const dataExperienciaAdmissao = get(admissao, 'dataExperiencia');
-        const quantidadeDiasProrrogacaoAdmissao = get(admissao, 'quantidadeDiasProrrogacao');
-        const dataProrrogacaoAdmissao = get(admissao, 'dataProrrogacao');
+        const quantidadeDiasExperienciaAdmissao = get(colaboradorCargo, 'quantidadeDiasExperiencia');
+        const dataExperienciaAdmissao = get(colaboradorCargo, 'dataExperiencia');
+        const quantidadeDiasProrrogacaoAdmissao = get(colaboradorCargo, 'quantidadeDiasProrrogacao');
+        const dataProrrogacaoAdmissao = get(colaboradorCargo, 'dataProrrogacao');
 
         if (quantidadeDiasExperienciaAdmissao) setQuantidadeDiasExperiencia(quantidadeDiasExperienciaAdmissao);
         if (dataExperienciaAdmissao) setDataAdmissaoExperiencia(dataExperienciaAdmissao);
         if (quantidadeDiasProrrogacaoAdmissao) setQuantidadeDiasProrrogacao(quantidadeDiasProrrogacaoAdmissao);
         if (dataProrrogacaoAdmissao) setDataAdmissaoProrrogacao(dataProrrogacaoAdmissao);
-    }, [admissao]);
+    }, [colaboradorCargo]);
 
     useEffect(() => {
         if (quantidadeDiasExperiencia && quantidadeDiasExperiencia > 0) {
             const novaData = addDays(dataAdmissao, quantidadeDiasExperiencia);
             setDataAdmissaoExperiencia(novaData);
 
-            set(admissao, 'quantidadeDiasExperiencia', quantidadeDiasExperiencia);
-            set(admissao, 'dataExperiencia', novaData);
+            set(colaboradorCargo, 'quantidadeDiasExperiencia', quantidadeDiasExperiencia);
+            set(colaboradorCargo, 'dataExperiencia', novaData);
         } else if (quantidadeDiasExperiencia && quantidadeDiasExperiencia < 0) {
             setQuantidadeDiasExperiencia(0)
         }
-    }, [admissao, dataAdmissao, quantidadeDiasExperiencia]);
+    }, [colaboradorCargo, dataAdmissao, quantidadeDiasExperiencia]);
 
     useEffect(() => {
         if (quantidadeDiasProrrogacao && quantidadeDiasProrrogacao > 0) {
             const novaData = addDays(dataAdmissao, quantidadeDiasProrrogacao);
             setDataAdmissaoProrrogacao(novaData);
 
-            set(admissao, 'quantidadeDiasProrrogacao', quantidadeDiasProrrogacao);
-            set(admissao, 'dataProrrogacao', novaData);
+            set(colaboradorCargo, 'quantidadeDiasProrrogacao', quantidadeDiasProrrogacao);
+            set(colaboradorCargo, 'dataProrrogacao', novaData);
         } else if (quantidadeDiasProrrogacao && quantidadeDiasProrrogacao < 0) {
             setQuantidadeDiasProrrogacao(0)
         }
-    }, [admissao, dataAdmissao, quantidadeDiasProrrogacao]);
+    }, [colaboradorCargo, dataAdmissao, quantidadeDiasProrrogacao]);
 
     const onSelectItemCargo = (item: TSelectItem) => {
         const cargoSelecionado = new Cargo();
         cargoSelecionado.id = item.value as string;
-        set(admissao, 'cargo', cargoSelecionado)
+        set(colaboradorCargo, 'cargo', cargoSelecionado)
     }
 
     const onSelectItemDepartamento = (item: TSelectItem) => {
         const departamentoSelecionado = new Cargo();
         departamentoSelecionado.id = item.value as string;
-        set(admissao, 'departamento', departamentoSelecionado)
+        set(colaboradorCargo, 'departamento', departamentoSelecionado)
     }
 
     const onSelectItemTipoContrato = (item: TSelectItem) => {
         const tipoContratoSelecionado = new TipoContrato();
         tipoContratoSelecionado.id = item.value as string;
-        set(admissao, 'tipoContrato', tipoContratoSelecionado)
+        set(colaboradorCargo, 'tipoContrato', tipoContratoSelecionado)
     }
 
     const onSelectItemCargaHoraria = (item: TSelectItem) => {
         const cargaHorariaSelecionada = new TipoContrato();
         cargaHorariaSelecionada.id = item.value as string;
-        set(admissao, 'cargaHoraria', cargaHorariaSelecionada)
+        set(colaboradorCargo, 'cargaHoraria', cargaHorariaSelecionada)
     }
 
     return (
         <>
             <LineContent>
                 <SelectItem
-                    entidade={admissao}
-                    field={'cargo.id'}
+                    entidade={colaboradorCargo}
+                    fieldValor={'cargo.id'}
                     label={`Cargo`}
                     values={selectItensCargos}
                     onSelect={onSelectItemCargo}/>
 
                 <SelectItem
-                    entidade={admissao}
-                    field={'departamento.id'}
+                    entidade={colaboradorCargo}
+                    fieldValor={'departamento.id'}
                     label={`Departamento`}
                     values={selectItensDepartamentos}
                     onSelect={onSelectItemDepartamento}/>
 
                 <SelectItem
-                    entidade={admissao}
-                    field={'tipoContrato.id'}
+                    entidade={colaboradorCargo}
+                    fieldValor={'tipoContrato.id'}
                     label={`Tipo Contrato`}
                     values={selectItensTiposDeContrato}
                     onSelect={onSelectItemTipoContrato}/>
@@ -156,15 +158,15 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
             </LineContent>
             <LineContent>
                 <SelectItem
-                    entidade={admissao}
-                    field={'cargaHoraria.id'}
+                    entidade={colaboradorCargo}
+                    fieldValor={'cargaHoraria.id'}
                     label={`Carga Horária`}
                     values={selectItensCargaHoraria}
                     onSelect={onSelectItemCargaHoraria}/>
 
                 <InputMoeda
                     label={`Salário`}
-                    entidade={admissao}
+                    entidade={colaboradorCargo}
                     atributo={'salario'}/>
 
                 <InputDataCompleta
@@ -172,7 +174,7 @@ export function CamposFormularioDadosAdmissao({admissao}: Props) {
                     atributo={`dataAdmissao`}
                     dataPadrao={dataAdmissao}
                     onChangeDate={onChangeDataAdmissao}
-                    entidade={admissao}
+                    entidade={colaboradorCargo}
                 />
             </LineContent>
 

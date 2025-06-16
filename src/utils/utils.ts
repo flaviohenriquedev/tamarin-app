@@ -56,7 +56,10 @@ export function parseDateBR(value: string): Date | undefined {
 }
 
 export function formatDateBR(date: Date): string {
-    return formatInTimeZone(date, 'America/Sao_Paulo', 'dd/MM/yyyy');
+    if (date && dataValida(new Date(date))) {
+        return formatInTimeZone(date, 'America/Sao_Paulo', 'dd/MM/yyyy');
+    }
+    return ''
 }
 
 export function getPrimeiroNome(nomeCompleto: string) {
