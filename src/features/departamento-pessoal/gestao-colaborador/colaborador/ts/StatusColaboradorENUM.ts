@@ -20,23 +20,27 @@ export class StatusColaboradorFactory {
         ATIVO: {
             label: 'Ativo',
             bg: 'bg-[#41C227]',
-            borderColor: 'border-[#41C227]'
+            borderColor: 'border-[#41C227]',
+            textColor: 'text-[#41C227]'
         },
         FERIAS: {
             label: 'Férias',
             bg: 'bg-[#27ABC2]',
-            borderColor: 'border-[#27ABC2]'
+            borderColor: 'border-[#27ABC2]',
+            textColor: 'text-[#27ABC2]'
 
         },
         AFASTADO: {
             label: 'Afastado',
             bg: 'bg-[#E6A10B]',
-            borderColor: 'border-[#E6A10B]'
+            borderColor: 'border-[#E6A10B]',
+            textColor: 'text-[#E6A10B]'
         },
         DESLIGADO: {
             label: 'Desligado',
             bg: 'bg-[#D42C2C]',
-            borderColor: 'border-[#D42C2C]'
+            borderColor: 'border-[#D42C2C]',
+            textColor: 'text-[#D42C2C]'
         }
     };
 

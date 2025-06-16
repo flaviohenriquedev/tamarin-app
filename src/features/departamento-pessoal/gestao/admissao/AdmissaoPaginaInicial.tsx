@@ -11,9 +11,7 @@ import Modal from "@/components/ui/modal/modal";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/AdmissaoTabs";
-import {
-    ColaboradorService
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador-service";
+import {ColaboradorService} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/ColaboradorService";
 import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
 import {
     ColaboradorEndereco

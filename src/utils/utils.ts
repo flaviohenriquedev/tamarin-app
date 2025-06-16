@@ -66,6 +66,16 @@ export function getPrimeiroNome(nomeCompleto: string) {
     return nomeCompleto.trim().split(/\s+/)[0];
 }
 
+export function getIniciaisNome(nomeCompleto: string): string {
+    const partes = nomeCompleto.trim().split(/\s+/);
+
+    if (partes.length >= 2) {
+        return `${partes[0][0].toUpperCase()}${partes[1][0].toUpperCase()}`;
+    }
+
+    return partes[0].substring(0, 2).toUpperCase();
+}
+
 export function dataValida(date: Date): boolean {
     return !isNaN(date.getTime());
 }

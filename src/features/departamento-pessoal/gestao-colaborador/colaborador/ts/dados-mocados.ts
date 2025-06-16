@@ -1,6 +1,6 @@
 import {
     StatusColaboradorENUM
-} from "@/features/recursos-humanos/gestao-colaborador/colaborador/ts/status-colaborador-e-n-u-m";
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/StatusColaboradorENUM";
 
 type CargoType = {
     profissao: string,

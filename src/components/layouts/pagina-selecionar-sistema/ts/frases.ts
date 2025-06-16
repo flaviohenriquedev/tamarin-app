@@ -8,5 +8,6 @@ export const frases = [
     "Persistência transforma o impossível em treino.",
     "Às vezes, o caos é só o começo da ordem.",
     "Seja teimoso com seus sonhos e flexível com o caminho.",
-    "A disciplina supera o talento quando o talento não se disciplina."
+    "A disciplina supera o talento quando o talento não se disciplina.",
+    "Um dia ou o primeiro dia. Você decide."
 ]

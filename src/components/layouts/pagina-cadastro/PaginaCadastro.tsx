@@ -6,7 +6,7 @@ import {ButtonGroup} from "@/components/ui/button/button-group";
 
 type Props = {
     funcaoAtualizarLista: () => void;
-    funcaoNovoCadastro: () => void;
+    funcaoNovoCadastro?: () => void;
     children: ReactElement;
     acoesAdicionais?: [{
         label: string;
@@ -21,7 +21,6 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
         <div className={`container`}>
             <header className={`header-pagina-cadastro`}>
                 <ButtonGroup>
-
                     {acoesAdicionais?.map(acao => (
                         <Button key={acao.label}
                                 buttonStyle={acao.estilo}
@@ -29,7 +28,6 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
                             {acao.label}
                         </Button>
                     ))}
-
                     <Button
                         buttonSize={`sm`}
                         buttonStyle={`info`}
@@ -37,11 +35,13 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
                     >
                         {icones.reload}
                     </Button>
-                    <Button
-                        buttonSize={`sm`}
-                        onClick={funcaoNovoCadastro}>
-                        Adicionar Novo
-                    </Button>
+                    {funcaoNovoCadastro && (
+                        <Button
+                            buttonSize={`sm`}
+                            onClick={funcaoNovoCadastro}>
+                            Adicionar Novo
+                        </Button>
+                    )}
                 </ButtonGroup>
             </header>
             <div className={`content-pagina-cadastro`}>

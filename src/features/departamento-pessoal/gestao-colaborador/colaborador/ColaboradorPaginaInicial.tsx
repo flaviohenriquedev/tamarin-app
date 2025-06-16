@@ -2,9 +2,7 @@
 
 import {useEffect, useState} from "react";
 import Image from "next/image";
-import {
-    ColaboradorService
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador-service";
+import {ColaboradorService} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/ColaboradorService";
 import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
 import {
     StatusColaboradorFactory

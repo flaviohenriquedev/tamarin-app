@@ -5,7 +5,7 @@ import {request} from "@/services/request";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 import {
     colaboradorEndPoints
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaborador-end-points";
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/colaboradorEndPoints";
 
 export class ColaboradorService extends CrudService<Colaborador> {
     public getBaseURL(): string {
