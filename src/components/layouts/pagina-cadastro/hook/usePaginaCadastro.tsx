@@ -15,7 +15,7 @@ export default function usePaginaCadastro<E, S extends CrudService<E>>({
 
     const [listaEntidade, setListaEntidade] = useState<E[]>([]);
     const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
-    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -27,17 +27,17 @@ export default function usePaginaCadastro<E, S extends CrudService<E>>({
     }, [atualizarLista, service]);
 
     useEffect(() => {
-        if (!openModal && onCloseModal) onCloseModal();
-    }, [onCloseModal, openModal]);
+        if (!isOpenModal && onCloseModal) onCloseModal();
+    }, [onCloseModal, isOpenModal]);
     
-    const reload = useCallback(() =>  {
+    const refresh = useCallback(() =>  {
         setAtualizarLista(true);
     }, [])
 
     return {
         listaEntidade,
-        reload,
-        openModal,
-        setOpenModal,
+        refresh,
+        isOpenModal,
+        setIsOpenModal,
     }
 };

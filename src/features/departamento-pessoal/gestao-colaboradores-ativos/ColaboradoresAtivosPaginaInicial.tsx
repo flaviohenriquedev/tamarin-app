@@ -18,9 +18,9 @@ export function ColaboradoresAtivosPaginaInicial() {
 
     const {
         listaEntidade,
-        reload,
-        openModal,
-        setOpenModal
+        refresh,
+        isOpenModal,
+        setIsOpenModal
     } = usePaginaCadastro<Colaborador, ColaboradorService>({
         service: colaboradorService,
         onCloseModal: clear
@@ -28,7 +28,7 @@ export function ColaboradoresAtivosPaginaInicial() {
 
     return (
         <>
-            <PaginaCadastro funcaoAtualizarLista={reload}>
+            <PaginaCadastro funcaoAtualizarLista={refresh}>
                 <div className={`flex flex-col gap-2`}>
                     {listaEntidade && listaEntidade.map((element) => (
                         <CardColaborador key={element.id} colaborador={element} />
@@ -36,8 +36,8 @@ export function ColaboradoresAtivosPaginaInicial() {
                 </div>
             </PaginaCadastro>
             <Modal title={'Admissão'}
-                   isOpen={openModal}
-                   setIsOpen={setOpenModal}>
+                   isOpen={isOpenModal}
+                   setIsOpen={setIsOpenModal}>
                 <div>
                     <label>MODAL</label>
                 </div>

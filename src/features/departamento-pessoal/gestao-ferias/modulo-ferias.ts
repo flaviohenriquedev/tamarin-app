@@ -8,7 +8,7 @@ export const ModuloFerias: ModulosType = {
             id: 'gestao-ferias',
             modulo: ModuloENUM.GESTAO_FERIAS,
             title: 'Férias',
-            href: 'rh/colaborador',
+            href: '/app/dp/ferias',
             funcionalidades: this.funcionalidades!()
         };
     },
