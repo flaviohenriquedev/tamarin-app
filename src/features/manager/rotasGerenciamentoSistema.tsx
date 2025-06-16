@@ -1,7 +1,7 @@
 import {icones} from "@/components/common/icones";
 import {RouteType} from "@/types/_root/RouteType";
 import {ModuloGestaoEmpresa} from "@/features/manager/gestaoEmpresa/modulo-gestao-empresa";
-import {ModuloGestaoLocalidade} from "@/features/manager/gestaoLocalidade/modulo.gestao-localidade";
+import {ModuloGestaoLocalidade} from "@/features/manager/gestaoLocalidade/moduloGestaoLocalidade";
 
 export const rotasGerenciamentoSistema: RouteType[] = [
     {

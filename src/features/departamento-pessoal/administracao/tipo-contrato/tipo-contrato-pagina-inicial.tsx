@@ -1,12 +1,12 @@
 'use client'
 
 import {useCallback, useEffect, useState} from "react";
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {toast} from "sonner";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {InputString} from "@/components/ui/input/input-string";
+import {InputString} from "@/components/ui/input/InputString";
 import {Table} from "@/components/ui/table/table";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";

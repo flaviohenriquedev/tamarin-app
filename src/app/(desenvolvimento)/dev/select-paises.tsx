@@ -3,7 +3,7 @@
 import {getCountries, getCountryCallingCode} from 'react-phone-number-input'
 import React, {useEffect, useState} from 'react'
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {SelectItem} from "@/components/ui/select-item/select-item";
+import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {CountryCode} from "libphonenumber-js";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 
@@ -51,6 +51,6 @@ export function SelectPaises({onChange, labels}: Props) {
             valorPadrao={valorPadrao}
             widthClass={`w-fit`}
             entidade={new EntidadePadrao()}
-            field={''}/>
+            fieldValor={''}/>
     )
 }

@@ -7,4 +7,9 @@ export const setorColunasListagem: ColunaType[] = [
         field: 'descricao',
         tipoDado: TipoDadoEnum.STRING,
     },
+    {
+        descricao: 'Departamento',
+        field: 'departamento.descricao',
+        tipoDado: TipoDadoEnum.STRING,
+    },
 ]

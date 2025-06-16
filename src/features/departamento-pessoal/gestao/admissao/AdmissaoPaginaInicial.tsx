@@ -1,8 +1,6 @@
 'use client'
 
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
-import {AdmissaoService} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao-service";
-import {Admissao} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {useCallback, useEffect, useState} from "react";
 import {Table} from "@/components/ui/table/table";
 import {admissaoColunasListagem} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao-colunas-listagem";
@@ -12,53 +10,74 @@ import {Button} from "@/components/ui/button/button";
 import Modal from "@/components/ui/modal/modal";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/admissao-tabs";
+import {AdmissaoTabs} from "@/features/departamento-pessoal/gestao/admissao/AdmissaoTabs";
+import {ColaboradorService} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/ColaboradorService";
+import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+import {
+    ColaboradorEndereco
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
+import {
+    ColaboradorCargo
+} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
 
-const service = new AdmissaoService();
+const service = new ColaboradorService();
 
 export function AdmissaoPaginaInicial() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
-    const [listaAdmissoes, setListaAdmissoes] = useState<Admissao[]>([]);
-    const [admissao, setAdmissao] = useState<Admissao>(new Admissao());
+    const [listaEntidade, setListaEntidade] = useState<Colaborador[]>([]);
+    const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());
+    const [colaboradorEndereco, setColaboradorEndereco] = useState<ColaboradorEndereco>(new ColaboradorEndereco());
+    const [colaboradorCargo, setColaboradorCargo] = useState<ColaboradorCargo>(new ColaboradorCargo());
 
     useEffect(() => {
         service.listar().then(result => {
-            setListaAdmissoes(result);
+            setListaEntidade(result);
         })
     }, []);
 
     const atualizar = useCallback(() => {
         service.listar().then(result => {
-            setListaAdmissoes(result);
+            setListaEntidade(result);
         })
     }, [])
 
     function handleNovoCadastro() {
-        setAdmissao(new Admissao())
+        setEntidade(new Colaborador())
         setOpenModal(true);
     }
 
     const clear = () => {
-        setAdmissao(new Admissao())
+        setEntidade(new Colaborador());
+        setColaboradorCargo(new ColaboradorCargo());
+        setColaboradorEndereco(new ColaboradorEndereco());
     }
 
     function salvar() {
-        service.salvar(admissao, () => {
-            setAdmissao(new Admissao());
+
+        const entidadeAtualizada: Colaborador = {
+            ...entidade,
+            colaboradorEndereco,
+            listaColaboradorCargo: [colaboradorCargo]
+        };
+
+        service.salvar(entidadeAtualizada, () => {
+            setEntidade(new Colaborador());
             atualizar();
             toast.success("Registro salvo com sucesso.");
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
-        }).then()
+        }).then();
     }
 
-    function consultar(entidade: Admissao) {
-        setAdmissao(entidade);
+    function consultar(entidade: Colaborador) {
+        setColaboradorEndereco(entidade.colaboradorEndereco);
+        setColaboradorCargo(entidade.cargoAtivo);
+        setEntidade(entidade);
         setOpenModal(true);
     }
 
-    function excluir(entidade: Admissao) {
+    function excluir(entidade: Colaborador) {
         service.excluir(entidade.id).then(() => {
             atualizar();
             toast.success("Cadastro deletado.")
@@ -70,17 +89,19 @@ export function AdmissaoPaginaInicial() {
             <PaginaCadastro funcaoAtualizarLista={atualizar}
                             funcaoNovoCadastro={handleNovoCadastro}>
                 <Table funcaoAtualizarLista={atualizar}
-                       lista={listaAdmissoes}
+                       lista={listaEntidade}
                        colunas={admissaoColunasListagem}
-                       acoesTabela={{consultar: consultar}}/>
+                       acoesTabela={{consultar: consultar, excluir: excluir}}/>
             </PaginaCadastro>
-            <Modal title={'Cadastro de Admissão'}
+            <Modal title={'Admissão'}
                    isOpen={openModal}
                    setIsOpen={setOpenModal}
                    onCloseModal={clear}>
-                <Form onSubmit={salvar} className={`min-h-[90%]`}>
+                <Form onSubmit={salvar} className={`min-h-[100%]`}>
                     <AdmissaoTabs
-                        admissao={admissao}/>
+                        colaborador={entidade}
+                        colaboradorEndereco={colaboradorEndereco}
+                        colaboradorCargo={colaboradorCargo}/>
                     <ButtonGroup>
                         <Button
                             onClick={() => setAcaoSalvar('SAVE')}

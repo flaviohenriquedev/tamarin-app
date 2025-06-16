@@ -7,15 +7,15 @@ import {Button} from "@/components/ui/button/button";
 import {Table} from "@/components/ui/table/table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
-import {InputString} from "@/components/ui/input/input-string";
-import {InputCPF} from "@/components/ui/input/input-cpf";
+import {InputString} from "@/components/ui/input/InputString";
+import {InputCPF} from "@/components/ui/input/InputCPF";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-colunas-listagem";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 
 import './css/style.css'
-import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/pagina-cadastro";
+import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";

@@ -3,7 +3,7 @@
 import React, {FormEvent} from 'react';
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
-import {InputString} from "@/components/ui/input/input-string";
+import {InputString} from "@/components/ui/input/InputString";
 import {Button} from "@/components/ui/button/button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";
@@ -35,7 +35,7 @@ export function FormularioLogin() {
     }
 
     return (
-        <div className={'bg-white/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
+        <div className={'bg-base-100/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
             <form className={'flex flex-col gap-8 w-96'} onSubmit={handleSubmit}>
 
                 <div className={`flex items-center justify-between`}>

@@ -25,7 +25,7 @@ export function CardSistema({sistema}: Props) {
                     }}
                     whileHover={{scale: 1.05}}
                     className={`
-                                    bg-white
+                                    bg-base-100
                                     text-md
                                     flex
                                     items-center

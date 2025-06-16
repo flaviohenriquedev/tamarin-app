@@ -24,7 +24,7 @@ export function CardEmpresa({dadosAcesso, destacar, selecionarDadosAcesso}: Prop
                     }}
                     whileHover={{scale: 1.05}}
                     className={`
-                                    bg-white
+                                    bg-base-100
                                     text-md
                                     border-2
                                     ${destacar ? 'border-blue-400' : 'border-transparent'}

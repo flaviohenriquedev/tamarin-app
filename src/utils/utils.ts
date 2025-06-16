@@ -1,4 +1,5 @@
-import {format, isValid, parse} from "date-fns";
+import {isValid, parse} from "date-fns";
+import {formatInTimeZone} from "date-fns-tz";
 
 export function openModal(idModal: string) {
     (document.getElementById(idModal) as HTMLDialogElement).showModal()
@@ -55,9 +56,42 @@ export function parseDateBR(value: string): Date | undefined {
 }
 
 export function formatDateBR(date: Date): string {
-    return format(date, FORMAT_BR);
+    if (date && dataValida(new Date(date))) {
+        return formatInTimeZone(date, 'America/Sao_Paulo', 'dd/MM/yyyy');
+    }
+    return ''
 }
 
 export function getPrimeiroNome(nomeCompleto: string) {
     return nomeCompleto.trim().split(/\s+/)[0];
+}
+
+export function getIniciaisNome(nomeCompleto: string): string {
+    const partes = nomeCompleto.trim().split(/\s+/);
+
+    if (partes.length >= 2) {
+        return `${partes[0][0].toUpperCase()}${partes[1][0].toUpperCase()}`;
+    }
+
+    return partes[0].substring(0, 2).toUpperCase();
+}
+
+export function dataValida(date: Date): boolean {
+    return !isNaN(date.getTime());
+}
+
+export function aplicarMascaraData(valor: string): string {
+    // Remove tudo que não for número
+    const numeros = valor.replace(/\D/g, '');
+
+    let resultado = '';
+    if (numeros.length <= 2) {
+        resultado = numeros;
+    } else if (numeros.length <= 4) {
+        resultado = `${numeros.slice(0, 2)}/${numeros.slice(2)}`;
+    } else {
+        resultado = `${numeros.slice(0, 2)}/${numeros.slice(2, 4)}/${numeros.slice(4, 8)}`;
+    }
+
+    return resultado;
 }

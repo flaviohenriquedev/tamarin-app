@@ -1,9 +1,9 @@
 import {
-    ColaboradorPaginaInicial
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/colaborador-pagina-inicial";
+    ColaboradoresAtivosPaginaInicial
+} from "@/features/departamento-pessoal/gestao-colaboradores-ativos/ColaboradoresAtivosPaginaInicial";
 
 export default function PaginaColaboradorAtivo() {
     return (
-        <ColaboradorPaginaInicial />
+        <ColaboradoresAtivosPaginaInicial/>
     )
 }
