@@ -7,7 +7,7 @@ import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
 import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
 import {

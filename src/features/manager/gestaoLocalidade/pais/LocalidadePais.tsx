@@ -6,7 +6,7 @@ import {PaisService} from "@/features/manager/gestaoLocalidade/pais/ts/PaisServi
 import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/Pais";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";

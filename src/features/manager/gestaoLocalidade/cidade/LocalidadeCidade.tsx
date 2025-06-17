@@ -7,7 +7,7 @@ import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {cidadeColunasListagem} from "@/features/manager/gestaoLocalidade/cidade/ts/cidadeColunasListagem";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";

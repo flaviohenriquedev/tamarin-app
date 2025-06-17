@@ -2,7 +2,7 @@
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {useCallback, useEffect, useState} from "react";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import {admissaoColunasListagem} from "@/features/departamento-pessoal/gestao/admissao/ts/admissao-colunas-listagem";
 import {Form} from "@/components/ui/form/form";
 import {ButtonGroup} from "@/components/ui/button/button-group";

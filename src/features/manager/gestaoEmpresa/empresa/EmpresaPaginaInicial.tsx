@@ -19,7 +19,7 @@ import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import {sistemasModulos} from "@/features/sistema/sistemasModulos";
 
 const service = new EmpresaService();

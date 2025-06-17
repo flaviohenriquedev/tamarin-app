@@ -4,7 +4,7 @@ import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuari
 import {useCallback, useEffect, useState} from "react";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/button";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {InputString} from "@/components/ui/input/InputString";

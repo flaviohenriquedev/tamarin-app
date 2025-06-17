@@ -3,13 +3,14 @@ import {get} from "lodash";
 import {useContext, useEffect, useState} from "react";
 import {EmpresaContext} from "@/context/useEmpresa";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
-import {AcoesTabela} from "@/components/ui/table/ts/types";
+import {AcoesTabela, PageConfig} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
 import {MdDelete} from "react-icons/md";
 import Modal from "@/components/ui/modal/modal";
 import {Button} from "@/components/ui/button/button";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
+import {Paginacao} from "@/components/ui/table/paginacao/Paginacao";
 
 type Props<E> = {
     funcaoAtualizarLista: () => void;
@@ -17,11 +18,19 @@ type Props<E> = {
     colunas: ColunaType[];
     funcaoEditar?: (entidade: E) => void;
     funcaoDeletar?: (entidade: E) => void;
-    acoesTabela?: AcoesTabela<E>
+    acoesTabela?: AcoesTabela<E>;
+    pageConfig?: PageConfig
     ocultarCheckbox?: boolean;
 }
 
-export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, acoesTabela, ocultarCheckbox = false}: Props<E>) {
+export function Table<E extends object>({
+                                            funcaoAtualizarLista,
+                                            lista,
+                                            colunas,
+                                            acoesTabela,
+                                            pageConfig,
+                                            ocultarCheckbox = false
+                                        }: Props<E>) {
 
     const {empresa} = useContext(EmpresaContext)
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
@@ -56,7 +65,7 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
     function getColunaCheck(e: E) {
         return !ocultarCheckbox && (
             <td>
-                <Checkbox entidade={e} atributo={'checked'} />
+                <Checkbox entidade={e} atributo={'checked'}/>
             </td>
         )
     }
@@ -137,6 +146,16 @@ export function Table<E extends object>({funcaoAtualizarLista, lista, colunas, a
                     </tbody>
                 </table>
             </div>
+
+            {pageConfig && (
+                <Paginacao
+                    skip={pageConfig.skip}
+                    take={pageConfig.take}
+                    total={pageConfig.totalRegistros}
+                    setSkip={pageConfig.setSkip}
+                    setTake={pageConfig.setTake}
+                />
+            )}
 
             {entidadeParaDeletar && acoesTabela && (
                 <Modal

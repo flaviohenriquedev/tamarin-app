@@ -2,7 +2,7 @@
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
-import {Table} from "@/components/ui/table/table";
+import {Table} from "@/components/ui/table/Table";
 import {useCallback, useEffect, useState} from "react";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import Modal from "@/components/ui/modal/modal";
