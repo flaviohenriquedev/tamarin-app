@@ -19,16 +19,9 @@ import {
 import {ModuloPlanoSaude} from "@/features/recursos-humanos/gestao-beneficios/plano-saude/modulo-plano-saude";
 import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/convenios/modulo-convenios";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
-import {ModuloAdmissao} from "@/features/departamento-pessoal/gestao/admissao/ts/modulo-admissao";
 import {ModuloFerias} from "@/features/departamento-pessoal/gestao-ferias/modulo-ferias";
 import {ModuloAfastamento} from "@/features/departamento-pessoal/gestao-afastamento/modulo-afastamento";
 import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/modulo-desligamento";
-import {
-    ModuloColaboradoresInativos
-} from "@/features/departamento-pessoal/gestao-colaboradores-inativos/modulo-colaboradores-inativos";
-import {
-    ModuloColaboradoresAtivos
-} from "@/features/departamento-pessoal/gestao-colaboradores-ativos/modulo-colaboradores-ativos";
 import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao/departamento/ts/modulo-departamentos";
 import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setores/ts/modulo-setores";
 import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
@@ -36,6 +29,9 @@ import {ModuloTipoContrato} from "@/features/departamento-pessoal/administracao/
 import {ModuloCargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/modulo-carga-horaria";
 import {ModuloGestoPerfil} from "@/features/manager/gestaoPerfil/modulo-gestao-perfil";
 import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gestao-usuario";
+import {
+    ModuloColaboradores
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/ts/moduloColaboradores";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {
@@ -43,19 +39,10 @@ export const rotasDepartamentoPessoal: RouteType[] = [
         title: 'Gestão',
         icon: icones.colaboradores,
         subRoute: [
-            ModuloAdmissao.infos(),
+            ModuloColaboradores.infos(),
             ModuloFerias.infos(),
             ModuloAfastamento.infos(),
             ModuloDesligamento.infos(),
-        ]
-    },
-    {
-        id: 'dp-colaboradores',
-        title: 'Colaboradores',
-        icon: icones.colaboradores,
-        subRoute: [
-            ModuloColaboradoresAtivos.infos(),
-            ModuloColaboradoresInativos.infos(),
         ]
     },
     {

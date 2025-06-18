@@ -4,8 +4,6 @@ export const inputStyle = `
     input-md
     px-3
     py-4
-    w-full
-    min-w-52
     rounded-lg
     border-base-300
     shadow-none

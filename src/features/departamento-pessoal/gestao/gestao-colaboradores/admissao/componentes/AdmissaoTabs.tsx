@@ -2,17 +2,19 @@ import {TabType} from "@/components/ui/tab/ts/TabType";
 import {TabGroup} from "@/components/ui/tab/TabGroup";
 import {
     CamposFormularioDadosBasicos
-} from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosBasicos";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/componentes/CamposFormularioDadosBasicos";
 import {
     CamposFormularioDadosAdmissao
-} from "@/features/departamento-pessoal/gestao/admissao/CamposFormularioDadosAdmissao";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/componentes/CamposFormularioDadosAdmissao";
+import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
 import {
     ColaboradorEndereco
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
 import {
     ColaboradorCargo
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorCargo";
 
 type Props = {
     colaborador: Colaborador;

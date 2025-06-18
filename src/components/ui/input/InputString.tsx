@@ -6,9 +6,10 @@ import {get, set} from "lodash";
 import {Asterisk} from "lucide-react";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
-    atributo: string;
-    entidade: E;
+    atributo?: string;
+    entidade?: E;
     label?: string;
+    className?: string;
 }
 
 export function InputString<E extends object>({
@@ -26,19 +27,24 @@ export function InputString<E extends object>({
                                                   onBlur,
                                                   onKeyDown,
                                                   required,
-                                                  label
+                                                  label,
+                                                  className
                                               }: Props<E>) {
 
     const [valorInput, setValorInput] = useState<string>('')
 
     useEffect(() => {
-        const valor = get(entidade, atributo) ?? '';
-        setValorInput(valor);
+        if (entidade && atributo) {
+            const valor = get(entidade, atributo) ?? '';
+            setValorInput(valor);
+        }
     }, [atributo, entidade]);
 
     const atribuirValorInput = (valor: string) => {
-        setValorInput(valor)
-        set(entidade, atributo, valor)
+        if (entidade && atributo) {
+            setValorInput(valor)
+            set(entidade, atributo, valor)
+        }
     }
 
     return (
@@ -56,7 +62,7 @@ export function InputString<E extends object>({
                 </label>
             )}
             <input
-                className={inputStyle}
+                className={`${inputStyle} ${className}`}
                 required={required}
                 id={id}
                 placeholder={placeholder}

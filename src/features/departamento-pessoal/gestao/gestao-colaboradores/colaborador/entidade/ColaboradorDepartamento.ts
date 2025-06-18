@@ -1,5 +1,7 @@
+import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
 import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
 
 export class ColaboradorDepartamento {
     public colaborador: Colaborador;

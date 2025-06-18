@@ -7,9 +7,10 @@ import {get, set} from "lodash";
 import {Asterisk} from "lucide-react";
 
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
-    atributo: string;
-    entidade: E;
+    atributo?: string;
+    entidade?: E;
     label?: string;
+    className?: string;
 }
 
 export function InputCPF<E extends object>({
@@ -24,23 +25,27 @@ export function InputCPF<E extends object>({
                                                onChange,
                                                onBlur,
                                                onKeyDown,
-                                               required
+                                               required,
+                                               className
                                            }: InputProps<E>) {
 
     const [valorInput, setValorInput] = useState<string>('')
 
     useEffect(() => {
-        let valor = '';
-        if (entidade) {
-            valor = mascararCPF(get(entidade, atributo))
+        if (entidade && atributo) {
+            let valor = '';
+            if (entidade) {
+                valor = mascararCPF(get(entidade, atributo))
+            }
+            setValorInput(valor)
         }
-        setValorInput(valor)
-
     }, [atributo, entidade])
 
     const atribuirValorInput = (valor: string) => {
         setValorInput(mascararCPF(valor))
-        set(entidade, atributo, limparCNPJ(valor))
+        if (entidade && atributo) {
+            set(entidade, atributo, limparCNPJ(valor))
+        }
     }
 
     return (
@@ -58,7 +63,7 @@ export function InputCPF<E extends object>({
                 </label>
             )}
             <input
-                className={inputStyle}
+                className={`${inputStyle} ${className}`}
                 id={id}
                 placeholder="___.___.___-__"
                 name={name}

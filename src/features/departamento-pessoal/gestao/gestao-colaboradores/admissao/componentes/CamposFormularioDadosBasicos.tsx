@@ -8,11 +8,13 @@ import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {set} from "lodash";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
 import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
+import {
     ColaboradorEndereco
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-endereco/ts/ColaboradorEndereco";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
 
 type Props = {
     colaborador: Colaborador;

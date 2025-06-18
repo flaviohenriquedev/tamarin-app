@@ -1,6 +1,8 @@
-import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
+import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
+import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 
 export class ColaboradorEndereco extends EntidadePadrao {
     public colaborador: Colaborador;

@@ -43,6 +43,7 @@ export default function usePaginaCadastro<E, S extends CrudService<E>>({
     }, [onCloseModal, isOpenModal]);
     
     const refresh = useCallback(() =>  {
+        console.log(`REFRESHADO`)
         setAtualizarLista(true);
     }, [])
 

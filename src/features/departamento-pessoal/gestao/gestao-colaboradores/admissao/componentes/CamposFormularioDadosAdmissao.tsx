@@ -23,7 +23,7 @@ import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {InputMoeda} from "@/components/ui/input/InputMoeda";
 import {
     ColaboradorCargo
-} from "@/features/departamento-pessoal/gestao-colaborador/colaborador-cargo/ts/ColaboradorCargo";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorCargo";
 
 type Props = {
     colaboradorCargo: ColaboradorCargo;
