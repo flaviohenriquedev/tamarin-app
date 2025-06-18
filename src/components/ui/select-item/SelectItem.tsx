@@ -3,13 +3,16 @@ import {SelectItemValue} from "@/components/ui/select-item/SelectItemValue";
 import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Asterisk} from "lucide-react";
-import {get} from "lodash";
+import {get, set} from "lodash";
+import {MdClear} from "react-icons/md";
+import {AnimatePresence, motion} from "framer-motion";
+import clsx from "clsx";
 
 type Props<E> = {
     entidade: E;
     fieldValor: string;
     values: TSelectItem[];
-    onSelect: (value: TSelectItem) => void;
+    onSelect?: (value: TSelectItem | null) => void;
     widthClass?: string;
     valorPadrao?: TSelectItem;
     label?: string;
@@ -71,7 +74,7 @@ export function SelectItem<E extends object>({
 
     function handleSelectItem(valor: TSelectItem) {
         setItemSelecionado(valor);
-        onSelect(valor)
+        if (onSelect) onSelect(valor)
         setShowList(false);
     }
 
@@ -88,6 +91,12 @@ export function SelectItem<E extends object>({
             return (<label>{item.labelWhenSelected ? item.labelWhenSelected : item.label}</label>)
         }
         return <label className={`text-neutral-400`}>Selecione</label>;
+    }
+
+    function clear() {
+        setItemSelecionado(undefined);
+        if (onSelect) onSelect(null);
+        if (entidade) set(entidade, fieldValor, null)
     }
 
     return (
@@ -113,8 +122,6 @@ export function SelectItem<E extends object>({
                     input
                     bg-transparent
                     input-md
-                    px-3
-                    py-4
                     ${widthClass ? widthClass : 'min-w-52 w-full'}
                     rounded-lg
                     border-base-300
@@ -128,19 +135,36 @@ export function SelectItem<E extends object>({
                     justify-between
                     cursor-default
                 `}
-                    onClick={handleShowList}
                 >
-                    {getLabel(itemSelecionado)}
-                    <IoIosArrowDown
-                        className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
-                    />
+                    <div onClick={handleShowList} className={`py-4 flex items-center w-full h-full `}>
+                        {getLabel(itemSelecionado)}
+                    </div>
+                    <div className={`flex items-center gap-2 text-neutral-500`}>
+                        {itemSelecionado && (
+                            <label className={`
+                            cursor-pointer
+                            rounded-full
+                            border-2
+                            border-transparent
+                            transition-all ease-in-out
+                            duration-300
+                            active:scale-75
+                            hover:shadow-md
+                            hover:border-primary`}><MdClear size={18} onClick={clear}/></label>
+                        )}
+                        <IoIosArrowDown
+                            className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
+                        />
+                    </div>
                 </div>
 
-                {showList && (
-                    <ul
-                        className={`
-                                    z-50
+                <AnimatePresence>
+                    {showList && (
+                        <motion.ul
+                            className={clsx(
+                                `   z-50
                                     border
+                                    px-3
                                     border-base-300
                                     bg-base-100
                                     text-base-content
@@ -148,20 +172,23 @@ export function SelectItem<E extends object>({
                                     left-0
                                     top-full
                                     mt-1
-                                    max-h-44
-                                    overflow-y-scroll
-                                    transition-all
-                                    duration-300
-                                    shadow-md
+                                    overflow-hidden
+                                    shadow-sm
                                     p-2
-                                    ${widthClass ? 'truncate' : 'w-full'}
-                                    rounded-sm
-                                    text-[9pt]
-                                    ${showList ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}
-                    >
-                        {renderItens()}
-                    </ul>
-                )}
+                                    rounded-lg
+                                    text-[10pt]
+                                    `,
+                                widthClass ? 'truncate' : 'w-full'
+                            )}
+                            initial={{opacity: 0, height: 0}}
+                            animate={{opacity: 1, height: 'auto'}}
+                            exit={{opacity: 0, height: 0}}
+                            transition={{duration: 0.1, ease: "easeOut"}}
+                        >
+                            {renderItens()}
+                        </motion.ul>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

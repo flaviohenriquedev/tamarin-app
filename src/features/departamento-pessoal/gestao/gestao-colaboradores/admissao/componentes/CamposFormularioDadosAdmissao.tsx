@@ -14,7 +14,7 @@ import {
     CargaHorariaService
 } from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria-service";
 import {DepartamentoService} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-service";
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {formatDateBR} from "@/utils/utils";
 import {inputStyle} from "@/components/ui/input/style";
 import {Label} from "@/components/ui/label/label";
@@ -24,6 +24,13 @@ import {InputMoeda} from "@/components/ui/input/InputMoeda";
 import {
     ColaboradorCargo
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorCargo";
+import {
+    TipoSalarioFactory
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/enums/TipoSalarioENUM";
+import {
+    FormaPagamentoFactory
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/enums/FormaPagamentoENUM";
+import {TrueFalseFactory} from "@/features/_root/enums/TrueFalseENUM";
 
 type Props = {
     colaboradorCargo: ColaboradorCargo;
@@ -107,32 +114,48 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
         }
     }, [colaboradorCargo, dataAdmissao, quantidadeDiasProrrogacao]);
 
-    const onSelectItemCargo = (item: TSelectItem) => {
-        const cargoSelecionado = new Cargo();
-        cargoSelecionado.id = item.value as string;
-        set(colaboradorCargo, 'cargo', cargoSelecionado)
+    const onSelectItemCargo = (item: TSelectItem | null) => {
+        if (item) {
+            const cargoSelecionado = new Cargo();
+            cargoSelecionado.id = item.value as string;
+            set(colaboradorCargo, 'cargo', cargoSelecionado)
+        } else {
+            set(colaboradorCargo, 'cargo', null)
+        }
     }
 
-    const onSelectItemDepartamento = (item: TSelectItem) => {
-        const departamentoSelecionado = new Cargo();
-        departamentoSelecionado.id = item.value as string;
-        set(colaboradorCargo, 'departamento', departamentoSelecionado)
+    const onSelectItemDepartamento = (item: TSelectItem | null) => {
+        if (item) {
+            const departamentoSelecionado = new Cargo();
+            departamentoSelecionado.id = item.value as string;
+            set(colaboradorCargo, 'departamento', departamentoSelecionado)
+        } else {
+            set(colaboradorCargo, 'departamento', null)
+        }
     }
 
-    const onSelectItemTipoContrato = (item: TSelectItem) => {
-        const tipoContratoSelecionado = new TipoContrato();
-        tipoContratoSelecionado.id = item.value as string;
-        set(colaboradorCargo, 'tipoContrato', tipoContratoSelecionado)
+    const onSelectItemTipoContrato = (item: TSelectItem | null) => {
+        if (item) {
+            const tipoContratoSelecionado = new TipoContrato();
+            tipoContratoSelecionado.id = item.value as string;
+            set(colaboradorCargo, 'tipoContrato', tipoContratoSelecionado)
+        } else {
+            set(colaboradorCargo, 'tipoContrato', null)
+        }
     }
 
-    const onSelectItemCargaHoraria = (item: TSelectItem) => {
-        const cargaHorariaSelecionada = new TipoContrato();
-        cargaHorariaSelecionada.id = item.value as string;
-        set(colaboradorCargo, 'cargaHoraria', cargaHorariaSelecionada)
+    const onSelectItemCargaHoraria = (item: TSelectItem | null) => {
+        if (item) {
+            const cargaHorariaSelecionada = new TipoContrato();
+            cargaHorariaSelecionada.id = item.value as string;
+            set(colaboradorCargo, 'cargaHoraria', cargaHorariaSelecionada)
+        } else {
+            set(colaboradorCargo, 'cargaHoraria', null)
+        }
     }
 
     return (
-        <>
+        <div className={`flex flex-col gap-2`}>
             <LineContent>
                 <SelectItem
                     entidade={colaboradorCargo}
@@ -151,10 +174,9 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                 <SelectItem
                     entidade={colaboradorCargo}
                     fieldValor={'tipoContrato.id'}
-                    label={`Tipo Contrato`}
+                    label={`Tipo de Admissão`}
                     values={selectItensTiposDeContrato}
                     onSelect={onSelectItemTipoContrato}/>
-
             </LineContent>
             <LineContent>
                 <SelectItem
@@ -168,6 +190,24 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                     label={`Salário`}
                     entidade={colaboradorCargo}
                     atributo={'salario'}/>
+
+                <SelectItem
+                    label={`Tipo de Salário`}
+                    entidade={colaboradorCargo}
+                    fieldValor={'tipoSalario'}
+                    values={TipoSalarioFactory.getSelectItens()}/>
+
+                <SelectItem
+                    label={`Forma de Pagamento`}
+                    entidade={colaboradorCargo}
+                    fieldValor={'formaPagamento'}
+                    values={FormaPagamentoFactory.getSelectItens()}/>
+
+                <SelectItem
+                    label={`Sindicato`}
+                    entidade={colaboradorCargo}
+                    fieldValor={'possuiSindicato'}
+                    values={TrueFalseFactory.getSelectItens()}/>
 
                 <InputDataCompleta
                     label={`Data de Admissão`}
@@ -217,6 +257,6 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                     </LineContent>
                 </Fieldset>
             </LineContent>
-        </>
+        </div>
     )
 }

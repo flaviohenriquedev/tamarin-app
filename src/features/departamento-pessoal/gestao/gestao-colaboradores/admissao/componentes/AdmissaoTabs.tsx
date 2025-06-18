@@ -15,20 +15,23 @@ import {
 import {
     ColaboradorCargo
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorCargo";
+import {Dispatch, SetStateAction} from "react";
 
 type Props = {
     colaborador: Colaborador;
     colaboradorEndereco: ColaboradorEndereco;
+    setColaboradorEndereco: Dispatch<SetStateAction<ColaboradorEndereco>>;
     colaboradorCargo: ColaboradorCargo;
 }
 
-export function AdmissaoTabs({colaborador, colaboradorEndereco, colaboradorCargo}: Props) {
+export function AdmissaoTabs({colaborador, colaboradorEndereco, colaboradorCargo, setColaboradorEndereco}: Props) {
     const tabs: TabType[] = [
         {
             label: 'Dados Básicos',
             children: <CamposFormularioDadosBasicos
                 colaborador={colaborador}
-                colaboradorEndereco={colaboradorEndereco}/>
+                colaboradorEndereco={colaboradorEndereco}
+                setColaboradorEndereco={setColaboradorEndereco}/>
         },
         {
             label: 'Dados Admissão',

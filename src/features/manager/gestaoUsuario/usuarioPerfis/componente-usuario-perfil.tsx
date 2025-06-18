@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 

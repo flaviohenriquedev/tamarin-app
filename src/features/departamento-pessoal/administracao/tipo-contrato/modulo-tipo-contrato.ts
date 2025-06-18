@@ -7,7 +7,7 @@ export const ModuloTipoContrato: ModulosType = {
         return {
             id: 'gestao-contrato',
             modulo: ModuloENUM.GESTAO_CONTRATO,
-            title: 'Tipo Contrato',
+            title: 'Tipo Admissão',
             href: '/app/dp/tipo-contrato',
             funcionalidades: this.funcionalidades()
         }

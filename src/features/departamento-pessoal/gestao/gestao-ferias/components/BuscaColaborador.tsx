@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputCPF} from "@/components/ui/input/InputCPF";
 import {InputString} from "@/components/ui/input/InputString";

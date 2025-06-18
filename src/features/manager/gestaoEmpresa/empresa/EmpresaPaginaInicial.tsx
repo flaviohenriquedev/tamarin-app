@@ -8,7 +8,7 @@ import {toast} from "sonner";
 import {empresaColunasListagem} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-colunas-listagem";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputCNPJ} from "@/components/ui/input/InputCNPJ";

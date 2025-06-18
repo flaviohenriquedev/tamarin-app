@@ -14,9 +14,10 @@ import {isValid, parse} from "date-fns";
 interface Props<E> extends InputProps<E> {
     dataPadrao?: Date;
     onChangeDate?: (date: Date) => void;
+    className?: string;
 }
 
-export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao, onChangeDate}: Props<E>) {
+export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao, onChangeDate, className}: Props<E>) {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const [date, setDate] = useState<Date | undefined>();
@@ -89,7 +90,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
 
     return (
         <div className={`
-            flex-1
+            w-40
             flex
             flex-col
             gap-1`}>
@@ -104,7 +105,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
             <div className="relative w-fit" ref={wrapperRef}>
                 <div className="relative flex items-center">
                     <input
-                        className={`${inputStyle}`}
+                        className={`${inputStyle} w-full`}
                         value={inputValue}
                         onChange={handleInputChange}
                         placeholder="dd/mm/aaaa"

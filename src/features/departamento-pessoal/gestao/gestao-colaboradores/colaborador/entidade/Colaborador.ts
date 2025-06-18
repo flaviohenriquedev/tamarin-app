@@ -8,18 +8,27 @@ import {
 import {
     ColaboradorCargo
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorCargo";
+import {EtniaENUM} from "@/features/_root/enums/EtniaENUM";
+import {EstadoCivilENUM} from "@/features/_root/enums/EstadoCivilENUM";
+import {GeneroENUM} from "@/features/_root/enums/GeneroENUM";
 
 export class Colaborador extends EntidadeTenant {
     public matricula: number;
     public nomeCompleto: string;
     public cpf: string;
+    public pis: string;
     public dataNascimento: Date;
+    public dataExpedicaoRg: Date;
     public nascionalidade: string;
     public nomeMae: string;
-    public statusColaborador: StatusColaboradorENUM;
     public colaboradorEndereco: ColaboradorEndereco;
     public cargoAtivo: ColaboradorCargo;
     public listaColaboradorCargo: ColaboradorCargo[];
+
+    public statusColaborador: StatusColaboradorENUM;
+    public etnia: EtniaENUM;
+    public estadoCivil: EstadoCivilENUM;
+    public genero: GeneroENUM;
 
     constructor() {
         super();

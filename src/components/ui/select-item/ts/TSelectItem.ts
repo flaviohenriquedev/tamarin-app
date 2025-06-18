@@ -1,4 +1,4 @@
-export type TSelectItemValue = string | number | undefined | null;
+export type TSelectItemValue = string | number | boolean | undefined | null;
 export type TSelectItem = {
     label: string;
     labelWhenSelected?: string;

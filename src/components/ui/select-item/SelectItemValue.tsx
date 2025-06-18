@@ -8,7 +8,16 @@ type Props = {
 export function SelectItemValue({valor, setItemSelecionado}: Props) {
 
     return (
-        <li className={`px-3 py-1 hover:cursor-default hover:bg-base-300 rounded-lg`}
+        <li className={`
+                px-3
+                py-2
+                transition-all
+                duration-200
+                hover:cursor-default
+                hover:bg-primary
+                hover:font-semibold
+                hover:text-primary-content
+                rounded-lg`}
             onClick={() => setItemSelecionado(valor)}>
             {valor.label}
         </li>

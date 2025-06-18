@@ -1,7 +1,7 @@
 'use client'
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Form} from "@/components/ui/form/form";
 import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
@@ -27,7 +27,7 @@ import {
 const service = new ColaboradorService();
 
 export function ColaboradoresAdmissaoPaginaInicial() {
-    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(true);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
     const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());
@@ -38,6 +38,10 @@ export function ColaboradoresAdmissaoPaginaInicial() {
         setEntidade(new Colaborador())
         setOpenModal(true);
     }
+
+    useEffect(() => {
+        console.log('ENDEREÇO ->', colaboradorEndereco)
+    }, [colaboradorEndereco]);
 
     const clear = () => {
         setEntidade(new Colaborador());
@@ -74,6 +78,7 @@ export function ColaboradoresAdmissaoPaginaInicial() {
                     <AdmissaoTabs
                         colaborador={entidade}
                         colaboradorEndereco={colaboradorEndereco}
+                        setColaboradorEndereco={setColaboradorEndereco}
                         colaboradorCargo={colaboradorCargo}/>
                     <ButtonGroup>
                         <Button

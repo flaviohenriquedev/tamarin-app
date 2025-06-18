@@ -4,6 +4,7 @@ import React, {InputHTMLAttributes, useEffect, useState} from "react"
 import {inputStyle} from "@/components/ui/input/style";
 import {get, set} from "lodash";
 import {Asterisk} from "lucide-react";
+import clsx from "clsx";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo?: string;
@@ -47,12 +48,19 @@ export function InputString<E extends object>({
         }
     }
 
+    const classesContainer = clsx(
+        'flex flex-col gap-1',
+        !/w-/.test(className ?? '') && 'flex-1'
+    )
+
+    const classesInput = clsx(
+        inputStyle,
+        !/w-/.test(className ?? '') && 'w-full',
+        className
+    )
+
     return (
-        <div className={`
-            flex-1
-            flex
-            flex-col
-            gap-1`}>
+        <div className={`${classesContainer}`}>
             {label && (
                 <label
                     htmlFor={name ? name : ''}
@@ -62,7 +70,7 @@ export function InputString<E extends object>({
                 </label>
             )}
             <input
-                className={`${inputStyle} ${className}`}
+                className={`${classesInput}`}
                 required={required}
                 id={id}
                 placeholder={placeholder}

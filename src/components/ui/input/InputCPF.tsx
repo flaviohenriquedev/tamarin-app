@@ -50,10 +50,10 @@ export function InputCPF<E extends object>({
 
     return (
         <div className={`
-            flex-1
             flex
             flex-col
-            gap-1`}>
+            gap-1
+            w-36`}>
             {label && (
                 <label
                     htmlFor={name ? name : ''}

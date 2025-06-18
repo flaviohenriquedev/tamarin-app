@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {RouteType} from "@/types/_root/RouteType";
 import {useCallback, useState} from "react";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";

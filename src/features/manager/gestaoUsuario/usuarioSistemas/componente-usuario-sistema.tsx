@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import React, {useCallback, useState} from "react";
 import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";

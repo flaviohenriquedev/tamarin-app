@@ -2,12 +2,12 @@
 
 import {IoSettingsSharp} from "react-icons/io5";
 import {HiUsers} from "react-icons/hi2";
-import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
 import {rotasGerenciamentoSistema} from "@/features/manager/rotasGerenciamentoSistema";
 import {SistemaType} from "@/features/sistema/types";
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {rotasDepartamentoPessoal} from "@/features/departamento-pessoal/rotasDepartamentoPessoal";
 import {Briefcase} from "lucide-react";
+import {rotasRecursosHumanos} from "@/features/recursos-humanos/rotas-recursos-humanos";
 
 const sizeIcon = 20
 export const sistemasModulosMaster: SistemaType[] = [

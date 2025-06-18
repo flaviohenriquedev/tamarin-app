@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputCPF} from "@/components/ui/input/InputCPF";
@@ -15,15 +15,22 @@ import {
 import {
     ColaboradorEndereco
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
+import {CepService} from "@/features/apis/brasilApi/cep/service/CepService";
+import {Dispatch, SetStateAction} from "react";
+import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
+import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
+import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
 
 type Props = {
     colaborador: Colaborador;
     colaboradorEndereco: ColaboradorEndereco;
+    setColaboradorEndereco: Dispatch<SetStateAction<ColaboradorEndereco>>;
 }
 
 const cidadeService = new CidadeService()
+const cepService = new CepService()
 
-export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco}: Props) {
+export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, setColaboradorEndereco}: Props) {
 
     const {selectItens: selectItensCidades} = useSelectItem({
         service: cidadeService,
@@ -31,10 +38,12 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco}:
         fieldValor: 'id'
     })
 
-    const onSelectItemCidade = (item: TSelectItem) => {
-        const cidadeSelecionada = new Cidade();
-        cidadeSelecionada.id = item.value as string;
-        set(colaboradorEndereco, 'cidade', cidadeSelecionada)
+    const onSelectItemCidade = (item: TSelectItem | null) => {
+        if (item) {
+            const cidadeSelecionada = new Cidade();
+            cidadeSelecionada.id = item.value as string;
+            set(colaboradorEndereco, 'cidade', cidadeSelecionada)
+        }
     }
 
     return (
@@ -43,46 +52,116 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco}:
                 <LineContent>
                     <InputString
                         name={'nomecompleto'}
-                        label={`Nome Completo`}
+                        label={`Nome`}
+                        entidade={colaborador}
+                        atributo={`nomeCompleto`}
+                        required={true}
+                    />
+
+                    <InputString
+                        name={'nomecompleto'}
+                        label={`Mãe`}
+                        entidade={colaborador}
+                        atributo={`nomeCompleto`}
+                        required={true}
+                    />
+
+                    <InputString
+                        name={'nomecompleto'}
+                        label={`Pai`}
                         entidade={colaborador}
                         atributo={`nomeCompleto`}
                     />
+                </LineContent>
+                <LineContent>
                     <InputCPF
                         name={'cpf'}
                         label={`CPF`}
                         atributo={`cpf`}
                         entidade={colaborador}
                     />
+
                     <InputString
+                        className={`w-24`}
                         label={`RG`}
                         name={'rg'}
                         atributo={`rg`}
                         entidade={colaborador}
                     />
 
+                    <InputDataCompleta
+                        name={'dataExpedicaoRg'}
+                        label={`Data de Expedição`}
+                        atributo={`dataExpedicaoRg`}
+                        entidade={colaborador}
+                    />
+
+                    <InputString
+                        className={`w-32`}
+                        name={'pis'}
+                        label={`PIS`}
+                        atributo={`pis`}
+                        entidade={colaborador}
+                    />
+
+                    <SelectItem
+                        label={`Raça/Cor`}
+                        entidade={colaborador}
+                        fieldValor={'etnia'}
+                        values={EtniaFactory.getSelectItens()} />
+
+                    <InputString
+                        label={`Telefone`}
+                        name={'rg'}
+                        atributo={`rg`}
+                        entidade={colaborador}
+                    />
+
+                    <InputString
+                        label={`Email`}
+                        name={'rg'}
+                        atributo={`rg`}
+                        entidade={colaborador}
+                    />
                 </LineContent>
                 <LineContent>
                     <InputDataCompleta
-                        name={'datanascimento'}
+                        name={'dataExpedicaoRg'}
                         label={`Data de Nascimento`}
-                        atributo={`dataNascimento`}
+                        atributo={`dataExpedicaoRg`}
                         entidade={colaborador}
                     />
-                    <InputString
-                        name={'nascionalidade'}
-                        label={`Nascionalidade`}
-                        atributo={`nascionalidade`}
-                        entidade={colaborador}/>
-                    <InputString
-                        name={'nomemae'}
-                        label={`Nome da Mãe`}
-                        atributo={`nomeMae`}
-                        entidade={colaborador}/>
+
+                    <SelectItem
+                        label={`Cidade Nascimento`}
+                        entidade={colaborador}
+                        fieldValor={"cidadeNascimento.id"}
+                        values={selectItensCidades}
+                        onSelect={() => {}} />
+
+                    <SelectItem
+                        label={`Gênero`}
+                        entidade={colaborador}
+                        fieldValor={'genero'}
+                        values={GeneroFactory.getSelectItens()} />
+
+                    <SelectItem
+                        label={`Estado Civíl`}
+                        entidade={colaborador}
+                        fieldValor={'estadoCivil'}
+                        values={EstadoCivilFactory.getSelectItens()} />
+
                 </LineContent>
             </Fieldset>
 
             <Fieldset label={`Endereço`} largura={`w-full`}>
                 <LineContent>
+                    <InputString
+                        name={'cep'}
+                        label={'CEP'}
+                        entidade={colaboradorEndereco}
+                        atributo={'cep'}
+                    />
                     <InputString
                         name={'rua'}
                         label={`Rua`}

@@ -1,4 +1,4 @@
-import {Fieldset} from "@/components/ui/fieldset/fieldset";
+import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import React, {useCallback, useState} from "react";
 

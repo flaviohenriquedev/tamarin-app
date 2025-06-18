@@ -4,6 +4,8 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {SistemaType} from "@/features/sistema/types";
 import {useRouter} from "next/navigation";
 import {sistemasModulos} from "@/features/sistema/sistemasModulos";
+import {ModuloENUM} from "@/enums/ModuloEnum";
+import {ModulosType} from "@/types/_root/ModulosTypes";
 
 type Props = {
     listaSistemas: SistemaType[];
@@ -33,6 +35,7 @@ export function SistemaContextProvider({children}: Options) {
     const route = useRouter();
     const [listaSistemas, setListaSistemas] = useState<SistemaType[]>([]);
     const [sistemaSelecionado, setSistemaSelecionado] = useState<SistemaType>()
+    const [moduloSelecionado, setModuloSelecionado] = useState<ModulosType>()
 
     useEffect(() => {
         const sistemaSelecionadoStorage = localStorage.getItem("sistemaSelecionado");
@@ -53,6 +56,11 @@ export function SistemaContextProvider({children}: Options) {
     function limparSistemaSelecionado() {
         localStorage.removeItem("sistemaSelecionado");
         setSistemaSelecionado(undefined);
+    }
+
+    function selecionarModulo(modulo: ModuloENUM) {
+        localStorage.setItem("moduloSelecionado", modulo);
+
     }
 
     return (

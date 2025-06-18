@@ -15,18 +15,18 @@ const service = new ColaboradorService();
 
 export function ColaboradoresPaginaInicial() {
     const route = useRouter();
-    const [listaEntidade, setListaEntidade] = useState<Colaborador[]>([]);
-    const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());
+    const [listaColaboradores, setListaColaboradores] = useState<Colaborador[]>([]);
+    const [colaborador, setColaborador] = useState<Colaborador>(new Colaborador());
 
     useEffect(() => {
         service.listarColaboradoresAtivos().then(result => {
-            setListaEntidade(result);
+            setListaColaboradores(result);
         })
     }, []);
 
     const atualizar = useCallback(() => {
         service.listar().then(result => {
-            setListaEntidade(result);
+            setListaColaboradores(result);
         })
     }, [])
 
@@ -46,7 +46,15 @@ export function ColaboradoresPaginaInicial() {
         <PaginaCadastro funcaoAtualizarLista={atualizar}
                         acoesAdicionais={acoesAdicionais}>
             <div>
-                Colaboradores
+                <ul className={`flex flex-col gap-2`}>
+                    {listaColaboradores && listaColaboradores.map(cl => (
+                        <li key={cl.id}>
+                            <div className={`rounded-lg bg-base-100 p-4`}>
+                                <label>{cl.nomeCompleto}</label>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </PaginaCadastro>
     )

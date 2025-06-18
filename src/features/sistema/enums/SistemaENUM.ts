@@ -9,7 +9,7 @@ export enum SistemaENUM {
 
 export class SistemaENUMFactory {
 
-    private static readonly status: SistemaENUM[] = [
+    private static readonly sistema: SistemaENUM[] = [
         SistemaENUM.RECURSOS_HUMANOS,
         SistemaENUM.DEPARTAMENTO_PESSOAL,
         SistemaENUM.GERENCIAR_SISTEMA,
@@ -35,12 +35,12 @@ export class SistemaENUMFactory {
         }
     };
 
-    static getStatus(): SistemaENUM[] {
-        return this.status;
+    static getSistema(): SistemaENUM[] {
+        return this.sistema;
     }
 
     static getSelectItens(): TSelectItem[] {
-        return this.status.map(item => {
+        return this.sistema.map(item => {
             return {label: this.getLabel(item), value: item};
         });
     }
@@ -54,7 +54,7 @@ export class SistemaENUMFactory {
     }
 
     static getItemByInfo(info: string): TSelectItem | undefined {
-        const status = this.status.find(item => item === info);
+        const status = this.sistema.find(item => item === info);
 
         if (status) {
             return {

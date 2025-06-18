@@ -14,4 +14,5 @@ export type InfosModuloType = {
     icon?: ReactNode,
     href: string,
     funcionalidades: Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>>;
+    abas?: InfosModuloType[];
 }

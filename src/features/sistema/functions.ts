@@ -4,6 +4,7 @@ import {SistemaType} from "@/features/sistema/types";
 import {RouteType} from "@/types/_root/RouteType";
 import {sistemasModulos, sistemasModulosMaster} from "@/features/sistema/sistemasModulos";
 import {DadosAcesso, Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export async function logout() {
     await signOut({redirect: false}).then(() => {
@@ -45,4 +46,23 @@ export function usuarioPossuiAcessoAoModulo(rota: RouteType, usuarioLogado: Usua
     }
 
     return false;
+}
+
+export function getModuloInfos(rotas: RouteType[], modulo: ModuloENUM): RouteType {
+    for (const rota of rotas) {
+        let moduloEncontrado;
+        if (rota.subRoute) {
+            moduloEncontrado = rota.subRoute.find(
+                (sub) => sub.modulo === modulo
+            );
+            if (moduloEncontrado) {
+                return moduloEncontrado
+            }
+        } else if (rota.modulo) {
+            if (rota.modulo === modulo) {
+                return rota;
+            }
+        }
+    }
+    throw new Error(`Módulo ${modulo} não encontrado nas rotas`);
 }

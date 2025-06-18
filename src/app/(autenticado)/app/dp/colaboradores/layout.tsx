@@ -1,27 +1,30 @@
 'use client'
 
-import {ReactNode, useState} from "react";
-import {useRouter} from "next/navigation";
-
-const valores = [
-    {
-        label: 'Colaboradores',
-        href: '/app/dp/colaboradores'
-    },
-    {
-        label: 'Admissão',
-        href: '/app/dp/colaboradores/admissao',
-    }
-]
+import {ReactNode, useEffect, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {RouteType} from "@/types/_root/RouteType";
+import {getModuloInfos, getRotasPorSistema} from "@/features/sistema/functions";
+import {ModuloENUM} from "@/enums/ModuloEnum";
 
 export default function LayoutColaboradores({children}: { children: ReactNode }) {
-    const [idxAtivo, setIdxAtivo] = useState<number>(0)
+    const pathName = usePathname();
+
+    const {sistemaSelecionado} = useSistemaContext();
     const route = useRouter()
+
+    const [moduloInfo, setModuloInfo] = useState<RouteType>()
 
     const onClickTab = (index: number, href: string) => {
         route.push(href);
-        setIdxAtivo(index)
     }
+
+    useEffect(() => {
+        if (sistemaSelecionado) {
+            const moduloEncontrado = getModuloInfos(getRotasPorSistema(sistemaSelecionado), ModuloENUM.GESTAO_COLABORADORES)
+            setModuloInfo(moduloEncontrado)
+        }
+    }, [sistemaSelecionado]);
 
     return (
         <>
@@ -34,11 +37,11 @@ export default function LayoutColaboradores({children}: { children: ReactNode })
                         rounded-lg
                         backdrop-blur-sm`}>
                 <ul className={`flex items-center h-full gap-4 px-2 py-1`}>
-                    {valores.map((valor, index) => (
+                    {moduloInfo?.abas && moduloInfo.abas.map((aba, index) => (
                         <li key={index}
-                            onClick={() => onClickTab(index, valor.href)}
-                            className={`${index === idxAtivo ? 'border-primary text-primary' : 'border-transparent'} cursor-pointer py-1 border-b-2 text-sm`}>
-                            {valor.label}
+                            onClick={() => onClickTab(index, aba.href)}
+                            className={`${pathName === aba.href ? 'border-primary text-primary' : 'border-transparent'} cursor-pointer py-1 border-b-2 text-sm`}>
+                            {aba.title}
                         </li>
                     ))}
                 </ul>
