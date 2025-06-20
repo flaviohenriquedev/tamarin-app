@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {usuarioEndPoints} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-endpoint";
 import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {EndPointType} from "@/types/_root/EndPointType";

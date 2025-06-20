@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import {empresaEndPoints} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-end-points";
 import {EndPointType} from "@/types/_root/EndPointType";

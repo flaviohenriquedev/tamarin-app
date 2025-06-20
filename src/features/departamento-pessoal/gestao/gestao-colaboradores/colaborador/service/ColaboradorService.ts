@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {EndPointType} from "@/types/_root/EndPointType";
 import {request} from "@/services/request";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";

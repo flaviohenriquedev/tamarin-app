@@ -1,5 +1,5 @@
 import {EndPointType} from "@/types/_root/EndPointType";
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {Departamento} from "@/features/departamento-pessoal/administracao/departamento/ts/departamento";
 import {
     departamentoEndpoint

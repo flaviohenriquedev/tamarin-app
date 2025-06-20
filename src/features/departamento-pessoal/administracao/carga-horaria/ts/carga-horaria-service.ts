@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {CargaHoraria} from "@/features/departamento-pessoal/administracao/carga-horaria/ts/carga-horaria";
 import {EndPointType} from "@/types/_root/EndPointType";
 import {

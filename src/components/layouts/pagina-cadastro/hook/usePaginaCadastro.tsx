@@ -1,6 +1,6 @@
 'use client'
 
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {useCallback, useEffect, useState} from "react";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {PageConfig} from "@/components/ui/table/ts/types";

@@ -29,9 +29,7 @@ export function InputMoeda<E>({
 
     useEffect(() => {
         const valorEntidade = get(entidade, atributo);
-        console.log('GET ENTIDADE ---> ', get(entidade, atributo))
         if (valorEntidade) {
-            console.log('VALOR ENTIDADE -->', valorEntidade);
             setValor(valorEntidade);
         }
     }, [atributo, entidade]);

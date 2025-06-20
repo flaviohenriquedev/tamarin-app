@@ -80,7 +80,7 @@ export function SelectItem<E extends object>({
 
     function renderItens() {
         return values.map(value => {
-            return <SelectItemValue key={value.value}
+            return <SelectItemValue key={value.value as string}
                                     setItemSelecionado={handleSelectItem}
                                     valor={value}/>
         })

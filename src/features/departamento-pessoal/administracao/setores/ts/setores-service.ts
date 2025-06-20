@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {Setor} from "@/features/departamento-pessoal/administracao/setores/ts/setor";
 import {EndPointType} from "@/types/_root/EndPointType";
 import {setoresEndpoint} from "@/features/departamento-pessoal/administracao/setores/ts/setores-endpoint";

@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {useEffect, useState} from "react";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {get} from "lodash";

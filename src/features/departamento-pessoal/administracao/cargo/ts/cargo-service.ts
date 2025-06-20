@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
 import {EndPointType} from "@/types/_root/EndPointType";
 import {cargoEndpoint} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-endpoint";

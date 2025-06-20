@@ -1,4 +1,4 @@
-import {CrudService} from "@/services/crud-service";
+import {CrudService} from "@/services/CrudService";
 import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
 import {estadoEndPoints} from "@/features/manager/gestaoLocalidade/estado/ts/estadoEndPoints";
 import {EndPointType} from "@/types/_root/EndPointType";

@@ -15,11 +15,12 @@ import {
 import {
     ColaboradorEndereco
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
-import {CepService} from "@/features/apis/brasilApi/cep/service/CepService";
 import {Dispatch, SetStateAction} from "react";
 import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
 import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
 import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
+import {InputSearch} from "@/components/ui/input/InputSearch";
+import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
 
 type Props = {
     colaborador: Colaborador;
@@ -27,8 +28,8 @@ type Props = {
     setColaboradorEndereco: Dispatch<SetStateAction<ColaboradorEndereco>>;
 }
 
-const cidadeService = new CidadeService()
-const cepService = new CepService()
+const cidadeService = new CidadeService();
+const viaCepServie = new ViaCepService();
 
 export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, setColaboradorEndereco}: Props) {
 
@@ -43,6 +44,34 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
             const cidadeSelecionada = new Cidade();
             cidadeSelecionada.id = item.value as string;
             set(colaboradorEndereco, 'cidade', cidadeSelecionada)
+        }
+    }
+
+    const buscarCidadeDeNascimento = async (nome: string): Promise<Cidade[]> => {
+        if (nome) return await cidadeService.buscarPorNomeParecido(nome);
+        return [];
+    }
+
+    const onSelectCidadeNascimento = (item: TSelectItem) => {
+        const cidade = new Cidade();
+        cidade.id = item.value as string;
+        set(colaborador, 'cidadeNascimento', cidade)
+    }
+
+    function onBlurCep() {
+        const cepColaborador = colaboradorEndereco.cep;
+        console.log('cep colaborador', cepColaborador);
+        if (cepColaborador) {
+            viaCepServie.getEndereco(cepColaborador).then(result => {
+                if (result) {
+                    setColaboradorEndereco(
+                        {...colaboradorEndereco,
+                            rua: result.logradouro,
+                            bairro: result.bairro,
+                            complemento: result.complemento}
+                    )
+                }
+            })
         }
     }
 
@@ -132,12 +161,22 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         entidade={colaborador}
                     />
 
-                    <SelectItem
-                        label={`Cidade Nascimento`}
+                    <InputSearch
+                        label={`Cidade de Nascimento`}
                         entidade={colaborador}
-                        fieldValor={"cidadeNascimento.id"}
-                        values={selectItensCidades}
-                        onSelect={() => {}} />
+                        atributo={'cidadeNascimento'}
+                        fieldValor={'id'}
+                        fieldDescricao={'nome'}
+                        funcaoBuscar={buscarCidadeDeNascimento}
+                        onSelectItem={onSelectCidadeNascimento}
+                    />
+
+                    {/*<SelectItem*/}
+                    {/*    label={`Cidade Nascimento`}*/}
+                    {/*    entidade={colaborador}*/}
+                    {/*    fieldValor={"cidadeNascimento.id"}*/}
+                    {/*    values={selectItensCidades}*/}
+                    {/*    onSelect={() => {}} />*/}
 
                     <SelectItem
                         label={`Gênero`}
@@ -161,6 +200,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         label={'CEP'}
                         entidade={colaboradorEndereco}
                         atributo={'cep'}
+                        onBlur={onBlurCep}
                     />
                     <InputString
                         name={'rua'}
@@ -181,6 +221,12 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         label={`Lote`}
                         entidade={colaboradorEndereco}
                         atributo={`lote`}
+                    />
+                    <InputString
+                        label={'Complemento'}
+                        name={'complemento'}
+                        entidade={colaboradorEndereco}
+                        atributo={'complemento'}
                     />
                 </LineContent>
                 <LineContent>
