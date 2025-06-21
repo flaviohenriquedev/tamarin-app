@@ -18,11 +18,13 @@ export class Colaborador extends EntidadeTenant {
     public nomeCompleto: string;
     public cpf: string;
     public pis: string;
+    public rg: string;
     public dataNascimento: Date;
     public dataExpedicaoRg: Date;
     public cidadeNascimento: Cidade;
     public nascionalidade: string;
     public nomeMae: string;
+    public nomePai: string;
     public colaboradorEndereco: ColaboradorEndereco;
     public cargoAtivo: ColaboradorCargo;
     public listaColaboradorCargo: ColaboradorCargo[];

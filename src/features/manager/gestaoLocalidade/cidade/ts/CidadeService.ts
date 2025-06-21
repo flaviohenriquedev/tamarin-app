@@ -9,6 +9,7 @@ export class CidadeService extends CrudService<Cidade> {
     public getBaseURL(): string {
         return "/cidade";
     }
+
     public getEndpoint(): EndPointType {
         return cidadeEndPoints;
     }

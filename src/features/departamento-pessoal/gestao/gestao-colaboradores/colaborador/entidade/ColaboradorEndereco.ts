@@ -8,11 +8,9 @@ export class ColaboradorEndereco extends EntidadePadrao {
     public colaborador: Colaborador;
     public cep: string;
     public rua: string;
-    public quadra: string;
-    public lote: string;
+    public complemento: string;
     public numero: string;
     public bairro: string;
-    public complemento: string;
     public cidade: Cidade;
 
     constructor() {

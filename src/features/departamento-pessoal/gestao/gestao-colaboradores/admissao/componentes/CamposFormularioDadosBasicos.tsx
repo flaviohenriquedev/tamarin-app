@@ -4,11 +4,8 @@ import {InputString} from "@/components/ui/input/InputString";
 import {InputCPF} from "@/components/ui/input/InputCPF";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/CidadeService";
-import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {set} from "lodash";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
-import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {
     Colaborador
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
@@ -19,8 +16,9 @@ import {Dispatch, SetStateAction} from "react";
 import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
 import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
 import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
-import {InputSearch} from "@/components/ui/input/InputSearch";
+import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
 import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
+import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 
 type Props = {
     colaborador: Colaborador;
@@ -33,34 +31,22 @@ const viaCepServie = new ViaCepService();
 
 export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, setColaboradorEndereco}: Props) {
 
-    const {selectItens: selectItensCidades} = useSelectItem({
+    const configCidadeNascimento: InputSearchConfig<Cidade, CidadeService> = {
         service: cidadeService,
-        fieldDescricao: 'nome',
-        fieldValor: 'id'
-    })
-
-    const onSelectItemCidade = (item: TSelectItem | null) => {
-        if (item) {
-            const cidadeSelecionada = new Cidade();
-            cidadeSelecionada.id = item.value as string;
-            set(colaboradorEndereco, 'cidade', cidadeSelecionada)
-        }
+        funcaoListagem: 'buscarPorNomeParecido',
+        fieldLabel: 'nome',
+        fieldValue: 'id'
     }
 
-    const buscarCidadeDeNascimento = async (nome: string): Promise<Cidade[]> => {
-        if (nome) return await cidadeService.buscarPorNomeParecido(nome);
-        return [];
-    }
-
-    const onSelectCidadeNascimento = (item: TSelectItem) => {
-        const cidade = new Cidade();
-        cidade.id = item.value as string;
-        set(colaborador, 'cidadeNascimento', cidade)
+    const configCidadeEndereco: InputSearchConfig<Cidade, CidadeService> = {
+        service: cidadeService,
+        funcaoListagem: 'buscarPorNomeParecido',
+        fieldLabel: 'nome',
+        fieldValue: 'id'
     }
 
     function onBlurCep() {
         const cepColaborador = colaboradorEndereco.cep;
-        console.log('cep colaborador', cepColaborador);
         if (cepColaborador) {
             viaCepServie.getEndereco(cepColaborador).then(result => {
                 if (result) {
@@ -68,7 +54,8 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         {...colaboradorEndereco,
                             rua: result.logradouro,
                             bairro: result.bairro,
-                            complemento: result.complemento}
+                            complemento: result.complemento,
+                            cidade: result.cidade}
                     )
                 }
             })
@@ -88,18 +75,18 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                     />
 
                     <InputString
-                        name={'nomecompleto'}
                         label={`Mãe`}
+                        name={'nomeMae'}
                         entidade={colaborador}
-                        atributo={`nomeCompleto`}
+                        atributo={`nomeMae`}
                         required={true}
                     />
 
                     <InputString
-                        name={'nomecompleto'}
                         label={`Pai`}
+                        name={'nomePai'}
                         entidade={colaborador}
-                        atributo={`nomeCompleto`}
+                        atributo={`nomePai`}
                     />
                 </LineContent>
                 <LineContent>
@@ -162,21 +149,10 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                     />
 
                     <InputSearch
-                        label={`Cidade de Nascimento`}
+                        label={`Cidade Nascimento`}
                         entidade={colaborador}
                         atributo={'cidadeNascimento'}
-                        fieldValor={'id'}
-                        fieldDescricao={'nome'}
-                        funcaoBuscar={buscarCidadeDeNascimento}
-                        onSelectItem={onSelectCidadeNascimento}
-                    />
-
-                    {/*<SelectItem*/}
-                    {/*    label={`Cidade Nascimento`}*/}
-                    {/*    entidade={colaborador}*/}
-                    {/*    fieldValor={"cidadeNascimento.id"}*/}
-                    {/*    values={selectItensCidades}*/}
-                    {/*    onSelect={() => {}} />*/}
+                        config={configCidadeNascimento}/>
 
                     <SelectItem
                         label={`Gênero`}
@@ -202,34 +178,21 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         atributo={'cep'}
                         onBlur={onBlurCep}
                     />
+
                     <InputString
+                        label={'Rua'}
                         name={'rua'}
-                        label={`Rua`}
                         entidade={colaboradorEndereco}
-                        atributo={`rua`}
+                        atributo={'rua'}
                     />
 
-                    <InputString
-                        name={'quadra'}
-                        label={`Quadra`}
-                        entidade={colaboradorEndereco}
-                        atributo={`quadra`}
-                    />
-
-                    <InputString
-                        name={'lote'}
-                        label={`Lote`}
-                        entidade={colaboradorEndereco}
-                        atributo={`lote`}
-                    />
                     <InputString
                         label={'Complemento'}
                         name={'complemento'}
                         entidade={colaboradorEndereco}
                         atributo={'complemento'}
                     />
-                </LineContent>
-                <LineContent>
+
                     <InputString
                         name={'numero'}
                         label={`Numero`}
@@ -244,13 +207,12 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         atributo={`bairro`}
                     />
 
-                    <SelectItem
-                        tabIndex={0}
-                        entidade={colaboradorEndereco}
-                        fieldValor={'cidade.id'}
+                    <InputSearch
                         label={`Cidade`}
-                        values={selectItensCidades}
-                        onSelect={onSelectItemCidade}/>
+                        entidade={colaboradorEndereco}
+                        atributo={`cidade`}
+                        config={configCidadeEndereco} />
+
                 </LineContent>
             </Fieldset>
         </>

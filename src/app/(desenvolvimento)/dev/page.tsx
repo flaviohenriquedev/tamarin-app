@@ -1,25 +1,39 @@
 'use client'
 
-import {NumericFormat} from 'react-number-format';
-import {useState} from 'react';
-import {inputStyle} from "@/components/ui/input/style";
+import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
+import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/CidadeService";
+import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
+import {useState} from "react";
+import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
+import {
+    ColaboradorEndereco
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
+import {Button} from "@/components/ui/button/button";
 
-export default function InputMoeda() {
-    const [valor, setValor] = useState<string | undefined>();
+const cidadeService = new CidadeService();
+export default function PaginaTeste() {
+
+    const config: InputSearchConfig<Cidade, CidadeService> = {
+        service: cidadeService,
+        funcaoListagem: 'buscarPorNomeParecido',
+        fieldLabel: 'nome',
+        fieldValue: 'id'
+    }
+
+    const [colaboradorEndereco, setColaboradorEndereco] = useState<ColaboradorEndereco>(new ColaboradorEndereco())
+
+    function click() {
+        console.log(`endereco -> `, colaboradorEndereco)
+    }
 
     return (
-        <NumericFormat
-            value={valor}
-            thousandSeparator="."
-            decimalSeparator=","
-            decimalScale={2}
-            fixedDecimalScale
-            prefix="R$ "
-            allowNegative={false}
-            onValueChange={(values) => {
-                setValor(values.value); // valor numérico puro: '1234.56'
-            }}
-            className={inputStyle}
-        />
-    );
+        <>
+        <InputSearch
+            entidade={colaboradorEndereco}
+            atributo={'cidade'}
+            config={config}/>
+
+            <Button onClick={click}>Enviar</Button>
+        </>
+    )
 }
