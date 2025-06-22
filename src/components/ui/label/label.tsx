@@ -31,7 +31,9 @@ export function Label({children, title, required}: Props) {
                 `}>{title}</span>
                 </label>
             )}
-            {children}
+            <div className={'flex items-center gap-2'}>
+                {children}
+            </div>
         </div>
     );
 }

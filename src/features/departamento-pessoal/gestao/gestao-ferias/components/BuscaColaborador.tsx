@@ -3,9 +3,13 @@ import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputCPF} from "@/components/ui/input/InputCPF";
 import {InputString} from "@/components/ui/input/InputString";
 import {useState} from "react";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
-import {ColaboradorService} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/ColaboradorService";
 import {set} from "lodash";
+import {
+    ColaboradorService
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/service/ColaboradorService";
+import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
 
 type Props<E> = {
     entidade: E;
@@ -43,9 +47,10 @@ export function BuscaColaborador<E>({entidade, atributo}: Props<E>) {
     };
 
     return (
-        <Fieldset label={`Colaborador`}>
+        <Fieldset label={`Colaborador`} largura={'w-[50rem]'}>
             <LineContent>
                 <InputString
+                    className={'w-20'}
                     label={`Mat.`}
                     entidade={colaborador}
                     atributo={'matricula'}
@@ -59,7 +64,6 @@ export function BuscaColaborador<E>({entidade, atributo}: Props<E>) {
                     onBlur={() => handleEmailBlur('CPF')}
                     />
                 <InputString
-                    className={`min-w-72`}
                     disabled={true}
                     entidade={colaborador}
                     atributo={`nomeCompleto`}/>

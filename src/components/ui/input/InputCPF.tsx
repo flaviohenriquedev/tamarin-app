@@ -5,6 +5,7 @@ import {inputStyle} from "@/components/ui/input/style";
 import {limparCNPJ, mascararCPF} from "@/utils/utils";
 import {get, set} from "lodash";
 import {Asterisk} from "lucide-react";
+import clsx from "clsx";
 
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo?: string;
@@ -48,12 +49,19 @@ export function InputCPF<E extends object>({
         }
     }
 
+    const classesContainer = clsx(
+        'flex flex-col gap-1',
+        !/w-/.test(className ?? '') && 'flex-1'
+    )
+
+    const classesInput = clsx(
+        inputStyle,
+        !/w-/.test(className ?? '') && 'w-full',
+        className
+    )
+
     return (
-        <div className={`
-            flex
-            flex-col
-            gap-1
-            w-36`}>
+        <div className={`${classesContainer}`}>
             {label && (
                 <label
                     htmlFor={name ? name : ''}
@@ -63,7 +71,7 @@ export function InputCPF<E extends object>({
                 </label>
             )}
             <input
-                className={`${inputStyle} ${className}`}
+                className={`${classesInput}`}
                 id={id}
                 placeholder="___.___.___-__"
                 name={name}

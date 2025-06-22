@@ -1,5 +1,7 @@
 import {EntidadeTenant} from "@/class/EntidadeTenant";
-import {Colaborador} from "@/features/departamento-pessoal/gestao-colaborador/colaborador/ts/Colaborador";
+import {
+    Colaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
 
 export class ColaboradorFerias extends EntidadeTenant {
     public colaborador: Colaborador;

@@ -1,7 +1,9 @@
 import {CrudService} from "@/services/CrudService";
 import {EndPointType} from "@/types/_root/EndPointType";
-import {colaboradorFeriasEndpoint} from "@/features/departamento-pessoal/gestao/ferias/ts/colaboradorFeriasEndpoint";
-import {ColaboradorFerias} from "@/features/departamento-pessoal/gestao/ferias/class/ColaboradorFerias";
+import {ColaboradorFerias} from "@/features/departamento-pessoal/gestao/gestao-ferias/class/ColaboradorFerias";
+import {
+    colaboradorFeriasEndpoint
+} from "@/features/departamento-pessoal/gestao/gestao-ferias/ts/colaboradorFeriasEndpoint";
 
 export class ColaboradorFeriasService extends CrudService<ColaboradorFerias> {
     public getBaseURL(): string {

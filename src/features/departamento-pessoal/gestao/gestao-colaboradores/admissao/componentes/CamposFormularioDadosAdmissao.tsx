@@ -103,8 +103,8 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
     }, [colaboradorCargo, dataAdmissao, quantidadeDiasExperiencia]);
 
     useEffect(() => {
-        if (quantidadeDiasProrrogacao && quantidadeDiasProrrogacao > 0) {
-            const novaData = addDays(dataAdmissao, quantidadeDiasProrrogacao);
+        if (quantidadeDiasProrrogacao && quantidadeDiasProrrogacao > 0 && dataAdmissaoExperiencia) {
+            const novaData = addDays(dataAdmissaoExperiencia, quantidadeDiasProrrogacao);
             setDataAdmissaoProrrogacao(novaData);
 
             set(colaboradorCargo, 'quantidadeDiasProrrogacao', quantidadeDiasProrrogacao);
@@ -112,7 +112,7 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
         } else if (quantidadeDiasProrrogacao && quantidadeDiasProrrogacao < 0) {
             setQuantidadeDiasProrrogacao(0)
         }
-    }, [colaboradorCargo, dataAdmissao, quantidadeDiasProrrogacao]);
+    }, [colaboradorCargo, dataAdmissao, dataAdmissaoExperiencia, quantidadeDiasProrrogacao]);
 
     const onSelectItemCargo = (item: TSelectItem | null) => {
         if (item) {
@@ -227,14 +227,15 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                                 type={`number`}
                                 value={quantidadeDiasExperiencia}
                                 onChange={(e) => setQuantidadeDiasExperiencia(parseInt(e.target.value))}/>
-                        </Label>
-                        <div
-                            className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
-                            <div className={`flex gap-3`}>
-                                <label><strong>Experiência até:</strong></label>
-                                <label>{`${quantidadeDiasExperiencia && dataAdmissaoExperiencia ? formatDateBR(dataAdmissaoExperiencia) : '---/---/---'}`}</label>
+                            <div
+                                className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
+                                <div className={`flex gap-3`}>
+                                    <label><strong>Experiência até:</strong></label>
+                                    <label>{`${quantidadeDiasExperiencia && dataAdmissaoExperiencia ? formatDateBR(dataAdmissaoExperiencia) : '---/---/---'}`}</label>
+                                </div>
                             </div>
-                        </div>
+                        </Label>
+
                     </LineContent>
                 </Fieldset>
 
@@ -246,14 +247,14 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                                 type={`number`}
                                 value={quantidadeDiasProrrogacao}
                                 onChange={(e) => setQuantidadeDiasProrrogacao(parseInt(e.target.value))}/>
-                        </Label>
-                        <div
-                            className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
-                            <div className={`flex gap-3`}>
-                                <label><strong>Prorrogado até:</strong></label>
-                                <label>{`${quantidadeDiasProrrogacao && dataAdmissaoProrrogacao ? formatDateBR(dataAdmissaoProrrogacao) : '---/---/---'}`}</label>
+                            <div
+                                className={`flex rounded-lg p-3 items-center w-full justify-between text-sm bg-base-300 text-base-content`}>
+                                <div className={`flex gap-3`}>
+                                    <label><strong>Prorrogado até:</strong></label>
+                                    <label>{`${quantidadeDiasProrrogacao && dataAdmissaoProrrogacao ? formatDateBR(dataAdmissaoProrrogacao) : '---/---/---'}`}</label>
+                                </div>
                             </div>
-                        </div>
+                        </Label>
                     </LineContent>
                 </Fieldset>
             </LineContent>

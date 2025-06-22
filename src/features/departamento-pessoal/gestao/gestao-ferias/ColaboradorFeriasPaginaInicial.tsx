@@ -2,12 +2,7 @@
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
-import {ColaboradorFeriasService} from "@/features/departamento-pessoal/gestao/ferias/class/ColaboradorFeriasService";
 import {Table} from "@/components/ui/table/Table";
-import {
-    colaboradorFeriasColunasListagem
-} from "@/features/departamento-pessoal/gestao/ferias/ts/colaboradorFeriasColunasListagem";
-import {ColaboradorFerias} from "@/features/departamento-pessoal/gestao/ferias/class/ColaboradorFerias";
 import {useCallback, useState} from "react";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
@@ -15,7 +10,14 @@ import {ButtonGroup} from "@/components/ui/button/button-group";
 import {Button} from "@/components/ui/button/button";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
-import {BuscaColaborador} from "@/features/departamento-pessoal/gestao/ferias/components/BuscaColaborador";
+import {
+    ColaboradorFeriasService
+} from "@/features/departamento-pessoal/gestao/gestao-ferias/class/ColaboradorFeriasService";
+import {ColaboradorFerias} from "@/features/departamento-pessoal/gestao/gestao-ferias/class/ColaboradorFerias";
+import {
+    colaboradorFeriasColunasListagem
+} from "@/features/departamento-pessoal/gestao/gestao-ferias/ts/colaboradorFeriasColunasListagem";
+import {BuscaColaborador} from "@/features/departamento-pessoal/gestao/gestao-ferias/components/BuscaColaborador";
 
 const colaboradorFeriasService = new ColaboradorFeriasService();
 
@@ -68,7 +70,6 @@ export function ColaboradorFeriasPaginaInicial() {
                     <div className={`flex flex-col gap-6`}>
                         <BuscaColaborador entidade={colaboradorFerias} atributo={`colaborador`}/>
                         <LineContent>
-
                             <InputDataCompleta
                                 label={`Periodo Inicial`}
                                 atributo={'periodoInicial'}
