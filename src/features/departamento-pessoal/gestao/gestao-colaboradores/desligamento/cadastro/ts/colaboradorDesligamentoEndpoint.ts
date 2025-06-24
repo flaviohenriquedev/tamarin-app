@@ -1,7 +1,7 @@
 import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
-export const desligamentoEndpoint: EndPointType = {
+export const colaboradorDesligamentoEndpoint: EndPointType = {
     buscarPorId: {
         caminho: '/:id',
         metodo: MetodoHTTP.GET
