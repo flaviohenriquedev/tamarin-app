@@ -8,9 +8,18 @@ type Props = {
     isOpen: boolean,
     setIsOpen: (isOpen: boolean) => void,
     title?: string,
+    tamanho?: SizeModal,
 }
 
-export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}: Props) {
+type SizeModal = 'telaInteira'
+
+const sizeModalInfo: {[k in SizeModal]: {classe: string}} = {
+    telaInteira: {
+        classe: 'w-[100vw] h-[85vh]',
+    }
+}
+
+export default function Modal({children, onCloseModal, isOpen, setIsOpen, title, tamanho}: Props) {
 
     function handleCloseModal() {
         setIsOpen(false);
@@ -85,7 +94,10 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title}
                                 <X onClick={handleCloseModal} className={`hover:text-primary`}/>
                             </div>
                         </div>
-                        {children}
+                        <div className={`${tamanho ? sizeModalInfo[tamanho].classe : ''}`}>
+                            {children}
+                        </div>
+
                     </DialogPanel>
                 </div>
             </div>

@@ -37,12 +37,10 @@ export function FormularioLogin() {
     return (
         <div className={'bg-base-100/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
             <form className={'flex flex-col gap-8 w-96'} onSubmit={handleSubmit}>
-
                 <div className={`flex items-center justify-between`}>
                     <div className={`${fontLogin.className} text-semibold text-[24pt]`}>
                         Login
                     </div>
-
                     <div
                         className={`flex items-center justify-center gap-3 text-center p-4 text-[15pt] font-semibold`}>
                         <LogoSistema width={100} height={50}/>

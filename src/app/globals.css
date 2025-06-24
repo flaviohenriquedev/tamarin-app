@@ -19,16 +19,52 @@
     .container-glass {
         @apply bg-white/30 backdrop-blur-sm border border-white;
     }
+    .border-component-100 {
+        @apply border-neutral-100;
+    }
+    .border-component-200 {
+        @apply border-neutral-200;
+    }
+    .border-component-300 {
+        @apply border-neutral-300;
+    }
+    .border-component-400 {
+        @apply border-neutral-400;
+    }
+    .border-component-500 {
+        @apply border-neutral-500;
+    }
+    .border-component-600 {
+        @apply border-neutral-600;
+    }
 }
 
 /*noinspection ALL*/
 @plugin "daisyui/theme" {
     name: "dark";
     default: true;
-    --color-primary: var(--color-orange-400);
-    --color-base-300: #141517;
-    --color-base-200: #191A1C;
-    --color-base-100: #202427;
+    --color-primary: var(--color-blue-400);
+}
+
+[data-theme="dark"] {
+    .border-component-100 {
+        @apply border-neutral-700;
+    }
+    .border-component-200 {
+        @apply border-neutral-800;
+    }
+    .border-component-300 {
+        @apply border-neutral-900;
+    }
+    .border-component-400 {
+        @apply border-neutral-400;
+    }
+    .border-component-500 {
+        @apply border-neutral-500;
+    }
+    .border-component-600 {
+        @apply border-neutral-600;
+    }
 }
 
 @theme {

@@ -1,12 +1,12 @@
 import React, {InputHTMLAttributes, useCallback, useEffect, useState} from "react"
 import {inputStyle} from "@/components/ui/input/style";
-import {Asterisk} from "lucide-react";
 import clsx from "clsx";
 import {AnimatePresence, motion} from "framer-motion";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {CrudService} from "@/services/CrudService";
 import {get, set} from "lodash";
+import {Label} from "@/components/ui/label/label";
 
 interface Props<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>> extends InputHTMLAttributes<HTMLInputElement> {
     entidade?: EntidadeForm;
@@ -108,12 +108,7 @@ export function InputSearch<EntidadeForm, EntidadeBusca extends EntidadePadrao, 
     return (
         <div className={`${classesContainer} relative`}>
             {label && (
-                <label
-                    htmlFor={name ? name : ''}
-                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
-                    {label}
-                </label>
+                <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <input
                 className={`${classesInput}`}

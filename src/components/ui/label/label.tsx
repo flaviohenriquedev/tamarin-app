@@ -1,39 +1,27 @@
-import React, {HTMLAttributes} from "react";
+import React, {ReactNode} from "react";
 import {FaAsterisk} from "react-icons/fa";
 
-
-interface Props extends HTMLAttributes<HTMLDivElement> {
-    children: React.ReactNode
-    title?: string
-    required?: boolean
+type Props = {
+    children?: ReactNode;
+    title?: string;
+    required?: boolean;
+    htmlFor?: string;
 }
 
-export function Label({children, title, required}: Props) {
+export function Label({children, title, required, htmlFor}: Props) {
     return (
-        <div className={`
-            flex-1
-            flex
-            flex-col
-            gap-1
-        `}>
+        <div className={`flex-1 flex flex-col gap-2 mb-1`}>
             {title && (
-                <label className={`
-                flex
-                gap-1
-                items-center
-            `}>
-
+                <label htmlFor={htmlFor} className={`flex gap-1 items-center `}>
+                    <span className={`text-[9pt] label-text font-semibold text-neutral-500 pl-1`}>{title}</span>
                     {required && <FaAsterisk size={8} color="red"/>}
-                    <span className={`
-                    text-[9pt]
-                    label-text
-                    pl-1
-                `}>{title}</span>
                 </label>
             )}
-            <div className={'flex items-center gap-2'}>
-                {children}
-            </div>
+            {children && (
+                <div className={'flex items-center gap-2'}>
+                    {children}
+                </div>
+            )}
         </div>
     );
 }

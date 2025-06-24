@@ -21,7 +21,7 @@ import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/con
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
 import {ModuloFerias} from "@/features/departamento-pessoal/gestao-ferias/modulo-ferias";
 import {ModuloAfastamento} from "@/features/departamento-pessoal/gestao-afastamento/modulo-afastamento";
-import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/modulo-desligamento";
+import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/moduloDesligamento";
 import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao/departamento/ts/modulo-departamentos";
 import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setores/ts/modulo-setores";
 import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
@@ -31,7 +31,7 @@ import {ModuloGestoPerfil} from "@/features/manager/gestaoPerfil/modulo-gestao-p
 import {ModuloGestaoUsuario} from "@/features/manager/gestaoUsuario/modulo-gestao-usuario";
 import {
     ModuloColaboradores
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/ts/moduloColaboradores";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/ts/moduloColaboradores";
 
 export const rotasDepartamentoPessoal: RouteType[] = [
     {

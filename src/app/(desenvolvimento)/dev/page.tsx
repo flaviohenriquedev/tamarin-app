@@ -7,7 +7,7 @@ import {useState} from "react";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {
     ColaboradorEndereco
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/ColaboradorEndereco";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/ColaboradorEndereco";
 import {Button} from "@/components/ui/button/button";
 
 const cidadeService = new CidadeService();

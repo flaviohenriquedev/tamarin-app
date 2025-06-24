@@ -20,15 +20,9 @@ export default function PaginaLogin() {
             />
         );
     }
-    //
-    // const backgroundImage = currentTheme === 'dark'
-    //     ? "url('/assets/img/bg-dark.jpg')"
-    //     : "url('/assets/img/bg-light.jpg')";
 
     return (
-        <div
-            className="flex items-center justify-center min-h-screen bg-system"
-        >
+        <div className="flex items-center justify-center min-h-screen bg-system">
             <FormularioLogin/>
         </div>
     );

@@ -4,7 +4,7 @@ import React, {InputHTMLAttributes} from "react";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {useValorAtributo} from "@/components/ui/input/hook/useValorAtributo";
 import {inputStyle} from "@/components/ui/input/style";
-import {Asterisk} from "lucide-react";
+import {Label} from "@/components/ui/label/label";
 
 interface Props<E extends EntidadePadrao> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string
@@ -36,12 +36,7 @@ export function InputNumerico<E extends EntidadePadrao>({
             flex-col
             gap-1`}>
             {label && (
-                <label
-                    htmlFor={name ? name : ''}
-                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
-                    {label}
-                </label>
+                <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <input
                 className={inputStyle}

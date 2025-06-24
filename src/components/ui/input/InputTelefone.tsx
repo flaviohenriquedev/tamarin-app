@@ -6,8 +6,8 @@ import React, {InputHTMLAttributes, useEffect, useState} from 'react'
 import {CountryCode} from 'libphonenumber-js'
 import {inputStyle} from "@/components/ui/input/style";
 import {SelectPaises} from "@/app/(desenvolvimento)/dev/select-paises";
-import {Asterisk} from "lucide-react";
 import {get, set} from "lodash";
+import {Label} from "@/components/ui/label/label";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
@@ -15,7 +15,7 @@ interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
 }
 
-export function InputTelefone<E extends object>({atributo, entidade, label, required, name}: Props<E>) {
+export function InputTelefone<E extends object>({atributo, entidade, label, required, name, tabIndex}: Props<E>) {
     const [country, setCountry] = useState<CountryCode | undefined>('BR')
     const [valorInput, setValorInput] = useState<string>('')
 
@@ -36,15 +36,11 @@ export function InputTelefone<E extends object>({atributo, entidade, label, requ
             flex-col
             gap-1`}>
             {label && (
-                <label
-                    htmlFor={name ? name : ''}
-                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
-                    {label}
-                </label>
+                <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <div className="flex gap-2">
                 <SelectPaises
+                    tabIndex={tabIndex}
                     className={`bg-base-200`}
                     labels={ptBR}
                     value={country}
@@ -52,11 +48,12 @@ export function InputTelefone<E extends object>({atributo, entidade, label, requ
                 />
                 <PhoneInput
                     name={name}
+                    tabIndex={tabIndex}
                     maxLength={15}
                     country={country}
                     value={valorInput}
                     onChange={atribuirValorInput}
-                    placeholder="Enter phone number"
+                    placeholder={``}
                     className={inputStyle}
                 />
             </div>

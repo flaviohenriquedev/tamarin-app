@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {SelectItemValue} from "@/components/ui/select-item/SelectItemValue";
-import {IoIosArrowDown} from "react-icons/io";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {Asterisk} from "lucide-react";
 import {get, set} from "lodash";
 import {MdClear} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import clsx from "clsx";
+import {Label} from "@/components/ui/label/label";
+import {ChevronDown} from "lucide-react";
 
 type Props<E> = {
     entidade: E;
@@ -31,7 +31,7 @@ export function SelectItem<E extends object>({
                                                  label,
                                                  name,
                                                  required,
-                                                 tabIndex
+                                                 tabIndex = 0
                                              }: Props<E>) {
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
@@ -108,12 +108,7 @@ export function SelectItem<E extends object>({
             flex-col
             gap-1`}>
             {label && (
-                <label
-                    htmlFor={name ? name : ''}
-                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
-                    {label}
-                </label>
+                <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
                 <div
@@ -124,22 +119,33 @@ export function SelectItem<E extends object>({
                     input-md
                     ${widthClass ? widthClass : 'min-w-52 w-full'}
                     rounded-lg
-                    border-base-300
-                    shadow-none
+                    border-neutral-300
+                    shadow-[-6px_5px_5px_-5px_rgba(0,_0,_0,_0.1)]
+                    focus:outline-none
+                    focus:border-primary
+                    transition-shadow
+                    duration-300
+                    focus:shadow-[0_0_8px_3px_rgba(0,153,255,0.2)]
                     focus:outline-hidden
                     focus:border-primary
                     transition-colors ease-in-out
-                    duration-200
                     flex
                     items-center
                     justify-between
                     cursor-default
                 `}
                 >
-                    <div onClick={handleShowList} className={`py-4 flex items-center w-full h-full `}>
+                    <div onClick={handleShowList}
+                         className={`
+                                    py-4
+                                    flex
+                                    items-center
+                                    w-full
+                                    h-full
+                                    `}>
                         {getLabel(itemSelecionado)}
                     </div>
-                    <div className={`flex items-center gap-2 text-neutral-500`}>
+                    <div className={`flex items-center gap-1 text-neutral-500`}>
                         {itemSelecionado && (
                             <label className={`
                             cursor-pointer
@@ -150,11 +156,23 @@ export function SelectItem<E extends object>({
                             duration-300
                             active:scale-75
                             hover:shadow-md
-                            hover:border-primary`}><MdClear size={18} onClick={clear}/></label>
+                            hover:border-primary`}>
+                                <MdClear size={18} onClick={clear}/>
+                            </label>
                         )}
-                        <IoIosArrowDown
-                            className={`transition-transform duration-300 ${showList ? 'rotate-180' : 'rotate-0'}`}
-                        />
+                        <label className={`
+                            cursor-pointer
+                            rounded-full
+                            border-2
+                            border-transparent
+                            transition-all ease-in-out
+                            duration-300
+                            active:scale-75
+                            hover:shadow-md
+                            hover:border-primary
+                            transition-transform
+                            duration-300 ${showList ? 'rotate-180' : 'rotate-0'}
+                            `}><ChevronDown size={18} onClick={handleShowList}/></label>
                     </div>
                 </div>
 
@@ -165,18 +183,20 @@ export function SelectItem<E extends object>({
                                 `   z-50
                                     border
                                     px-3
-                                    border-base-300
+                                    border-neutral-300
                                     bg-base-100
                                     text-base-content
                                     absolute
+                                    max-h-64
                                     left-0
                                     top-full
                                     mt-1
-                                    overflow-hidden
+                                    overflow-y-scroll
                                     shadow-sm
                                     p-2
                                     rounded-lg
                                     text-[10pt]
+                                    
                                     `,
                                 widthClass ? 'truncate' : 'w-full'
                             )}

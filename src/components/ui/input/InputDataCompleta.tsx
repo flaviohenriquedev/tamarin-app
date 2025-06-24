@@ -4,12 +4,13 @@ import {inputStyle} from "@/components/ui/input/style";
 import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import {DayPicker} from "react-day-picker";
 import {ptBR as localePtBR} from "react-day-picker/locale";
-import {Asterisk, Calendar} from "lucide-react";
+import {Calendar} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {InputProps} from "@/interfaces/InputProps";
 import {get, set} from "lodash";
 import {aplicarMascaraData, formatDateBR, parseDateBR} from "@/utils/utils";
 import {isValid, parse} from "date-fns";
+import {Label} from "@/components/ui/label/label";
 
 interface Props<E> extends InputProps<E> {
     dataPadrao?: Date;
@@ -95,12 +96,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
             flex-col
             gap-1`}>
             {label && (
-                <label
-                    htmlFor={name ? name : ''}
-                    className="flex items-center font-semibold text-gray-500 gap-1 text-[9pt] pl-1">
-                    {required && <span className={`text-error `}><Asterisk size={12}/></span>}
-                    {label}
-                </label>
+                <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <div className="relative w-fit" ref={wrapperRef}>
                 <div className="relative flex items-center">

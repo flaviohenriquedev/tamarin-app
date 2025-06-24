@@ -16,7 +16,7 @@ type Props = {
     className: string;
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
-export function SelectPaises({onChange, labels}: Props) {
+export function SelectPaises({onChange, labels, tabIndex}: Props) {
 
     const [selectItemPaises, setSelectItemPaises] = useState<TSelectItem[]>([]);
     const [valorPadrao] = useState<TSelectItem>({
@@ -40,12 +40,15 @@ export function SelectPaises({onChange, labels}: Props) {
 
     }, [labels])
 
-    function onSelectItem(item: TSelectItem) {
-        onChange(item.value as CountryCode)
+    function onSelectItem(item: TSelectItem | null) {
+        if (item) {
+            onChange(item.value as CountryCode)
+        }
     }
 
     return (
         <SelectItem
+            tabIndex={tabIndex}
             values={selectItemPaises}
             onSelect={onSelectItem}
             valorPadrao={valorPadrao}

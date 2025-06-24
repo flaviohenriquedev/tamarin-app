@@ -6,10 +6,8 @@ import {useState} from "react";
 import {set} from "lodash";
 import {
     ColaboradorService
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/service/ColaboradorService";
-import {
-    Colaborador
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/colaborador/entidade/Colaborador";
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/service/ColaboradorService";
+import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 
 type Props<E> = {
     entidade: E;

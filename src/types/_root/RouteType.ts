@@ -1,10 +1,10 @@
 import {ReactNode} from "react";
 import {FuncionalidadeEnum, FuncionalidadeInfo} from "@/enums/FuncionalidadeEnum";
 import {ModuloENUM} from "@/enums/ModuloEnum";
-import {InfosModuloType} from "@/types/_root/ModulosTypes";
+import {InfosModuloType, ModuloIds} from "@/types/_root/ModulosTypes";
 
 export type RouteType = {
-    id: string;
+    id: ModuloIds;
     title?: string;
     modulo?: ModuloENUM;
     icon?: ReactNode;
