@@ -38,13 +38,10 @@ export function ColaboradorDesligamentoCadastro() {
     }, [])
 
     const {
-        listaEntidade,
         isOpenModal,
         setIsOpenModal,
-        refresh,
         salvar,
-        setAcaoSalvar,
-        pageConfig
+        setAcaoSalvar
     } = usePaginaCadastro<ColaboradorDesligamento, ColaboradorDesligamentoService>({
         service: desligamentoService,
         onCloseModal: clear,

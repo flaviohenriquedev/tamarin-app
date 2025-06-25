@@ -9,8 +9,8 @@ export class ColaboradorDesligamento extends EntidadeTenant {
     public dataDesligamento: Date;
     public tipoDesligamento: TipoDesligamentoCLTEnum;
     public avisoPrevio: boolean;
-    public dataInicioAvisoPrevio: boolean;
-    public dataFimAvisoPrevio: boolean;
+    public dataInicioAvisoPrevio: Date;
+    public dataFimAvisoPrevio: Date;
 
     constructor() {
         super();

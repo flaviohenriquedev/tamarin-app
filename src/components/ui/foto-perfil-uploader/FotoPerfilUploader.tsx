@@ -1,20 +1,38 @@
 'use client'
 
-import Cropper from 'react-easy-crop';
-import {useRef, useState} from 'react';
+import Cropper, {Area} from 'react-easy-crop';
+import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {croppedImg} from './ts/crop-image';
 import {CirclePlus} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
+import {blobToBase64} from "@/utils/utils";
+import {set} from "lodash";
+import Image from "next/image";
 
-export function FotoPerfilUploader() {
+type Props<E> = {
+    entidade?: E;
+    atributo?: string;
+}
+
+export function FotoPerfilUploader<E>({entidade, atributo}: Props<E>) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [finalImage, setFinalImage] = useState<Blob>();
+    const [finalImageUrl, setFinalImageUrl] = useState<string | null>(null);
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    useEffect(() => {
+        return () => {
+            if (finalImageUrl) {
+                URL.revokeObjectURL(finalImageUrl);
+            }
+        };
+    }, [finalImageUrl]);
+
+    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const imageDataUrl = URL.createObjectURL(file);
@@ -23,17 +41,21 @@ export function FotoPerfilUploader() {
         }
     };
 
-    const onCropComplete = (croppedArea: any, croppedPixels: any) => {
+    const onCropComplete = (_: Area, croppedPixels: Area) => {
         setCroppedAreaPixels(croppedPixels);
     };
 
     const handleCrop = async () => {
         if (!imageSrc || !croppedAreaPixels) return;
-        const croppedImage = await croppedImg(imageSrc, croppedAreaPixels);
 
+        const croppedImageBlob = await croppedImg(imageSrc, croppedAreaPixels);
+        const base64Image = await blobToBase64(croppedImageBlob); // se precisar salvar no backend
+        const objectUrl = URL.createObjectURL(croppedImageBlob);
 
-        // Aqui você pode fazer o upload do `croppedImage` para o backend
-        console.log('Imagem final:', croppedImage);
+        setFinalImage(croppedImageBlob);
+        setFinalImageUrl(objectUrl); // isso é o que vamos exibir no botão
+        if (entidade && atributo) set(entidade, atributo, base64Image);
+        setOpenModal(false);
     };
 
     function handleSelectImage() {
@@ -42,17 +64,32 @@ export function FotoPerfilUploader() {
 
     return (
         <div>
-            <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={handleFileChange}
-                hidden
-            />
-            <button type={`button`}
-                    className={'flex items-center justify-center w-36 h-52 border border-neutral-200 rounded-lg shadow-sm text-neutral-200'}
-                    onClick={handleSelectImage}><CirclePlus size={40}/></button>
-
+            <label htmlFor="file-upload" className="cursor-pointer">
+                <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    ref={inputRef}
+                    onChange={handleFileChange}
+                    className="sr-only"
+                />
+                <div
+                    className="flex items-center justify-center w-36 h-52 border border-neutral-200 rounded-lg shadow-sm overflow-hidden"
+                    onClick={handleSelectImage}
+                >
+                    {finalImageUrl ? (
+                        <Image
+                            width={100}
+                            height={100}
+                            src={finalImageUrl}
+                            alt="Imagem de perfil"
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <CirclePlus size={40} className="text-neutral-200" />
+                    )}
+                </div>
+            </label>
             {imageSrc && (
                 <Modal isOpen={openModal} setIsOpen={setOpenModal}>
                     <div className="flex flex-col items-center justify-center gap-4 p-4 bg-base-100 rounded-lg w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
@@ -85,7 +122,6 @@ export function FotoPerfilUploader() {
                         </div>
                     </div>
                 </Modal>
-
             )}
         </div>
     );

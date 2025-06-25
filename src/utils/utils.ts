@@ -99,3 +99,33 @@ export function aplicarMascaraData(valor: string): string {
 export function isTrue(v: string): boolean {
     return v === "true";
 }
+
+export function blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            if (typeof reader.result === 'string') {
+                resolve(reader.result);
+            } else {
+                reject('Erro ao converter imagem para base64.');
+            }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+}
+
+export function base64ToBlob(base64: string): Blob {
+    const [metadata, data] = base64.split(',');
+    const mime = metadata.match(/:(.*?);/)?.[1] || '';
+    const byteCharacters = atob(data);
+    const byteNumbers = Array.from(byteCharacters, char => char.charCodeAt(0));
+    const byteArray = new Uint8Array(byteNumbers);
+
+    return new Blob([byteArray], { type: mime });
+}
+
+export function getImagemFromBase64(base: string) {
+    const blob = base64ToBlob(base);
+    return URL.createObjectURL(blob);
+}

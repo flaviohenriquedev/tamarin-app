@@ -10,8 +10,13 @@ import {
 import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 import Modal from "@/components/ui/modal/modal";
 import {
+    AvatarColaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/AvatarColaborador";
+import {
     StatusColaboradorFactory
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
+import {formatDateBR} from "@/utils/utils";
+import {Button} from "@/components/ui/button/button";
 
 const service = new ColaboradorService();
 
@@ -37,6 +42,11 @@ export function ColaboradorAdmissaoInicio() {
         route.push('/app/dp/gestao/admissao/cadastro')
     }
 
+    function selecionarColaborador(cl: Colaborador) {
+        setColaborador(cl);
+        setModalIsOpen(true);
+    }
+
     const acoesAdicionais: AcaoAdicional[] = [
         {
             label: 'Nova Admissão',
@@ -49,22 +59,37 @@ export function ColaboradorAdmissaoInicio() {
         <>
             <PaginaCadastro funcaoAtualizarLista={atualizar}
                             acoesAdicionais={acoesAdicionais}>
-                <div>
-                    <ul className={`flex flex-col gap-2`}>
-                        {listaColaboradores && listaColaboradores.map(cl => (
-                            <li key={cl.id}>
-                                <div className={`flex flex-col gap-2 cursor-pointer rounded-lg bg-base-100 p-4`}
-                                     onClick={() => {
-                                         setColaborador(cl);
-                                         setModalIsOpen(true);
-                                     }}>
-                                    <p className={`text-lg font-semibold`}>{cl.nomeCompleto}</p>
-                                    <p className={`text-sm`}>Matricula: {cl.matricula}</p>
-                                    <p className={`text-sm`}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</p>
+
+
+                <div className={`flex flex-col gap-3 overflow-x-auto`}>
+                    {listaColaboradores && listaColaboradores.map(cl => (
+                        <div key={cl.id} className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3`}>
+                            <div className="flex items-center gap-4 w-[50%]">
+                                <AvatarColaborador colaborador={cl} />
+                                <div className={`flex flex-col gap-1`}>
+                                    <label className="font-bold">{cl.nomeCompleto}</label>
+                                    <label className={`
+                                        text-sm
+                                        w-fit px-2 py-1
+                                        rounded-lg
+                                        ${StatusColaboradorFactory.getInfo(cl.statusColaborador).bg}
+                                    `}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</label>
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
+                            </div>
+                            <div className={`flex flex-col w-[50%] gap-1`}>
+                                <label>{cl.cargoAtivo.cargo.descricao}</label>
+                                <label className="text-sm opacity-50">{cl.cargoAtivo.departamento.descricao}</label>
+                                <div className={`flex text-sm gap-2`}>
+                                    <label className={`font-semibold`}>Admissão:</label>
+                                    <label>{formatDateBR(cl.cargoAtivo.dataAdmissao)}</label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <Button onClick={() => selecionarColaborador(cl)}>Detalhes</Button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </PaginaCadastro>
 

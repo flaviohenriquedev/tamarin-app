@@ -15,6 +15,7 @@ import {
     ListRestart,
     LogOut,
     PinOff,
+    ScanEye,
     Settings,
     User,
     UserCog,
@@ -43,5 +44,6 @@ export const icones = {
     config: <Settings size={tamanhoIcone} />,
     logout: <LogOut size={tamanhoIcone}/>,
     reload: <ListRestart size={tamanhoIcone}/>,
-    check: <Check size={tamanhoIcone} />
+    check: <Check size={tamanhoIcone} />,
+    eyesSquare: <ScanEye size={tamanhoIcone}/>
 };

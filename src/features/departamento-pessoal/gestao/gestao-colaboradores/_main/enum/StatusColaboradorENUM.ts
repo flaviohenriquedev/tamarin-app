@@ -19,7 +19,7 @@ export class StatusColaboradorFactory {
     private static readonly infos = {
         ATIVO: {
             label: 'Ativo',
-            bg: 'bg-[#41C227]',
+            bg: 'bg-success text-success-content',
             borderColor: 'border-[#41C227]',
             textColor: 'text-[#41C227]'
         },

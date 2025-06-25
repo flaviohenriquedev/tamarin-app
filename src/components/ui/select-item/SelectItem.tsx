@@ -74,6 +74,7 @@ export function SelectItem<E extends object>({
 
     function handleSelectItem(valor: TSelectItem) {
         setItemSelecionado(valor);
+        if (entidade && fieldValor) set(entidade, fieldValor, valor.value)
         if (onSelect) onSelect(valor)
         setShowList(false);
     }

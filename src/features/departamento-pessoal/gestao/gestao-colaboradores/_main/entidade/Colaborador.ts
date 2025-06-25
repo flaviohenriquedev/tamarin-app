@@ -33,6 +33,7 @@ export class Colaborador extends EntidadeTenant {
     public etnia: EtniaENUM;
     public estadoCivil: EstadoCivilENUM;
     public genero: GeneroENUM;
+    public base64: string;
 
     constructor() {
         super();

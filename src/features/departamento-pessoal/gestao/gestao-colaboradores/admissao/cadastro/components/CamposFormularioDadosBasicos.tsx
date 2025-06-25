@@ -18,6 +18,7 @@ import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
 import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {InputTelefone} from "@/components/ui/input/InputTelefone";
+import {FotoPerfilUploader} from "@/components/ui/foto-perfil-uploader/FotoPerfilUploader";
 
 type Props = {
     colaborador: Colaborador;
@@ -64,111 +65,119 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
     return (
         <>
             <Fieldset label={`Dados Pessoais`} largura={`w-full`}>
-                <LineContent>
-                    <InputString
-                        name={'nomecompleto'}
-                        label={`Nome`}
-                        entidade={colaborador}
-                        atributo={`nomeCompleto`}
-                        required={true}
-                    />
+                <div className={`flex gap-4`}>
+                    <div>
+                        <LineContent>
+                            <InputString
+                                name={'nomecompleto'}
+                                label={`Nome`}
+                                entidade={colaborador}
+                                atributo={`nomeCompleto`}
+                                required={true}
+                            />
 
-                    <InputString
-                        label={`Mãe`}
-                        name={'nomeMae'}
-                        entidade={colaborador}
-                        atributo={`nomeMae`}
-                        required={true}
-                    />
+                            <InputString
+                                label={`Mãe`}
+                                name={'nomeMae'}
+                                entidade={colaborador}
+                                atributo={`nomeMae`}
+                                required={true}
+                            />
 
-                    <InputString
-                        label={`Pai`}
-                        name={'nomePai'}
-                        entidade={colaborador}
-                        atributo={`nomePai`}
-                    />
-                </LineContent>
-                <LineContent>
-                    <InputCPF
-                        name={'cpf'}
-                        label={`CPF`}
-                        atributo={`cpf`}
-                        entidade={colaborador}
-                    />
+                            <InputString
+                                label={`Pai`}
+                                name={'nomePai'}
+                                entidade={colaborador}
+                                atributo={`nomePai`}
+                            />
+                        </LineContent>
+                        <LineContent>
+                            <InputCPF
+                                name={'cpf'}
+                                label={`CPF`}
+                                atributo={`cpf`}
+                                entidade={colaborador}
+                            />
 
-                    <InputString
-                        className={`w-24`}
-                        label={`RG`}
-                        name={'rg'}
-                        atributo={`rg`}
-                        entidade={colaborador}
-                    />
+                            <InputString
+                                className={`w-24`}
+                                label={`RG`}
+                                name={'rg'}
+                                atributo={`rg`}
+                                entidade={colaborador}
+                            />
 
-                    <InputDataCompleta
-                        name={'dataExpedicaoRg'}
-                        label={`Data de Expedição`}
-                        atributo={`dataExpedicaoRg`}
-                        entidade={colaborador}
-                    />
+                            <InputDataCompleta
+                                name={'dataExpedicaoRg'}
+                                label={`Data de Expedição`}
+                                atributo={`dataExpedicaoRg`}
+                                entidade={colaborador}
+                            />
 
-                    <InputString
-                        className={`w-32`}
-                        name={'pis'}
-                        label={`PIS`}
-                        atributo={`pis`}
-                        entidade={colaborador}
-                    />
+                            <InputString
+                                className={`w-32`}
+                                name={'pis'}
+                                label={`PIS`}
+                                atributo={`pis`}
+                                entidade={colaborador}
+                            />
 
-                    <SelectItem
-                        label={`Raça/Cor`}
-                        tabIndex={0}
-                        entidade={colaborador}
-                        fieldValor={'etnia'}
-                        values={EtniaFactory.getSelectItens()} />
+                            <SelectItem
+                                label={`Raça/Cor`}
+                                tabIndex={0}
+                                entidade={colaborador}
+                                fieldValor={'etnia'}
+                                values={EtniaFactory.getSelectItens()} />
 
-                    <InputTelefone
-                        label={`Telefone`}
-                        tabIndex={0}
-                        name={'rg'}
-                        atributo={`rg`}
-                        entidade={colaborador}
-                    />
+                            <InputTelefone
+                                label={`Telefone`}
+                                tabIndex={0}
+                                name={'rg'}
+                                atributo={`rg`}
+                                entidade={colaborador}
+                            />
 
-                    <InputString
-                        label={`Email`}
-                        name={'rg'}
-                        atributo={`rg`}
-                        entidade={colaborador}
-                    />
-                </LineContent>
-                <LineContent>
-                    <InputDataCompleta
-                        name={'dataExpedicaoRg'}
-                        label={`Data de Nascimento`}
-                        atributo={`dataExpedicaoRg`}
-                        entidade={colaborador}
-                    />
+                            <InputString
+                                label={`Email`}
+                                name={'rg'}
+                                atributo={`rg`}
+                                entidade={colaborador}
+                            />
+                        </LineContent>
+                        <LineContent>
+                            <InputDataCompleta
+                                name={'dataExpedicaoRg'}
+                                label={`Data de Nascimento`}
+                                atributo={`dataExpedicaoRg`}
+                                entidade={colaborador}
+                            />
 
-                    <InputSearch
-                        label={`Cidade Nascimento`}
-                        entidade={colaborador}
-                        atributo={'cidadeNascimento'}
-                        config={configCidadeNascimento}/>
+                            <InputSearch
+                                label={`Cidade Nascimento`}
+                                entidade={colaborador}
+                                atributo={'cidadeNascimento'}
+                                config={configCidadeNascimento}/>
 
-                    <SelectItem
-                        tabIndex={0}
-                        label={`Gênero`}
-                        entidade={colaborador}
-                        fieldValor={'genero'}
-                        values={GeneroFactory.getSelectItens()} />
+                            <SelectItem
+                                tabIndex={0}
+                                label={`Gênero`}
+                                entidade={colaborador}
+                                fieldValor={'genero'}
+                                values={GeneroFactory.getSelectItens()} />
 
-                    <SelectItem
-                        label={`Estado Civíl`}
-                        entidade={colaborador}
-                        fieldValor={'estadoCivil'}
-                        values={EstadoCivilFactory.getSelectItens()} />
+                            <SelectItem
+                                label={`Estado Civíl`}
+                                entidade={colaborador}
+                                fieldValor={'estadoCivil'}
+                                values={EstadoCivilFactory.getSelectItens()} />
 
-                </LineContent>
+                        </LineContent>
+                    </div>
+
+                    <div>
+                        <FotoPerfilUploader entidade={colaborador} atributo={`base64`}/>
+                    </div>
+                </div>
             </Fieldset>
 
             <Fieldset label={`Endereço`} largura={`w-full`}>

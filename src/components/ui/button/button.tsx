@@ -1,4 +1,4 @@
-import {ButtonHTMLAttributes, ReactNode} from 'react';
+import {ButtonHTMLAttributes, ReactElement, ReactNode} from 'react';
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonStyle = 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
@@ -7,6 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode,
     buttonSize?: ButtonSize,
     buttonStyle?: ButtonStyle,
+    icone?: ReactElement
 }
 
 export function Button({
@@ -16,12 +17,12 @@ export function Button({
                            type = 'button',
                            onClick,
                            disabled = false,
+                           icone
                        }: Props) {
     return (
         <button className={`
             btn
             rounded-lg
-            cursor-default
             ${buttonSize === 'xs' ? 'btn-xs'
             : buttonSize === 'sm' ? 'btn-sm'
                 : buttonSize === 'md' ? 'btn-md'
@@ -42,7 +43,13 @@ export function Button({
                 type={type}
                 onClick={onClick}
                 disabled={disabled}>
-            {children}
+            <div>
+                {icone && (
+                    <label>{icone}</label>
+                )}
+                {children}
+            </div>
+
         </button>
     )
 }
