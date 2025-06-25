@@ -17,6 +17,9 @@ import {
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
 import {formatDateBR} from "@/utils/utils";
 import {Button} from "@/components/ui/button/button";
+import {icones} from "@/components/common/icones";
+import {CropImage} from "@/components/ui/crop-image/CropImage";
+import {set} from "lodash";
 
 const service = new ColaboradorService();
 
@@ -33,7 +36,7 @@ export function ColaboradorAdmissaoInicio() {
     }, []);
 
     const atualizar = useCallback(() => {
-        service.listar().then(result => {
+        service.listarColaboradoresAtivos().then(result => {
             setListaColaboradores(result);
         })
     }, [])
@@ -47,6 +50,11 @@ export function ColaboradorAdmissaoInicio() {
         setModalIsOpen(true);
     }
 
+    const onSelectImagemColaborador = useCallback((valor: string) => {
+        setColaborador({...colaborador, base64: valor});
+        set(colaborador, 'base64', valor);
+    }, [colaborador])
+
     const acoesAdicionais: AcaoAdicional[] = [
         {
             label: 'Nova Admissão',
@@ -59,19 +67,22 @@ export function ColaboradorAdmissaoInicio() {
         <>
             <PaginaCadastro funcaoAtualizarLista={atualizar}
                             acoesAdicionais={acoesAdicionais}>
-
-
-                <div className={`flex flex-col gap-3 overflow-x-auto`}>
+                <div className={`flex flex-col gap-3 overflow-x-auto min-h-[70vh] max-h-[70vh]`}>
                     {listaColaboradores && listaColaboradores.map(cl => (
-                        <div key={cl.id} className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3`}>
+                        <div key={cl.id}
+                             className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
-                                <AvatarColaborador colaborador={cl} />
+                                <AvatarColaborador colaborador={cl} tamanho={`grande`}/>
                                 <div className={`flex flex-col gap-1`}>
                                     <label className="font-bold">{cl.nomeCompleto}</label>
+                                    <div className={`flex gap-1 text-[10pt]`}>
+                                        <label className="font-semibold">Matricula:</label>
+                                        <label>{cl.matricula}</label>
+                                    </div>
                                     <label className={`
-                                        text-sm
+                                        text-[9pt]
                                         w-fit px-2 py-1
-                                        rounded-lg
+                                        rounded-sm
                                         ${StatusColaboradorFactory.getInfo(cl.statusColaborador).bg}
                                     `}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</label>
                                 </div>
@@ -84,9 +95,9 @@ export function ColaboradorAdmissaoInicio() {
                                     <label>{formatDateBR(cl.cargoAtivo.dataAdmissao)}</label>
                                 </div>
                             </div>
-
-                            <div>
-                                <Button onClick={() => selecionarColaborador(cl)}>Detalhes</Button>
+                            <div className={`flex items-center gap-2 p-4`}>
+                                <Button buttonStyle={`info`} icone={icones.eyesSquare}
+                                        onClick={() => selecionarColaborador(cl)}>Detalhes</Button>
                             </div>
                         </div>
                     ))}
@@ -94,11 +105,20 @@ export function ColaboradorAdmissaoInicio() {
             </PaginaCadastro>
 
             <Modal isOpen={modalIsOpen}
+                   title={`Dados Colaborador`}
                    setIsOpen={setModalIsOpen}
                    tamanho={`telaInteira`}>
-                <div>
-                    {colaborador.nomeCompleto}
-                    <label>Matricula: {colaborador.matricula}</label>
+                <div className={`flex p-4 w-full h-full`}>
+                    <div className={`bg-base-200 rounded-lg flex p-4 w-full h-full shadow-lg`}>
+                        <div className={`flex flex-col gap-2`}>
+                            <CropImage onSaveImage={onSelectImagemColaborador}>
+                                <AvatarColaborador colaborador={colaborador} tamanho={`extra-grande`}/>
+                            </CropImage>
+                            <div>
+                                <label className={`text-[15pt] font-semibold text-neutral-600`}>{colaborador.nomeCompleto}</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </>

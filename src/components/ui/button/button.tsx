@@ -4,7 +4,7 @@ export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonStyle = 'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-    children: ReactNode,
+    children?: ReactNode,
     buttonSize?: ButtonSize,
     buttonStyle?: ButtonStyle,
     icone?: ReactElement
@@ -43,11 +43,11 @@ export function Button({
                 type={type}
                 onClick={onClick}
                 disabled={disabled}>
-            <div>
+            <div className={`flex gap-2 items-center`}>
                 {icone && (
-                    <label>{icone}</label>
+                    <span>{icone}</span>
                 )}
-                {children}
+                {children && children}
             </div>
 
         </button>

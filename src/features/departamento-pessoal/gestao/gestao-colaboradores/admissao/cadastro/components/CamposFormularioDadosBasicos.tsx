@@ -10,7 +10,7 @@ import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colabor
 import {
     ColaboradorEndereco
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/ColaboradorEndereco";
-import {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
 import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
 import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
 import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
@@ -18,7 +18,11 @@ import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
 import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {InputTelefone} from "@/components/ui/input/InputTelefone";
-import {FotoPerfilUploader} from "@/components/ui/foto-perfil-uploader/FotoPerfilUploader";
+import {CropImage} from "@/components/ui/crop-image/CropImage";
+import {
+    AvatarColaborador
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/AvatarColaborador";
+import {set} from "lodash";
 
 type Props = {
     colaborador: Colaborador;
@@ -30,6 +34,8 @@ const cidadeService = new CidadeService();
 const viaCepServie = new ViaCepService();
 
 export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, setColaboradorEndereco}: Props) {
+
+    const [fotoColaborador, setFotoColaborador] = useState<string>()
 
     const configCidadeNascimento: InputSearchConfig<Cidade, CidadeService> = {
         service: cidadeService,
@@ -51,15 +57,22 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
             viaCepServie.getEndereco(cepColaborador).then(result => {
                 if (result) {
                     setColaboradorEndereco(
-                        {...colaboradorEndereco,
+                        {
+                            ...colaboradorEndereco,
                             rua: result.logradouro,
                             bairro: result.bairro,
                             complemento: result.complemento,
-                            cidade: result.cidade}
+                            cidade: result.cidade
+                        }
                     )
                 }
             })
         }
+    }
+
+    function onSelectFotoColaborador(valor: string) {
+        setFotoColaborador(valor);
+        set(colaborador, 'base64', valor);
     }
 
     return (
@@ -127,7 +140,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                                 tabIndex={0}
                                 entidade={colaborador}
                                 fieldValor={'etnia'}
-                                values={EtniaFactory.getSelectItens()} />
+                                values={EtniaFactory.getSelectItens()}/>
 
                             <InputTelefone
                                 label={`Telefone`}
@@ -163,20 +176,22 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                                 label={`Gênero`}
                                 entidade={colaborador}
                                 fieldValor={'genero'}
-                                values={GeneroFactory.getSelectItens()} />
+                                values={GeneroFactory.getSelectItens()}/>
 
                             <SelectItem
                                 label={`Estado Civíl`}
                                 entidade={colaborador}
                                 fieldValor={'estadoCivil'}
-                                values={EstadoCivilFactory.getSelectItens()} />
+                                values={EstadoCivilFactory.getSelectItens()}/>
 
                         </LineContent>
                     </div>
 
-                    <div>
-                        <FotoPerfilUploader entidade={colaborador} atributo={`base64`}/>
-                    </div>
+                    <CropImage onSaveImage={onSelectFotoColaborador}>
+                        <AvatarColaborador colaborador={colaborador}
+                                           imagem={fotoColaborador}
+                                           tamanho={`extra-grande`}/>
+                    </CropImage>
                 </div>
             </Fieldset>
 
@@ -222,7 +237,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         label={`Cidade`}
                         entidade={colaboradorEndereco}
                         atributo={`cidade`}
-                        config={configCidadeEndereco} />
+                        config={configCidadeEndereco}/>
 
                 </LineContent>
             </Fieldset>

@@ -161,12 +161,14 @@ export function CamposFormularioDadosAdmissao({colaboradorCargo}: Props) {
                     entidade={colaboradorCargo}
                     fieldValor={'cargo.id'}
                     label={`Cargo`}
+                    required={true}
                     values={selectItensCargos}
                     onSelect={onSelectItemCargo}/>
 
                 <SelectItem
                     entidade={colaboradorCargo}
                     fieldValor={'departamento.id'}
+                    required={true}
                     label={`Departamento`}
                     values={selectItensDepartamentos}
                     onSelect={onSelectItemDepartamento}/>

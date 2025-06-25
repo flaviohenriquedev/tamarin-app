@@ -2,12 +2,12 @@
 
 import Cropper, {Area} from 'react-easy-crop';
 import {ChangeEvent, useEffect, useRef, useState} from 'react';
-import {croppedImg} from './ts/crop-image';
-import {CirclePlus} from "lucide-react";
+import {croppedImg} from './ts/functions';
 import Modal from "@/components/ui/modal/modal";
-import {blobToBase64} from "@/utils/utils";
+import {blobToBase64, getImagemFromBase64} from "@/utils/utils";
 import {set} from "lodash";
 import Image from "next/image";
+import {FaUser} from "react-icons/fa6";
 
 type Props<E> = {
     entidade?: E;
@@ -23,6 +23,7 @@ export function FotoPerfilUploader<E>({entidade, atributo}: Props<E>) {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [finalImage, setFinalImage] = useState<Blob>();
     const [finalImageUrl, setFinalImageUrl] = useState<string | null>(null);
+    const [imageBase64, setImageBase64] = useState<string>('');
 
     useEffect(() => {
         return () => {
@@ -53,6 +54,7 @@ export function FotoPerfilUploader<E>({entidade, atributo}: Props<E>) {
         const objectUrl = URL.createObjectURL(croppedImageBlob);
 
         setFinalImage(croppedImageBlob);
+        setImageBase64(base64Image);
         setFinalImageUrl(objectUrl); // isso é o que vamos exibir no botão
         if (entidade && atributo) set(entidade, atributo, base64Image);
         setOpenModal(false);
@@ -60,6 +62,22 @@ export function FotoPerfilUploader<E>({entidade, atributo}: Props<E>) {
 
     function handleSelectImage() {
         inputRef.current?.click();
+    }
+
+
+    function renderAvatar() {
+        return imageBase64 ? (
+            <Image
+                width={100}
+                height={100}
+                src={getImagemFromBase64('')}
+                alt="Imagem de perfil"
+                className="w-full h-full object-cover"
+            />
+        ) : (
+            <div><FaUser size={100}/>
+            </div>
+        )
     }
 
     return (
@@ -73,21 +91,11 @@ export function FotoPerfilUploader<E>({entidade, atributo}: Props<E>) {
                     onChange={handleFileChange}
                     className="sr-only"
                 />
-                <div
-                    className="flex items-center justify-center w-36 h-52 border border-neutral-200 rounded-lg shadow-sm overflow-hidden"
-                    onClick={handleSelectImage}
-                >
-                    {finalImageUrl ? (
-                        <Image
-                            width={100}
-                            height={100}
-                            src={finalImageUrl}
-                            alt="Imagem de perfil"
-                            className="w-full h-full object-cover"
-                        />
-                    ) : (
-                        <CirclePlus size={40} className="text-neutral-200" />
-                    )}
+
+                <div className="avatar">
+                    <div className="mask rounded-2xl">
+                        {renderAvatar()}
+                    </div>
                 </div>
             </label>
             {imageSrc && (

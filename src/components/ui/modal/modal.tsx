@@ -97,7 +97,6 @@ export default function Modal({children, onCloseModal, isOpen, setIsOpen, title,
                         <div className={`${tamanho ? sizeModalInfo[tamanho].classe : ''}`}>
                             {children}
                         </div>
-
                     </DialogPanel>
                 </div>
             </div>

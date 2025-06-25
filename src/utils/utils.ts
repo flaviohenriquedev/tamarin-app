@@ -126,6 +126,9 @@ export function base64ToBlob(base64: string): Blob {
 }
 
 export function getImagemFromBase64(base: string) {
-    const blob = base64ToBlob(base);
-    return URL.createObjectURL(blob);
+    if (base && base.length > 0) {
+        const blob = base64ToBlob(base);
+        return URL.createObjectURL(blob);
+    }
+    return ''
 }
