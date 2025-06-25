@@ -20,6 +20,11 @@ export class ColaboradorService extends CrudService<Colaborador> {
         return resultado ?? [];
     }
 
+    async listarColaboradoresDesligados(): Promise<Colaborador[]> {
+        const resultado = await request<Colaborador[]>(`${this.getBaseURL()}/listar-colaboradores-desligados`, MetodoHTTP.GET);
+        return resultado ?? [];
+    }
+
     async buscarPorMatricula(matricula: number): Promise<Colaborador> {
         const resultado = await request<Colaborador>(`${this.getBaseURL()}/buscar-por-matricula/${matricula}`, MetodoHTTP.GET);
         return resultado ?? new Colaborador();

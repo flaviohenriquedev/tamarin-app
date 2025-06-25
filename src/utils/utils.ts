@@ -95,3 +95,7 @@ export function aplicarMascaraData(valor: string): string {
 
     return resultado;
 }
+
+export function isTrue(v: string): boolean {
+    return v === "true";
+}

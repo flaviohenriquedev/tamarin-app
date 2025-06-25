@@ -9,6 +9,9 @@ import {
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/service/ColaboradorService";
 import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 import Modal from "@/components/ui/modal/modal";
+import {
+    StatusColaboradorFactory
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
 
 const service = new ColaboradorService();
 
@@ -31,7 +34,7 @@ export function ColaboradorAdmissaoInicio() {
     }, [])
 
     function redirecionarParaAdmissao() {
-        route.push('/app/dp/colaboradores/admissao')
+        route.push('/app/dp/gestao/admissao/cadastro')
     }
 
     const acoesAdicionais: AcaoAdicional[] = [
@@ -50,12 +53,14 @@ export function ColaboradorAdmissaoInicio() {
                     <ul className={`flex flex-col gap-2`}>
                         {listaColaboradores && listaColaboradores.map(cl => (
                             <li key={cl.id}>
-                                <div className={`cursor-pointer rounded-lg bg-base-100 p-4`}
+                                <div className={`flex flex-col gap-2 cursor-pointer rounded-lg bg-base-100 p-4`}
                                      onClick={() => {
                                          setColaborador(cl);
                                          setModalIsOpen(true);
                                      }}>
-                                    <label>{cl.nomeCompleto}</label>
+                                    <p className={`text-lg font-semibold`}>{cl.nomeCompleto}</p>
+                                    <p className={`text-sm`}>Matricula: {cl.matricula}</p>
+                                    <p className={`text-sm`}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</p>
                                 </div>
                             </li>
                         ))}
@@ -68,6 +73,7 @@ export function ColaboradorAdmissaoInicio() {
                    tamanho={`telaInteira`}>
                 <div>
                     {colaborador.nomeCompleto}
+                    <label>Matricula: {colaborador.matricula}</label>
                 </div>
             </Modal>
         </>

@@ -6,11 +6,12 @@ type Props = {
     title?: string;
     required?: boolean;
     htmlFor?: string;
+    fullWidth?: boolean;
 }
 
-export function Label({children, title, required, htmlFor}: Props) {
+export function Label({children, title, required, htmlFor, fullWidth}: Props) {
     return (
-        <div className={`flex-1 flex flex-col gap-2 mb-1`}>
+        <div className={`${fullWidth ? 'flex-1' : 'w-auto'} flex flex-col gap-2`}>
             {title && (
                 <label htmlFor={htmlFor} className={`flex gap-1 items-center `}>
                     <span className={`text-[9pt] label-text font-semibold text-neutral-500 pl-1`}>{title}</span>
@@ -18,7 +19,7 @@ export function Label({children, title, required, htmlFor}: Props) {
                 </label>
             )}
             {children && (
-                <div className={'flex items-center gap-2'}>
+                <div className={'flex items-center gap-2 mt-auto'}>
                     {children}
                 </div>
             )}

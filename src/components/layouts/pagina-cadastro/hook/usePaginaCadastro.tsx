@@ -8,16 +8,18 @@ import {PageConfig} from "@/components/ui/table/ts/types";
 type Props<E, S extends CrudService<E>> = {
     service: S;
     onCloseModal?: () => void;
+    iniciarModalAberto?: boolean;
 }
 
 export default function usePaginaCadastro<E, S extends CrudService<E>>({
                                                                            service,
-                                                                           onCloseModal
+                                                                           onCloseModal,
+                                                                           iniciarModalAberto = false
                                                                        }: Props<E, S>) {
 
     const [listaEntidade, setListaEntidade] = useState<E[]>([]);
     const [atualizarLista, setAtualizarLista] = useState<boolean>(false);
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(iniciarModalAberto);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
     const [take, setTake] = useState<number>(15)
     const [skip, setSkip] = useState<number>(0)

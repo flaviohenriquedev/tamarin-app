@@ -16,9 +16,10 @@ interface Props<E> extends InputProps<E> {
     dataPadrao?: Date;
     onChangeDate?: (date: Date) => void;
     className?: string;
+    disabled?: boolean;
 }
 
-export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao, onChangeDate, className}: Props<E>) {
+export function InputDataCompleta<E>({entidade, atributo, label, name, required, dataPadrao, onChangeDate, className, disabled}: Props<E>) {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const [date, setDate] = useState<Date | undefined>();
@@ -98,7 +99,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
             {label && (
                 <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
-            <div className="relative w-fit" ref={wrapperRef}>
+            <div className={`relative w-fit`} ref={wrapperRef}>
                 <div className="relative flex items-center">
                     <input
                         className={`${inputStyle} w-full`}
@@ -117,6 +118,9 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
                         </button>
                     </div>
 
+                    {disabled && (
+                        <div className={`z-10 rounded-lg bg-base-300/50 cursor-not-allowed w-full h-full absolute`} />
+                    )}
                 </div>
 
                 <AnimatePresence>

@@ -123,12 +123,10 @@ export function SelectItem<E extends object>({
                     shadow-[-6px_5px_5px_-5px_rgba(0,_0,_0,_0.1)]
                     focus:outline-none
                     focus:border-primary
-                    transition-shadow
                     duration-300
                     focus:shadow-[0_0_8px_3px_rgba(0,153,255,0.2)]
                     focus:outline-hidden
-                    focus:border-primary
-                    transition-colors ease-in-out
+                    transition-all ease-in-out
                     flex
                     items-center
                     justify-between
@@ -169,9 +167,7 @@ export function SelectItem<E extends object>({
                             duration-300
                             active:scale-75
                             hover:shadow-md
-                            hover:border-primary
-                            transition-transform
-                            duration-300 ${showList ? 'rotate-180' : 'rotate-0'}
+                            hover:border-primary${showList ? 'rotate-180' : 'rotate-0'}
                             `}><ChevronDown size={18} onClick={handleShowList}/></label>
                     </div>
                 </div>
@@ -196,7 +192,6 @@ export function SelectItem<E extends object>({
                                     p-2
                                     rounded-lg
                                     text-[10pt]
-                                    
                                     `,
                                 widthClass ? 'truncate' : 'w-full'
                             )}
