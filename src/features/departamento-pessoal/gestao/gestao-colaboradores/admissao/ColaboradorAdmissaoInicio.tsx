@@ -9,9 +9,7 @@ import {
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/service/ColaboradorService";
 import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 import Modal from "@/components/ui/modal/modal";
-import {
-    AvatarColaborador
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/AvatarColaborador";
+import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/Avatar";
 import {
     StatusColaboradorFactory
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
@@ -71,7 +69,10 @@ export function ColaboradorAdmissaoInicio() {
 
     function onSubmit() {
         set(colaborador, 'base64', imagem64);
-        colaboradorService.salvar(colaborador).then(() => setModalIsOpen(false));
+        colaboradorService.salvar(colaborador).then(() => {
+            setModalIsOpen(false);
+            atualizar();
+        });
     }
 
     function clear() {
@@ -96,7 +97,7 @@ export function ColaboradorAdmissaoInicio() {
                         <div key={cl.id}
                              className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
-                                <AvatarColaborador colaborador={cl} tamanho={`grande`}/>
+                                <Avatar entidade={cl} atributo={`base64`} tamanho={`grande`}/>
                                 <div className={`flex flex-col gap-1`}>
                                     <label className="font-bold">{cl.nomeCompleto}</label>
                                     <div className={`flex gap-1 text-[10pt]`}>
@@ -120,7 +121,9 @@ export function ColaboradorAdmissaoInicio() {
                                 </div>
                             </div>
                             <div className={`flex items-center gap-2 p-4`}>
-                                <Button buttonStyle={`info`} icone={icones.eyesSquare}
+                                <Button buttonStyle={`info`}
+                                        buttonClass={`soft`}
+                                        icone={icones.eye}
                                         onClick={() => selecionarColaborador(cl)}>Detalhes</Button>
                             </div>
                         </div>
@@ -143,9 +146,10 @@ export function ColaboradorAdmissaoInicio() {
                                 onCropComplete={onCropComplete}
                                 handleFileChange={handleFileChange}
                             >
-                                <AvatarColaborador colaborador={colaborador}
-                                                   tamanho={`extra-grande`}
-                                                   imagem={imagem64}/>
+                                <Avatar entidade={colaborador}
+                                        atributo={`base64`}
+                                        tamanho={`extra-grande`}
+                                        imagem={imagem64}/>
                             </CropImage>
                             <div>
                                 <label

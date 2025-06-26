@@ -19,9 +19,7 @@ import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {InputTelefone} from "@/components/ui/input/InputTelefone";
 import {CropImage} from "@/components/ui/crop-image/CropImage";
-import {
-    AvatarColaborador
-} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/AvatarColaborador";
+import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/Avatar";
 import {set} from "lodash";
 import {useCropImage} from "@/components/ui/crop-image/hook/useCropImage";
 
@@ -199,9 +197,10 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         onCropComplete={onCropComplete}
                         handleFileChange={handleFileChange}
                     >
-                        <AvatarColaborador colaborador={colaborador}
-                                           imagem={imagem64}
-                                           tamanho={`extra-grande`}/>
+                        <Avatar entidade={colaborador}
+                                atributo={`base64`}
+                                imagem={imagem64}
+                                tamanho={`extra-grande`}/>
                     </CropImage>
                 </div>
             </Fieldset>

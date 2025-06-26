@@ -12,7 +12,7 @@ type Props = {
     handleCrop: () => void;
     onCropComplete: (_: Area, croppedPixels: Area) => void;
     handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    clearImage: () => void;
+    clearImage?: () => void;
 }
 
 export function CropImage({
@@ -133,7 +133,10 @@ export function CropImage({
                     <span>Tem certeza que deseja remover?</span>
                     <ButtonGroup>
                         <Button buttonSize={`sm`} buttonStyle={`success`}
-                                onClick={clearImage}>Sim</Button>
+                                onClick={() => {
+                                    if (clearImage) clearImage();
+                                    setOpenModalConfim(false);
+                                }}>Sim</Button>
                         <Button buttonSize={`sm`} buttonStyle={`warning`}
                                 onClick={() => setOpenModalConfim(false)}>Não</Button>
                     </ButtonGroup>

@@ -9,6 +9,7 @@ import {
     CalendarClock,
     Check,
     Columns3Cog,
+    Eye,
     Gift,
     GraduationCap,
     HandCoins,
@@ -25,7 +26,7 @@ import {
 const tamanhoIcone = 20
 export const icones = {
     usuario: <User size={tamanhoIcone}/>,
-    folhaPagamento: <HandCoins strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone} />,
+    folhaPagamento: <HandCoins strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
     pontoFrequencia: <CalendarClock strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
     beneficios: <Gift strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
     treinamentos: <GraduationCap strokeWidth={1.25} absoluteStrokeWidth size={tamanhoIcone}/>,
@@ -41,9 +42,10 @@ export const icones = {
     arquivo: <LuFile size={tamanhoIcone}/>,
     empresa: <Building2 size={tamanhoIcone}/>,
     configGeral: <Columns3Cog size={tamanhoIcone}/>,
-    config: <Settings size={tamanhoIcone} />,
+    config: <Settings size={tamanhoIcone}/>,
     logout: <LogOut size={tamanhoIcone}/>,
     reload: <ListRestart size={tamanhoIcone}/>,
-    check: <Check size={tamanhoIcone} />,
-    eyesSquare: <ScanEye size={tamanhoIcone}/>
+    check: <Check size={tamanhoIcone}/>,
+    eye: <Eye size={tamanhoIcone}/>,
+    eyeSquare: <ScanEye size={tamanhoIcone}/>
 };

@@ -47,7 +47,7 @@ export function useCropImage({onCrop, onClear}: Props) {
     const clearImage = () => {
         console.log(`tamo aqui`)
         setImageSrc('');
-        setImagem64('');
+        setImagem64(undefined);
         if (onClear) onClear();
     }
 

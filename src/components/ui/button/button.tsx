@@ -7,6 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode,
     buttonSize?: ButtonSize,
     buttonStyle?: ButtonStyle,
+    buttonClass?: 'outline' | 'soft';
     className?: string;
     icone?: ReactElement
 }
@@ -15,6 +16,7 @@ export function Button({
                            children,
                            buttonSize = 'sm',
                            buttonStyle = 'primary',
+                           buttonClass,
                            className,
                            type = 'button',
                            onClick,
@@ -25,6 +27,7 @@ export function Button({
         <button className={`
             btn
             rounded-lg
+            ${buttonClass && buttonClass === 'soft' ? 'btn-soft' : buttonClass === 'outline' ? 'btn-outline' : ''}
             ${className}
             ${buttonSize === 'xs' ? 'btn-xs'
             : buttonSize === 'sm' ? 'btn-sm'

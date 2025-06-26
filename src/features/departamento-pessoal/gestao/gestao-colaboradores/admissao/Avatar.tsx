@@ -1,11 +1,12 @@
 import Image from "next/image";
 import {getImagemFromBase64} from "@/utils/utils";
 import {useEffect, useState} from "react";
-import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 import {FaUser} from "react-icons/fa6";
+import {get} from "lodash";
 
-type Props = {
-    colaborador: Colaborador;
+type Props<E> = {
+    entidade?: E;
+    atributo?: string;
     tamanho?: TamanhoAvatar;
     imagem?: string;
 }
@@ -16,9 +17,9 @@ type TamanhoAvatar =
     'grande' |
     'extra-grande'
 
-export function AvatarColaborador({colaborador, tamanho = 'medio', imagem}: Props) {
+export function Avatar<E>({entidade, atributo, tamanho = 'medio', imagem}: Props<E>) {
 
-    const [imageBase64, setImageBase64] = useState<string>();
+    const [imagemURL, setImagemURL] = useState<string>();
     const [classesTamanho, setClassesTamanho] = useState<string>('');
 
     useEffect(() => {
@@ -41,20 +42,26 @@ export function AvatarColaborador({colaborador, tamanho = 'medio', imagem}: Prop
     }, [tamanho]);
 
     useEffect(() => {
-        const fotoColaborador = getImagemFromBase64(colaborador.base64);
-        if (!imagem && fotoColaborador) {
-            setImageBase64(fotoColaborador)
-        } else if (imagem) {
-            setImageBase64(imagem);   
+        if (entidade && atributo) {
+            const valorEntidade = get(entidade, atributo);
+            if (valorEntidade) {
+                setImagemURL(getImagemFromBase64(valorEntidade));
+                return;
+            }
         }
-    }, [colaborador.base64, imagem]);
+        if (imagem) {
+            setImagemURL(getImagemFromBase64(imagem));
+            return;
+        }
+        setImagemURL(undefined);
+    }, [atributo, entidade, imagem]);
 
     function renderImagem() {
-        return imageBase64 && imageBase64 ? (
+        return imagemURL && imagemURL ? (
             <Image
                 width={50}
                 height={50}
-                src={imageBase64}
+                src={imagemURL}
                 alt="Imagem de perfil"
                 className={`w-full h-full object-cover`}
             />
