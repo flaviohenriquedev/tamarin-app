@@ -39,7 +39,11 @@ export function ColaboradorAdmissaoInicio() {
         onCropComplete,
         handleFileChange,
         clearImage
-    } = useCropImage({onClear: deletarFotoColaborador});
+    } = useCropImage({
+        onClear: deletarFotoColaborador,
+        entidade: colaborador,
+        atributo: 'base64'
+    });
 
     useEffect(() => {
         colaboradorService.listarColaboradoresAtivos().then(result => {
@@ -48,7 +52,6 @@ export function ColaboradorAdmissaoInicio() {
     }, []);
 
     function deletarFotoColaborador() {
-        console.log(`tamo aqui também`)
         setColaborador({...colaborador, base64: ''})
     }
 
@@ -97,7 +100,7 @@ export function ColaboradorAdmissaoInicio() {
                         <div key={cl.id}
                              className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
-                                <Avatar entidade={cl} atributo={`base64`} tamanho={`grande`}/>
+                                <Avatar tamanho={`grande`} imagem={cl.base64}/>
                                 <div className={`flex flex-col gap-1`}>
                                     <label className="font-bold">{cl.nomeCompleto}</label>
                                     <div className={`flex gap-1 text-[10pt]`}>
@@ -146,9 +149,7 @@ export function ColaboradorAdmissaoInicio() {
                                 onCropComplete={onCropComplete}
                                 handleFileChange={handleFileChange}
                             >
-                                <Avatar entidade={colaborador}
-                                        atributo={`base64`}
-                                        tamanho={`extra-grande`}
+                                <Avatar tamanho={`extra-grande`}
                                         imagem={imagem64}/>
                             </CropImage>
                             <div>

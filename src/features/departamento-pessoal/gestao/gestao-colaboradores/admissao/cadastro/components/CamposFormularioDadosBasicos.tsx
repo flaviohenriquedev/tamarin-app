@@ -40,7 +40,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
         handleCrop,
         onCropComplete,
         handleFileChange
-    } = useCropImage({onCrop: onSelectFotoColaborador});
+    } = useCropImage({onCrop: onSelectFotoColaborador, entidade: colaborador, atributo: 'base64'});
 
     const configCidadeNascimento: InputSearchConfig<Cidade, CidadeService> = {
         service: cidadeService,
@@ -83,7 +83,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
         <>
             <Fieldset label={`Dados Pessoais`} largura={`w-full`}>
                 <div className={`flex gap-4`}>
-                    <div>
+                    <div className={`w-full`}>
                         <LineContent>
                             <InputString
                                 name={'nomecompleto'}
@@ -197,9 +197,7 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         onCropComplete={onCropComplete}
                         handleFileChange={handleFileChange}
                     >
-                        <Avatar entidade={colaborador}
-                                atributo={`base64`}
-                                imagem={imagem64}
+                        <Avatar imagem={imagem64}
                                 tamanho={`extra-grande`}/>
                     </CropImage>
                 </div>

@@ -2,11 +2,8 @@ import Image from "next/image";
 import {getImagemFromBase64} from "@/utils/utils";
 import {useEffect, useState} from "react";
 import {FaUser} from "react-icons/fa6";
-import {get} from "lodash";
 
-type Props<E> = {
-    entidade?: E;
-    atributo?: string;
+type Props = {
     tamanho?: TamanhoAvatar;
     imagem?: string;
 }
@@ -17,7 +14,7 @@ type TamanhoAvatar =
     'grande' |
     'extra-grande'
 
-export function Avatar<E>({entidade, atributo, tamanho = 'medio', imagem}: Props<E>) {
+export function Avatar({tamanho = 'medio', imagem}: Props) {
 
     const [imagemURL, setImagemURL] = useState<string>();
     const [classesTamanho, setClassesTamanho] = useState<string>('');
@@ -42,19 +39,12 @@ export function Avatar<E>({entidade, atributo, tamanho = 'medio', imagem}: Props
     }, [tamanho]);
 
     useEffect(() => {
-        if (entidade && atributo) {
-            const valorEntidade = get(entidade, atributo);
-            if (valorEntidade) {
-                setImagemURL(getImagemFromBase64(valorEntidade));
-                return;
-            }
-        }
         if (imagem) {
             setImagemURL(getImagemFromBase64(imagem));
             return;
         }
         setImagemURL(undefined);
-    }, [atributo, entidade, imagem]);
+    }, [imagem]);
 
     function renderImagem() {
         return imagemURL && imagemURL ? (
