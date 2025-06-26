@@ -19,24 +19,43 @@ import {formatDateBR} from "@/utils/utils";
 import {Button} from "@/components/ui/button/button";
 import {icones} from "@/components/common/icones";
 import {CropImage} from "@/components/ui/crop-image/CropImage";
+import {useCropImage} from "@/components/ui/crop-image/hook/useCropImage";
+import {Form} from "@/components/ui/form/form";
+import {ButtonGroup} from "@/components/ui/button/button-group";
 import {set} from "lodash";
 
-const service = new ColaboradorService();
+const colaboradorService = new ColaboradorService();
 
 export function ColaboradorAdmissaoInicio() {
     const route = useRouter();
+
     const [listaColaboradores, setListaColaboradores] = useState<Colaborador[]>([]);
     const [colaborador, setColaborador] = useState<Colaborador>(new Colaborador());
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
+    const {
+        imagem64,
+        setImagem64,
+        imageSrc,
+        handleCrop,
+        onCropComplete,
+        handleFileChange,
+        clearImage
+    } = useCropImage({onClear: deletarFotoColaborador});
+
     useEffect(() => {
-        service.listarColaboradoresAtivos().then(result => {
+        colaboradorService.listarColaboradoresAtivos().then(result => {
             setListaColaboradores(result);
         })
     }, []);
 
+    function deletarFotoColaborador() {
+        console.log(`tamo aqui também`)
+        setColaborador({...colaborador, base64: ''})
+    }
+
     const atualizar = useCallback(() => {
-        service.listarColaboradoresAtivos().then(result => {
+        colaboradorService.listarColaboradoresAtivos().then(result => {
             setListaColaboradores(result);
         })
     }, [])
@@ -50,10 +69,15 @@ export function ColaboradorAdmissaoInicio() {
         setModalIsOpen(true);
     }
 
-    const onSelectImagemColaborador = useCallback((valor: string) => {
-        setColaborador({...colaborador, base64: valor});
-        set(colaborador, 'base64', valor);
-    }, [colaborador])
+    function onSubmit() {
+        set(colaborador, 'base64', imagem64);
+        colaboradorService.salvar(colaborador).then(() => setModalIsOpen(false));
+    }
+
+    function clear() {
+        setColaborador(new Colaborador());
+        setImagem64('');
+    }
 
     const acoesAdicionais: AcaoAdicional[] = [
         {
@@ -107,19 +131,36 @@ export function ColaboradorAdmissaoInicio() {
             <Modal isOpen={modalIsOpen}
                    title={`Dados Colaborador`}
                    setIsOpen={setModalIsOpen}
+                   onCloseModal={clear}
                    tamanho={`telaInteira`}>
-                <div className={`flex p-4 w-full h-full`}>
+                <Form onSubmit={onSubmit}>
                     <div className={`bg-base-200 rounded-lg flex p-4 w-full h-full shadow-lg`}>
                         <div className={`flex flex-col gap-2`}>
-                            <CropImage onSaveImage={onSelectImagemColaborador}>
-                                <AvatarColaborador colaborador={colaborador} tamanho={`extra-grande`}/>
+                            <CropImage
+                                clearImage={clearImage}
+                                imageSrc={imageSrc}
+                                handleCrop={handleCrop}
+                                onCropComplete={onCropComplete}
+                                handleFileChange={handleFileChange}
+                            >
+                                <AvatarColaborador colaborador={colaborador}
+                                                   tamanho={`extra-grande`}
+                                                   imagem={imagem64}/>
                             </CropImage>
                             <div>
-                                <label className={`text-[15pt] font-semibold text-neutral-600`}>{colaborador.nomeCompleto}</label>
+                                <label
+                                    className={`text-[15pt] font-semibold text-neutral-600`}>{colaborador.nomeCompleto}</label>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <ButtonGroup>
+                        <Button
+                            type={`submit`}
+                            buttonSize={`md`}
+                        >Salvar</Button>
+                    </ButtonGroup>
+                </Form>
             </Modal>
         </>
     )

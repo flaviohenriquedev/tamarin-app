@@ -15,7 +15,7 @@ type SizeModal = 'telaInteira'
 
 const sizeModalInfo: {[k in SizeModal]: {classe: string}} = {
     telaInteira: {
-        classe: 'w-[100vw] h-[85vh]',
+        classe: 'w-[90vw] h-[85vh]',
     }
 }
 

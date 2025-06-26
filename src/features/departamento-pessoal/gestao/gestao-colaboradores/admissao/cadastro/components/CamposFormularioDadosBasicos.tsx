@@ -10,7 +10,7 @@ import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colabor
 import {
     ColaboradorEndereco
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/ColaboradorEndereco";
-import {Dispatch, SetStateAction, useState} from "react";
+import {Dispatch, SetStateAction} from "react";
 import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
 import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
 import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
@@ -23,6 +23,7 @@ import {
     AvatarColaborador
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/AvatarColaborador";
 import {set} from "lodash";
+import {useCropImage} from "@/components/ui/crop-image/hook/useCropImage";
 
 type Props = {
     colaborador: Colaborador;
@@ -35,7 +36,13 @@ const viaCepServie = new ViaCepService();
 
 export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, setColaboradorEndereco}: Props) {
 
-    const [fotoColaborador, setFotoColaborador] = useState<string>()
+    const {
+        imagem64,
+        imageSrc,
+        handleCrop,
+        onCropComplete,
+        handleFileChange
+    } = useCropImage({onCrop: onSelectFotoColaborador});
 
     const configCidadeNascimento: InputSearchConfig<Cidade, CidadeService> = {
         service: cidadeService,
@@ -71,7 +78,6 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
     }
 
     function onSelectFotoColaborador(valor: string) {
-        setFotoColaborador(valor);
         set(colaborador, 'base64', valor);
     }
 
@@ -187,9 +193,14 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                         </LineContent>
                     </div>
 
-                    <CropImage onSaveImage={onSelectFotoColaborador}>
+                    <CropImage
+                        imageSrc={imageSrc}
+                        handleCrop={handleCrop}
+                        onCropComplete={onCropComplete}
+                        handleFileChange={handleFileChange}
+                    >
                         <AvatarColaborador colaborador={colaborador}
-                                           imagem={fotoColaborador}
+                                           imagem={imagem64}
                                            tamanho={`extra-grande`}/>
                     </CropImage>
                 </div>

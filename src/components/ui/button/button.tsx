@@ -7,6 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode,
     buttonSize?: ButtonSize,
     buttonStyle?: ButtonStyle,
+    className?: string;
     icone?: ReactElement
 }
 
@@ -14,6 +15,7 @@ export function Button({
                            children,
                            buttonSize = 'sm',
                            buttonStyle = 'primary',
+                           className,
                            type = 'button',
                            onClick,
                            disabled = false,
@@ -23,6 +25,7 @@ export function Button({
         <button className={`
             btn
             rounded-lg
+            ${className}
             ${buttonSize === 'xs' ? 'btn-xs'
             : buttonSize === 'sm' ? 'btn-sm'
                 : buttonSize === 'md' ? 'btn-md'

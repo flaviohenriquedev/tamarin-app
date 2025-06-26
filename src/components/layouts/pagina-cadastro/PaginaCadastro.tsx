@@ -14,7 +14,7 @@ type Props = {
 
 export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, children, acoesAdicionais}: Props) {
     return (
-        <div className={`container`}>
+        <div>
             <header className={`header-pagina-cadastro `}>
                 <ButtonGroup className={`header-pagina-cadastro-botoes `}>
                     {acoesAdicionais?.map(acao => (
