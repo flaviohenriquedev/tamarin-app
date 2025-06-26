@@ -58,7 +58,6 @@ export function useCropImage<E>({entidade, atributo, onCrop, onClear}: Props<E>)
     };
 
     const clearImage = () => {
-        console.log(`tamo aqui`)
         setImageSrc('');
         setImagem64(undefined);
         if (onClear) onClear();

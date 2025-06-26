@@ -102,7 +102,7 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                                         transition-all
                                         duration-200
                                         cursor-pointer
-                                        hover:text-blue-400
+                                        hover:text-primary
                                         bg-base-100
                                         backdrop-blur
                                     `}

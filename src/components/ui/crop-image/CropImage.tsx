@@ -1,5 +1,6 @@
+import * as React from "react";
 import {ChangeEvent, ReactNode, useRef, useState} from "react";
-import {Pencil, Trash} from "lucide-react";
+import {CircleDashed, Pencil, SquareDashed, Trash} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
 import Cropper, {Area} from "react-easy-crop";
 import {Button} from "@/components/ui/button/button";
@@ -15,6 +16,8 @@ type Props = {
     clearImage?: () => void;
 }
 
+type TShapes = 'rect' | 'round'
+
 export function CropImage({
                               children,
                               imageSrc,
@@ -28,6 +31,7 @@ export function CropImage({
     const [zoom, setZoom] = useState(1);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openModalConfim, setOpenModalConfim] = useState<boolean>(false);
+    const [shape, setShape] = useState<TShapes>('rect')
 
     function changeFile(e: ChangeEvent<HTMLInputElement>) {
         void handleFileChange(e);
@@ -97,30 +101,75 @@ export function CropImage({
             <Modal isOpen={openModal} setIsOpen={setOpenModal}>
                 <div
                     className="flex flex-col items-center justify-center gap-4 p-4 bg-base-100 rounded-lg w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
-                    <div className="relative w-full h-full">
+                    <div className="relative w-full h-full rounded-lg">
                         <Cropper
+                            classes={{
+                                containerClassName: 'rounded-lg',
+                                cropAreaClassName: 'rounded-lg'}}
                             image={imageSrc}
                             crop={crop}
                             zoom={zoom}
                             aspect={1}
-                            cropShape="round"
-                            showGrid={false}
+                            cropShape={shape}
+                            objectFit={`contain`}
+                            showGrid={true}
                             onCropChange={setCrop}
                             onZoomChange={setZoom}
                             onCropComplete={onCropComplete}
                         />
                     </div>
                     <LineContent>
-                        <Button onClick={cropImage}
-                                buttonStyle={`success`}
-                                buttonSize={`md`}>
-                            Salvar
-                        </Button>
-                        <Button onClick={() => setOpenModal(false)}
-                                buttonStyle={`warning`}
-                                buttonSize={`md`}>
-                            Cancelar
-                        </Button>
+                        <LineContent justifyContent={`start`}>
+                            <button
+                                className={`
+                                    cursor-pointer
+                                    p-2
+                                    shadow-md
+                                    border-1
+                                    border-base-300
+                                    flex
+                                    items-center
+                                    justity-center
+                                    transition-all
+                                    duration-300
+                                    active:scale-75
+                                    text-neutral-400
+                                    ${shape === 'rect' && 'text-primary border-primary/50'}
+                                    rounded-lg`}
+                                onClick={() => setShape('rect')}><SquareDashed/></button>
+                            <button
+                                className={`
+                                    cursor-pointer
+                                    p-2
+                                    shadow-md
+                                    border-1
+                                    border-base-300
+                                    flex
+                                    items-center
+                                    justity-center
+                                    transition-all
+                                    duration-300
+                                    active:scale-75
+                                    text-neutral-400
+                                    ${shape === 'round' && 'text-primary border-primary/50'}
+                                    rounded-lg`}
+                                onClick={() => setShape('round')}><CircleDashed/></button>
+                        </LineContent>
+
+                        <LineContent justifyContent={`end`}>
+                            <Button onClick={cropImage}
+                                    buttonStyle={`success`}
+                                    buttonClass={`outline`}
+                                    buttonSize={`md`}>
+                                Salvar
+                            </Button>
+                            <Button onClick={() => setOpenModal(false)}
+                                    buttonStyle={`warning`}
+                                    buttonClass={`outline`}
+                                    buttonSize={`md`}>
+                                Cancelar
+                            </Button>
+                        </LineContent>
                     </LineContent>
                 </div>
             </Modal>

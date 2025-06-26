@@ -47,7 +47,7 @@ export default function FormularioZod() {
                 />
             </div>
 
-            <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+            <button type="submit" className="bg-primary text-white p-2 rounded">
                 Enviar
             </button>
 

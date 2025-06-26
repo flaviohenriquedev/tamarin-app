@@ -107,7 +107,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
                         onChange={handleInputChange}
                         placeholder="dd/mm/aaaa"
                     />
-                    <div className={'bg-blue-300'}>
+                    <div className={'bg-primary'}>
                         <button
                             type="button"
                             onClick={() => setOpen(!open)}

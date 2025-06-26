@@ -25,7 +25,7 @@ export class StatusColaboradorFactory {
         },
         FERIAS: {
             label: 'Férias',
-            bg: 'bg-[#27ABC2]',
+            bg: 'bg-warning text-warning-content',
             borderColor: 'border-[#27ABC2]',
             textColor: 'text-[#27ABC2]'
 
@@ -38,7 +38,7 @@ export class StatusColaboradorFactory {
         },
         DESLIGADO: {
             label: 'Desligado',
-            bg: 'bg-[#D42C2C]',
+            bg: 'bg-error text-error-content',
             borderColor: 'border-[#D42C2C]',
             textColor: 'text-[#D42C2C]'
         }

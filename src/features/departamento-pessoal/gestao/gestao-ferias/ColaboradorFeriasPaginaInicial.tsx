@@ -18,6 +18,10 @@ import {
     colaboradorFeriasColunasListagem
 } from "@/features/departamento-pessoal/gestao/gestao-ferias/ts/colaboradorFeriasColunasListagem";
 import {BuscaColaborador} from "@/features/departamento-pessoal/gestao/gestao-ferias/components/BuscaColaborador";
+import {
+    StatusColaboradorENUM
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
+import {set} from "lodash";
 
 const colaboradorFeriasService = new ColaboradorFeriasService();
 
@@ -47,7 +51,13 @@ export function ColaboradorFeriasPaginaInicial() {
     }, [setIsOpenModal])
 
     function onSubmit() {
+        set(colaboradorFerias, 'colaborador.statusColaborador', StatusColaboradorENUM.FERIAS);
         salvar(colaboradorFerias).then()
+    }
+
+    function consultar(cf: ColaboradorFerias) {
+        setColaboradorFerias(cf);
+        setIsOpenModal(true);
     }
 
     return (
@@ -59,7 +69,10 @@ export function ColaboradorFeriasPaginaInicial() {
                 <Table funcaoAtualizarLista={refresh}
                        lista={listaEntidade}
                        pageConfig={pageConfig}
-                       colunas={colaboradorFeriasColunasListagem}/>
+                       colunas={colaboradorFeriasColunasListagem}
+                       acoesTabela={{
+                           consultar: consultar,
+                       }}/>
 
             </PaginaCadastro>
             <Modal title={'Férias'}

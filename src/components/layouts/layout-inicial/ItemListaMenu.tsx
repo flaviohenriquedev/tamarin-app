@@ -51,7 +51,7 @@ export function ItemListaMenu({rota}: Props) {
 
     return (
         <li key={rota.id}>
-            <div className={`flex group items-center hover:bg-blue-50 rounded-r-lg h-10 transition-all duration-200 `}
+            <div className={`flex group items-center hover:bg-primary rounded-r-lg h-10 transition-all duration-200 `}
                  onClick={toggleSubMenu}>
 
                 {/* barrinha que empurra */}
@@ -59,7 +59,7 @@ export function ItemListaMenu({rota}: Props) {
                     className={`
                                 h-full
                                 w-0
-                                ${mostrarSubMenu ? 'w-1 bg-blue-600' : 'group-hover:w-1 bg-blue-400'}
+                                ${mostrarSubMenu ? 'w-1 bg-primary' : 'group-hover:w-1 bg-primary'}
                                 rounded-r-lg
                                 transition-all
                                 duration-200
@@ -67,7 +67,7 @@ export function ItemListaMenu({rota}: Props) {
 
                 <div
                     className="flex pl-3 items-center w-full justify-between gap-5 ml-4 text-neutral-500">
-                    <div className={`flex items-center gap-4 group-hover:text-blue-500`}>
+                    <div className={`flex items-center gap-4 group-hover:text-primary`}>
                         <span>{rota.icon}</span>
                         <AnimatePresence mode="wait">
                             {sideBarExpandido && (
@@ -85,7 +85,7 @@ export function ItemListaMenu({rota}: Props) {
                         </AnimatePresence>
                     </div>
                     {sideBarExpandido && rota.subRoute && (
-                        <div className={`transition-transform group-hover:text-blue-500 duration-300 px-2 ${mostrarSubMenu && 'rotate-180'}`}>
+                        <div className={`transition-transform group-hover:text-primary duration-300 px-2 ${mostrarSubMenu && 'rotate-180'}`}>
                             <ChevronDown size={18}/>
                         </div>
                     )}
@@ -127,7 +127,7 @@ export function ItemListaMenu({rota}: Props) {
                                                         gap-2
                                                         transition-all
                                                         duration-200
-                                                        hover:text-blue-400 hover:font-bold
+                                                        hover:text-primary hover:font-bold
                                                     `}
                                             >
                                                 <label className={`text-neutral-400`}><Dot /></label>

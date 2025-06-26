@@ -52,7 +52,7 @@ export default function FormularioFormik() {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                        className="bg-primary text-white p-2 rounded hover:bg-primary"
                     >
                         {isSubmitting ? 'Enviando...' : 'Enviar'}
                     </button>

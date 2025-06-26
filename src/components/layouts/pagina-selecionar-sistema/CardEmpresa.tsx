@@ -27,7 +27,7 @@ export function CardEmpresa({dadosAcesso, destacar, selecionarDadosAcesso}: Prop
                                     bg-base-100
                                     text-md
                                     border-2
-                                    ${destacar ? 'border-blue-400' : 'border-transparent'}
+                                    ${destacar ? 'border-primary' : 'border-transparent'}
                                     flex
                                     items-center
                                     gap-4
@@ -40,7 +40,7 @@ export function CardEmpresa({dadosAcesso, destacar, selecionarDadosAcesso}: Prop
                                     shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
                                     transition-colors
                                     duration-200
-                                    hover:text-blue-400
+                                    hover:text-primary
                                 `}
                 >
                     <span>{dadosAcesso.empresa.nomeFantasia}</span>

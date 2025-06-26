@@ -33,7 +33,7 @@ export default function PaginaInicialDev() {
                 text-neutral-800
                 bg-gradient-to-br
                 from-white
-                via-blue-100 to-violet-200
+                via-primary to-violet-200
                 overflow-hidden
                 backdrop-blur-2xln
               ${font.className}

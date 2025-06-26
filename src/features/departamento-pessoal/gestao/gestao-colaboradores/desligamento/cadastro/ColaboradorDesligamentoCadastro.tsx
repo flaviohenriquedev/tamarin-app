@@ -30,7 +30,6 @@ const desligamentoService = new ColaboradorDesligamentoService();
 export function ColaboradorDesligamentoCadastro() {
 
     const [habilitarAvisoPrevio, setHabilitarAvisoPrevio] = useState<boolean>(false);
-
     const [colaboradorDesligamento, setColaboradorDesligamento] = useState<ColaboradorDesligamento>(new ColaboradorDesligamento());
 
     const clear = useCallback(() => {

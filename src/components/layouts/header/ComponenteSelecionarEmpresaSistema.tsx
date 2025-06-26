@@ -75,7 +75,7 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
                                 rounded-lg
                                 border-2
                                 truncate
-                                ${empresa.id === da.empresa.id ? 'border-blue-400' : 'border-neutral-200'}
+                                ${empresa.id === da.empresa.id ? 'border-primary' : 'border-neutral-200'}
                             `}
                                 onClick={() => onSelectDadosAcesso(da)}>
                                 {da.empresa.nomeFantasia}
@@ -110,7 +110,7 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
                                 rounded-lg
                                 border-2
                                 truncate
-                                ${st.sistema === sistemaSelecionado?.sistema? 'border-blue-400' : 'border-neutral-200'}
+                                ${st.sistema === sistemaSelecionado?.sistema? 'border-primary' : 'border-neutral-200'}
                             `}
                                 onClick={() => onSelectSistema(st)}>
                                 {SistemaENUMFactory.getDescricao(st.sistema)}

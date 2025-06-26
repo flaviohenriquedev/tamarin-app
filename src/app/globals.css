@@ -8,13 +8,13 @@
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
-    --color-primary: var(--color-blue-400);
+    --color-primary: #00b4d8;
     --color-primary-content: white;
 }
 
 [data-theme="light"] {
     .bg-system {
-        @apply bg-gradient-to-br from-blue-200 via-violet-100 to-white;
+        @apply bg-gradient-to-br from-[#ade8f4] via-[#caf0f8] to-white;
     }
     .container-glass {
         @apply bg-white/30 backdrop-blur-sm border border-white;
@@ -43,7 +43,7 @@
 @plugin "daisyui/theme" {
     name: "dark";
     default: true;
-    --color-primary: var(--color-blue-400);
+    --color-primary: #00b4d8;
 }
 
 [data-theme="dark"] {
