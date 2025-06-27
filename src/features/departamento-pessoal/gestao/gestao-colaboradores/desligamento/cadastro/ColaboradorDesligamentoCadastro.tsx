@@ -15,7 +15,7 @@ import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Button} from "@/components/ui/button/Button";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {
     TipoDesligamentoCLTFactory

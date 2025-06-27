@@ -5,7 +5,7 @@ import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePagi
 import {Table} from "@/components/ui/table/Table";
 import {useCallback, useState} from "react";
 import Modal from "@/components/ui/modal/Modal";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Button} from "@/components/ui/button/Button";
 import {LineContent} from "@/components/ui/line-content/line-content";

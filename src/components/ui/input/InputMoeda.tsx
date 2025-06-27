@@ -3,6 +3,7 @@ import {inputStyle} from "@/components/ui/input/style";
 import React, {InputHTMLAttributes, useEffect, useState} from "react";
 import {get, set} from "lodash";
 import {Label} from "@/components/ui/label/Label";
+import {useFormContext} from "@/components/ui/form/context/useFormContext";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
@@ -11,21 +12,28 @@ interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function InputMoeda<E>({
-                                                            id,
-                                                            placeholder,
-                                                            name,
-                                                            label,
-                                                            disabled,
-                                                            entidade,
-                                                            atributo,
-                                                            onBlur,
-                                                            onKeyDown,
-                                                            required = false,
-                                                            value,
-                                                            onChange
-                                                        }: Props<E>) {
+                                  id,
+                                  placeholder,
+                                  name,
+                                  label,
+                                  disabled,
+                                  entidade,
+                                  atributo,
+                                  onBlur,
+                                  onKeyDown,
+                                  required = false,
+                                  value,
+                                  onChange
+                              }: Props<E>) {
 
     const [valor, setValor] = useState<string | undefined>();
+    const {somenteLeitura, setSomenteLeitura} = useFormContext();
+
+    useEffect(() => {
+        if (disabled !== null && disabled !== undefined) {
+            setSomenteLeitura(disabled);
+        }
+    }, [disabled, setSomenteLeitura]);
 
     useEffect(() => {
         const valorEntidade = get(entidade, atributo);
@@ -46,13 +54,13 @@ export function InputMoeda<E>({
             flex-col
             gap-1`}>
             {label && (
-                <Label htmlFor={name ? name : ''} title={label} required={required} />
+                <Label htmlFor={name ? name : ''} title={label} required={required}/>
             )}
             <NumericFormat
                 id={id}
                 className={inputStyle}
                 placeholder={placeholder}
-                disabled={disabled}
+                disabled={somenteLeitura}
                 value={valor}
                 thousandSeparator="."
                 decimalSeparator=","

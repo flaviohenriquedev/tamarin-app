@@ -7,7 +7,7 @@ import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastr
 import {toast} from "sonner";
 import {empresaColunasListagem} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-colunas-listagem";
 import Modal from "@/components/ui/modal/Modal";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";

@@ -11,6 +11,7 @@ import {get, set} from "lodash";
 import {aplicarMascaraData, formatDateBR, parseDateBR} from "@/utils/utils";
 import {isValid, parse} from "date-fns";
 import {Label} from "@/components/ui/label/Label";
+import {Input} from "@/components/ui/input/Input";
 
 interface Props<E> extends InputProps<E> {
     dataPadrao?: Date;
@@ -101,7 +102,7 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
             )}
             <div className={`relative w-fit`} ref={wrapperRef}>
                 <div className="relative flex items-center">
-                    <input
+                    <Input
                         className={`${inputStyle} w-full`}
                         value={inputValue}
                         onChange={handleInputChange}

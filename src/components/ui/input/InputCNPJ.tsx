@@ -1,15 +1,15 @@
 'use client'
 
 import React, {InputHTMLAttributes, useEffect, useState} from "react"
-import {inputStyle} from "@/components/ui/input/style";
 import {limparCNPJ, mascararCNPJ} from "@/utils/utils";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/Label";
+import {Input} from "@/components/ui/input/Input";
 
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
     entidade: E;
     label?: string;
+    className?: string;
 }
 
 export function InputCNPJ<E extends object>({
@@ -24,7 +24,8 @@ export function InputCNPJ<E extends object>({
                                                 onChange,
                                                 onBlur,
                                                 onKeyDown,
-                                                required
+                                                required,
+                                                className
                                             }: InputProps<E>) {
 
     const [valorInput, setValorInput] = useState<string>('')
@@ -44,30 +45,22 @@ export function InputCNPJ<E extends object>({
     }
 
     return (
-        <div className={`
-            flex-1
-            flex
-            flex-col
-            gap-1`}>
-            {label && (
-                <Label htmlFor={name ? name : ''} title={label} required={required} />
-            )}
-            <input
-                className={inputStyle}
-                id={id}
-                placeholder="__.___.___/____-__"
-                name={name}
-                minLength={18}
-                maxLength={18}
-                type={type ? type : "text"}
-                autoComplete={autoComplete}
-                disabled={disabled}
-                value={valorInput}
-                onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
-                onBlur={onBlur}
-                onKeyDown={onKeyDown}
-                required={required}
-            />
-        </div>
+        <Input
+            className={className}
+            label={label}
+            id={id}
+            placeholder="__.___.___/____-__"
+            name={name}
+            minLength={18}
+            maxLength={18}
+            type={type ? type : "text"}
+            autoComplete={autoComplete}
+            disabled={disabled}
+            value={valorInput}
+            onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+            required={required}
+        />
     );
 }

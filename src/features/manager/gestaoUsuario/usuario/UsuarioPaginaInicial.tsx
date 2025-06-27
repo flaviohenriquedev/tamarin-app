@@ -6,7 +6,7 @@ import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/Button";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/Modal";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputCPF} from "@/components/ui/input/InputCPF";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";

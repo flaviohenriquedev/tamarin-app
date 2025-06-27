@@ -1,10 +1,8 @@
 'use client'
 
 import React, {InputHTMLAttributes, useEffect, useState} from "react"
-import {inputStyle} from "@/components/ui/input/style";
 import {get, set} from "lodash";
-import clsx from "clsx";
-import {Label} from "@/components/ui/label/Label";
+import {Input} from "@/components/ui/input/Input";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo?: string;
@@ -48,37 +46,22 @@ export function InputString<E extends object>({
         }
     }
 
-    const classesContainer = clsx(
-        'flex flex-col gap-1',
-        !/w-/.test(className ?? '') && 'flex-1'
-    )
-
-    const classesInput = clsx(
-        inputStyle,
-        !/w-/.test(className ?? '') && 'w-full',
-        className
-    )
-
     return (
-        <div className={`${classesContainer}`}>
-            {label && (
-                <Label htmlFor={name ? name : ''} title={label} required={required} />
-            )}
-            <input
-                className={`${classesInput}`}
-                required={required}
-                id={id}
-                placeholder={placeholder}
-                name={name}
-                maxLength={maxLength}
-                type={type ? type : "text"}
-                autoComplete={autoComplete}
-                disabled={disabled}
-                value={value ? value : valorInput}
-                onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
-                onBlur={onBlur}
-                onKeyDown={onKeyDown}
-            />
-        </div>
+        <Input
+            label={label}
+            className={className}
+            required={required}
+            id={id}
+            placeholder={placeholder}
+            name={name}
+            maxLength={maxLength}
+            type={type ? type : "text"}
+            autoComplete={autoComplete}
+            disabled={disabled}
+            value={value ? value : valorInput}
+            onChange={onChange ? onChange : (e) => atribuirValorInput(e.target.value)}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+        />
     );
 }

@@ -24,7 +24,7 @@ export const ThemeChanger = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="relative w-10 h-10 flex items-center justify-center overflow-hidden"
+            className="relative cursor-pointer border border-base-300 bg-base-100 shadow-sm rounded-lg px-8 w-10 text-base-content h-full flex items-center justify-center overflow-hidden"
         >
             <AnimatePresence mode="wait" initial={false}>
                 {resolvedTheme === "dark" ? (
@@ -47,7 +47,7 @@ export const ThemeChanger = () => {
                         transition={{ duration: 0.2 }}
                         className="absolute"
                     >
-                        <Moon className="w-6 h-6 text-slate-800" />
+                        <Moon className="w-6 h-6 text-base-content" />
                     </motion.div>
                 )}
             </AnimatePresence>

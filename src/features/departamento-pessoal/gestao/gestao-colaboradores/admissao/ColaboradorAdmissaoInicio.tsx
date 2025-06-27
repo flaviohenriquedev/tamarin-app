@@ -17,7 +17,7 @@ import {formatDateBR} from "@/utils/utils";
 import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
 import {useCropImage} from "@/components/ui/crop-image/hook/useCropImage";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {get, set} from "lodash";
 import {CropImage} from "@/components/ui/crop-image/CropImage";
 import {Fieldset} from "@/components/ui/fieldset/Fieldset";
@@ -62,6 +62,8 @@ import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/carg
 import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Tooltip} from "@/components/ui/tooltip/Tooltip";
+import {useFormContext} from "@/components/ui/form/context/useFormContext";
+import {Input} from "@/components/ui/input/Input";
 
 const colaboradorService = new ColaboradorService();
 const cidadeService = new CidadeService();
@@ -73,7 +75,7 @@ const cargaHorariaService = new CargaHorariaService();
 
 export function ColaboradorAdmissaoInicio() {
     const route = useRouter();
-
+    const {setSomenteLeitura} = useFormContext()
     const [listaColaboradores, setListaColaboradores] = useState<Colaborador[]>([]);
     const [colaborador, setColaborador] = useState<Colaborador>(new Colaborador());
     const [colaboradorCargo, setColaboradorCargo] = useState<ColaboradorCargo>(new ColaboradorCargo());
@@ -104,16 +106,16 @@ export function ColaboradorAdmissaoInicio() {
     }, [])
 
     useEffect(() => {
-        const quantidadeDiasExperienciaAdmissao = get(colaboradorCargo, 'quantidadeDiasExperiencia');
-        const dataExperienciaAdmissao = get(colaboradorCargo, 'dataExperiencia');
-        const quantidadeDiasProrrogacaoAdmissao = get(colaboradorCargo, 'quantidadeDiasProrrogacao');
-        const dataProrrogacaoAdmissao = get(colaboradorCargo, 'dataProrrogacao');
+        const quantidadeDiasExperienciaAdmissao = get(colaborador, 'cargoAtivo.quantidadeDiasExperiencia');
+        const dataExperienciaAdmissao = get(colaborador, 'cargoAtivo.dataExperiencia');
+        const quantidadeDiasProrrogacaoAdmissao = get(colaborador, 'cargoAtivo.quantidadeDiasProrrogacao');
+        const dataProrrogacaoAdmissao = get(colaborador, 'cargoAtivo.dataProrrogacao');
 
         if (quantidadeDiasExperienciaAdmissao) setQuantidadeDiasExperiencia(quantidadeDiasExperienciaAdmissao);
         if (dataExperienciaAdmissao) setDataAdmissaoExperiencia(dataExperienciaAdmissao);
         if (quantidadeDiasProrrogacaoAdmissao) setQuantidadeDiasProrrogacao(quantidadeDiasProrrogacaoAdmissao);
         if (dataProrrogacaoAdmissao) setDataAdmissaoProrrogacao(dataProrrogacaoAdmissao);
-    }, [colaboradorCargo]);
+    }, [colaborador]);
 
     const configCidadeNascimento: InputSearchConfig<Cidade, CidadeService> = {
         service: cidadeService,
@@ -269,13 +271,13 @@ export function ColaboradorAdmissaoInicio() {
                         max-h-[70vh]`}>
                     {listaColaboradores && listaColaboradores.map(cl => (
                         <div key={cl.id}
-                             className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
+                             className={`flex items-center w-full justify-between text-base-content bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
                                 <Avatar tamanho={`grande`} imagem={cl.base64}/>
                                 <div className={`flex flex-col gap-1`}>
-                                    <label className="font-bold">{cl.nomeCompleto}</label>
+                                    <label className={`text-[12pt]`}>{cl.nomeCompleto}</label>
                                     <div className={`flex gap-1 text-[10pt]`}>
-                                        <label className="font-semibold">Matricula:</label>
+                                        <label>Matricula:</label>
                                         <label>{cl.matricula}</label>
                                     </div>
                                     <label className={`
@@ -333,7 +335,7 @@ export function ColaboradorAdmissaoInicio() {
                                 </Tooltip>
 
                                 <Tooltip label={`Editar`}>
-                                    <Button icone={icones.edit} buttonStyle={`warning`}/>
+                                    <Button onClick={() => setSomenteLeitura(false)} icone={icones.edit} buttonStyle={`warning`}/>
                                 </Tooltip>
 
                                 <Tooltip label={`Ativar`}>
@@ -522,66 +524,66 @@ export function ColaboradorAdmissaoInicio() {
                             <Fieldset label={`Dados Admissão`} largura={`w-full`} className={`bg-base-100 shadow-sm`}>
                                 <LineContent>
                                     <SelectItem
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'cargo.id'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.cargo.id'}
                                         label={`Cargo`}
                                         required={true}
                                         values={selectItensCargos}
                                         onSelect={onSelectItemCargo}/>
 
                                     <SelectItem
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'departamento.id'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.departamento.id'}
                                         required={true}
                                         label={`Departamento`}
                                         values={selectItensDepartamentos}
                                         onSelect={onSelectItemDepartamento}/>
 
                                     <SelectItem
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'tipoContrato.id'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.tipoContrato.id'}
                                         label={`Tipo de Admissão`}
                                         values={selectItensTiposDeContrato}
                                         onSelect={onSelectItemTipoContrato}/>
                                 </LineContent>
                                 <LineContent>
                                     <SelectItem
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'cargaHoraria.id'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.cargaHoraria.id'}
                                         label={`Carga Horária`}
                                         values={selectItensCargaHoraria}
                                         onSelect={onSelectItemCargaHoraria}/>
 
                                     <InputMoeda
                                         label={`Salário`}
-                                        entidade={colaboradorCargo}
-                                        atributo={'salario'}/>
+                                        entidade={colaborador}
+                                        atributo={'cargoAtivo.salario'}/>
 
                                     <SelectItem
                                         label={`Tipo de Salário`}
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'tipoSalario'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.tipoSalario'}
                                         values={TipoSalarioFactory.getSelectItens()}/>
                                 </LineContent>
 
                                 <LineContent>
                                     <SelectItem
                                         label={`Forma de Pagamento`}
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'formaPagamento'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.formaPagamento'}
                                         values={FormaPagamentoFactory.getSelectItens()}/>
 
                                     <SelectItem
                                         label={`Sindicato`}
-                                        entidade={colaboradorCargo}
-                                        fieldValor={'possuiSindicato'}
+                                        entidade={colaborador}
+                                        fieldValor={'cargoAtivo.possuiSindicato'}
                                         values={TrueFalseFactory.getSelectItens()}/>
 
                                     <InputDataCompleta
                                         label={`Data de Admissão`}
-                                        atributo={`dataAdmissao`}
+                                        entidade={colaborador}
+                                        atributo={`cargoAtivo.dataAdmissao`}
                                         onChangeDate={onChangeDataAdmissao}
-                                        entidade={colaboradorCargo}
                                     />
                                 </LineContent>
 
@@ -589,7 +591,7 @@ export function ColaboradorAdmissaoInicio() {
                                     <Fieldset label={`Experiência`} largura={`w-full`}>
                                         <LineContent>
                                             <Label title={`Prazo Experiência (dias)`}>
-                                                <input
+                                                <Input
                                                     className={inputStyle}
                                                     type={`number`}
                                                     value={quantidadeDiasExperiencia}
@@ -609,7 +611,7 @@ export function ColaboradorAdmissaoInicio() {
                                     <Fieldset label={`Prorrogação`} largura={`w-full`}>
                                         <LineContent>
                                             <Label title={`Prazo Prorrogação (dias)`}>
-                                                <input
+                                                <Input
                                                     className={inputStyle}
                                                     type={`number`}
                                                     value={quantidadeDiasProrrogacao}

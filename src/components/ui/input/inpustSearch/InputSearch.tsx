@@ -1,12 +1,11 @@
 import React, {InputHTMLAttributes, useCallback, useEffect, useState} from "react"
-import {inputStyle} from "@/components/ui/input/style";
 import clsx from "clsx";
 import {AnimatePresence, motion} from "framer-motion";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {CrudService} from "@/services/CrudService";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/Label";
+import {Input} from "@/components/ui/input/Input";
 
 interface Props<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>> extends InputHTMLAttributes<HTMLInputElement> {
     entidade?: EntidadeForm;
@@ -46,7 +45,7 @@ export function InputSearch<EntidadeForm, EntidadeBusca extends EntidadePadrao, 
             const valorEntidade = get(entidade, atributo);
             if (valorEntidade) {
                 setValorInput(get(valorEntidade, config.fieldLabel))
-            }    
+            }
         }
     }, [atributo, config.fieldLabel, entidade]);
 
@@ -95,23 +94,15 @@ export function InputSearch<EntidadeForm, EntidadeBusca extends EntidadePadrao, 
         !/w-/.test(className ?? '') && 'flex-1'
     )
 
-    const classesInput = clsx(
-        inputStyle,
-        !/w-/.test(className ?? '') && 'w-full',
-        className
-    )
-
     function getLabel(et: EntidadeBusca) {
         return get(et, config.fieldLabel)
     }
 
     return (
         <div className={`${classesContainer} relative`}>
-            {label && (
-                <Label htmlFor={name ? name : ''} title={label} required={required} />
-            )}
-            <input
-                className={`${classesInput}`}
+            <Input
+                className={className}
+                label={label}
                 required={required}
                 id={id}
                 placeholder={placeholder ? placeholder : 'Digite para buscar...'}
@@ -125,7 +116,6 @@ export function InputSearch<EntidadeForm, EntidadeBusca extends EntidadePadrao, 
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
             />
-
             <AnimatePresence>
                 {listaValores && listaValores.length > 0 && (
                     <motion.ul

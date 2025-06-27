@@ -2,7 +2,7 @@
 
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {useState} from "react";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Button} from "@/components/ui/button/Button";
 import Modal from "@/components/ui/modal/Modal";

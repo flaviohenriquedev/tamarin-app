@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button/Button";
 import {ArrowBigLeft} from "lucide-react";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {ReactNode} from "react";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 
 type Props = {
     children: ReactNode;

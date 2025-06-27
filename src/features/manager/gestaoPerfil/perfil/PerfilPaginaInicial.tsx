@@ -6,7 +6,7 @@ import {Table} from "@/components/ui/table/Table";
 import {useCallback, useEffect, useState} from "react";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import Modal from "@/components/ui/modal/Modal";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";

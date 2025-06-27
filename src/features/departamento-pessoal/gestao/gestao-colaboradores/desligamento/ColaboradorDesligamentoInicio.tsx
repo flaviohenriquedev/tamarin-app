@@ -18,7 +18,7 @@ import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradore
 import {formatDateBR} from "@/utils/utils";
 import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 
 const desligamentoService = new ColaboradorDesligamentoService()

@@ -1,9 +1,12 @@
-import React, {ChangeEvent, InputHTMLAttributes, useEffect, useState} from "react";
+import React, {InputHTMLAttributes, useEffect} from "react";
 import {inputStyle} from "@/components/ui/input/style";
 import {Label} from "@/components/ui/label/Label";
+import clsx from "clsx";
+import {useFormContext} from "@/components/ui/form/context/useFormContext";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    className?: string;
 }
 
 export function Input({   id,
@@ -18,42 +21,47 @@ export function Input({   id,
                           onBlur,
                           onKeyDown,
                           required,
+                          className,
                           label}: Props) {
 
-    const [valInput, setValInput] = useState<string | number | readonly string[] | undefined>(value);
+    const {somenteLeitura, setSomenteLeitura} = useFormContext();
 
     useEffect(() => {
-        setValInput(value);
-    }, [value]);
+        if (disabled !== null && disabled !== undefined) {
+            setSomenteLeitura(disabled);
+        }
+    }, [disabled, setSomenteLeitura]);
 
-    function onChangeValInput(e: ChangeEvent<HTMLInputElement>) {
-        setValInput(e.target.value);
-        if (onChange) onChange(e)
-    }
+    const classesContainer = clsx(
+        'flex flex-col gap-1',
+        !/w-/.test(className ?? '') && 'flex-1'
+    )
+
+    const classesInput = clsx(
+        inputStyle,
+        !/w-/.test(className ?? '') && 'w-full',
+        className
+    )
 
     return (
-        <div className={`
-            flex-1
-            flex
-            flex-col
-            gap-1`}>
+        <div className={`${classesContainer}`}>
             {label && (
                 <Label htmlFor={name ? name : ''} title={label} required={required} />
             )}
             <input
-                className={inputStyle}
+                className={`${classesInput}`}
+                required={required}
                 id={id}
                 placeholder={placeholder}
                 name={name}
                 maxLength={maxLength}
                 type={type ? type : "text"}
                 autoComplete={autoComplete}
-                disabled={disabled}
-                value={valInput}
-                onChange={(e) => onChangeValInput(e)}
+                disabled={somenteLeitura}
+                value={value}
+                onChange={onChange}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
-                required={required}
             />
         </div>
     )

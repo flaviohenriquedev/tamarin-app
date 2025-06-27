@@ -24,7 +24,7 @@ export function Header({sistema}: Props) {
                     </div>
                 )}
             </div>
-            <div className={`flex items-center gap-10 ml-auto`}>
+            <div className={`flex items-center gap-2 ml-auto h-full`}>
                 <ThemeChanger/>
                 <InfoUsuario/>
             </div>

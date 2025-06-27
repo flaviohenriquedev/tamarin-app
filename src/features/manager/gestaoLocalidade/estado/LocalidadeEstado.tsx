@@ -9,7 +9,7 @@ import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/Modal";
-import {Form} from "@/components/ui/form/form";
+import {Form} from "@/components/ui/form/Form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputNumerico} from "@/components/ui/input/InputNumerico";
