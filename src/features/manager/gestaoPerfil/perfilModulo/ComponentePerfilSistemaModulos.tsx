@@ -5,7 +5,7 @@ import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {ModuloENUM} from "@/enums/ModuloEnum";
 import {ListChecks} from "lucide-react";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/Button";

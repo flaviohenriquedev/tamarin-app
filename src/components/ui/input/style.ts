@@ -5,6 +5,7 @@ export const inputStyle = `
     px-3
     py-4
     rounded-lg
+    border-base-300
     shadow-[-6px_5px_5px_-5px_rgba(0,_0,_0,_0.1)]
     focus:outline-none
     focus:border-primary

@@ -41,7 +41,7 @@ export function AbasNavegacao({modulo}: Props) {
                 {moduloInfo?.abas && moduloInfo.abas.map((aba, index) => (
                     <li key={index}
                         onClick={() => onClickTab(aba.href)}
-                        className={`${pathName === aba.href ? 'border-primary text-primary' : 'border-transparent'} cursor-pointer py-1 border-b-2 text-sm`}>
+                        className={`${pathName === aba.href ? 'border-primary text-primary' : 'border-transparent'} cursor-pointer py-1 border-b-2 text-sm text-base-content`}>
                         {aba.title}
                     </li>
                 ))}

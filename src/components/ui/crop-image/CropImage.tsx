@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ChangeEvent, ReactNode, useRef, useState} from "react";
 import {CircleDashed, Pencil, SquareDashed, Trash} from "lucide-react";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import Cropper, {Area} from "react-easy-crop";
 import {Button} from "@/components/ui/button/Button";
 import {LineContent} from "@/components/ui/line-content/line-content";
@@ -100,11 +100,11 @@ export function CropImage({
 
             <Modal isOpen={openModal} setIsOpen={setOpenModal}>
                 <div
-                    className="flex flex-col items-center justify-center gap-4 p-4 bg-base-100 rounded-lg w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
-                    <div className="relative w-full h-full rounded-lg">
+                    className="flex flex-col items-center justify-center gap-4 w-[90vw] max-w-[500px] h-[90vh] max-h-[500px]">
+                    <div className="relative w-full h-full">
                         <Cropper
                             classes={{
-                                containerClassName: 'rounded-lg',
+                                containerClassName: 'rounded-default',
                                 cropAreaClassName: 'rounded-lg'}}
                             image={imageSrc}
                             crop={crop}

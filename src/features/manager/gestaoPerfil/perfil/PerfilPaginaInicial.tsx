@@ -5,7 +5,7 @@ import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-se
 import {Table} from "@/components/ui/table/Table";
 import {useCallback, useEffect, useState} from "react";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";

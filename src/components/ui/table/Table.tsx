@@ -6,7 +6,7 @@ import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela, PageConfig} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
 import {MdDelete} from "react-icons/md";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Button} from "@/components/ui/button/Button";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";

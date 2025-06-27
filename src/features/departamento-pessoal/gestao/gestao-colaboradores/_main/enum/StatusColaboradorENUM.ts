@@ -25,7 +25,7 @@ export class StatusColaboradorFactory {
         },
         FERIAS: {
             label: 'Férias',
-            bg: 'bg-warning text-warning-content',
+            bg: 'bg-info text-info-content',
             borderColor: 'border-[#27ABC2]',
             textColor: 'text-[#27ABC2]'
 

@@ -7,7 +7,7 @@ import {CountryCode} from 'libphonenumber-js'
 import {inputStyle} from "@/components/ui/input/style";
 import {SelectPaises} from "@/app/(desenvolvimento)/dev/select-paises";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;

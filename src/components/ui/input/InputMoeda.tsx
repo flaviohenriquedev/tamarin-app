@@ -2,7 +2,7 @@ import {NumberFormatValues, NumericFormat} from "react-number-format";
 import {inputStyle} from "@/components/ui/input/style";
 import React, {InputHTMLAttributes, useEffect, useState} from "react";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;

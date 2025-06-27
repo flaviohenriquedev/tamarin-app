@@ -14,7 +14,7 @@ export function Label({children, title, required, htmlFor, fullWidth}: Props) {
         <div className={`${fullWidth ? 'flex-1' : 'w-auto'} flex flex-col gap-2`}>
             {title && (
                 <label htmlFor={htmlFor} className={`flex gap-1 items-center `}>
-                    <span className={`text-[9pt] label-text font-semibold text-neutral-500 pl-1`}>{title}</span>
+                    <span className={`text-[8.5pt] label-text  text-base-content/70 pl-1`}>{title}</span>
                     {required && <FaAsterisk size={8} color="red"/>}
                 </label>
             )}

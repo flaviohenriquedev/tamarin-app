@@ -5,7 +5,7 @@ import {useState} from "react";
 import {Form} from "@/components/ui/form/form";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Button} from "@/components/ui/button/Button";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {

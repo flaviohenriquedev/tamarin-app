@@ -6,7 +6,7 @@ import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSear
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {CrudService} from "@/services/CrudService";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface Props<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>> extends InputHTMLAttributes<HTMLInputElement> {
     entidade?: EntidadeForm;

@@ -10,9 +10,9 @@ type Props = {
 
 export function Fieldset({children, className, label, largura, altura}: Props) {
     return (
-        <fieldset className={`${className} fieldset border border-base-300 rounded-[1.5rem] ${altura ? altura : 'h-fit'} ${largura ? largura : 'w-xs'} p-3`}>
+        <fieldset className={`${className} fieldset border border-base-300 rounded-default ${altura ? altura : 'h-fit'} ${largura ? largura : 'w-xs'} p-3`}>
             <legend className="fieldset-legend text-info font-normal">
-                <div className={`flex items-center justify-center border border-base-300 bg-base-200 text-info rounded-[1.5rem] px-2 py-1`}>
+                <div className={`flex items-center justify-center border border-base-300 bg-base-200 text-info rounded-default px-2 py-1`}>
                     {label}
                 </div>
             </legend>

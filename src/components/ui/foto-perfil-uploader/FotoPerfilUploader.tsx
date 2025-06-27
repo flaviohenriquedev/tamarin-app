@@ -3,7 +3,7 @@
 import Cropper, {Area} from 'react-easy-crop';
 import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {croppedImg} from './ts/functions';
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {blobToBase64, getImagemFromBase64} from "@/utils/utils";
 import {set} from "lodash";
 import Image from "next/image";

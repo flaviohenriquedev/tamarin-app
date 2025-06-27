@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {useCallback, useEffect, useState} from "react";
 import {AcaoAdicional} from "@/components/layouts/pagina-cadastro/types/typesPaginaCadastro";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {
     StatusColaboradorFactory
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";

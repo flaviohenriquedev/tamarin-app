@@ -8,7 +8,7 @@ import {
     ColaboradorService
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/service/ColaboradorService";
 import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/Avatar";
 import {
     StatusColaboradorFactory
@@ -43,7 +43,7 @@ import {
     FormaPagamentoFactory
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/cadastro/enums/FormaPagamentoENUM";
 import {TrueFalseFactory} from "@/features/_root/enums/TrueFalseENUM";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 import {inputStyle} from "@/components/ui/input/style";
 import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {CargoService} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-service";
@@ -312,8 +312,8 @@ export function ColaboradorAdmissaoInicio() {
                    tamanho={`telaInteira`}>
                 <Form onSubmit={onSubmit}
                       className={`h-full`}>
-                    <div className={`flex gap-2 p-2 bg-base-200 rounded-lg h-full`}>
-                        <div className={`flex flex-col px-3 pb-6 pt-3 gap-4 w-fit h-fit bg-base-100 rounded-[1.5rem] shadow-md`}>
+                    <div className={`flex gap-2 p-2 bg-base-200 rounded-default h-full`}>
+                        <div className={`flex flex-col px-3 pb-6 pt-3 gap-4 w-fit h-fit bg-base-100 rounded-[1.5rem] shadow-sm`}>
                             <CropImage
                                 clearImage={clearImage}
                                 imageSrc={imageSrc}
@@ -353,7 +353,7 @@ export function ColaboradorAdmissaoInicio() {
                             scrollbar-track-transparent
                             scrollbar-thin
                             pb-10`}>
-                            <Fieldset label={`Dados Pessoais`} largura={`w-full`} className={`bg-base-100 shadow-md`}>
+                            <Fieldset label={`Dados Pessoais`} largura={`w-full`} className={`bg-base-100 shadow-sm`}>
                                 <LineContent>
                                     <InputString
                                         name={'matricula'}
@@ -472,7 +472,7 @@ export function ColaboradorAdmissaoInicio() {
                                 </LineContent>
                             </Fieldset>
 
-                            <Fieldset label={`Endereço`} largura={`w-full`} className={`bg-base-100 shadow-md`}>
+                            <Fieldset label={`Endereço`} largura={`w-full`} className={`bg-base-100 shadow-sm`}>
                                 <LineContent>
                                     <InputString
                                         name={'cep'}
@@ -519,7 +519,7 @@ export function ColaboradorAdmissaoInicio() {
                                 </LineContent>
                             </Fieldset>
 
-                            <Fieldset label={`Dados Admissão`} largura={`w-full`} className={`bg-base-100 shadow-md`}>
+                            <Fieldset label={`Dados Admissão`} largura={`w-full`} className={`bg-base-100 shadow-sm`}>
                                 <LineContent>
                                     <SelectItem
                                         entidade={colaboradorCargo}

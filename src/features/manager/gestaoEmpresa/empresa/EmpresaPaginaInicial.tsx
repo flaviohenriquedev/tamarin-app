@@ -6,7 +6,7 @@ import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empres
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {toast} from "sonner";
 import {empresaColunasListagem} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-colunas-listagem";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/form";
 import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {LineContent} from "@/components/ui/line-content/line-content";

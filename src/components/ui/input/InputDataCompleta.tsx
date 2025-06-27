@@ -10,7 +10,7 @@ import {InputProps} from "@/interfaces/InputProps";
 import {get, set} from "lodash";
 import {aplicarMascaraData, formatDateBR, parseDateBR} from "@/utils/utils";
 import {isValid, parse} from "date-fns";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface Props<E> extends InputProps<E> {
     dataPadrao?: Date;
@@ -111,7 +111,17 @@ export function InputDataCompleta<E>({entidade, atributo, label, name, required,
                         <button
                             type="button"
                             onClick={() => setOpen(!open)}
-                            className="cursor-pointer h-full absolute right-2 top-1/2 -translate-y-1/2 hover:text-primary z-10"
+                            className={`
+                                cursor-pointer
+                                h-full
+                                text-base-content/50
+                                absolute
+                                right-2
+                                top-1/2
+                                -translate-y-1/2
+                                hover:text-primary
+                                z-10
+                            `}
                             tabIndex={-1}
                         >
                             <Calendar size={18}/>

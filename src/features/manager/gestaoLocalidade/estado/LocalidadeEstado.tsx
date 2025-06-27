@@ -8,7 +8,7 @@ import {estadoColunasListagem} from "@/features/manager/gestaoLocalidade/estado/
 import {toast} from "sonner";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/Table";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";

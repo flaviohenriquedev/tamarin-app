@@ -17,7 +17,7 @@ import {DepartamentoService} from "@/features/departamento-pessoal/administracao
 import {Fieldset} from "@/components/ui/fieldset/Fieldset";
 import {formatDateBR} from "@/utils/utils";
 import {inputStyle} from "@/components/ui/input/style";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 import {addDays} from 'date-fns';
 import useSelectItem from "@/components/ui/select-item/hook/useSelectItem";
 import {InputMoeda} from "@/components/ui/input/InputMoeda";

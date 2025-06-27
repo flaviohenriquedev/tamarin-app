@@ -14,7 +14,7 @@ export function Form({children, onSubmit, className}: Props) {
     }
 
     return (
-        <form className={`${className} text-base-content px-4 pb-4`}
+        <form className={`${className} text-base-content pb-4`}
               onSubmit={handleSubmit}>
             {children}
         </form>

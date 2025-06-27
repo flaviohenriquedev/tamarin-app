@@ -4,7 +4,7 @@ import React, {InputHTMLAttributes, useEffect, useState} from "react"
 import {inputStyle} from "@/components/ui/input/style";
 import {limparCNPJ, mascararCNPJ} from "@/utils/utils";
 import {get, set} from "lodash";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface InputProps<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;

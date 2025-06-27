@@ -15,11 +15,12 @@ export function ListaMenu({rotas}: Props) {
             flex-col
             gap-2
             border-t
-            border-neutral-200
+            border-base-300
             pt-2
             overflow-x-hidden
             scrollbar-none
-            truncate pb-32
+            truncate
+            pb-32
         `}>
             {rotas.map((rota) => (
                 <ItemListaMenu rota={rota} key={rota.id}/>

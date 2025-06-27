@@ -75,9 +75,9 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                                 arcano-container
                                 backdrop-blur-sm
                                 border
-                                transition-all
+                                transition-transform
                                 duration-300
-                                border-white
+                                border-base-100
                                 ${sideBarExpandido ? 'w-72' : 'items-start w-20'}
                             `}
                 >
@@ -97,11 +97,12 @@ export function LayoutInicial({children}: { children: ReactNode }) {
                                         z-50
                                         p-1
                                         border
-                                        border-neutral-200
+                                        border-base-300
                                         rounded-full
-                                        transition-all
+                                        transition-transform
                                         duration-200
                                         cursor-pointer
+                                        text-base-content
                                         hover:text-primary
                                         bg-base-100
                                         backdrop-blur

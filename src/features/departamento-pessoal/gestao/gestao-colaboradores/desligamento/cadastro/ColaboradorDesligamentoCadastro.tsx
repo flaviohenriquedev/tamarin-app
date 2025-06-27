@@ -2,7 +2,7 @@
 
 import {Fragment, useCallback, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
 import {
     ColaboradorDesligamentoService
@@ -23,7 +23,7 @@ import {
 import {InputRadio} from "@/components/ui/input/inputRadio/InputRadio";
 import {TrueFalseFactory} from "@/features/_root/enums/TrueFalseENUM";
 import {isTrue} from "@/utils/utils";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 const desligamentoService = new ColaboradorDesligamentoService();
 

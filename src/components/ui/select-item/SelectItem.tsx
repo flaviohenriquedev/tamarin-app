@@ -5,7 +5,7 @@ import {get, set} from "lodash";
 import {MdClear} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import clsx from "clsx";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 import {ChevronDown} from "lucide-react";
 
 type Props<E> = {
@@ -120,7 +120,7 @@ export function SelectItem<E extends object>({
                     input-md
                     ${widthClass ? widthClass : 'min-w-52 w-full'}
                     rounded-lg
-                    border-neutral-300
+                    border-base-300
                     shadow-[-6px_5px_5px_-5px_rgba(0,_0,_0,_0.1)]
                     focus:outline-none
                     focus:border-primary
@@ -180,7 +180,7 @@ export function SelectItem<E extends object>({
                                 `   z-50
                                     border
                                     px-3
-                                    border-neutral-300
+                                    border-primary
                                     bg-base-100
                                     text-base-content
                                     absolute
@@ -189,6 +189,9 @@ export function SelectItem<E extends object>({
                                     top-full
                                     mt-1
                                     overflow-y-scroll
+                                    scrollbar-thumb-primary/40
+                                    scrollbar-track-transparent
+                                    scrollbar-thin
                                     shadow-sm
                                     p-2
                                     rounded-lg

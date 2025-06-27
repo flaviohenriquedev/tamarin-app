@@ -11,6 +11,7 @@
     default: true;
     --color-primary: #00b4d8;
     --color-primary-content: white;
+    --color-base-content: #495057;
 }
 
 [data-theme="light"] {
@@ -37,6 +38,12 @@
     }
     .border-component-600 {
         @apply border-neutral-600;
+    }
+    .rounded-default {
+        @apply rounded-[1.5rem]
+    }
+    .border-gommo {
+        @apply border-[#212529];
     }
 }
 
@@ -65,6 +72,9 @@
     }
     .border-component-600 {
         @apply border-neutral-600;
+    }
+    .rounded-default {
+        @apply rounded-[1.5rem]
     }
 }
 

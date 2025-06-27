@@ -21,11 +21,11 @@ export function ItemListaMenu({rota}: Props) {
     useEffect(() => {
         if (!sideBarExpandido) {
             estadoAnterior.current = mostrarSubMenu; // salva antes de sumir
-            setSubmenusVisiveis({ ...submenusVisiveis, [rota.id as string]: false }); // fecha visualmente
+            setSubmenusVisiveis({...submenusVisiveis, [rota.id as string]: false}); // fecha visualmente
         } else {
             // se estava aberto antes de esconder, reabre
             if (estadoAnterior.current) {
-                setSubmenusVisiveis({ ...submenusVisiveis, [rota.id as string]: true });
+                setSubmenusVisiveis({...submenusVisiveis, [rota.id as string]: true});
             }
         }
     }, [mostrarSubMenu, rota.id, sideBarExpandido, submenusVisiveis]);
@@ -51,10 +51,16 @@ export function ItemListaMenu({rota}: Props) {
 
     return (
         <li key={rota.id}>
-            <div className={`flex group items-center hover:bg-primary/10 h-10 transition-all duration-200 `}
+            <div className={`
+                flex
+                group
+                items-center
+                h-10
+                transition-transform
+                duration-200
+                hover:bg-primary/10  
+            `}
                  onClick={toggleSubMenu}>
-
-                {/* barrinha que empurra */}
                 <div
                     className={`
                                 h-full
@@ -65,17 +71,31 @@ export function ItemListaMenu({rota}: Props) {
                                 duration-200
                             `}></div>
                 <div
-                    className="flex pl-3 items-center w-full justify-between gap-5 ml-4 text-neutral-500">
-                    <div className={`flex items-center gap-4 group-hover:text-primary`}>
+                    className={`
+                        flex
+                        pl-3
+                        items-center
+                        w-full
+                        justify-between
+                        gap-5
+                        ml-4
+                        text-base-content
+                    `}>
+                    <div className={`
+                        flex
+                        items-center
+                        gap-4
+                        group-hover:text-primary
+                    `}>
                         <span>{rota.icon}</span>
                         <AnimatePresence mode="wait">
                             {sideBarExpandido && (
                                 <motion.label
                                     key="label"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 20 }}
-                                    transition={{ duration: 0.2 }}
+                                    initial={{opacity: 0, x: 20}}
+                                    animate={{opacity: 1, x: 0}}
+                                    exit={{opacity: 0, x: 20}}
+                                    transition={{duration: 0.2}}
                                     className="text-sm font-semibold "
                                 >
                                     {rota.title}
@@ -84,7 +104,13 @@ export function ItemListaMenu({rota}: Props) {
                         </AnimatePresence>
                     </div>
                     {sideBarExpandido && rota.subRoute && (
-                        <div className={`transition-transform group-hover:text-primary duration-300 px-2 ${mostrarSubMenu && 'rotate-180'}`}>
+                        <div className={`
+                            transition-transform
+                            group-hover:text-primary
+                            duration-300
+                            px-2
+                            ${mostrarSubMenu && 'rotate-180'}
+                        `}>
                             <ChevronDown size={18}/>
                         </div>
                     )}
@@ -110,10 +136,10 @@ export function ItemListaMenu({rota}: Props) {
                                                 items-center
                                                 rounded-lg
                                                 h-8
-                                                transition-all
+                                                transition-transform
                                                 duration-200
                                             `}
-                                    onClick={() => navigate(subRota)}>
+                                         onClick={() => navigate(subRota)}>
                                         {mostrarSubMenu && (
                                             <div
                                                 className={`
@@ -122,14 +148,16 @@ export function ItemListaMenu({rota}: Props) {
                                                         w-full
                                                         h-full
                                                         border-l
-                                                        border-neutral-300
+                                                        border-base-content/10
                                                         gap-2
-                                                        transition-all
+                                                        transition-transform
                                                         duration-200
-                                                        hover:text-primary hover:font-bold
+                                                        text-base-content
+                                                        hover:text-primary
+                                                        hover:font-bold
                                                     `}
                                             >
-                                                <label className={`text-neutral-400`}><Dot /></label>
+                                                <label><Dot/></label>
                                                 <label className="text-[10pt] font-normal">{subRota.title}</label>
                                             </div>
                                         )}

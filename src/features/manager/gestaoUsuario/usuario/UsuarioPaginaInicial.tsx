@@ -5,7 +5,7 @@ import {useCallback, useEffect, useState} from "react";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {Button} from "@/components/ui/button/Button";
 import {Table} from "@/components/ui/table/Table";
-import Modal from "@/components/ui/modal/modal";
+import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/form";
 import {InputString} from "@/components/ui/input/InputString";
 import {InputCPF} from "@/components/ui/input/InputCPF";

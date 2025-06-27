@@ -1,6 +1,6 @@
 import React, {ChangeEvent, InputHTMLAttributes, useEffect, useState} from "react";
 import {inputStyle} from "@/components/ui/input/style";
-import {Label} from "@/components/ui/label/label";
+import {Label} from "@/components/ui/label/Label";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
