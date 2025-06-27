@@ -16,11 +16,14 @@ import {
     ListRestart,
     LogOut,
     PinOff,
+    Save,
     ScanEye,
     Settings,
+    SquarePen,
     User,
     UserCog,
-    UserRoundSearch
+    UserRoundSearch,
+    X
 } from "lucide-react";
 
 const tamanhoIcone = 20
@@ -47,5 +50,8 @@ export const icones = {
     reload: <ListRestart size={tamanhoIcone}/>,
     check: <Check size={tamanhoIcone}/>,
     eye: <Eye size={tamanhoIcone}/>,
-    eyeSquare: <ScanEye size={tamanhoIcone}/>
+    eyeSquare: <ScanEye size={tamanhoIcone}/>,
+    save: <Save size={tamanhoIcone} />,
+    edit: <SquarePen size={tamanhoIcone} />,
+    x: <X size={tamanhoIcone} />
 };

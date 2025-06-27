@@ -149,15 +149,16 @@ export function CamposFormularioDadosBasicos({colaborador, colaboradorEndereco, 
                             <InputTelefone
                                 label={`Telefone`}
                                 tabIndex={0}
-                                name={'rg'}
-                                atributo={`rg`}
+                                name={'telefone'}
+                                atributo={`telefone`}
                                 entidade={colaborador}
                             />
 
                             <InputString
                                 label={`Email`}
-                                name={'rg'}
-                                atributo={`rg`}
+                                name={'email'}
+                                atributo={`email`}
+                                type={`email`}
                                 entidade={colaborador}
                             />
                         </LineContent>

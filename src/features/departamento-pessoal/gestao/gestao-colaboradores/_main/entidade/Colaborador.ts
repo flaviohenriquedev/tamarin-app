@@ -19,6 +19,8 @@ export class Colaborador extends EntidadeTenant {
     public cpf: string;
     public pis: string;
     public rg: string;
+    public telefone: string;
+    public email: string;
     public dataNascimento: Date;
     public dataExpedicaoRg: Date;
     public cidadeNascimento: Cidade;

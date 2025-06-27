@@ -62,7 +62,7 @@ export function Avatar({tamanho = 'medio', imagem}: Props) {
 
     return (
         <div className={`avatar`}>
-            <div className={`mask bg-base-300 rounded-2xl ${classesTamanho} text-base-100`}>
+            <div className={`mask bg-base-300 rounded-[1.5rem] ${classesTamanho} text-base-100`}>
                 {renderImagem()}
             </div>
         </div>

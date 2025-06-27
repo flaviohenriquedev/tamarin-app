@@ -51,7 +51,7 @@ export function ItemListaMenu({rota}: Props) {
 
     return (
         <li key={rota.id}>
-            <div className={`flex group items-center hover:bg-primary rounded-r-lg h-10 transition-all duration-200 `}
+            <div className={`flex group items-center hover:bg-primary/10 h-10 transition-all duration-200 `}
                  onClick={toggleSubMenu}>
 
                 {/* barrinha que empurra */}
@@ -64,7 +64,6 @@ export function ItemListaMenu({rota}: Props) {
                                 transition-all
                                 duration-200
                             `}></div>
-
                 <div
                     className="flex pl-3 items-center w-full justify-between gap-5 ml-4 text-neutral-500">
                     <div className={`flex items-center gap-4 group-hover:text-primary`}>
