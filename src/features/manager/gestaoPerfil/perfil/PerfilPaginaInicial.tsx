@@ -9,8 +9,8 @@ import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputString} from "@/components/ui/input/InputString";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 
 import './css/style.css'
 import {RouteType} from "@/types/_root/RouteType";

@@ -16,10 +16,10 @@ import {
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/desligamento/cadastro/entidade/ColaboradorDesligamento";
 import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/Avatar";
 import {formatDateBR} from "@/utils/utils";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
 import {Form} from "@/components/ui/form/form";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 
 const desligamentoService = new ColaboradorDesligamentoService()
 

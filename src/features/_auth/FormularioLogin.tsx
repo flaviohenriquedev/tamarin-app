@@ -4,12 +4,20 @@ import React, {FormEvent} from 'react';
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
 import {InputString} from "@/components/ui/input/InputString";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {LineContentFill} from "@/components/ui/line-content/line-content-fill";
 import {RequestAuth} from "@/features/_auth/ts/request-auth";
 import {Inter} from "next/font/google";
 import Link from "next/link";
 import LogoSistema from "@/features/sistema/logo-sistema";
+import {
+    LoginCamposForumario,
+    LoginContainer,
+    LoginFormulario,
+    LoginFormularioCabecalho,
+    LoginLabel,
+    LoginLogoSistema
+} from './style/stylesLogin'
 
 const fontLogin = Inter({
     subsets: ['latin'],
@@ -35,19 +43,17 @@ export function FormularioLogin() {
     }
 
     return (
-        <div className={'bg-base-100/20 border-2 border-white rounded-lg p-15 backdrop-blor-md shadow-lg'}>
-            <form className={'flex flex-col gap-8 w-96'} onSubmit={handleSubmit}>
-                <div className={`flex items-center justify-between`}>
-                    <div className={`${fontLogin.className} text-semibold text-[24pt]`}>
-                        Login
-                    </div>
-                    <div
-                        className={`flex items-center justify-center gap-3 text-center p-4 text-[15pt] font-semibold`}>
-                        <LogoSistema width={100} height={50}/>
-                    </div>
-                </div>
+        <LoginContainer>
+            <LoginFormulario onSubmit={handleSubmit}>
 
-                <div className={`flex flex-col gap-2`}>
+                <LoginFormularioCabecalho>
+                    <LoginLabel classNameFont={fontLogin.className}>Login</LoginLabel>
+                    <LoginLogoSistema>
+                        <LogoSistema width={100} height={50}/>
+                    </LoginLogoSistema>
+                </LoginFormularioCabecalho>
+
+                <LoginCamposForumario>
                     <LineContentFill>
                         <InputString label={`Email`}
                                      entidade={autenticacao}
@@ -88,11 +94,13 @@ export function FormularioLogin() {
                                 Esqueci minha senha!
                               </span>
                         </Link>
-
                     </LineContentFill>
-                </div>
+
+                </LoginCamposForumario>
+
                 <Button buttonSize={`md`} type={'submit'}>Entrar</Button>
-            </form>
-        </div>
+
+            </LoginFormulario>
+        </LoginContainer>
     );
 }

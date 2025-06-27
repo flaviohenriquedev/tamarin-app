@@ -3,7 +3,7 @@
 import {UsuarioService} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-service";
 import {useCallback, useEffect, useState} from "react";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
@@ -12,7 +12,7 @@ import {InputCPF} from "@/components/ui/input/InputCPF";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {ComponenteUsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/componente-usuario-perfil";
 import {usuarioColunasListagem} from "@/features/manager/gestaoUsuario/usuario/ts/usuario-colunas-listagem";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 
 import './css/style.css'
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";

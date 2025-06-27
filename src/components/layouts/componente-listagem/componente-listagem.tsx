@@ -1,8 +1,8 @@
 'use client'
 
 import {usePathname, useRouter} from "next/navigation";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 import {Plus} from "lucide-react";
 import {ReactNode} from "react";
 

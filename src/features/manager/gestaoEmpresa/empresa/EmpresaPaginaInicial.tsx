@@ -17,8 +17,8 @@ import {DualListbox} from "@/components/ui/dual-listbox/dual-listbox";
 import {DualListboxType, DualListboxValue} from "@/components/ui/dual-listbox/ts/DualListboxType";
 import {EmpresaSistema} from "@/features/manager/gestaoEmpresa/empresaSistema/ts/empresa-sistema";
 import {SistemaENUM, SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 import {Table} from "@/components/ui/table/Table";
 import {sistemasModulos} from "@/features/sistema/sistemasModulos";
 

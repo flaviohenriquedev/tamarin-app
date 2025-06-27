@@ -8,7 +8,7 @@ import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {
     ColaboradorEndereco
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/ColaboradorEndereco";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 
 const cidadeService = new CidadeService();
 export default function PaginaTeste() {

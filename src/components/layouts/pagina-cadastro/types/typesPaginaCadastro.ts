@@ -1,4 +1,4 @@
-import {ButtonStyle} from "@/components/ui/button/button";
+import {ButtonStyle} from "@/components/ui/button/Button";
 
 export type AcaoAdicional = {
     label: string;

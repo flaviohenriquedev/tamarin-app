@@ -3,13 +3,16 @@ import React from "react";
 import {SistemaType} from "@/features/sistema/types";
 import {SistemaENUMFactory} from "@/features/sistema/enums/SistemaENUM";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
+import {
+    classesCardSistema
+} from "@/components/layouts/pagina-selecionar-sistema/cards/style/styleCardsSelecionarSistema";
 
 type Props = {
     sistema: SistemaType;
 }
 
 export function CardSistema({sistema}: Props) {
-    const { selecionarSistema } = useSistemaContext();
+    const {selecionarSistema} = useSistemaContext();
 
     return (
         <>
@@ -24,23 +27,7 @@ export function CardSistema({sistema}: Props) {
                         delay: 0.1
                     }}
                     whileHover={{scale: 1.05}}
-                    className={`
-                                    bg-base-100
-                                    text-md
-                                    flex
-                                    items-center
-                                    gap-4
-                                    text-neutral-400
-                                    w-full
-                                    cursor-pointer
-                                    font-normal
-                                    p-4
-                                    rounded-lg
-                                    shadow-[-6px_8px_47px_-25px_rgba(0,_0,_0,_0.1)]
-                                    transition-colors
-                                    duration-200
-                                    hover:text-primary
-                                `}
+                    className={classesCardSistema()}
                 >
                     {sistema.icone}
                     <span>{SistemaENUMFactory.getDescricao(sistema.sistema)}</span>

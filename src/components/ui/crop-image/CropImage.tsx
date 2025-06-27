@@ -3,9 +3,9 @@ import {ChangeEvent, ReactNode, useRef, useState} from "react";
 import {CircleDashed, Pencil, SquareDashed, Trash} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
 import Cropper, {Area} from "react-easy-crop";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 
 type Props = {
     children: ReactNode;

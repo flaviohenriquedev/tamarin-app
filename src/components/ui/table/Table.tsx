@@ -7,8 +7,8 @@ import {AcoesTabela, PageConfig} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
 import {MdDelete} from "react-icons/md";
 import Modal from "@/components/ui/modal/modal";
-import {Button} from "@/components/ui/button/button";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {Button} from "@/components/ui/button/Button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {Paginacao} from "@/components/ui/table/paginacao/Paginacao";
 

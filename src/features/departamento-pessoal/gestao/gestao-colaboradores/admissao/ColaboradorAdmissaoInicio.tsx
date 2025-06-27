@@ -14,7 +14,7 @@ import {
     StatusColaboradorFactory
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
 import {formatDateBR} from "@/utils/utils";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
 import {useCropImage} from "@/components/ui/crop-image/hook/useCropImage";
 import {Form} from "@/components/ui/form/form";
@@ -60,7 +60,7 @@ import {
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
 import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Tooltip} from "@/components/ui/tooltip/Tooltip";
 
 const colaboradorService = new ColaboradorService();
@@ -260,7 +260,13 @@ export function ColaboradorAdmissaoInicio() {
         <>
             <PaginaCadastro funcaoAtualizarLista={atualizar}
                             acoesAdicionais={acoesAdicionais}>
-                <div className={`flex flex-col gap-3 overflow-x-auto min-h-[70vh] max-h-[70vh]`}>
+                <div className={`
+                        flex
+                        flex-col
+                        gap-3
+                        overflow-x-auto
+                        min-h-[70vh]
+                        max-h-[70vh]`}>
                     {listaColaboradores && listaColaboradores.map(cl => (
                         <div key={cl.id}
                              className={`flex items-center w-full justify-between bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
@@ -340,7 +346,13 @@ export function ColaboradorAdmissaoInicio() {
                             </ButtonGroup>
                         </div>
 
-                        <div className={`w-full overflow-y-scroll pb-10`}>
+                        <div className={`
+                            w-full
+                            overflow-y-scroll
+                            scrollbar-thumb-primary/40
+                            scrollbar-track-transparent
+                            scrollbar-thin
+                            pb-10`}>
                             <Fieldset label={`Dados Pessoais`} largura={`w-full`} className={`bg-base-100 shadow-md`}>
                                 <LineContent>
                                     <InputString

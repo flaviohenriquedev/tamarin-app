@@ -1,7 +1,7 @@
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {ReactNode, useEffect, useState} from "react";
 import {openModal} from "@/utils/utils";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 
 type Props<T extends EntidadePadrao> = {
     children: ReactNode,

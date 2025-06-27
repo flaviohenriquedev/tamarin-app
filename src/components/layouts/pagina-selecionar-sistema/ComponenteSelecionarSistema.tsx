@@ -11,12 +11,21 @@ import {saudacoes} from "@/components/layouts/pagina-selecionar-sistema/ts/sauda
 import {SistemaENUM} from "@/features/sistema/enums/SistemaENUM";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import {logout} from "@/features/sistema/functions";
-import {CardsSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/CardsSelecionarSistema";
+import {CardsSelecionarSistema} from "@/components/layouts/pagina-selecionar-sistema/cards/CardsSelecionarSistema";
 import {sistemasModulosMaster} from "@/features/sistema/sistemasModulos";
+import {
+    SelecionarSistemaBotoes,
+    SelecionarSistemaCabecalho,
+    SelecionarSistemaCards,
+    SelecionarSistemaContainer,
+    SelecionarSistemaFrase,
+    SelecionarSistemaLabel,
+    SelecionarSistemaPagina
+} from './style/stylePaginaSelecionarSistema'
 
 const fonteNomeUsuario = Poppins({
     subsets: ['latin'],
-    weight: ['200', '700'], // ou outros pesos que tu for usar
+    weight: ['200', '700'],
 });
 
 export function ComponenteSelecionarSistema() {
@@ -46,32 +55,25 @@ export function ComponenteSelecionarSistema() {
     }
 
     return (
-        <main className={`
-              relative
-              flex
-              flex-col
-              items-center
-              w-screen
-              h-screen
-              gap-20
-            `}>
-            <div className={`w-[70%] h-[50%] mt-30`}>
+        <SelecionarSistemaPagina>
+            <SelecionarSistemaContainer>
                 {usuarioLogado && (
-                    <div className={`flex flex-col gap-4 w-full`}>
-                        <div className="flex items-center">
+                    <>
+                        <SelecionarSistemaCabecalho>
                             <motion.label
                                 initial={{opacity: 0, x: -20}}
                                 animate={{opacity: 1, x: 0}}
                                 transition={{duration: 0.6, ease: 'easeOut'}}
                                 className={`flex flex-col ${fonteNomeUsuario.className}`}
                             >
-                                <label className={`text-neutral-600 font-light text-[25pt]`}>Olá, <span
-                                    className={`text-primary`}>{nomeUsuario}</span>. {saudacao}</label>
-                                <label className={`text-md italic`}>{`"${frase}"`}</label>
+                                <SelecionarSistemaLabel>
+                                    Olá, <span className={`text-primary`}>{nomeUsuario}</span>. {saudacao}
+                                </SelecionarSistemaLabel>
+
+                                <SelecionarSistemaFrase>{`"${frase}"`}</SelecionarSistemaFrase>
                             </motion.label>
 
-                            {/* Botão com animação de entrada e efeito hover animado */}
-                            <div className={`flex items-center gap-2 ml-auto`}>
+                            <SelecionarSistemaBotoes>
                                 {usuarioLogado.usuarioMaster && (
                                     <motion.button
                                         onClick={navigateToAdminSystem}
@@ -95,15 +97,15 @@ export function ComponenteSelecionarSistema() {
                                 >
                                     <LogOut size={30}/>
                                 </motion.button>
-                            </div>
-                        </div>
-                        <div className={`flex items-center justify-center w-full h-full`}>
-                            <CardsSelecionarSistema/>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </main>
-    )
+                            </SelecionarSistemaBotoes>
+                        </SelecionarSistemaCabecalho>
 
+                        <SelecionarSistemaCards>
+                            <CardsSelecionarSistema/>
+                        </SelecionarSistemaCards>
+                    </>
+                )}
+            </SelecionarSistemaContainer>
+        </SelecionarSistemaPagina>
+    )
 }

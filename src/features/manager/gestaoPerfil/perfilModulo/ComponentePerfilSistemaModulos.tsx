@@ -8,7 +8,7 @@ import {ListChecks} from "lucide-react";
 import Modal from "@/components/ui/modal/modal";
 import {Checkbox} from "@/components/ui/checkbox/checkbox";
 import {LineContent} from "@/components/ui/line-content/line-content";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {FuncionalidadeEnum} from "@/enums/FuncionalidadeEnum";
 import {PerfilModulo} from "@/features/manager/gestaoPerfil/perfilModulo/entidade/PerfilModulo";
 import {useUsuarioLogado} from "@/features/manager/gestaoUsuario/usuario/context/usuarioLogadoContext";

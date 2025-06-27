@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {FormularioLogin} from "@/features/_auth/formulario-login";
+import {ComponenteLogin} from "@/features/_auth/ComponenteLogin";
 
 export default function PaginaLogin() {
     const [mounted, setMounted] = useState(false);
@@ -22,8 +22,6 @@ export default function PaginaLogin() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-system">
-            <FormularioLogin/>
-        </div>
+        <ComponenteLogin/>
     );
 }

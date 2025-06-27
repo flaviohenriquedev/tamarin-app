@@ -4,6 +4,7 @@
 
 @plugin "daisyui";
 @plugin 'tailwind-scrollbar';
+
 /*noinspection ALL*/
 @plugin "daisyui/theme" {
     name: "light";

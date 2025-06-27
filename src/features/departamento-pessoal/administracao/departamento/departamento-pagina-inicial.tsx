@@ -13,8 +13,8 @@ import {Departamento} from "@/features/departamento-pessoal/administracao/depart
 import {
     departamentoColunasListagem
 } from "@/features/departamento-pessoal/administracao/departamento/ts/departamento-colunas-listagem";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 import {AcaoSalvar} from "@/features/sistema/types";
 
 const service = new DepartamentoService();

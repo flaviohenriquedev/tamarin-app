@@ -6,8 +6,8 @@ import {Table} from "@/components/ui/table/Table";
 import {useCallback, useState} from "react";
 import Modal from "@/components/ui/modal/modal";
 import {Form} from "@/components/ui/form/form";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {

@@ -1,8 +1,8 @@
 import {ReactElement} from "react";
 import './style.css'
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
-import {ButtonGroup} from "@/components/ui/button/button-group";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {AcaoAdicional} from "@/components/layouts/pagina-cadastro/types/typesPaginaCadastro";
 
 type Props = {

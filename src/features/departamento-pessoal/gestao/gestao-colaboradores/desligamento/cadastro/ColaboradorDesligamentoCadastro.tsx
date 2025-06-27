@@ -13,8 +13,8 @@ import {
 import {BuscaColaborador} from "@/features/departamento-pessoal/gestao/gestao-ferias/components/BuscaColaborador";
 import {LineContent} from "@/components/ui/line-content/line-content";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
-import {ButtonGroup} from "@/components/ui/button/button-group";
-import {Button} from "@/components/ui/button/button";
+import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
+import {Button} from "@/components/ui/button/Button";
 import {Form} from "@/components/ui/form/form";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {

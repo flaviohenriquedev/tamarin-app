@@ -3,7 +3,7 @@
 import {TabType} from "@/components/ui/tab/ts/TabType";
 import {Fragment, useState} from "react";
 import {ChevronsLeft, ChevronsRight} from "lucide-react";
-import {Button} from "@/components/ui/button/button";
+import {Button} from "@/components/ui/button/Button";
 
 type Props = {
     tabs: TabType[];
