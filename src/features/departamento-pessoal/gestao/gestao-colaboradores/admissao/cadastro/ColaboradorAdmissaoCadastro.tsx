@@ -21,11 +21,17 @@ import {
 import {
     AdmissaoTabs
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/cadastro/components/AdmissaoTabs";
+import {useSearchParams} from "next/navigation";
+import {getBooleanFromString} from "@/utils/utils";
 
 const service = new ColaboradorService();
 
 export function ColaboradorAdmissaoCadastro() {
-    const [openModal, setOpenModal] = useState<boolean>(false);
+
+    const searchParams = useSearchParams();
+    const cdt = searchParams.get('cdt');
+
+    const [openModal, setOpenModal] = useState<boolean>(getBooleanFromString(cdt));
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
     const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());

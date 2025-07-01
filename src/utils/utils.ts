@@ -131,3 +131,7 @@ export function getImagemFromBase64(base: string) {
     }
     return ''
 }
+
+export function getBooleanFromString(v: string | null): boolean {
+    return v === 'true';
+}

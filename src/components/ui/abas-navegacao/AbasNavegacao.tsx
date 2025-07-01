@@ -49,9 +49,6 @@ export function AbasNavegacao({modulo}: Props) {
                                         rounded-lg
                                         px-2
                                         py-1
-                                        shadow-md
-                                        border
-                                        border-base-300
                                         transition-all duration-300 ease-in-out
                                         ${pathName === aba.href
                                                                 ? 'bg-primary text-primary-content'

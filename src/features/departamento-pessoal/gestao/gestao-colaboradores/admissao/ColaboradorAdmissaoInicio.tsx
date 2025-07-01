@@ -247,8 +247,13 @@ export function ColaboradorAdmissaoInicio() {
     }
     
     const redirect = useCallback((url: string) => {
-        route.push(url);
+        route.push(`${url}?cdt=true`);
     }, [route])
+
+    const redirectComId = useCallback((url: string, id: string) => {
+        const params = new URLSearchParams({ id, cdt: 'true' });
+        route.push(`${url}?${params.toString()}`);
+    }, [route]);
 
     const acoesAdicionais: AcaoAdicional[] = [
         {
@@ -320,10 +325,24 @@ export function ColaboradorAdmissaoInicio() {
                                 </div>
                             </div>
                             <div className={`flex items-center gap-2 p-4`}>
+                                
                                 <Button buttonStyle={`info`}
+                                        buttonSize={`xs`}
                                         buttonClass={`soft`}
                                         icone={icones.eye}
-                                        onClick={() => selecionarColaborador(cl)}>Detalhes</Button>
+                                        onClick={() => selecionarColaborador(cl)} />
+
+                                <Button buttonStyle={`success`}
+                                        buttonSize={`xs`}
+                                        buttonClass={`soft`}
+                                        icone={icones.tree}
+                                        onClick={() => redirectComId('/app/dp/gestao/colaborador/ferias', cl.id)} />
+
+                                <Button buttonStyle={`error`}
+                                        buttonSize={`xs`}
+                                        buttonClass={`soft`}
+                                        icone={icones.x}
+                                        onClick={() => redirectComId('/app/dp/gestao/colaborador/desligamento', cl.id)} />
                             </div>
                         </div>
                     ))}
@@ -627,7 +646,6 @@ export function ColaboradorAdmissaoInicio() {
                                                     </div>
                                                 </div>
                                             </Label>
-
                                         </LineContent>
                                     </Fieldset>
 

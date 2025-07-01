@@ -21,6 +21,7 @@ import {
     ScanEye,
     Settings,
     SquarePen,
+    TreePalm,
     User,
     UserCog,
     UserRoundSearch,
@@ -55,5 +56,6 @@ export const icones = {
     save: <Save size={tamanhoIcone} />,
     edit: <SquarePen size={tamanhoIcone} />,
     x: <X size={tamanhoIcone} />,
-    plus: <Plus size={tamanhoIcone}/>
+    plus: <Plus size={tamanhoIcone}/>,
+    tree: <TreePalm size={tamanhoIcone}/>
 };

@@ -22,12 +22,17 @@ import {
     StatusColaboradorENUM
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
 import {set} from "lodash";
+import {useSearchParams} from "next/navigation";
+import {getBooleanFromString} from "@/utils/utils";
 
 const colaboradorFeriasService = new ColaboradorFeriasService();
-
 export function ColaboradorFeriasPaginaInicial() {
 
     const [colaboradorFerias, setColaboradorFerias] = useState<ColaboradorFerias>(new ColaboradorFerias());
+
+    const searchParams = useSearchParams();
+    const idColaborador = searchParams.get('id');
+    const cdt = searchParams.get('cdt');
 
     const clear = useCallback(() => {
         setColaboradorFerias(new ColaboradorFerias())
@@ -43,7 +48,8 @@ export function ColaboradorFeriasPaginaInicial() {
         pageConfig
     } = usePaginaCadastro<ColaboradorFerias, ColaboradorFeriasService>({
         service: colaboradorFeriasService,
-        onCloseModal: clear
+        onCloseModal: clear,
+        iniciarModalAberto: getBooleanFromString(cdt)
     })
 
     const novo = useCallback(() => {
@@ -81,7 +87,7 @@ export function ColaboradorFeriasPaginaInicial() {
                    onCloseModal={clear}>
                 <Form onSubmit={onSubmit} className={`min-h-[100%]`}>
                     <div className={`flex flex-col gap-6`}>
-                        <BuscaColaborador entidade={colaboradorFerias} atributo={`colaborador`}/>
+                        <BuscaColaborador entidade={colaboradorFerias} atributo={`colaborador`} idColaborador={idColaborador}/>
                         <LineContent>
                             <InputDataCompleta
                                 label={`Periodo Inicial`}

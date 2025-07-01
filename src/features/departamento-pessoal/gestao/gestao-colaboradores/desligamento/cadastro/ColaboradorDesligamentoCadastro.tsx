@@ -22,12 +22,17 @@ import {
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/desligamento/ts/TipoDesligamentoCLTEnum";
 import {InputRadio} from "@/components/ui/input/inputRadio/InputRadio";
 import {TrueFalseFactory} from "@/features/_root/enums/TrueFalseENUM";
-import {isTrue} from "@/utils/utils";
+import {getBooleanFromString, isTrue} from "@/utils/utils";
 import {Label} from "@/components/ui/label/Label";
+import {useSearchParams} from "next/navigation";
 
 const desligamentoService = new ColaboradorDesligamentoService();
 
 export function ColaboradorDesligamentoCadastro() {
+
+    const searchParams = useSearchParams();
+    const idColaborador = searchParams.get('id');
+    const cdt = searchParams.get('cdt');
 
     const [habilitarAvisoPrevio, setHabilitarAvisoPrevio] = useState<boolean>(false);
     const [colaboradorDesligamento, setColaboradorDesligamento] = useState<ColaboradorDesligamento>(new ColaboradorDesligamento());
@@ -44,7 +49,7 @@ export function ColaboradorDesligamentoCadastro() {
     } = usePaginaCadastro<ColaboradorDesligamento, ColaboradorDesligamentoService>({
         service: desligamentoService,
         onCloseModal: clear,
-        iniciarModalAberto: false
+        iniciarModalAberto: getBooleanFromString(cdt)
     })
 
     const novo = useCallback(() => {
@@ -72,18 +77,19 @@ export function ColaboradorDesligamentoCadastro() {
                 <Form onSubmit={onSubmit} className={`min-h-[100%]`}>
                     <div className={`flex flex-col gap-6`}>
                         <BuscaColaborador entidade={colaboradorDesligamento}
-                                          atributo={`colaborador`}/>
+                                          atributo={`colaborador`}
+                                          idColaborador={idColaborador}/>
                         <LineContent>
                             <SelectItem
                                 label={`Tipo Desligamento`}
                                 entidade={colaboradorDesligamento}
                                 fieldValor={'tipoDesligamento'}
-                                values={new TipoDesligamentoCLTFactory().getSelectItens()} />
+                                values={new TipoDesligamentoCLTFactory().getSelectItens()}/>
 
                             <InputDataCompleta
                                 label={`Data Desligamento`}
                                 entidade={colaboradorDesligamento}
-                                atributo={'dataDesligamento'} />
+                                atributo={'dataDesligamento'}/>
                         </LineContent>
 
                         <LineContent>
@@ -101,13 +107,13 @@ export function ColaboradorDesligamentoCadastro() {
                                 disabled={!habilitarAvisoPrevio}
                                 label={`Data Início Aviso`}
                                 entidade={colaboradorDesligamento}
-                                atributo={`dataInicioAvisoPrevio`} />
+                                atributo={`dataInicioAvisoPrevio`}/>
 
                             <InputDataCompleta
                                 disabled={!habilitarAvisoPrevio}
                                 label={`Data Início Aviso`}
                                 entidade={colaboradorDesligamento}
-                                atributo={`dataFimAvisoPrevio`} />
+                                atributo={`dataFimAvisoPrevio`}/>
                         </LineContent>
                     </div>
                     <ButtonGroup>
