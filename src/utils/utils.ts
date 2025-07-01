@@ -81,7 +81,6 @@ export function dataValida(date: Date): boolean {
 }
 
 export function aplicarMascaraData(valor: string): string {
-    // Remove tudo que não for número
     const numeros = valor.replace(/\D/g, '');
 
     let resultado = '';

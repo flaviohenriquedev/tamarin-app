@@ -27,13 +27,13 @@ export function TabGroup({tabs, classNameChildren}: Props) {
 
     return (
         <div className="w-full">
-            <div className="flex gap-2 tabs tabs-xs tabs-box">
+            <div className="flex gap-2 tabs tabs-xs tabs-box p-2 rounded-lg">
                 {tabs.map((tab: TabType, index: number) => (
                     <Fragment key={tab.label}>
                         <input
                             type="radio"
                             name="my_tabs_1"
-                            className="tab cursor-default px-3"
+                            className={`tab px-3 rounded-lg`}
                             aria-label={tab.label}
                             checked={tabAtiva === index}
                             onChange={() => setTabAtiva(index)}
@@ -42,6 +42,7 @@ export function TabGroup({tabs, classNameChildren}: Props) {
                             tab-content
                             border-base-300
                             bg-base-100
+                            rounded-lg
                             p-2 ${classNameChildren ? classNameChildren : ''}`}>
                             {tab.children}
                         </div>
@@ -49,7 +50,7 @@ export function TabGroup({tabs, classNameChildren}: Props) {
                 ))}
             </div>
 
-            <div className="mt-4 flex justify-end items-center gap-2 border-b border-neutral-200 pb-3">
+            <div className="mt-4 flex justify-end items-center gap-2 border-b-2 border-base-200 pb-3">
                 <Button
                     buttonStyle={`primary`}
                     onClick={retornar}

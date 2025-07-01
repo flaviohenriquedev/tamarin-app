@@ -129,6 +129,7 @@ export function ItemListaMenu({rota}: Props) {
                             {rota.subRoute.map((subRota) => (
                                 <li key={subRota.id}>
                                     <div className={`
+                                                cursor-pointer
                                                 px-10
                                                 overflow-x-hidden
                                                 truncate
@@ -138,27 +139,31 @@ export function ItemListaMenu({rota}: Props) {
                                                 h-8
                                                 transition-transform
                                                 duration-200
-                                            `}
-                                         onClick={() => navigate(subRota)}>
+                                            `}>
                                         {mostrarSubMenu && (
                                             <div
+                                                onClick={() => navigate(subRota)}
                                                 className={`
                                                         flex
                                                         items-center
                                                         w-full
                                                         h-full
                                                         border-l
-                                                        border-base-content/10
+                                                        border-transparent
                                                         gap-2
-                                                        transition-transform
+                                                        transition-all
+                                                        ease-in-out
                                                         duration-200
+                                                        rounded-lg
+                                                        font-light
                                                         text-base-content
                                                         hover:text-primary
-                                                        hover:font-bold
+                                                        hover:bg-primary/10
+                                                        hover:border-base-content/10
                                                     `}
                                             >
-                                                <label><Dot/></label>
-                                                <label className="text-[10pt] font-normal">{subRota.title}</label>
+                                                <Dot/>
+                                                <span className="text-[10pt]">{subRota.title}</span>
                                             </div>
                                         )}
                                     </div>

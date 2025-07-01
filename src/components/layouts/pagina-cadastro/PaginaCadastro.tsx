@@ -20,8 +20,9 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
                     {acoesAdicionais?.map(acao => (
                         <Button key={acao.label}
                                 buttonStyle={acao.estilo}
-                                buttonSize={`sm`}
-                                onClick={acao.acao}>
+                                buttonSize={acao.size}
+                                onClick={acao.acao}
+                                icone={acao.icone}>
                             {acao.label}
                         </Button>
                     ))}

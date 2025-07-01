@@ -19,9 +19,6 @@ import {
 import {ModuloPlanoSaude} from "@/features/recursos-humanos/gestao-beneficios/plano-saude/modulo-plano-saude";
 import {ModuloConvenios} from "@/features/recursos-humanos/gestao-beneficios/convenios/modulo-convenios";
 import {ModuloRescisoes} from "@/features/recursos-humanos/gestao-desligamentos/rescisoes/modulo-rescisoes";
-import {ModuloFerias} from "@/features/departamento-pessoal/gestao-ferias/modulo-ferias";
-import {ModuloAfastamento} from "@/features/departamento-pessoal/gestao-afastamento/modulo-afastamento";
-import {ModuloDesligamento} from "@/features/departamento-pessoal/gestao-desligamento/moduloDesligamento";
 import {ModuloDepartamentos} from "@/features/departamento-pessoal/administracao/departamento/ts/modulo-departamentos";
 import {ModuloSetores} from "@/features/departamento-pessoal/administracao/setores/ts/modulo-setores";
 import {ModuloCargos} from "@/features/departamento-pessoal/administracao/cargo/ts/modulo-cargos";
@@ -39,10 +36,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
         title: 'Gestão',
         icon: icones.colaboradores,
         subRoute: [
-            ModuloColaboradores.infos(),
-            ModuloFerias.infos(),
-            ModuloAfastamento.infos(),
-            ModuloDesligamento.infos(),
+            ModuloColaboradores.infos()
         ]
     },
     {

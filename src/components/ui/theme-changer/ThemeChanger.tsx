@@ -24,7 +24,7 @@ export const ThemeChanger = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="relative cursor-pointer border border-base-300 bg-base-100 shadow-sm rounded-lg px-8 w-10 text-base-content h-full flex items-center justify-center overflow-hidden"
+            className="relative cursor-pointer bg-base-100 hover:shadow-sm rounded-full p-4 w-8 h-8 text-base-content flex items-center justify-center overflow-hidden"
         >
             <AnimatePresence mode="wait" initial={false}>
                 {resolvedTheme === "dark" ? (

@@ -156,7 +156,7 @@ export function ColaboradorAdmissaoInicio() {
     })
 
     useEffect(() => {
-        colaboradorService.listarColaboradoresAtivos().then(result => {
+        colaboradorService.listar().then(result => {
             setListaColaboradores(result);
         })
     }, []);
@@ -166,14 +166,10 @@ export function ColaboradorAdmissaoInicio() {
     }
 
     const atualizar = useCallback(() => {
-        colaboradorService.listarColaboradoresAtivos().then(result => {
+        colaboradorService.listar().then(result => {
             setListaColaboradores(result);
         })
     }, [])
-
-    function redirecionarParaAdmissao() {
-        route.push('/app/dp/gestao/admissao/cadastro')
-    }
 
     function selecionarColaborador(cl: Colaborador) {
         setColaborador(cl);
@@ -249,12 +245,39 @@ export function ColaboradorAdmissaoInicio() {
             set(colaboradorCargo, 'cargaHoraria', null)
         }
     }
+    
+    const redirect = useCallback((url: string) => {
+        route.push(url);
+    }, [route])
 
     const acoesAdicionais: AcaoAdicional[] = [
         {
-            label: 'Nova Admissão',
+            label: 'Admissão',
+            estilo: 'info',
+            size: 'sm',
+            icone: icones.plus,
+            acao: () => redirect('/app/dp/gestao/colaborador/admissao'),
+        },
+        {
+            label: 'Férias',
             estilo: 'success',
-            acao: redirecionarParaAdmissao
+            size: 'sm',
+            icone: icones.plus,
+            acao: () => redirect('/app/dp/gestao/colaborador/ferias'),
+        },
+        {
+            label: 'Afastamento',
+            estilo: 'warning',
+            size: 'sm',
+            icone: icones.plus,
+            acao: () => redirect('/app/dp/gestao/colaborador/afastamento'),
+        },
+        {
+            label: 'Desligamento',
+            estilo: 'error',
+            size: 'sm',
+            icone: icones.plus,
+            acao: () => redirect('/app/dp/gestao/colaborador/desligamento'),
         }
     ]
 
@@ -271,7 +294,7 @@ export function ColaboradorAdmissaoInicio() {
                         max-h-[70vh]`}>
                     {listaColaboradores && listaColaboradores.map(cl => (
                         <div key={cl.id}
-                             className={`flex items-center w-full justify-between text-base-content bg-base-100 rounded-2xl p-3 border border-base-300 shadow-md`}>
+                             className={`flex items-center w-full justify-between text-base-content bg-base-100 rounded-default px-3 py-2 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
                                 <Avatar tamanho={`grande`} imagem={cl.base64}/>
                                 <div className={`flex flex-col gap-1`}>
@@ -630,19 +653,6 @@ export function ColaboradorAdmissaoInicio() {
                             </Fieldset>
                         </div>
                     </div>
-                    {/*<div className={`flex flex-col gap-2 h-full`}>*/}
-
-                    {/*    <div>*/}
-                    {/*        <label*/}
-                    {/*            className={`text-[15pt] font-semibold text-neutral-600`}>{colaborador.nomeCompleto}</label>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<ButtonGroup>*/}
-                    {/*    <Button*/}
-                    {/*        type={`submit`}*/}
-                    {/*        buttonSize={`md`}*/}
-                    {/*    >Salvar</Button>*/}
-                    {/*</ButtonGroup>*/}
                 </Form>
             </Modal>
         </>

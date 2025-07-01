@@ -25,7 +25,7 @@ import {
 const service = new ColaboradorService();
 
 export function ColaboradorAdmissaoCadastro() {
-    const [openModal, setOpenModal] = useState<boolean>(true);
+    const [openModal, setOpenModal] = useState<boolean>(false);
     const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
 
     const [entidade, setEntidade] = useState<Colaborador>(new Colaborador());

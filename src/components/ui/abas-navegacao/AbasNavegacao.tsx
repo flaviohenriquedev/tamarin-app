@@ -24,10 +24,10 @@ export function AbasNavegacao({modulo}: Props) {
         }
     }, [modulo, sistemaSelecionado]);
 
-
     const onClickTab = (href: string) => {
         route.push(href);
     }
+
     return (
         <div className={`
                         flex
@@ -37,12 +37,28 @@ export function AbasNavegacao({modulo}: Props) {
                         shadow-[0px_4px_6px_0px_rgba(0,_0,_0,_0.1)]
                         rounded-lg
                         backdrop-blur-sm`}>
-            <ul className={`flex items-center h-full gap-4 px-2 py-1`}>
+            <ul className={`flex items-center h-full px-2 py-1 gap-1`}>
                 {moduloInfo?.abas && moduloInfo.abas.map((aba, index) => (
                     <li key={index}
-                        onClick={() => onClickTab(aba.href)}
-                        className={`${pathName === aba.href ? 'border-primary text-primary' : 'border-transparent'} cursor-pointer py-1 border-b-2 text-sm text-base-content`}>
-                        {aba.title}
+                        className={`text-[9pt]`}
+                    >
+                        <div
+                            onClick={() => onClickTab(aba.href)}
+                            className={`
+                                        cursor-pointer
+                                        rounded-lg
+                                        px-2
+                                        py-1
+                                        shadow-md
+                                        border
+                                        border-base-300
+                                        transition-all duration-300 ease-in-out
+                                        ${pathName === aba.href
+                                                                ? 'bg-primary text-primary-content'
+                                                                : 'text-base-content/70 bg-transparent'}
+                                    `}>
+                            {aba.title}
+                        </div>
                     </li>
                 ))}
             </ul>

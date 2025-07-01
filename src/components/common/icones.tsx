@@ -16,6 +16,7 @@ import {
     ListRestart,
     LogOut,
     PinOff,
+    Plus,
     Save,
     ScanEye,
     Settings,
@@ -53,5 +54,6 @@ export const icones = {
     eyeSquare: <ScanEye size={tamanhoIcone}/>,
     save: <Save size={tamanhoIcone} />,
     edit: <SquarePen size={tamanhoIcone} />,
-    x: <X size={tamanhoIcone} />
+    x: <X size={tamanhoIcone} />,
+    plus: <Plus size={tamanhoIcone}/>
 };

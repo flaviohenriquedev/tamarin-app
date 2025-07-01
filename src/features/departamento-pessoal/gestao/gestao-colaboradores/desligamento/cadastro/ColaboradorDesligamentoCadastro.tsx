@@ -44,7 +44,7 @@ export function ColaboradorDesligamentoCadastro() {
     } = usePaginaCadastro<ColaboradorDesligamento, ColaboradorDesligamentoService>({
         service: desligamentoService,
         onCloseModal: clear,
-        iniciarModalAberto: true
+        iniciarModalAberto: false
     })
 
     const novo = useCallback(() => {

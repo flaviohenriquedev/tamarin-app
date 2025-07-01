@@ -52,20 +52,20 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
 
     return (
         <div
-            className={`flex bg-base-100 items-center rounded-lg text-sm shadow-md h-full px-3 py-2 text-base-content/60`}>
+            className={`flex bg-base-100 items-center rounded-lg text-sm shadow-sm border border-base-300 h-full px-3 py-2 text-base-content/60`}>
 
             <div className={`relative w-48`}>
                 <div className={`flex items-center`}>
                     <label className={`truncate`}><strong>{`${empresa.nomeFantasia ? empresa.nomeFantasia : 'Selecione uma empresa'}`}</strong></label>
                     <button
-                        className={`h-full ml-auto w-fit p-1 border-2 border-neutral-200 rounded-lg cursor-pointer transition-transform duration-200 active:scale-90`}
+                        className={`h-full ml-auto w-fit p-1 border-2 border-base-300 rounded-lg cursor-pointer transition-transform duration-200 active:scale-90`}
                         onClick={() => setMostrarListaEmpresas(!mostrarListaEmpresas)}>
                         <Grip size={16}/>
                     </button>
                 </div>
 
                 {mostrarListaEmpresas && usuarioLogado.dadosAcesso && (
-                    <ul className={`absolute bg-base-100 rounded-lg z-50 border border-neutral-300 mt-2 shadow-md`}>
+                    <ul className={`absolute bg-base-100 rounded-lg z-50 border border-base-300 mt-2 shadow-md`}>
                         {usuarioLogado.dadosAcesso.map(da => (
                             <li key={da.empresa.id}
                                 className={`
@@ -75,7 +75,7 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
                                 rounded-lg
                                 border-2
                                 truncate
-                                ${empresa.id === da.empresa.id ? 'border-primary' : 'border-neutral-200'}
+                                ${empresa.id === da.empresa.id ? 'border-primary' : 'border-base-300'}
                             `}
                                 onClick={() => onSelectDadosAcesso(da)}>
                                 {da.empresa.nomeFantasia}
@@ -93,14 +93,16 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
                     </label>
 
                     <button
-                        className={`h-full ml-auto w-fit p-1 border-2 border-neutral-200 rounded-lg cursor-pointer transition-transform duration-200 active:scale-90`}
+                        className={`
+                            h-full ml-auto w-fit p-1 border-2 border-base-300 rounded-lg cursor-pointer transition-transform duration-200 active:scale-90
+                        `}
                         onClick={() => setMostrarListaSistemas(!mostrarListaSistemas)}>
                         <Grip size={16}/>
                     </button>
                 </div>
 
                 {mostrarListaSistemas && (
-                    <ul className={`absolute bg-base-100 rounded-lg z-50 border border-neutral-300 mt-2 shadow-md`}>
+                    <ul className={`absolute bg-base-100 rounded-lg z-50 border border-base-300 mt-2 shadow-md`}>
                         {listaSistemas.map(st => (
                             <li key={st.sistema}
                                 className={`
@@ -110,7 +112,7 @@ export function ComponenteSelecionarEmpresaSistema({sistema}: Props) {
                                 rounded-lg
                                 border-2
                                 truncate
-                                ${st.sistema === sistemaSelecionado?.sistema? 'border-primary' : 'border-neutral-200'}
+                                ${st.sistema === sistemaSelecionado?.sistema? 'border-primary' : 'border-base-300'}
                             `}
                                 onClick={() => onSelectSistema(st)}>
                                 {SistemaENUMFactory.getDescricao(st.sistema)}
