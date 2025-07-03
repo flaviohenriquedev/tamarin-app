@@ -105,7 +105,7 @@ export function ColaboradorDesligamentoInicio() {
                             <div className={`flex items-center gap-2 p-4`}>
                                 <Button buttonStyle={`info`}
                                         buttonClass={`soft`}
-                                        icone={icones.eye}
+                                        icone={icones.eye()}
                                         onClick={() => selecionarDesligamento(dl)}>Detalhes</Button>
                             </div>
                         </div>

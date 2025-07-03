@@ -15,9 +15,9 @@ export function Avatar() {
                 </div>
             </div>
             <ul tabIndex={0} className="flex flex-col text-xs gap-2 dropdown-content cursor-default p-3 menu bg-base-100 rounded-box z-1 w-52 shadow-sm">
-                <li onClick={logout}><span className={`cursor-default flex items-center`}>{icones.config} Configurações</span></li>
+                <li onClick={logout}><span className={`cursor-default flex items-center`}>{icones.config()} Configurações</span></li>
                 <hr className={`border-base-content/30`}/>
-                <li onClick={logout}><span className={`cursor-default flex items-center`}>{icones.logout} Logout</span></li>
+                <li onClick={logout}><span className={`cursor-default flex items-center`}>{icones.logout()} Logout</span></li>
             </ul>
         </div>
     )

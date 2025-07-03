@@ -21,7 +21,7 @@ export const rotasRecursosHumanos: RouteType[] = [
     {
         id: 'rh-treinamentos',
         title: 'Treinamentos',
-        icon: icones.treinamentos,
+        icon: icones.treinamentos(),
         subRoute: [
             ModuloCursos.infos(),
             ModuloAvaliacoesDesempenho.infos(),
@@ -31,7 +31,7 @@ export const rotasRecursosHumanos: RouteType[] = [
     {
         id: 'rh-recrutamento-selecao',
         title: 'Recrutamento e Seleção',
-        icon: icones.recrutamentoSelecao,
+        icon: icones.recrutamentoSelecao(),
         subRoute: [
             ModuloVagas.infos(),
             ModuloSelecaoCandidatos.infos(),
@@ -41,7 +41,7 @@ export const rotasRecursosHumanos: RouteType[] = [
     {
         id: 'rh-controle-acesso',
         title: 'Controle de Acesso',
-        icon: icones.usuario,
+        icon: icones.usuario(),
         subRoute: [
             ModuloGestoPerfil.infos(),
             ModuloGestaoUsuario.infos()

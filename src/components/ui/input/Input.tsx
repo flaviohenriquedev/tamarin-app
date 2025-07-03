@@ -1,15 +1,15 @@
-import React, {InputHTMLAttributes, useEffect} from "react";
+import React, {InputHTMLAttributes} from "react";
 import {inputStyle} from "@/components/ui/input/style";
 import {Label} from "@/components/ui/label/Label";
 import clsx from "clsx";
-import {useFormContext} from "@/components/ui/form/context/useFormContext";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     className?: string;
 }
 
-export function Input({   id,
+export function Input({
+                          id,
                           placeholder,
                           name,
                           maxLength,
@@ -22,15 +22,8 @@ export function Input({   id,
                           onKeyDown,
                           required,
                           className,
-                          label}: Props) {
-
-    const {somenteLeitura, setSomenteLeitura} = useFormContext();
-
-    useEffect(() => {
-        if (disabled !== null && disabled !== undefined) {
-            setSomenteLeitura(disabled);
-        }
-    }, [disabled, setSomenteLeitura]);
+                          label
+                      }: Props) {
 
     const classesContainer = clsx(
         'flex flex-col gap-1',
@@ -46,7 +39,7 @@ export function Input({   id,
     return (
         <div className={`${classesContainer}`}>
             {label && (
-                <Label htmlFor={name ? name : ''} title={label} required={required} />
+                <Label htmlFor={name ? name : ''} title={label} required={required}/>
             )}
             <input
                 className={`${classesInput}`}
@@ -57,7 +50,7 @@ export function Input({   id,
                 maxLength={maxLength}
                 type={type ? type : "text"}
                 autoComplete={autoComplete}
-                disabled={somenteLeitura}
+                disabled={disabled}
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}

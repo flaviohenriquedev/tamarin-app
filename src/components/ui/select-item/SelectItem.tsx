@@ -7,7 +7,6 @@ import {AnimatePresence, motion} from "framer-motion";
 import clsx from "clsx";
 import {Label} from "@/components/ui/label/Label";
 import {ChevronDown} from "lucide-react";
-import {useFormContext} from "@/components/ui/form/context/useFormContext";
 
 type Props<E> = {
     entidade: E;
@@ -39,14 +38,6 @@ export function SelectItem<E extends object>({
     const [showList, setShowList] = useState(false);
     const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
     const refContainer = useRef<HTMLDivElement>(null);
-
-    const {somenteLeitura, setSomenteLeitura} = useFormContext();
-
-    useEffect(() => {
-        if (disabled !== null && disabled !== undefined) {
-            setSomenteLeitura(disabled);
-        }
-    }, [disabled, setSomenteLeitura]);
 
     useEffect(() => {
         if (values && values.length > 0) {
@@ -124,7 +115,7 @@ export function SelectItem<E extends object>({
             )}
             <div className={`relative ${widthClass ? widthClass : 'min-w-52'}`}>
                 <div
-                    tabIndex={somenteLeitura ? -1 : tabIndex}
+                    tabIndex={disabled ? -1 : tabIndex}
                     className={clsx(
                         "input bg-transparent input-md rounded-lg border-base-300 shadow-[-6px_5px_5px_-5px_rgba(0,_0,_0,_0.1)]",
                         "focus:outline-none focus:border-primary duration-300 focus:shadow-[0_0_8px_3px_rgba(0,153,255,0.2)]",
@@ -133,7 +124,7 @@ export function SelectItem<E extends object>({
                     )}
                 >
                     <div
-                        onClick={() => !somenteLeitura && handleShowList()}
+                        onClick={() => !disabled && handleShowList()}
                         className="py-4 flex items-center w-full h-full"
                     >
                         {getLabel(itemSelecionado)}
@@ -142,14 +133,14 @@ export function SelectItem<E extends object>({
                     <div className="flex items-center gap-1 text-neutral-500">
                         {itemSelecionado && (
                             <label className="cursor-pointer rounded-full border-2 border-transparent transition-all ease-in-out duration-300 active:scale-75 hover:shadow-md hover:border-primary">
-                                <MdClear size={18} onClick={() => !somenteLeitura && clear()} />
+                                <MdClear size={18} onClick={() => !disabled && clear()} />
                             </label>
                         )}
                         <label className={clsx(
                             "cursor-pointer rounded-full border-2 border-transparent transition-all ease-in-out duration-300 active:scale-75 hover:shadow-md hover:border-primary",
                             showList ? 'rotate-180' : 'rotate-0'
                         )}>
-                            <ChevronDown size={18} onClick={() => !somenteLeitura && handleShowList()} />
+                            <ChevronDown size={18} onClick={() => !disabled && handleShowList()} />
                         </label>
                     </div>
                 </div>
@@ -172,7 +163,7 @@ export function SelectItem<E extends object>({
                 </AnimatePresence>
 
                 {/* Aqui tá a sobreposição que resolve o problema */}
-                {somenteLeitura && (
+                {disabled && (
                     <div className="
                           absolute
                           inset-0

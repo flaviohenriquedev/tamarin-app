@@ -62,7 +62,6 @@ import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/carg
 import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-contrato/ts/tipo-contrato";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Tooltip} from "@/components/ui/tooltip/Tooltip";
-import {useFormContext} from "@/components/ui/form/context/useFormContext";
 import {Input} from "@/components/ui/input/Input";
 
 const colaboradorService = new ColaboradorService();
@@ -75,7 +74,7 @@ const cargaHorariaService = new CargaHorariaService();
 
 export function ColaboradorAdmissaoInicio() {
     const route = useRouter();
-    const {setSomenteLeitura} = useFormContext()
+
     const [listaColaboradores, setListaColaboradores] = useState<Colaborador[]>([]);
     const [colaborador, setColaborador] = useState<Colaborador>(new Colaborador());
     const [colaboradorCargo, setColaboradorCargo] = useState<ColaboradorCargo>(new ColaboradorCargo());
@@ -194,13 +193,15 @@ export function ColaboradorAdmissaoInicio() {
         if (cepColaborador) {
             viaCepServie.getEndereco(cepColaborador).then(result => {
                 if (result) {
-                    setColaborador({...colaborador, colaboradorEndereco: {
-                        ...colaborador.colaboradorEndereco,
+                    setColaborador({
+                        ...colaborador, colaboradorEndereco: {
+                            ...colaborador.colaboradorEndereco,
                             rua: result.logradouro,
                             bairro: result.bairro,
                             complemento: result.complemento,
                             cidade: result.cidade
-                        }})
+                        }
+                    })
                 }
             })
         }
@@ -245,13 +246,13 @@ export function ColaboradorAdmissaoInicio() {
             set(colaboradorCargo, 'cargaHoraria', null)
         }
     }
-    
+
     const redirect = useCallback((url: string) => {
         route.push(`${url}?cdt=true`);
     }, [route])
 
     const redirectComId = useCallback((url: string, id: string) => {
-        const params = new URLSearchParams({ id, cdt: 'true' });
+        const params = new URLSearchParams({id, cdt: 'true'});
         route.push(`${url}?${params.toString()}`);
     }, [route]);
 
@@ -260,28 +261,28 @@ export function ColaboradorAdmissaoInicio() {
             label: 'Admissão',
             estilo: 'info',
             size: 'sm',
-            icone: icones.plus,
+            icone: icones.plus(),
             acao: () => redirect('/app/dp/gestao/colaborador/admissao'),
         },
         {
             label: 'Férias',
             estilo: 'success',
             size: 'sm',
-            icone: icones.plus,
+            icone: icones.plus(),
             acao: () => redirect('/app/dp/gestao/colaborador/ferias'),
         },
         {
             label: 'Afastamento',
             estilo: 'warning',
             size: 'sm',
-            icone: icones.plus,
+            icone: icones.plus(),
             acao: () => redirect('/app/dp/gestao/colaborador/afastamento'),
         },
         {
             label: 'Desligamento',
             estilo: 'error',
             size: 'sm',
-            icone: icones.plus,
+            icone: icones.plus(),
             acao: () => redirect('/app/dp/gestao/colaborador/desligamento'),
         }
     ]
@@ -294,9 +295,14 @@ export function ColaboradorAdmissaoInicio() {
                         flex
                         flex-col
                         gap-3
-                        overflow-x-auto
-                        min-h-[70vh]
-                        max-h-[70vh]`}>
+                        overflow-y-auto
+                        overflow-x-hidden
+                        scrollbar-thumb-primary/40
+                        scrollbar-track-transparent
+                        scrollbar-thin
+                        pb-10
+                        min-h-[65vh]
+                        max-h-[65vh]`}>
                     {listaColaboradores && listaColaboradores.map(cl => (
                         <div key={cl.id}
                              className={`flex items-center w-full justify-between text-base-content bg-base-100 rounded-default px-3 py-2 border border-base-300 shadow-md`}>
@@ -325,24 +331,38 @@ export function ColaboradorAdmissaoInicio() {
                                 </div>
                             </div>
                             <div className={`flex items-center gap-2 p-4`}>
-                                
-                                <Button buttonStyle={`info`}
-                                        buttonSize={`xs`}
-                                        buttonClass={`soft`}
-                                        icone={icones.eye}
-                                        onClick={() => selecionarColaborador(cl)} />
 
-                                <Button buttonStyle={`success`}
-                                        buttonSize={`xs`}
-                                        buttonClass={`soft`}
-                                        icone={icones.tree}
-                                        onClick={() => redirectComId('/app/dp/gestao/colaborador/ferias', cl.id)} />
+                                <Tooltip label={'Informações'}>
+                                    <Button buttonStyle={`info`}
+                                            buttonSize={`xs`}
+                                            buttonClass={`soft`}
+                                            icone={icones.eye(15)}
+                                            onClick={() => selecionarColaborador(cl)}/>
+                                </Tooltip>
 
-                                <Button buttonStyle={`error`}
-                                        buttonSize={`xs`}
-                                        buttonClass={`soft`}
-                                        icone={icones.x}
-                                        onClick={() => redirectComId('/app/dp/gestao/colaborador/desligamento', cl.id)} />
+                                <Tooltip label={'Férias'}>
+                                    <Button buttonStyle={`success`}
+                                            buttonSize={`xs`}
+                                            buttonClass={`soft`}
+                                            icone={icones.tree(15)}
+                                            onClick={() => redirectComId('/app/dp/gestao/colaborador/ferias', cl.id)}/>
+                                </Tooltip>
+
+                                <Tooltip label={'Afastamento'}>
+                                    <Button buttonStyle={`warning`}
+                                            buttonSize={`xs`}
+                                            buttonClass={`soft`}
+                                            icone={icones.usuarioBloqueado(15)}
+                                            onClick={() => redirectComId('/app/dp/gestao/colaborador/afastamento', cl.id)}/>
+                                </Tooltip>
+
+                                <Tooltip label={'Desligamento'}>
+                                    <Button buttonStyle={`error`}
+                                            buttonSize={`xs`}
+                                            buttonClass={`soft`}
+                                            icone={icones.x(15)}
+                                            onClick={() => redirectComId('/app/dp/gestao/colaborador/desligamento', cl.id)}/>
+                                </Tooltip>
                             </div>
                         </div>
                     ))}
@@ -357,7 +377,8 @@ export function ColaboradorAdmissaoInicio() {
                 <Form onSubmit={onSubmit}
                       className={`h-full`}>
                     <div className={`flex gap-2 p-2 bg-base-200 rounded-default h-full`}>
-                        <div className={`flex flex-col px-3 pb-6 pt-3 gap-4 w-fit h-fit bg-base-100 rounded-[1.5rem] shadow-sm`}>
+                        <div
+                            className={`flex flex-col px-3 pb-6 pt-3 gap-4 w-fit h-fit bg-base-100 rounded-[1.5rem] shadow-sm`}>
                             <CropImage
                                 clearImage={clearImage}
                                 imageSrc={imageSrc}
@@ -372,20 +393,19 @@ export function ColaboradorAdmissaoInicio() {
                             <label className={`italic flex justify-center`}>{colaborador.nomeCompleto}</label>
 
                             <ButtonGroup>
-                                <Tooltip label={`Salvar`}>
-                                    <Button icone={icones.save} buttonStyle={`info`}/>
+                                <Tooltip label={`Salvar`} className={`w-full`}>
+                                    <Button
+                                        className={`w-full`}
+                                        icone={icones.save()}
+                                        type={`submit`}
+                                        buttonStyle={`info`}/>
                                 </Tooltip>
 
-                                <Tooltip label={`Editar`}>
-                                    <Button onClick={() => setSomenteLeitura(false)} icone={icones.edit} buttonStyle={`warning`}/>
-                                </Tooltip>
-
-                                <Tooltip label={`Ativar`}>
-                                    <Button icone={icones.check} buttonStyle={`success`}/>
-                                </Tooltip>
-
-                                <Tooltip label={`Inativar`}>
-                                    <Button icone={icones.x} buttonStyle={`error`}/>
+                                <Tooltip label={`Editar`} className={`w-full`}>
+                                    <Button
+                                        className={`w-full`}
+                                        icone={icones.edit()}
+                                        buttonStyle={`warning`}/>
                                 </Tooltip>
                             </ButtonGroup>
                         </div>
@@ -474,7 +494,7 @@ export function ColaboradorAdmissaoInicio() {
                                         label={`Email`}
                                         name={'email'}
                                         atributo={`email`}
-                                        type={'email' }
+                                        type={'email'}
                                         entidade={colaborador}
                                     />
 

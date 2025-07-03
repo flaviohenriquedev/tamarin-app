@@ -13,6 +13,11 @@ type Props = {
 }
 
 export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, children, acoesAdicionais}: Props) {
+
+    function handleNovoCadastro() {
+        if (funcaoNovoCadastro) funcaoNovoCadastro();
+    }
+
     return (
         <div>
             <header className={`header-pagina-cadastro `}>
@@ -32,7 +37,7 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
                             buttonStyle={`info`}
                             onClick={funcaoAtualizarLista}
                         >
-                            {icones.reload}
+                            {icones.reload()}
                         </Button>
                     )}
                     {funcaoNovoCadastro && (

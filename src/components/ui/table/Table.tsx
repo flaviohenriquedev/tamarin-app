@@ -51,7 +51,7 @@ export function Table<E extends object>({
     function renderRow() {
         return lista && lista.length > 0 ? lista.map(item => {
             return (
-                <tr key={Math.random()}>
+                <tr key={Math.random()} className={`text-base-content text-xs`}>
                     {getColunaCheck(item)}
                     {renderRowItem(item)}
                     {getAcoes(item)}

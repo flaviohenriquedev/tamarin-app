@@ -9,7 +9,7 @@ export const ModuloGestaoEmpresa: ModulosType = {
             id: 'gerenciarsistema-empresas',
             title: 'Cadastro',
             modulo: ModuloENUM.GESTAO_EMPRESA,
-            icon: icones.empresa,
+            icon: icones.empresa(),
             href: '/app/manager/empresas',
             funcionalidades: this.funcionalidades()
         };

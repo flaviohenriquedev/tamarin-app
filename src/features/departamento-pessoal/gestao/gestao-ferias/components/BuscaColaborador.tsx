@@ -48,10 +48,13 @@ export function BuscaColaborador<E>({entidade, atributo, idColaborador}: Props<E
     useEffect(() => {
         if (idColaborador) {
             colaboradorService.buscarPorId(idColaborador).then(result => {
-                if (result) setColaborador(result);
+                if (result) {
+                    setColaborador(result)
+                    if (entidade) set(entidade, atributo, result)
+                }
             })
         }
-    }, [idColaborador]);
+    }, [atributo, entidade, idColaborador]);
 
     return (
         <Fieldset label={`Colaborador`} largura={'w-[50rem]'}>

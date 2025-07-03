@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactElement} from "react";
 import {ModuloENUM} from "@/enums/ModuloEnum";
 import {FuncionalidadeEnum, FuncionalidadeInfo} from "@/enums/FuncionalidadeEnum";
 
@@ -11,7 +11,7 @@ export type InfosModuloType = {
     id: string,
     modulo: ModuloENUM,
     title: string,
-    icon?: ReactNode,
+    icon?: ReactElement,
     href: string,
     funcionalidades: Partial<Record<FuncionalidadeEnum, FuncionalidadeInfo>>;
     abas?: InfosModuloType[];

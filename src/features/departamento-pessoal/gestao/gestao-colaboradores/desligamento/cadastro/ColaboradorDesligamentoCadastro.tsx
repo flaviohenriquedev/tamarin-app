@@ -45,7 +45,8 @@ export function ColaboradorDesligamentoCadastro() {
         isOpenModal,
         setIsOpenModal,
         salvar,
-        setAcaoSalvar
+        setAcaoSalvar,
+        refresh
     } = usePaginaCadastro<ColaboradorDesligamento, ColaboradorDesligamentoService>({
         service: desligamentoService,
         onCloseModal: clear,
@@ -66,7 +67,8 @@ export function ColaboradorDesligamentoCadastro() {
 
     return (
         <>
-            <PaginaCadastro funcaoNovoCadastro={novo}>
+            <PaginaCadastro funcaoNovoCadastro={novo}
+                            funcaoAtualizarLista={refresh}>
                 <div>Cadastro Desligamento</div>
             </PaginaCadastro>
 

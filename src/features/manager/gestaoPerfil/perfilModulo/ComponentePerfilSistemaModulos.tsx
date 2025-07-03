@@ -150,7 +150,7 @@ export function ComponentePerfilSistemaModulos({
                 <div className={`flex flex-col gap-4 p-4`}>
                     <ul className={'grid grid-cols-4 gap-2 p-5 bg-base-200 rounded-sm'}>
                         {funcionalidadesSelectItens && funcionalidadesSelectItens.map((funcionalidade) => (
-                            <li key={funcionalidade.value}
+                            <li key={funcionalidade.value as string}
                                 className={`
                                         flex
                                         items-center

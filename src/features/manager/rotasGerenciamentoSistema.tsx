@@ -7,7 +7,7 @@ export const rotasGerenciamentoSistema: RouteType[] = [
     {
         id: 'gerenciar-sistema-empresas',
         title: 'Empresas',
-        icon: icones.empresa,
+        icon: icones.empresa(),
         subRoute: [
             ModuloGestaoEmpresa.infos(),
         ]
@@ -15,7 +15,7 @@ export const rotasGerenciamentoSistema: RouteType[] = [
     {
         id: 'gerenciar-sistema-dominio',
         title: 'Dominio',
-        icon: icones.configGeral,
+        icon: icones.configGeral(),
         subRoute: [
             ModuloGestaoLocalidade.infos(),
         ]

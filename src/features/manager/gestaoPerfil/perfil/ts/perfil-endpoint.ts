@@ -2,18 +2,22 @@ import {EndPointType} from "@/types/_root/EndPointType";
 import {MetodoHTTP} from "@/enums/MetodoHTTPEnum";
 
 export const perfilEndPoints: EndPointType = {
-    listar: {
+    buscarPorId: {
+        caminho: '/:id',
         metodo: MetodoHTTP.GET
     },
-    salvar: {
-        metodo: MetodoHTTP.POST
+    deletar: {
+        caminho: '/:id',
+        metodo: MetodoHTTP.DELETE
     },
     editar: {
         caminho: '/:id',
         metodo: MetodoHTTP.PUT
     },
-    deletar: {
-        caminho: '/:id',
-        metodo: MetodoHTTP.DELETE
+    listar: {
+        metodo: MetodoHTTP.GET
+    },
+    salvar: {
+        metodo: MetodoHTTP.POST
     }
 }

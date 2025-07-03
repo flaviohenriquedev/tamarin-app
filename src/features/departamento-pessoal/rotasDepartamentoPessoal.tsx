@@ -34,7 +34,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-gestao',
         title: 'Gestão',
-        icon: icones.colaboradores,
+        icon: icones.colaboradores(),
         subRoute: [
             ModuloColaboradores.infos()
         ]
@@ -42,7 +42,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-folha-pagamento',
         title: 'Folha de Pagamento',
-        icon: icones.folhaPagamento,
+        icon: icones.folhaPagamento(),
         subRoute: [
             ModuloLancamentos.infos(),
             ModuloEventos.infos(),
@@ -52,7 +52,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-ponto-frequencia',
         title: 'Ponto e Frequência',
-        icon: icones.pontoFrequencia,
+        icon: icones.pontoFrequencia(),
         subRoute: [
             ModuloRegistroDePonto.infos(),
             ModuloJornadas.infos(),
@@ -62,7 +62,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-beneficios',
         title: 'Benefícios',
-        icon: icones.beneficios,
+        icon: icones.beneficios(),
         subRoute: [
             ModuloValeTransporte.infos(),
             ModuloValeAlimentacao.infos(),
@@ -73,7 +73,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-desligamentos',
         title: 'Desligamentos',
-        icon: icones.desligamentos,
+        icon: icones.desligamentos(),
         subRoute: [
             ModuloRescisoes.infos()
         ]
@@ -81,7 +81,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-administracao',
         title: 'Administração',
-        icon: icones.administracao,
+        icon: icones.administracao(),
         subRoute: [
             ModuloCargos.infos(),
             ModuloDepartamentos.infos(),
@@ -93,7 +93,7 @@ export const rotasDepartamentoPessoal: RouteType[] = [
     {
         id: 'dp-controle-acesso',
         title: 'Controle de Acesso',
-        icon: icones.usuario,
+        icon: icones.usuario(),
         subRoute: [
             ModuloGestoPerfil.infos(),
             ModuloGestaoUsuario.infos()

@@ -3,7 +3,6 @@ import {inputStyle} from "@/components/ui/input/style";
 import React, {InputHTMLAttributes, useEffect, useState} from "react";
 import {get, set} from "lodash";
 import {Label} from "@/components/ui/label/Label";
-import {useFormContext} from "@/components/ui/form/context/useFormContext";
 
 interface Props<E> extends InputHTMLAttributes<HTMLInputElement> {
     atributo: string;
@@ -27,13 +26,6 @@ export function InputMoeda<E>({
                               }: Props<E>) {
 
     const [valor, setValor] = useState<string | undefined>();
-    const {somenteLeitura, setSomenteLeitura} = useFormContext();
-
-    useEffect(() => {
-        if (disabled !== null && disabled !== undefined) {
-            setSomenteLeitura(disabled);
-        }
-    }, [disabled, setSomenteLeitura]);
 
     useEffect(() => {
         const valorEntidade = get(entidade, atributo);
@@ -60,7 +52,7 @@ export function InputMoeda<E>({
                 id={id}
                 className={inputStyle}
                 placeholder={placeholder}
-                disabled={somenteLeitura}
+                disabled={disabled}
                 value={valor}
                 thousandSeparator="."
                 decimalSeparator=","

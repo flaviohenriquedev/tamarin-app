@@ -1,6 +1,7 @@
 import {ModulosType} from "@/types/_root/ModulosTypes";
 import {ModuloENUM} from "@/enums/ModuloEnum";
 import {FuncionalidadeFactory} from "@/enums/FuncionalidadeEnum";
+import {icones} from "@/components/common/icones";
 
 export const ModuloColaboradores: ModulosType = {
     infos() {
@@ -32,6 +33,7 @@ const AbaAdmissaoInicio: ModulosType = {
             id: 'gestao-admissao-inicio',
             modulo: ModuloENUM.GESTAO_COLABORADORES,
             title: 'Colaboradores',
+            icon: icones.usuarios(14),
             href: '/app/dp/gestao/colaborador',
             funcionalidades: this.funcionalidades(),
         };
@@ -49,6 +51,7 @@ const AbaAdmissaoCadastro: ModulosType = {
             id: 'gestao-admissao-cadastro',
             modulo: ModuloENUM.GESTAO_COLABORADORES,
             title: 'Admissão',
+            icon: icones.usuarioPlus(14),
             href: '/app/dp/gestao/colaborador/admissao',
             funcionalidades: this.funcionalidades(),
         };
@@ -66,6 +69,7 @@ const AbaAfastamento: ModulosType = {
             id: 'gestao-afastamento-cadastro',
             modulo: ModuloENUM.GESTAO_COLABORADORES,
             title: 'Afastamento',
+            icon: icones.usuarioBloqueado(14),
             href: '/app/dp/gestao/colaborador/afastamento',
             funcionalidades: this.funcionalidades(),
         };
@@ -83,6 +87,7 @@ const AbaFerias: ModulosType = {
             id: 'gestao-afastamento-cadastro',
             modulo: ModuloENUM.GESTAO_COLABORADORES,
             title: 'Férias',
+            icon: icones.tree(14),
             href: '/app/dp/gestao/colaborador/ferias',
             funcionalidades: this.funcionalidades(),
         };
@@ -100,6 +105,7 @@ const AbaDesligamentoCadastro: ModulosType = {
             id: 'gestao-desligamento-cadastro',
             modulo: ModuloENUM.GESTAO_DESLIGAMENTO,
             title: 'Desligamento',
+            icon: icones.usuarioMinus(14),
             href: '/app/dp/gestao/colaborador/desligamento',
             funcionalidades: this.funcionalidades(),
         };

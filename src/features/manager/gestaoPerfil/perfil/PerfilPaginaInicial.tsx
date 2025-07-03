@@ -117,7 +117,7 @@ export function PerfilPaginaInicial() {
                             required/>
                     </LineContent>
 
-                    <div className={`relative cad-perfil-container gap-2 h-auto min-h-[30rem] max-h-[40rem]`}>
+                    <div className={`relative cad-perfil-container gap-2 h-auto min-h-[20rem] max-h-[40rem]`}>
                         <ComponentePerfilSistemaModulos
                             perfil={perfil}
                             className={'cad-perfil-module'}
