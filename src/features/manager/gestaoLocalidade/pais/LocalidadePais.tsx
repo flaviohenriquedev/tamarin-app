@@ -4,7 +4,7 @@ import {paisColunasListagem} from "@/features/manager/gestaoLocalidade/pais/ts/p
 import {useCallback, useEffect, useState} from "react";
 import {PaisService} from "@/features/manager/gestaoLocalidade/pais/ts/PaisService";
 import {Pais} from "@/features/manager/gestaoLocalidade/pais/ts/Pais";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/Modal";

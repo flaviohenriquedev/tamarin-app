@@ -1,12 +1,10 @@
 'use client'
 
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import {CidadeService} from "@/features/manager/gestaoLocalidade/cidade/ts/CidadeService";
 import {Cidade} from "@/features/manager/gestaoLocalidade/cidade/ts/Cidade";
 import {cidadeColunasListagem} from "@/features/manager/gestaoLocalidade/cidade/ts/cidadeColunasListagem";
-import {toast} from "sonner";
-import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/Form";
@@ -21,11 +19,29 @@ import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
 import {set} from "lodash";
+import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
 
-const service = new CidadeService();
+const cidadeService = new CidadeService();
 const estadoService = new EstadoService();
 
 export function LocalidadeCidade() {
+    const [entidade, setEntidade] = useState<Cidade>(new Cidade());
+
+    const clear = useCallback(() => {
+        setEntidade(new Cidade())
+    }, [])
+    const {
+        isOpenModal,
+        setIsOpenModal,
+        setAcaoSalvar,
+        refresh,
+        listaEntidade,
+        salvar,
+        deletar
+    } = usePaginaCadastro<Cidade, CidadeService>({
+        service: cidadeService,
+        onCloseModal: clear,
+    })
 
     const {selectItens: selectItensEstado} = useSelectItem({
         service: estadoService,
@@ -33,75 +49,47 @@ export function LocalidadeCidade() {
         fieldDescricao: 'nome',
     })
 
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [acaoSalvar, setAcaoSalvar] = useState<AcaoSalvar>()
-
-    const [entidade, setEntidade] = useState<Cidade>(new Cidade());
-    const [listaEntidades, setListaEntidades] = useState<Cidade[]>([]);
-
-    useEffect(() => {
-        service.listar().then(result => {
-            setListaEntidades(result)
-        });
-    }, []);
-
-    const onSelectEstado = useCallback((item: TSelectItem) => {
-        const estado: Estado = new Estado();
-        estado.id = item.value as string;
-        set(entidade, 'estado', estado);
+    const onSelectEstado = useCallback((item: TSelectItem | null) => {
+        if (item) {
+            const estado: Estado = new Estado();
+            estado.id = item.value as string;
+            set(entidade, 'estado', estado);
+        }
     }, [entidade])
-
-    const atualizarLista = useCallback(() => {
-        service.listar().then(result => {
-            setListaEntidades(result)
-        });
-    }, []);
-
-    function salvar() {
-        service.salvar(entidade, () => {
-            setEntidade(new Cidade());
-            atualizarLista();
-            toast.success("Registro salvo com sucesso.");
-            if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
-        }).then()
-    }
-
-    const clear = () => {
-        setEntidade(new Cidade())
-    }
 
     function consultar(entidade: Cidade) {
         setEntidade(entidade);
-        setOpenModal(true);
+        setIsOpenModal(true);
     }
 
-    function excluir(entidade: Cidade) {
-        service.excluir(entidade.id).then(() => {
-            atualizarLista();
-            toast.success("Cadastro deletado.")
-        })
+    function handleDelete(entidade: Cidade) {
+        void deletar(entidade.id);
     }
 
     function handleNovoCadastro() {
         setEntidade(new Cidade())
-        setOpenModal(true);
+        setIsOpenModal(true);
+    }
+
+    function onSubmit() {
+        void salvar(entidade);
     }
 
     return (
         <>
-            <PaginaCadastro funcaoAtualizarLista={atualizarLista}
+            <PaginaCadastro funcaoAtualizarLista={refresh}
                             funcaoNovoCadastro={handleNovoCadastro}>
                 <Table
-                    funcaoAtualizarLista={atualizarLista}
-                    lista={listaEntidades}
+                    funcaoAtualizarLista={refresh}
+                    lista={listaEntidade}
                     colunas={cidadeColunasListagem}
-                    acoesTabela={{consultar: consultar, excluir: excluir}}/>
+                    acoesTabela={{consultar: consultar, excluir: handleDelete}}/>
             </PaginaCadastro>
             <Modal title={'Cadastro de Cidade'}
-                   isOpen={openModal}
-                   setIsOpen={setOpenModal}
+                   isOpen={isOpenModal}
+                   setIsOpen={setIsOpenModal}
                    onCloseModal={clear}>
-                <Form onSubmit={salvar}>
+                <Form onSubmit={onSubmit}>
 
                     <LineContent>
                         <InputString

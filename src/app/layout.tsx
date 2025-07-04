@@ -3,10 +3,8 @@ import {ReactNode} from "react";
 
 import "./globals.css";
 import ProvidersDefault from "@/providers/providers-default";
-import {Toaster} from "sonner";
-import {CircleCheckBig} from "lucide-react";
 import {Inter} from "next/font/google";
-
+import {ToastContainer} from 'react-toastify';
 
 export const metadata: Metadata = {
     title: "Gommo",
@@ -36,10 +34,7 @@ export default function RootLayout({
              ${inter.className}`}
         >
         <ProvidersDefault>
-            <Toaster richColors position={`top-center`} icons={{
-                success: <CircleCheckBig />,
-                error: <CircleCheckBig />
-            }}/>
+            <ToastContainer position={`top-center`}/>
             {children}
         </ProvidersDefault>
         </body>

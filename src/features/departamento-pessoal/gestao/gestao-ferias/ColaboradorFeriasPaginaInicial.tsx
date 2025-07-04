@@ -22,21 +22,26 @@ import {
     StatusColaboradorENUM
 } from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/enum/StatusColaboradorENUM";
 import {set} from "lodash";
-import {useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {getBooleanFromString} from "@/utils/utils";
 
 const colaboradorFeriasService = new ColaboradorFeriasService();
 export function ColaboradorFeriasPaginaInicial() {
-
+    const route = useRouter();
     const [colaboradorFerias, setColaboradorFerias] = useState<ColaboradorFerias>(new ColaboradorFerias());
 
     const searchParams = useSearchParams();
     const idColaborador = searchParams.get('id');
     const cdt = searchParams.get('cdt');
 
+    const clearUrlParams = useCallback(() => {
+        route.push(window.location.pathname)
+    }, [route])
+
     const clear = useCallback(() => {
-        setColaboradorFerias(new ColaboradorFerias())
-    }, [])
+        setColaboradorFerias(new ColaboradorFerias());
+        clearUrlParams();
+    }, [clearUrlParams])
 
     const {
         listaEntidade,
@@ -58,7 +63,7 @@ export function ColaboradorFeriasPaginaInicial() {
 
     function onSubmit() {
         set(colaboradorFerias, 'colaborador.statusColaborador', StatusColaboradorENUM.FERIAS);
-        salvar(colaboradorFerias).then()
+        void salvar(colaboradorFerias)
     }
 
     function consultar(cf: ColaboradorFerias) {

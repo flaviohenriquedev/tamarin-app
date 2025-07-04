@@ -20,8 +20,19 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
 
     return (
         <div>
-            <header className={`header-pagina-cadastro `}>
-                <ButtonGroup className={`header-pagina-cadastro-botoes `}>
+            <header className={`flex items-center justify-between`}>
+                {funcaoAtualizarLista && (
+                    <ButtonGroup>
+                        <Button
+                            buttonSize={`sm`}
+                            buttonStyle={`info`}
+                            onClick={funcaoAtualizarLista}
+                        >
+                            {icones.reload()}
+                        </Button>
+                    </ButtonGroup>
+                )}
+                <ButtonGroup className={`header-pagina-cadastro-botoes ml-auto`}>
                     {acoesAdicionais?.map(acao => (
                         <Button key={acao.label}
                                 buttonStyle={acao.estilo}
@@ -31,15 +42,6 @@ export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, childr
                             {acao.label}
                         </Button>
                     ))}
-                    {funcaoAtualizarLista && (
-                        <Button
-                            buttonSize={`sm`}
-                            buttonStyle={`info`}
-                            onClick={funcaoAtualizarLista}
-                        >
-                            {icones.reload()}
-                        </Button>
-                    )}
                     {funcaoNovoCadastro && (
                         <Button
                             buttonSize={`sm`}

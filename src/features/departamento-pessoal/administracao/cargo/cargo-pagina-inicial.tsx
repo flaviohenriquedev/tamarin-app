@@ -2,7 +2,6 @@
 
 import {useCallback, useEffect, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {toast} from "sonner";
 import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/Form";
 import {LineContent} from "@/components/ui/line-content/line-content";
@@ -14,6 +13,7 @@ import {AcaoSalvar} from "@/features/sistema/types";
 import {CargoService} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-service";
 import {Cargo} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo";
 import {cargoColunasListagem} from "@/features/departamento-pessoal/administracao/cargo/ts/cargo-colunas-listagem";
+import toast from "react-hot-toast";
 
 const service = new CargoService();
 

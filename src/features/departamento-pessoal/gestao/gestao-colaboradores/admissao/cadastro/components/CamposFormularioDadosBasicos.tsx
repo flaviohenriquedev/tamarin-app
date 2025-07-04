@@ -17,7 +17,7 @@ import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
 import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
 import {ViaCepService} from "@/features/apis/viaCep/service/ViaCepService";
 import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
-import {InputTelefone} from "@/components/ui/input/InputTelefone";
+import {InputTelefone} from "@/components/ui/input/inputTelefone/InputTelefone";
 import {CropImage} from "@/components/ui/crop-image/CropImage";
 import {Avatar} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/admissao/Avatar";
 import {set} from "lodash";

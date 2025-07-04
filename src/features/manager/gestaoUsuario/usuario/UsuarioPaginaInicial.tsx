@@ -20,7 +20,6 @@ import {Usuario} from "@/features/manager/gestaoUsuario/usuario/ts/usuario";
 import {UsuarioPerfil} from "@/features/manager/gestaoUsuario/usuarioPerfis/ts/usuario-perfil";
 import {Perfil} from "@/features/manager/gestaoPerfil/perfil/ts/Perfil";
 import {AcaoSalvar} from "@/features/sistema/types";
-import {toast} from "sonner";
 import {PerfilService} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-service";
 import {
     ComponentePerfilSistemaModulos
@@ -28,6 +27,7 @@ import {
 import {RouteType} from "@/types/_root/RouteType";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import {getRotasPorSistema} from "@/features/sistema/functions";
+import toast from "react-hot-toast";
 
 const usuarioService = new UsuarioService()
 const perfilService = new PerfilService()

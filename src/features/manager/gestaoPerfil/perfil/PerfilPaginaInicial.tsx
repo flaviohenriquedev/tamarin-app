@@ -16,7 +16,7 @@ import './css/style.css'
 import {RouteType} from "@/types/_root/RouteType";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {perfilColunasListagem} from "@/features/manager/gestaoPerfil/perfil/ts/perfil-colunas-listagem";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import {
     ComponentePerfilSistemaModulos
 } from "@/features/manager/gestaoPerfil/perfilModulo/ComponentePerfilSistemaModulos";

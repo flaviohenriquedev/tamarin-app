@@ -16,8 +16,6 @@ type Props<E> = {
     funcaoAtualizarLista: () => void;
     lista: E[];
     colunas: ColunaType[];
-    funcaoEditar?: (entidade: E) => void;
-    funcaoDeletar?: (entidade: E) => void;
     acoesTabela?: AcoesTabela<E>;
     pageConfig?: PageConfig
     ocultarCheckbox?: boolean;
@@ -58,7 +56,7 @@ export function Table<E extends object>({
                 </tr>
             )
         }) : <tr>
-            <td>Nenhum dado encontrado</td>
+            <td className={'text-base-content/40'}>Nenhum dado encontrado</td>
         </tr>
     }
 

@@ -1,5 +1,5 @@
 // icones.ts
-import {MdOutlineAdminPanelSettings} from "react-icons/md";
+import {MdDelete, MdOutlineAdminPanelSettings} from "react-icons/md";
 import {IoIosArrowForward} from "react-icons/io";
 import {PiDotsThreeFill} from "react-icons/pi";
 import {HiOutlineDotsCircleHorizontal} from "react-icons/hi";
@@ -68,5 +68,6 @@ export const icones = {
     x: (size = tamanhoPadrao) => <X size={size}/>,
     plus: (size = tamanhoPadrao) => <Plus size={size}/>,
     tree: (size = tamanhoPadrao) => <TreePalm size={size}/>,
+    delete: (size = tamanhoPadrao) => <MdDelete size={size}/>
 };
 

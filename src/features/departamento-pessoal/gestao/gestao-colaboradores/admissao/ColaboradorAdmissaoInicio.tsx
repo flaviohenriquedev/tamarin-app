@@ -27,7 +27,7 @@ import {InputCPF} from "@/components/ui/input/InputCPF";
 import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 import {SelectItem} from "@/components/ui/select-item/SelectItem";
 import {EtniaFactory} from "@/features/_root/enums/EtniaENUM";
-import {InputTelefone} from "@/components/ui/input/InputTelefone";
+import {InputTelefone} from "@/components/ui/input/inputTelefone/InputTelefone";
 import {InputSearch} from "@/components/ui/input/inpustSearch/InputSearch";
 import {GeneroFactory} from "@/features/_root/enums/GeneroENUM";
 import {EstadoCivilFactory} from "@/features/_root/enums/EstadoCivilENUM";
@@ -315,9 +315,10 @@ export function ColaboradorAdmissaoInicio() {
                                         <label>{cl.matricula}</label>
                                     </div>
                                     <label className={`
-                                        text-[9pt]
+                                        text-[8pt]
                                         w-fit px-2 py-1
-                                        rounded-sm
+                                        rounded-full
+                                        font-semibold
                                         ${StatusColaboradorFactory.getInfo(cl.statusColaborador).bg}
                                     `}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</label>
                                 </div>
@@ -398,7 +399,7 @@ export function ColaboradorAdmissaoInicio() {
                                         className={`w-full`}
                                         icone={icones.save()}
                                         type={`submit`}
-                                        buttonStyle={`info`}/>
+                                        buttonStyle={`success`}/>
                                 </Tooltip>
 
                                 <Tooltip label={`Editar`} className={`w-full`}>
@@ -406,6 +407,13 @@ export function ColaboradorAdmissaoInicio() {
                                         className={`w-full`}
                                         icone={icones.edit()}
                                         buttonStyle={`warning`}/>
+                                </Tooltip>
+
+                                <Tooltip label={`Excluir registro`} className={`w-full`}>
+                                    <Button
+                                        className={`w-full`}
+                                        icone={icones.delete()}
+                                        buttonStyle={`error`}/>
                                 </Tooltip>
                             </ButtonGroup>
                         </div>

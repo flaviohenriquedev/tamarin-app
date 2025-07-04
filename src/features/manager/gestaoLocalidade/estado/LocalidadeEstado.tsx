@@ -5,7 +5,7 @@ import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastr
 import {EstadoService} from "@/features/manager/gestaoLocalidade/estado/ts/EstadoService";
 import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
 import {estadoColunasListagem} from "@/features/manager/gestaoLocalidade/estado/ts/estadoColunasListagem";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {Table} from "@/components/ui/table/Table";
 import Modal from "@/components/ui/modal/Modal";

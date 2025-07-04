@@ -2,7 +2,7 @@
 
 import {useCallback, useEffect, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/Form";
 import {LineContent} from "@/components/ui/line-content/line-content";

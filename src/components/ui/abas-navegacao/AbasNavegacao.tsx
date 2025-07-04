@@ -56,7 +56,7 @@ export function AbasNavegacao({modulo}: Props) {
                                         transition-all duration-300 ease-in-out
                                         ${pathName === aba.href
                                     ? 'bg-primary text-primary-content'
-                                    : 'text-base-content/70 bg-transparent'}
+                                    : 'text-base-content/70 hover:bg-base-300'}
                                     `}>
                                 {aba.icon}
                                 {aba.title}

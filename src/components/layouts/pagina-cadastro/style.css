@@ -4,21 +4,6 @@
     grid-template-rows: 1rem 1fr;
 }
 
-.header-pagina-cadastro {
-    display: grid;
-    grid-area: header-pagina-cadastro;
-    grid-template-areas: "header-pagina-cadastro-abas header-pagina-cadastro-botoes";
-    grid-template-columns: 1fr 1fr;
-}
-
 .content-pagina-cadastro {
     grid-area: content-pagina-cadastro;
-}
-
-.header-pagina-cadastro-abas {
-    grid-area: header-pagina-cadastro-abas;
-}
-
-.header-pagina-cadastro-botoes {
-    grid-area: header-pagina-cadastro-botoes;
 }

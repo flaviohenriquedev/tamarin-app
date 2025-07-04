@@ -1,5 +1,7 @@
 import {request} from "@/services/request";
 import {EndPointType, EndPontDetail} from "@/types/_root/EndPointType";
+import {getToastError} from "@/components/ui/toasts/toast-error/ToastError";
+import {getToastSuccess} from "@/components/ui/toasts/toast-success/ToastSuccess";
 
 export abstract class CrudService<E> {
 
@@ -32,7 +34,13 @@ export abstract class CrudService<E> {
             const resultado = await request<E | null>(
                 `${this.getURL(this.getBaseURL(), this.getEndpoint().salvar)}`,
                 this.getEndpoint().salvar?.metodo,
-                data);
+                data).then(response => {
+                getToastSuccess("Cadastro realizado com sucesso.")
+                return response
+            }).catch(error => {
+                getToastError(error.message);
+                return null
+            });
             if (callback) callback();
             return resultado;
         }

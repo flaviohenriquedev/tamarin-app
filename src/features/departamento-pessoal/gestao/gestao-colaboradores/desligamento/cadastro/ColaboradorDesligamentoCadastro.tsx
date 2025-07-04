@@ -1,6 +1,6 @@
 'use client'
 
-import {Fragment, useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
 import Modal from "@/components/ui/modal/Modal";
 import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
@@ -24,11 +24,17 @@ import {InputRadio} from "@/components/ui/input/inputRadio/InputRadio";
 import {TrueFalseFactory} from "@/features/_root/enums/TrueFalseENUM";
 import {getBooleanFromString, isTrue} from "@/utils/utils";
 import {Label} from "@/components/ui/label/Label";
-import {useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
+import {Table} from "@/components/ui/table/Table";
+import {
+    colunasColaboradorDesligamento
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/desligamento/cadastro/ts/colunasColaboradorDesligamento";
 
 const desligamentoService = new ColaboradorDesligamentoService();
 
 export function ColaboradorDesligamentoCadastro() {
+
+    const route = useRouter();
 
     const searchParams = useSearchParams();
     const idColaborador = searchParams.get('id');
@@ -37,16 +43,22 @@ export function ColaboradorDesligamentoCadastro() {
     const [habilitarAvisoPrevio, setHabilitarAvisoPrevio] = useState<boolean>(false);
     const [colaboradorDesligamento, setColaboradorDesligamento] = useState<ColaboradorDesligamento>(new ColaboradorDesligamento());
 
+    const clearUrlParams = useCallback(() => {
+        route.push(window.location.pathname)
+    }, [route])
+
     const clear = useCallback(() => {
         setColaboradorDesligamento(new ColaboradorDesligamento());
-    }, [])
+        clearUrlParams();
+    }, [clearUrlParams])
 
     const {
         isOpenModal,
         setIsOpenModal,
         salvar,
         setAcaoSalvar,
-        refresh
+        refresh,
+        listaEntidade
     } = usePaginaCadastro<ColaboradorDesligamento, ColaboradorDesligamentoService>({
         service: desligamentoService,
         onCloseModal: clear,
@@ -69,7 +81,9 @@ export function ColaboradorDesligamentoCadastro() {
         <>
             <PaginaCadastro funcaoNovoCadastro={novo}
                             funcaoAtualizarLista={refresh}>
-                <div>Cadastro Desligamento</div>
+                <Table funcaoAtualizarLista={refresh}
+                       lista={listaEntidade}
+                       colunas={colunasColaboradorDesligamento} />
             </PaginaCadastro>
 
             <Modal title={`Desligamento`}

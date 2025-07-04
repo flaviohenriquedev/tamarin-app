@@ -4,7 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {Empresa} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa";
 import {EmpresaService} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-service";
 import {PaginaCadastro} from "@/components/layouts/pagina-cadastro/PaginaCadastro";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import {empresaColunasListagem} from "@/features/manager/gestaoEmpresa/empresa/ts/empresa-colunas-listagem";
 import Modal from "@/components/ui/modal/Modal";
 import {Form} from "@/components/ui/form/Form";

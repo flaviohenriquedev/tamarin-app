@@ -6,7 +6,7 @@ import {Form} from "@/components/ui/form/Form";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Button} from "@/components/ui/button/Button";
 import Modal from "@/components/ui/modal/Modal";
-import {toast} from "sonner";
+import {toast} from "react-hot-toast";
 import {AcaoSalvar} from "@/features/sistema/types";
 import {
     ColaboradorService
