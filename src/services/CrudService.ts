@@ -49,11 +49,18 @@ export abstract class CrudService<E> {
 
     async excluir(id: string | number): Promise<boolean> {
         if (this.getEndpoint().deletar) {
-            await request<boolean>(`${this.getURL(this.getBaseURL(), this.getEndpoint().deletar, id)}`, this.getEndpoint().deletar?.metodo);
-            return true;
+            await request<boolean>(`${this.getURL(this.getBaseURL(), this.getEndpoint().deletar, id)}`, this.getEndpoint().deletar?.metodo)
+                .then(() => {
+                    getToastSuccess("Registro deletado com sucesso.")
+                    return true;
+                }).catch(error => {
+                    getToastError(error.message);
+                    return false;
+                });
         }
         return false;
     }
+
 
     private getURL(baseURL: string, endpoint: EndPontDetail | undefined | null, parameter?: string | number): string {
         if (endpoint?.caminho?.length) {

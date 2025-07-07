@@ -34,4 +34,9 @@ export class ColaboradorService extends CrudService<Colaborador> {
         const resultado = await request<Colaborador>(`${this.getBaseURL()}/buscar-por-cpf/${cpf}`, MetodoHTTP.GET);
         return resultado ?? new Colaborador();
     }
+
+    async buscarPorEmail(email: string): Promise<Colaborador> {
+        const resultado = await request<Colaborador>(`${this.getBaseURL()}/buscar-por-email/${email}`, MetodoHTTP.GET);
+        return resultado ?? new Colaborador();
+    }
 }

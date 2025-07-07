@@ -1,7 +1,6 @@
 import {ColunaType} from "@/types/_root/ColunaType";
 import {get} from "lodash";
-import {useContext, useEffect, useState} from "react";
-import {EmpresaContext} from "@/context/useEmpresa";
+import {useState} from "react";
 import {MascaraTipoDado} from "@/enums/TipoDadoEnum";
 import {AcoesTabela, PageConfig} from "@/components/ui/table/ts/types";
 import {IoOpen} from "react-icons/io5";
@@ -22,15 +21,12 @@ type Props<E> = {
 }
 
 export function Table<E extends object>({
-                                            funcaoAtualizarLista,
                                             lista,
                                             colunas,
                                             acoesTabela,
                                             pageConfig,
                                             ocultarCheckbox = false
                                         }: Props<E>) {
-
-    const {empresa} = useContext(EmpresaContext)
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
     const [entidadeParaDeletar, setEntidadeParaDeletar] = useState<E>()
 
@@ -41,10 +37,6 @@ export function Table<E extends object>({
             )
         }) : <></>
     }
-
-    useEffect(() => {
-        funcaoAtualizarLista();
-    }, [empresa, funcaoAtualizarLista]);
 
     function renderRow() {
         return lista && lista.length > 0 ? lista.map(item => {

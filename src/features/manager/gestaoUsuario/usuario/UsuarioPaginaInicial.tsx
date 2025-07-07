@@ -28,9 +28,14 @@ import {RouteType} from "@/types/_root/RouteType";
 import {useSistemaContext} from "@/features/sistema/sistema-context";
 import {getRotasPorSistema} from "@/features/sistema/functions";
 import toast from "react-hot-toast";
+import {
+    ColaboradorService
+} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/service/ColaboradorService";
+import {Colaborador} from "@/features/departamento-pessoal/gestao/gestao-colaboradores/_main/entidade/Colaborador";
 
 const usuarioService = new UsuarioService()
 const perfilService = new PerfilService()
+const colaboradorService = new ColaboradorService()
 
 export function UsuarioPaginaInicial() {
     const {sistemaSelecionado} = useSistemaContext();
@@ -60,8 +65,13 @@ export function UsuarioPaginaInicial() {
 
     const handleEmailBlur = async () => {
         if (!usuario.email) return;
-        usuarioService.buscarUsuarioPorEmail(usuario.email).then(result => {
-            if(result && result.id) setUsuario(result)
+        colaboradorService.buscarPorEmail(usuario.email).then(result => {
+            const colaborador: Colaborador = result;
+            if(result && result.id) setUsuario({
+                ...usuario,
+                cpf: colaborador.cpf,
+                email: colaborador.email,
+                nome: colaborador.nomeCompleto});
         });
     };
 

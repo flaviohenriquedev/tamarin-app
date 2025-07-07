@@ -23,8 +23,8 @@ export const cidadeColunasListagem: ColunaType[] = [
         tipoDado: TipoDadoEnum.INTEGER,
     },
     {
-        descricao: 'Estado',
-        field: 'estado.nome',
+        descricao: 'Lat Tom',
+        field: 'latTom',
         tipoDado: TipoDadoEnum.STRING,
     },
 ]

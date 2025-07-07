@@ -1,9 +1,10 @@
-import {ReactElement} from "react";
+import {ReactElement, useContext, useEffect} from "react";
 import './style.css'
 import {Button} from "@/components/ui/button/Button";
 import {icones} from "@/components/common/icones";
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {AcaoAdicional} from "@/components/layouts/pagina-cadastro/types/typesPaginaCadastro";
+import {EmpresaContext} from "@/context/useEmpresa";
 
 type Props = {
     funcaoAtualizarLista?: () => void;
@@ -13,10 +14,11 @@ type Props = {
 }
 
 export function PaginaCadastro({funcaoAtualizarLista, funcaoNovoCadastro, children, acoesAdicionais}: Props) {
+    const {empresa} = useContext(EmpresaContext)
 
-    function handleNovoCadastro() {
-        if (funcaoNovoCadastro) funcaoNovoCadastro();
-    }
+    useEffect(() => {
+        if(funcaoAtualizarLista) funcaoAtualizarLista();
+    }, [empresa, funcaoAtualizarLista]);
 
     return (
         <div>

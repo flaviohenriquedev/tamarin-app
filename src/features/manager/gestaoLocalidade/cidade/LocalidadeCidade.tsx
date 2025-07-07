@@ -20,6 +20,8 @@ import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
 import {Estado} from "@/features/manager/gestaoLocalidade/estado/ts/Estado";
 import {set} from "lodash";
 import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
+import {InputCPF} from "@/components/ui/input/InputCPF";
+import {InputDataCompleta} from "@/components/ui/input/InputDataCompleta";
 
 const cidadeService = new CidadeService();
 const estadoService = new EstadoService();
@@ -114,6 +116,10 @@ export function LocalidadeCidade() {
                             fieldValor={'estado.id'}
                             values={selectItensEstado}
                             onSelect={onSelectEstado}/>
+
+                        <InputCPF />
+
+                        <InputDataCompleta atributo={``} entidade={entidade} />
 
                     </LineContent>
 

@@ -114,7 +114,7 @@ export function EmpresaPaginaInicial() {
                 <Form onSubmit={salvar}>
                     <div className="grid grid-cols-[2fr_1fr] gap-4">
                         <div className={`flex flex-col gap-4`}>
-                            <Fieldset label={`Dados Básicos`}>
+                            <Fieldset label={`Dados Básicos`} largura={'w-full'}>
                                 <LineContent>
 
                                     <InputString
@@ -167,7 +167,7 @@ export function EmpresaPaginaInicial() {
 
                                 </LineContent>
                             </Fieldset>
-                            <Fieldset label={`Localização`}>
+                            <Fieldset label={`Localização`} largura={'w-full'}>
                                 <LineContent>
 
                                     <InputString

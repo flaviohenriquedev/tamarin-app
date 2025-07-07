@@ -58,6 +58,7 @@ export function PerfilPaginaInicial() {
         const perfilFiltrado = new Perfil();
         perfilFiltrado.sistema = sistemaSelecionado?.sistema as SistemaENUM;
         Object.assign(perfilFiltrado, perfil);
+        console.log(`perfil filtrado -> `, perfilFiltrado);
         perfilService.salvar(perfilFiltrado).then(() => {
             atualizarLista();
             if (acaoSalvar === 'SAVE_AND_CLOSE') setOpenModal(false);
@@ -105,8 +106,7 @@ export function PerfilPaginaInicial() {
                 onCloseModal={onCloseModal}
                 setIsOpen={setOpenModal}
                 title={'Cadastro de Perfil'}>
-                <Form className="text-base-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
-                      onSubmit={salvar}>
+                <Form onSubmit={salvar}>
 
                     <LineContent>
                         <InputString

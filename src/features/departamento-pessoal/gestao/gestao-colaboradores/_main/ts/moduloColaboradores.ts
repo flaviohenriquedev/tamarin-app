@@ -16,7 +16,7 @@ export const ModuloColaboradores: ModulosType = {
                 AbaAdmissaoCadastro.infos(),
                 AbaFerias.infos(),
                 AbaAfastamento.infos(),
-                AbaDesligamentoCadastro.infos(),
+                AbaDesligamentoCadastro.infos()
             ]
         };
     },

@@ -24,6 +24,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {getBooleanFromString} from "@/utils/utils";
 
 const colaboradorAfastamentoService = new ColaboradorAfastamentoService();
+
 export function ColaboradorAfastamentoInicio() {
 
     const [colaboradorAfastamento, setColaboradorAfastamento] = useState<ColaboradorAfastamento>(new ColaboradorAfastamento());
@@ -64,18 +65,19 @@ export function ColaboradorAfastamentoInicio() {
 
     return (
         <>
-         <PaginaCadastro
-             funcaoAtualizarLista={refresh}
-             funcaoNovoCadastro={novoCadastro}
-         >
-             <Table
-                 funcaoAtualizarLista={refresh}
-                 lista={listaEntidade}
-                 colunas={colaboradorAfastamentoColunas} />
-         </PaginaCadastro>
+            <PaginaCadastro
+                funcaoAtualizarLista={refresh}
+                funcaoNovoCadastro={novoCadastro}
+            >
+                <Table
+                    funcaoAtualizarLista={refresh}
+                    lista={listaEntidade}
+                    colunas={colaboradorAfastamentoColunas}/>
+            </PaginaCadastro>
 
             <Modal isOpen={isOpenModal}
-                   setIsOpen={setIsOpenModal}>
+                   setIsOpen={setIsOpenModal}
+                   title={`Afastamento`}>
                 <Form onSubmit={onSubmit} className={`min-h-[100%]`}>
                     <div className={`flex flex-col gap-6`}>
                         <BuscaColaborador entidade={colaboradorAfastamento}

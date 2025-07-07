@@ -63,6 +63,7 @@ import {TipoContrato} from "@/features/departamento-pessoal/administracao/tipo-c
 import {ButtonGroup} from "@/components/ui/button/ButtonGroup";
 import {Tooltip} from "@/components/ui/tooltip/Tooltip";
 import {Input} from "@/components/ui/input/Input";
+import usePaginaCadastro from "@/components/layouts/pagina-cadastro/hook/usePaginaCadastro";
 
 const colaboradorService = new ColaboradorService();
 const cidadeService = new CidadeService();
@@ -74,8 +75,7 @@ const cargaHorariaService = new CargaHorariaService();
 
 export function ColaboradorAdmissaoInicio() {
     const route = useRouter();
-
-    const [listaColaboradores, setListaColaboradores] = useState<Colaborador[]>([]);
+    
     const [colaborador, setColaborador] = useState<Colaborador>(new Colaborador());
     const [colaboradorCargo, setColaboradorCargo] = useState<ColaboradorCargo>(new ColaboradorCargo());
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -99,6 +99,19 @@ export function ColaboradorAdmissaoInicio() {
         entidade: colaborador,
         atributo: 'base64'
     });
+
+    const clear = useCallback(() => {
+        setColaborador(new Colaborador());
+        setImagem64('');
+    }, [setImagem64])
+    const {
+        listaEntidade,
+        refresh,
+        salvar
+    } = usePaginaCadastro<Colaborador, ColaboradorService>({
+        service: colaboradorService,
+        onCloseModal: clear
+    })
 
     const onChangeDataAdmissao = useCallback((data: Date) => {
         setDataAdmissao(data);
@@ -154,21 +167,10 @@ export function ColaboradorAdmissaoInicio() {
         fieldValor: 'id'
     })
 
-    useEffect(() => {
-        colaboradorService.listar().then(result => {
-            setListaColaboradores(result);
-        })
-    }, []);
 
     function deletarFotoColaborador() {
         setColaborador({...colaborador, base64: ''})
     }
-
-    const atualizar = useCallback(() => {
-        colaboradorService.listar().then(result => {
-            setListaColaboradores(result);
-        })
-    }, [])
 
     function selecionarColaborador(cl: Colaborador) {
         setColaborador(cl);
@@ -177,15 +179,7 @@ export function ColaboradorAdmissaoInicio() {
 
     function onSubmit() {
         set(colaborador, 'base64', imagem64);
-        colaboradorService.salvar(colaborador).then(() => {
-            setModalIsOpen(false);
-            atualizar();
-        });
-    }
-
-    function clear() {
-        setColaborador(new Colaborador());
-        setImagem64('');
+        void salvar(colaborador);
     }
 
     function onBlurCep() {
@@ -287,9 +281,13 @@ export function ColaboradorAdmissaoInicio() {
         }
     ]
 
+    function onConfirm() {
+        colaboradorService.excluir(colaborador.id).then(() => setModalIsOpen(false));
+    }
+
     return (
         <>
-            <PaginaCadastro funcaoAtualizarLista={atualizar}
+            <PaginaCadastro funcaoAtualizarLista={refresh}
                             acoesAdicionais={acoesAdicionais}>
                 <div className={`
                         flex
@@ -303,7 +301,7 @@ export function ColaboradorAdmissaoInicio() {
                         pb-10
                         min-h-[65vh]
                         max-h-[65vh]`}>
-                    {listaColaboradores && listaColaboradores.map(cl => (
+                    {listaEntidade && listaEntidade.map(cl => (
                         <div key={cl.id}
                              className={`flex items-center w-full justify-between text-base-content bg-base-100 rounded-default px-3 py-2 border border-base-300 shadow-md`}>
                             <div className="flex items-center gap-4 w-[50%]">
@@ -323,14 +321,16 @@ export function ColaboradorAdmissaoInicio() {
                                     `}>{StatusColaboradorFactory.getLabel(cl.statusColaborador)}</label>
                                 </div>
                             </div>
-                            <div className={`flex flex-col w-[50%] gap-1`}>
-                                <label>{cl.cargoAtivo.cargo.descricao}</label>
-                                <label className="text-sm opacity-50">{cl.cargoAtivo.departamento.descricao}</label>
-                                <div className={`flex text-sm gap-2`}>
-                                    <label className={`font-semibold`}>Admissão:</label>
-                                    <label>{formatDateBR(cl.cargoAtivo.dataAdmissao)}</label>
+                            {cl.cargoAtivo && cl.cargoAtivo.cargo && (
+                                <div className={`flex flex-col w-[50%] gap-1`}>
+                                    <label>{cl.cargoAtivo.cargo.descricao}</label>
+                                    <label className="text-sm opacity-50">{cl.cargoAtivo.departamento.descricao}</label>
+                                    <div className={`flex text-sm gap-2`}>
+                                        <label className={`font-semibold`}>Admissão:</label>
+                                        <label>{formatDateBR(cl.cargoAtivo.dataAdmissao)}</label>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className={`flex items-center gap-2 p-4`}>
 
                                 <Tooltip label={'Informações'}>
@@ -413,6 +413,7 @@ export function ColaboradorAdmissaoInicio() {
                                     <Button
                                         className={`w-full`}
                                         icone={icones.delete()}
+                                        onConfirm={onConfirm}
                                         buttonStyle={`error`}/>
                                 </Tooltip>
                             </ButtonGroup>

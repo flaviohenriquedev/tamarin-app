@@ -18,6 +18,10 @@ export function LocalidadePaginaInicial() {
         {
             label: 'Cidade',
             children: <LocalidadeCidade />
+        },
+        {
+            label: 'Cidade',
+            children: <LocalidadeCidade />
         }
     ]
 
