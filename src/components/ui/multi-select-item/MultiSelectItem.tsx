@@ -1,50 +1,65 @@
-import React, {useEffect, useRef, useState} from "react";
-import {SelectItemValue} from "@/components/ui/select-item/SelectItemValue";
+import React, {InputHTMLAttributes, useEffect, useRef, useState} from "react";
 import {TSelectItem} from "@/components/ui/select-item/ts/TSelectItem";
-import {get, set} from "lodash";
+import {get} from "lodash";
 import {MdClear} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import clsx from "clsx";
 import {Label} from "@/components/ui/label/Label";
 import {ChevronDown} from "lucide-react";
+import {EntidadePadrao} from "@/class/EntidadePadrao";
+import {CrudService} from "@/services/CrudService";
+import {MultiSelectItemValue} from "@/components/ui/multi-select-item/MultiSelectItemValue";
 
-type Props<E> = {
-    entidade: E;
-    fieldValor: string;
-    values: TSelectItem[];
-    onSelect?: (value: TSelectItem | null) => void;
-    widthClass?: string;
-    valorPadrao?: TSelectItem;
-    label?: string;
-    name?: string;
-    required?: boolean;
-    tabIndex?: number;
-    disabled?: boolean;
+export type MultiSelectItemConfig<E extends EntidadePadrao, S extends CrudService<E>> = {
+    service: S;
+    funcaoListagem: keyof S
+    fieldLabel: string;
+    fieldValue: string;
 }
 
-export function SelectItem<E extends object>({
-                                                 entidade,
-                                                 fieldValor,
-                                                 values,
-                                                 widthClass,
-                                                 onSelect,
-                                                 valorPadrao,
-                                                 label,
-                                                 name,
-                                                 required,
-                                                 tabIndex = 0,
-                                                 disabled
-                                             }: Props<E>) {
+interface Props<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>> extends InputHTMLAttributes<HTMLInputElement> {
+    entidade?: EntidadeForm;
+    atributo?: string;
+    label?: string;
+    className?: string;
+    widthClass?: string;
+    tabIndex?: number;
+    config: MultiSelectItemConfig<EntidadeBusca, Service>
+}
+
+export function MultiSelectItem<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>>({
+                                                                                                                                    name,
+                                                                                                                                    disabled,
+                                                                                                                                    required,
+                                                                                                                                    label,
+                                                                                                                                    widthClass,
+                                                                                                                                    tabIndex,
+                                                                                                                                    config
+                                                                                                                                }: Props<EntidadeForm, EntidadeBusca, Service>) {
     const [showList, setShowList] = useState(false);
-    const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>(valorPadrao);
-    const refContainer = useRef<HTMLDivElement>(null);
+    const [listaValores, setListaValores] = useState<TSelectItem[]>([]);
 
     useEffect(() => {
-        if (values && values.length > 0) {
-            const valorEntidade = get(entidade, fieldValor)
-            if (valorEntidade) setItemSelecionado(values.find(v => v.value === valorEntidade));
+        const func = config.service[config.funcaoListagem];
+        if (typeof func !== 'function') {
+            throw new Error(`Função ${config.funcaoListagem as string} não existe no service informado`);
         }
-    }, [entidade, fieldValor, values]);
+        const funcaoListagem = func.bind(config.service) as () => Promise<EntidadeBusca[]>;
+        if (funcaoListagem) {
+            const fetchData = async () => {
+                const result = await funcaoListagem();
+                const items: TSelectItem[] = result.map(e => ({
+                    value: get(e, config.fieldValue),
+                    label: get(e, config.fieldLabel),
+                }));
+                setListaValores(items);
+            };
+            fetchData().then();
+        }
+    }, [config.fieldLabel, config.fieldValue, config.funcaoListagem, config.service]);
+
+    const [itemSelecionado, setItemSelecionado] = useState<TSelectItem | undefined>();
+    const refContainer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
@@ -74,18 +89,10 @@ export function SelectItem<E extends object>({
         setShowList(!showList);
     }
 
-    function handleSelectItem(valor: TSelectItem) {
-        setItemSelecionado(valor);
-        if (entidade && fieldValor) set(entidade, fieldValor, valor.value)
-        if (onSelect) onSelect(valor)
-        setShowList(false);
-    }
-
     function renderItens() {
-        return values.map(value => {
-            return <SelectItemValue key={value.value as string}
-                                    setItemSelecionado={handleSelectItem}
-                                    valor={value}/>
+        return listaValores.map(value => {
+            return <MultiSelectItemValue key={value.value as string}
+                                         valor={value}/>
         })
     }
 
@@ -98,8 +105,6 @@ export function SelectItem<E extends object>({
 
     function clear() {
         setItemSelecionado(undefined);
-        if (onSelect) onSelect(null);
-        if (entidade) set(entidade, fieldValor, null)
     }
 
     return (

@@ -1,11 +1,17 @@
 import React, {InputHTMLAttributes, useCallback, useEffect, useState} from "react"
 import clsx from "clsx";
 import {AnimatePresence, motion} from "framer-motion";
-import {InputSearchConfig} from "@/components/ui/input/inpustSearch/useInputSearch";
 import {EntidadePadrao} from "@/class/EntidadePadrao";
 import {CrudService} from "@/services/CrudService";
 import {get, set} from "lodash";
 import {Input} from "@/components/ui/input/Input";
+
+export type InputSearchConfig<E extends EntidadePadrao, S extends CrudService<E>> = {
+    service: S;
+    funcaoListagem: keyof S
+    fieldLabel: string;
+    fieldValue: string;
+}
 
 interface Props<EntidadeForm, EntidadeBusca extends EntidadePadrao, Service extends CrudService<EntidadeBusca>> extends InputHTMLAttributes<HTMLInputElement> {
     entidade?: EntidadeForm;
